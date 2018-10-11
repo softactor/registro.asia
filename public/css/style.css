@@ -41,3 +41,9 @@ html, body {
 .m-b-md {
     margin-bottom: 30px;
 }
+.json_alert_message{
+    display: none;
+}
+.wizard > .content > .body {
+    position: relative !important;
+}
