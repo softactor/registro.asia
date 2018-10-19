@@ -30,3 +30,4 @@ Route::get('su/modify_events_form/{form_id}', 'Backend@modify_events_form');
 Route::get('su/preview_events_form/{event_url}', 'Backend@preview_events_form');
 Route::post('su/store_events_form', 'Backend@store_events_form');
 Route::post('su/get_form_json_data', 'Backend@get_form_json_data');
+Route::get('pdf_test', 'Frontend@pdf_test');

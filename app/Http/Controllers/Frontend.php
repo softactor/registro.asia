@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use View;
 use Illuminate\Support\Facades\URL;
+use PDF;
+use Mail;
 
 class Frontend extends Controller
 {
@@ -349,6 +351,29 @@ class Frontend extends Controller
             'data'      => $profile_data_view->render()
         ];
         echo json_encode($feedback_data);
+    }
+    
+    public function pdf_test() {
+        $destinationPath = public_path('pdf/');
+        $name = time() . '.pdf';
+        $path_with_file = $destinationPath . $name;
+        $pdf = PDF::loadView('template.test_pdf')
+                ->save($path_with_file)
+                ->stream('registeration_complete.pdf');
+        //--------------------- mail start
+
+        $title = "Event Registration";
+        $content = "Congratulations!<br>You have been successfully registered";
+        $emails = 'tanveerqureshee1@gmail.com';
+
+        $mail = Mail::send('template.registration_email', ['title' => $title, 'content' => $content], function ($message) use ($emails) {
+                    $message->from('admin@registro.asia', 'Registro Asia');
+                    $message->to($emails);
+                    $message->subject("Registro Asia Registration Message");
+                    $message->attach($path_with_file);
+                });
+
+        //--------------------- mail end
     }
 
 }
