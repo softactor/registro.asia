@@ -27,10 +27,9 @@
                     <div class="setDataWrap">
                         <input type="hidden" id="event_id" value="{{$events->id}}" >
                         <!--<button id="getXML" type="button">Get XML Data</button>-->
-                        <button id="getJSON" type="button" onclick="createForm('{{ url("su/store_events_form") }}', '{{ url("su/event_form") }}');">Create</button>
-                        <!--<button id="getJS" type="button">Get JS Data</button>-->
                     </div>
                 </form>                
+                <button style="margin-bottom: 2%" class="btn btn-info" id="getJSON" type="button" onclick="createForm('{{ url("su/store_events_form") }}', '{{ url("su/event_form") }}');">Create</button>
             </div><!--/tab-content-->
 
         </div><!--/col-9-->        

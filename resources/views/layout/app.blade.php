@@ -35,7 +35,9 @@
             
         </div><!--End Main Content Area-->
         <!--All footer script are in this page-->
+        @section('footer_js_scrip_area')
         @include('layout.footer_script')
+        @show
     </body>
 </html>
 <!-- * ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

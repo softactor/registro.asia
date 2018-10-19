@@ -47,3 +47,17 @@ html, body {
 .wizard > .content > .body {
     position: relative !important;
 }
+.step_form_area .content{
+    text-align: left;
+}
+.wizard > .content > .body label {
+    margin-right: 1%;
+}
+.required_title{
+    color: red;
+    font-style: italic;
+    font-size: 10px;
+}
+.required_title:before {
+   content: " Field is required. ";
+}

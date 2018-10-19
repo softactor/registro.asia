@@ -10,14 +10,14 @@
             </div><!--/col-3-->
             <div class="col-sm-9">
                 <h2>
-                    {{ $page_details['page_title'] }} Preview
+                    {{ $page_details['page_title'] }} Edit
                     <div class="pull-right">
                         <a href='{{ url($page_details['link_url']) }}'>{{ $page_details['link_title'] }}</a>
                     </div>
                 </h2>
                 <h4>{{ $page_details['base_url'] }}</h4> 
                 
-                <div id="example-basic" class="step_form_area">
+                <div id="edit_events_form" class="step_form_area">
                     <h3>Profile</h3>
                     <section>
                         <form id="profileSection">
@@ -107,6 +107,8 @@
                     foreach($event_forms as $forms){ ?>
                     <h3><?php echo $forms->lebel_name; ?></h3>
                     <section>
+                        <a class="pull-right btn btn-info" href="{{ url('su/modify_events_form/'.$forms->id) }}">Modify</a>
+                        <br />
                         <form id="sjfb_form_<?php echo $count; ?>">
                             <input type="hidden" id="event-form-id-<?php echo $count; ?>" value="<?php echo $forms->id; ?>">
                             <div id="sjfb_fields_<?php echo $count; ?>">

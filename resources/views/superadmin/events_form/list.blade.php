@@ -12,9 +12,6 @@
                 @include('layout/operation_message') 
                 <h2>
                     {{ $page_details['page_title'] }} List
-                    <div class="pull-right">
-                        <a href='{{ url($page_details['link_url']) }}'>{{ $page_details['link_title'] }}</a>
-                    </div>
                 </h2>
                 <?php if(isset($evens_list) && !empty($evens_list)){ ?>
                 <div class="table-responsive">          
@@ -37,8 +34,9 @@
                                 <td><?php echo $list->title; ?></td>
                                 <td><?php echo $list->event_url; ?></td>
                                 <td>
+                                    <a href="{{ url('/su/create_events_form/'.$list->event_url) }}">Create</a>|
                                     <a href="{{ url('/su/preview_events_form/'.$list->event_url) }}">Preview</a>|
-                                    <a href="{{ url('/su/create_events_form/'.$list->event_url) }}">Edit</a>
+                                    <a href="{{ url('/su/edit_events_form/'.$list->event_url) }}">Edit</a>
                                 </td>
                             </tr>
                                 <?php $count++; } ?>

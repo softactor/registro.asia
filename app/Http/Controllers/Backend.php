@@ -72,16 +72,63 @@ class Backend extends Controller
         $page_details   =   [
             'page_title'    =>  "Eevnt's form",
             'link_url'      =>  '/su/event_form',
-            'link_title'    =>  'List',
+            'link_title'    =>  'Event Form',
             'form_url'      =>  '/su/store_event',
             'base_url'      =>  URL::to("/").'/'.$request->event_url,
         ];
         return view('superadmin.events_form/create', compact('page_details','events'));
     }
-    
+    public function edit_events_form(Request $request){
+        $events        =   DB::table('events')->where('event_url',$request->event_url)->first();
+        $event_forms   =   DB::table('event_forms')->where('event_id',$events->id)->get();
+        $page_details   =   [
+            'page_title'    =>  "Eevnt's form",
+            'link_url'      =>  '/su/event_form',
+            'link_title'    =>  'Event Form',
+            'base_url'      =>  URL::to("/").'/'.$request->event_url,
+        ];
+        return view('superadmin.events_form/edit', compact('page_details','events','event_forms'));
+    }
+    public function preview_events_form(Request $request){
+        $events        =   DB::table('events')->where('event_url',$request->event_url)->first();
+        $event_forms   =   DB::table('event_forms')->where('event_id',$events->id)->get();
+        $page_details   =   [
+            'page_title'    =>  "Eevnt's form",
+            'link_url'      =>  '/su/event_form',
+            'link_title'    =>  'Event Form',
+            'base_url'      =>  URL::to("/").'/'.$request->event_url,
+        ];
+        return view('superadmin.events_form/preview', compact('page_details','events','event_forms'));
+    }
+    public function modify_events_form(Request $request){
+        $event_forms   =   DB::table('event_forms')->where('id',$request->form_id)->first();
+        $events        =   DB::table('events')->where('id',$event_forms->event_id)->first();
+        $page_details   =   [
+            'page_title'    =>  "Eevnt's form",
+            'link_url'      =>  '/su/event_form',
+            'link_title'    =>  'Event Form',
+            'form_url'      =>  '/su/store_event',
+            'base_url'      =>  URL::to("/").'/'.$events->event_url,
+        ];
+        return view('superadmin.events_form/modify', compact('page_details','events','event_forms'));
+    }
     public function store_events_form(Request $request){
         $all    =   json_decode(file_get_contents('php://input'));
-        $event_forms = [
+        if(isset($all[3]->value) && !empty($all[3]->value)){
+            $event_form_edit_id     =   $all[3]->value;
+            $event_forms = [
+            'event_id'      => $all[0]->value,
+            'lebel_name'    => $all[1]->value,
+            'form_data'     => $all[2]->value,
+            'created_at'    => date('Y-m-d h:i:s'),
+            'updated_at'    => date('Y-m-d h:i:s')
+        ]; //end of insert data 
+            DB::table('event_forms')
+            ->where('id', $event_form_edit_id)
+            ->update($event_forms);
+            $message    =   'Data have successfully updated';
+        }else{
+            $event_forms = [
             'event_id'      => $all[0]->value,
             'lebel_name'    => $all[1]->value,
             'form_data'     => $all[2]->value,
@@ -89,22 +136,21 @@ class Backend extends Controller
             'updated_at'    => date('Y-m-d h:i:s')
         ]; //end of insert data  
         DB::table('event_forms')->insertGetId($event_forms);
+        $message    =   'Data have successfully created';
+        }
         $feedbackdata   =   [
             'status'    => 'success',
-            'message'   => 'Data have successfully created',
+            'message'   => $message,
         ];
         echo json_encode($feedbackdata);
     }
-    
-    public function preview_events_form(Request $request){
-        $events        =   DB::table('events')->where('event_url',$request->event_url)->first();
-        $event_forms   =   DB::table('event_forms')->where('event_id',$events->id)->get();
-        $page_details   =   [
-            'page_title'    =>  "Eevnt's form preview",
-            'link_url'      =>  '/su/event_form',
-            'link_title'    =>  'Preview',
-            'base_url'      =>  URL::to("/").'/'.$request->event_url,
+    public function get_form_json_data(Request $request){
+        $event_forms    =   DB::table('event_forms')->where('id',$request->eventFormId)->first();
+        $feedbackdata   =   [
+            'status'    =>  'success',
+            'message'   =>  'Found data',
+            'data'      =>  $event_forms
         ];
-        return view('superadmin.events_form/preview', compact('page_details','events','event_forms'));
+        echo json_encode($feedbackdata);
     }
 }

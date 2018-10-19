@@ -26,7 +26,7 @@
                         <a href="{{ url('/client_registration') }}">Registration</a>
                         <a href="{{ url('/ongoing_events') }}">Ongoing Evens</a>
                         <a href="#">Upcoming events</a>
-                        <a href="#">About us</a>
+                        <a href="{{ url('/su/dashboard') }}">SA</a>
                         <a href="#">Gallery</a>
                         <a href="#">Contact us</a>
                     </div>

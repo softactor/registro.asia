@@ -3,6 +3,7 @@
 <script type="text/javascript" src="{{ asset('js/sweetalert.min.js')}}"></script>
 <script type="text/javascript" src="{{ asset('js/jquery-ui.min.js')}}"></script>
 <script type="text/javascript" src="{{ asset('js/jquery.steps.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('js/sjfb-html-generator.js')}}"></script>
 <script src="http://formbuilder.online/assets/js/form-builder.min.js"></script>
 <script type="text/javascript">
         var formBuilder = $('#fb-editor').formBuilder();
@@ -44,12 +45,10 @@
     } // end method    
 
     function createForm(urlAddress, redirectUrl) {
-        var fields = formBuilder.actions.getData('json');
-        var formID = $('#event_id').val();
-        var label = $('#title').val();
-        var data = JSON.stringify([{"name": "formID", "value": formID}, {"name": "label", "value": label}, {"name": "formFields", "value": fields}]);
-        console.log('Dataaaaaaaaa');
-        console.log(data);
+        var fields  = formBuilder.actions.getData('json');
+        var formID  = $('#event_id').val();
+        var label   = $('#title').val();
+        var data    = JSON.stringify([{"name": "formID", "value": formID}, {"name": "label", "value": label}, {"name": "formFields", "value": fields}]);
         $.ajax({
             method: "POST",
             url: urlAddress,
@@ -71,6 +70,57 @@
         headerTag: "h3",
         bodyTag: "section",
         transitionEffect: "slideLeft",
-        autoFocus: true
+        autoFocus: true,
+        onStepChanged: function(event, currentIndex, priorIndex) {
+            if(currentIndex > 0){
+                var eventFormId =   $('#event-form-id-'+currentIndex).val();
+                var data_url =   $('#data_url').val();
+                generateHtmlForm(currentIndex, eventFormId, data_url);
+            }
+          },
+        onStepChanging: function (event, currentIndex, newIndex) {
+            if(currentIndex == 0){
+                console.log('do something');
+            }
+            if(currentIndex > 0){
+                var cD      =   $("#sjfb_form_" + currentIndex).serialize();
+                $.ajax({
+                    url         : $('#store_data_url').val(),
+                    type        : 'POST',
+                    dataType    : 'json',
+                    data        : $("#sjfb_form_" + currentIndex).serialize(),
+                    headers     : {
+                        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content'),
+                    },
+                    success     : function (response) {
+                        console.log(response);
+                    }
+                });
+            }
+            return true;
+        },
+        onCanceled: function (event) { },
+        onFinishing: function (event, currentIndex) { return true; }, 
+        onFinished: function (event, currentIndex) { },
     });
+    $("#edit_events_form").steps({
+        headerTag: "h3",
+        bodyTag: "section",
+        transitionEffect: "slideLeft",
+        autoFocus: true,
+        onStepChanged: function(event, currentIndex, priorIndex) {
+            if(currentIndex > 0){
+                var eventFormId =   $('#event-form-id-'+currentIndex).val();
+                var data_url =   $('#data_url').val();
+                generateHtmlForm(currentIndex, eventFormId, data_url);
+            }
+          },
+        onStepChanging: function (event, currentIndex, newIndex) {
+            if(currentIndex > 0){
+                console.log('I am callling..');
+            }
+            return true;
+        },
+    });
+    
 </script>
