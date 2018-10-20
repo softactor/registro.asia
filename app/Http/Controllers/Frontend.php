@@ -361,22 +361,19 @@ class Frontend extends Controller
                 ->save($path_with_file)
                 ->stream('registeration_complete.pdf');
         //--------------------- mail start
-/*
         $title                  = "Event Registration";
         $content                = "Congratulations!<br>You have been successfully registered";
-        $emails['to']           = 'tanveerqureshee@hotmail.com';
+        $emails['to']           = 'tanveerqureshee1@gmail.com';
         $emails['attachment']   = $path_with_file;
 
         $mail = Mail::send('template.registration_email', ['title' => $title, 'event_name' => $content], function ($message) use ($emails) {
-                    $message->from('tanveerqureshee1@gmail.com', 'Registro Asia');
+                    $message->from('admin@registro.asia', 'Registro Asia');
                     $message->to($emails['to']);
                     $message->subject("Registro Asia Registration Message");
                     $message->attach($emails['attachment']);
                 });
 
         //--------------------- mail end
- * 
- */
     }
 
 }
