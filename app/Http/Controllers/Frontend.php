@@ -361,7 +361,7 @@ class Frontend extends Controller
                 ->save($path_with_file)
                 ->stream('registeration_complete.pdf');
         //--------------------- mail start
-
+/*
         $title                  = "Event Registration";
         $content                = "Congratulations!<br>You have been successfully registered";
         $emails['to']           = 'tanveerqureshee@hotmail.com';
@@ -375,6 +375,8 @@ class Frontend extends Controller
                 });
 
         //--------------------- mail end
+ * 
+ */
     }
 
 }
