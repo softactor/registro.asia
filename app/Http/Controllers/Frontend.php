@@ -24,13 +24,23 @@ class Frontend extends Controller
     }
     
     public function confirmation_process(Request $request){
+        // get event details
         $get_profile_row_data   =   DB::table('registraion_temp')->where('form_id', 0)->where('access_token', $request->access_token)->first();
         $profile_data           =   json_decode($get_profile_row_data->temp_data);
+        $event_details  =   DB::table('events')->where('id', $profile_data->event_business_owners_data->event_id)->first();
         // store_event_business_owners
         $this->store_event_business_owners($profile_data);
         $dyna_form_data         =   DB::table('registraion_temp')->where('form_id', '!=' , 0)->where('access_token', $request->access_token)->get();        
         // store_event_registeration_form_values
         $this->store_event_registeration_form_values($dyna_form_data);
+        
+        $pdfData    =   [
+            'profile_data'  => $profile_data,
+            'event_data'    => $event_details
+        ];
+        // create pdf and sent email
+        $this->generate_pdf($pdfData);
+        
         $feedback_data  =   [
             'status'    => "success",
             'data'      => '',
@@ -41,7 +51,7 @@ class Frontend extends Controller
     }
     public function store_event_business_owners($profile_data){
         $insert_data    =   [];
-        $event_business_owners_details    =   [];
+        $event_business_owners_details    =   [];        
         $event_business_owners_data    =   [
             'event_id'            => $profile_data->event_business_owners_data->event_id,
             'owners_numbers'      => $profile_data->event_business_owners_data->owners_numbers,
@@ -70,8 +80,7 @@ class Frontend extends Controller
               ]; //end of insert data  
             DB::table('event_business_owners_details')->insertGetId($event_business_owners_details);            
         }// End of for loop
-    }
-    
+    }    
     public function store_event_registeration_form_values($dyna_form_data){
         foreach ($dyna_form_data as $dfd) {
             $form_data = json_decode($dfd->temp_data);
@@ -101,14 +110,12 @@ class Frontend extends Controller
                 }// end of else            
             }// end of foreach        
         }// end of foreach
-    }
-    
+    }    
     public function client_dashboard(){
         //Session::get('event_business_owners_id')
         $registration_details   =   DB::table('event_business_owners_details')->where('business_owner_id',1)->get();
         return view('client_dashboard', compact('registration_details'));
-    }
-    
+    }    
     public function client_custome_form_builder(){
         return view('client_custome_form_builder');
     }
@@ -125,8 +132,7 @@ class Frontend extends Controller
             'base_url'      =>  URL::to("/").'/'.$request->event_url,
         ];
         return view('client_registration', compact('page_details','events','event_forms'));
-    }
-    
+    }    
     public function client_registration_first_step_varifications(Request $request) {
 
         $formData = $request->all();
@@ -271,8 +277,7 @@ class Frontend extends Controller
             }
             echo json_encode($feedback);
         }
-    }
-    
+    }    
     public function client_registration_others_step_varifications(Request $request) {
 
         $formData = $request->all();
@@ -338,7 +343,6 @@ class Frontend extends Controller
             echo json_encode($feedback);
         }
     }
-
     public function preview_of_registration_confirmation(Request $request){
         $get_profile_row_data   =   DB::table('registraion_temp')->where('form_id', 0)->where('access_token', $request->access_token)->first();
         $profile_data   = json_decode($get_profile_row_data->temp_data);
@@ -351,8 +355,7 @@ class Frontend extends Controller
             'data'      => $profile_data_view->render()
         ];
         echo json_encode($feedback_data);
-    }
-    
+    }    
     public function pdf_test() {
         $destinationPath = public_path('pdf/');
         $name = time() . '.pdf';
@@ -375,5 +378,30 @@ class Frontend extends Controller
 
         //--------------------- mail end
     }
-
+    public function generate_pdf($data){
+        $event_data =   $data['event_data'];
+        foreach ($data['profile_data']->event_business_owners_details as $pdata) {
+            $pdfTemplateData    =   [
+                'user_data'     =>  $pdata,
+                'event_data'    =>  $event_data
+            ];
+            $destinationPath    = public_path('pdf/');
+            $name               = time() . '.pdf';
+            $path_with_file     = $destinationPath . $name;
+            $pdf                = PDF::loadView('template.registration_pdf', $pdfTemplateData)
+                    ->save($path_with_file)
+                    ->stream('registeration_complete.pdf');
+            //--------------------- mail start
+            $title                  = "Event Registration";
+            $content                = "Congratulations!<br>You have been successfully registered";
+            $emails['to']           = $pdata->email;
+            $emails['attachment']   = $path_with_file;
+            $mail                   = Mail::send('template.registration_email', ['title' => $title, 'content' => $pdfTemplateData], function ($message) use ($emails) {
+                    $message->from('admin@registro.asia', 'Registro Asia');
+                    $message->to($emails['to']);
+                    $message->subject("Registro Asia Registration Message");
+                    $message->attach($emails['attachment']);
+                });
+        }// end of foreach
+    }
 }
