@@ -17,6 +17,11 @@
                     <i class="fa fa-calendar-times-o fa-lg"></i> Event's Form
                 </a>
             </li>
+            <li>
+                <a href="{{ url('/su/registration_details_list') }}">
+                    <i class="fa fa-calendar-times-o fa-user-circle"></i> Registration details
+                </a>
+            </li>
         </ul>
     </div>
 </div>

@@ -29,10 +29,7 @@ class Frontend extends Controller
         $profile_data           =   json_decode($get_profile_row_data->temp_data);
         $event_details  =   DB::table('events')->where('id', $profile_data->event_business_owners_data->event_id)->first();
         // store_event_business_owners
-        $this->store_event_business_owners($profile_data);
-        $dyna_form_data         =   DB::table('registraion_temp')->where('form_id', '!=' , 0)->where('access_token', $request->access_token)->get();        
-        // store_event_registeration_form_values
-        $this->store_event_registeration_form_values($dyna_form_data);
+        $this->store_event_business_owners($profile_data, $request->access_token);    
         
         $pdfData    =   [
             'profile_data'  => $profile_data,
@@ -49,7 +46,7 @@ class Frontend extends Controller
         
         echo json_encode($feedback_data);
     }
-    public function store_event_business_owners($profile_data){
+    public function store_event_business_owners($profile_data, $access_token){
         $insert_data    =   [];
         $event_business_owners_details    =   [];        
         $event_business_owners_data    =   [
@@ -80,31 +77,36 @@ class Frontend extends Controller
               ]; //end of insert data  
             DB::table('event_business_owners_details')->insertGetId($event_business_owners_details);            
         }// End of for loop
+        $dyna_form_data         =   DB::table('registraion_temp')->where('form_id', '!=' , 0)->where('access_token', $access_token)->get();        
+        // store_event_registeration_form_values
+        $this->store_event_registeration_form_values($dyna_form_data, $event_business_owners_id);
     }    
-    public function store_event_registeration_form_values($dyna_form_data){
+    public function store_event_registeration_form_values($dyna_form_data, $event_business_owners_id){
         foreach ($dyna_form_data as $dfd) {
             $form_data = json_decode($dfd->temp_data);
             foreach ($form_data as $fdKey => $fdValues) {
                 if (is_array($fdValues)) {
                     foreach ($fdValues as $v) {
                         $event_form_insert_data = [
-                            'event_id'      => $dfd->event_id,
-                            'form_id'       => $dfd->form_id,
-                            'label_name'    => implode(' ', explode('-', $fdKey)),
-                            'label_value'   => $v,
-                            'created_at'    => date('Y-m-d h:i:s'),
-                            'updated_at'    => date('Y-m-d h:i:s')
+                            'user_register_id'  => $event_business_owners_id,
+                            'event_id'          => $dfd->event_id,
+                            'form_id'           => $dfd->form_id,
+                            'label_name'        => implode(' ', explode('-', $fdKey)),
+                            'label_value'       => $v,
+                            'created_at'        => date('Y-m-d h:i:s'),
+                            'updated_at'        => date('Y-m-d h:i:s')
                         ]; //end of insert data 
                         DB::table('event_registeration_form_values')->insertGetId($event_form_insert_data);
                     }// end of foreach
                 } else {
                     $event_form_insert_data = [
-                        'event_id'      => $dfd->event_id,
-                        'form_id'       => $dfd->form_id,
-                        'label_name'    => implode(' ', explode('-', $fdKey)),
-                        'label_value'   => $fdValues,
-                        'created_at'    => date('Y-m-d h:i:s'),
-                        'updated_at'    => date('Y-m-d h:i:s')
+                        'user_register_id'  => $event_business_owners_id,
+                        'event_id'          => $dfd->event_id,
+                        'form_id'           => $dfd->form_id,
+                        'label_name'        => implode(' ', explode('-', $fdKey)),
+                        'label_value'       => $fdValues,
+                        'created_at'        => date('Y-m-d h:i:s'),
+                        'updated_at'        => date('Y-m-d h:i:s')
                     ]; //end of insert data  
                     DB::table('event_registeration_form_values')->insertGetId($event_form_insert_data);
                 }// end of else            

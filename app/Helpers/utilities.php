@@ -222,3 +222,32 @@ function getTableTotalRows($data){
                             ->first();
     return $total_row;
 }
+function getTableFieldsSum($data){
+    $field  =   $data['field'];
+    $total_row   =   DB::table($data['table'])
+                            ->select(DB::raw("SUM($field) as total"))
+                            ->where($data['where'])
+                            ->first();
+    return $total_row;
+}
+function getFormIdByGroupby(){
+    $results = DB::table('event_registeration_form_values as u')
+            ->select('form_id')
+            ->groupBy('form_id')
+            ->get();
+    return $results;
+}
+function getFormLabelName($form_id){
+    $results = DB::table('event_registeration_form_values as u')
+            ->select('label_name')
+            ->where('form_id', $form_id)
+            ->groupBy('label_name')
+            ->get();
+    return $results;
+}
+function getLabelValueFormLabelName($label_name){
+    $results = DB::table('event_registeration_form_values as u')
+            ->where('label_name', $label_name)
+            ->get();
+    return $results;
+}
