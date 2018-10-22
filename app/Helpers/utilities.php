@@ -11,6 +11,7 @@
 //Use model and all facad area
 //-----------------------------------------------
 use Illuminate\Support\Facades\DB;
+use QR_Code\QR_Code;
 
 // GET TABLE DATA BY TABLE NAME:
 
@@ -250,4 +251,8 @@ function getLabelValueFormLabelName($label_name){
             ->where('label_name', $label_name)
             ->get();
     return $results;
+}
+
+function getQRCode($data){
+    QR_Code::png($data['serial_number'], $data['pathname']);
 }

@@ -53,36 +53,40 @@
                             <table class="table table-user-information">
                                 <tbody>
                                     <tr>
+                                        <td>QR Code</td>
+                                        <td><img src="<?php echo $qrcode; ?>" /></td>
+                                    </tr>
+                                    <tr>
                                         <td>Salutation:</td>
-                                        <td>{{ $user_data->salutation }}</td>
+                                        <td>{{ $user_data['salutation'] }}</td>
                                     </tr>
                                     <tr>
                                         <td>First name:</td>
-                                        <td>{{ $user_data->first_name }}</td>
+                                        <td>{{ $user_data['first_name'] }}</td>
                                     </tr>
                                     <tr>
                                         <td>Last name</td>
-                                        <td>{{ $user_data->last_name }}</td>
+                                        <td>{{ $user_data['last_name'] }}</td>
                                     </tr>
                                     <tr>
                                         <td>Gender</td>
-                                        <td>{{ $user_data->gender }}</td>
+                                        <td>{{ $user_data['gender'] }}</td>
                                     </tr>
                                     <tr>
                                         <td>Company</td>
-                                        <td>{{ $user_data->company_name }}</td>
+                                        <td>{{ $user_data['company_name'] }}</td>
                                     </tr>
                                     <tr>
                                         <td>Company Address</td>
-                                        <td>{{ $user_data->company_address }}</td>
+                                        <td>{{ $user_data['company_address'] }}</td>
                                     </tr>
                                     <tr>
                                         <td>Email</td>
-                                        <td>{{ $user_data->email }}</td>
+                                        <td>{{ $user_data['email'] }}</td>
                                     </tr>
                                     <tr>
                                         <td>Phone Number</td>
-                                        <td>{{ $user_data->tel }}(Landline)<br><br>{{ $user_data->mobile }}(Mobile)
+                                        <td>{{ $user_data['tel'] }}(Landline)<br><br>{{ $user_data['mobile'] }}(Mobile)
                                         </td>
 
                                     </tr>

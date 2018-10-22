@@ -34,9 +34,13 @@
                         } ?>">
                                 <div class="panel-body">
                                     <div id="registration_area">
-                                        <div class="form-group col-lg-12">
+                                        <div class="form-group col-lg-6">
                                             <label for="sel1">Salutation</label>
                                             <?php echo $details->salutation; ?>
+                                        </div>
+                                        <div class="form-group col-lg-6">
+                                            <label for="sel1">QR Code</label>                                            
+                                            <img src="<?php echo asset('pdf/'.$details->serial_digit.'.png') ?>" />
                                         </div>
                                         <div class="form-group col-lg-6">
                                             <label>First name</label>

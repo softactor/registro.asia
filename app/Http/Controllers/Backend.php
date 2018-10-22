@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use View;
 use Illuminate\Support\Facades\URL;
+use LaravelQRCode\Facades\QRCode;
 
 class Backend extends Controller
 {
@@ -179,6 +180,6 @@ class Backend extends Controller
             'link_title'    =>  'Create',
             'preview_url'    =>  'su/preview_events_form/'
         ];
-        return view('superadmin.events_registration/registration_details_view', compact('page_details','owners_details'));
+        return view('superadmin.events_registration/registration_details_view', compact('page_details','owners_details','png'));
     }
 }
