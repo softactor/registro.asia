@@ -41,8 +41,8 @@ class Backend extends Controller
         $event_details = [
             'title' => $request->title,
             'organizer' => $request->organizer,
-            'start_date' => $request->start_date,
-            'end_date' => $request->end_date,
+            'start_date' => date('Y-m-d', strtotime($request->start_date)),
+            'end_date' => date('Y-m-d', strtotime($request->end_date)),
             'venue_name' => $request->venue_name,
             'venue_address' => $request->venue_address,
             'event_url' => implode('-', $url_string),

@@ -27,11 +27,11 @@
                     </div>
                     <div class="form-group">
                         <label for="start_date">Start date:</label>
-                        <input type="text" class="form-control" id="start_date" placeholder="Enter start date" name="start_date">
+                        <input type="text" class="form-control" id="event_start_date" placeholder="Enter start date" name="start_date">
                     </div>
                     <div class="form-group">
                         <label for="end_date">End date:</label>
-                        <input type="text" class="form-control" id="end_date" placeholder="Enter End date" name="end_date">
+                        <input type="text" class="form-control" id="event_end_date" placeholder="Enter End date" name="end_date">
                     </div>
                     <div class="form-group">
                         <label for="venue_name">Venue name:</label>

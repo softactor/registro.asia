@@ -6,6 +6,10 @@
 <script type="text/javascript" src="{{ asset('js/sjfb-html-generator.js')}}"></script>
 <script src="http://formbuilder.online/assets/js/form-builder.min.js"></script>
 <script type="text/javascript">
+    $( function() {
+      $( "#event_start_date" ).datepicker({ dateFormat: 'dd-mm-yy' });
+      $( "#event_end_date" ).datepicker({ dateFormat: 'dd-mm-yy' });
+    });
         var formBuilder = $('#fb-editor').formBuilder();
     function add_more_colleagues(){
         var cln= $("#registration_area").first().clone().find("input,textarea").val("").end();
