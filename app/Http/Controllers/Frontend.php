@@ -407,7 +407,7 @@ class Frontend extends Controller
         //--------------------- mail start
         $title = "Event Registration";
         $content = "Congratulations!<br>You have been successfully registered";
-        $emails['to'] = $pdata->email;
+        $emails['to'] = $data['profile_data']['email'];
         $emails['attachment'] = $path_with_file;
         $mail = Mail::send('template.registration_email', ['title' => $title, 'content' => $pdfTemplateData], function ($message) use ($emails) {
                     $message->from('admin@registro.asia', 'Registro Asia');
