@@ -190,7 +190,7 @@
                                             {{ $content['user_data']['salutation'].' '.$content['user_data']['first_name'].' '.$content['user_data']['last_name']  }},
                                         </p>
                                         <p style="line-height: 24px;margin-bottom:15px;">
-                                            Great news, you have successfully registered for the events of {{ $content['event_data']['title'] }}
+                                            Great news, you have successfully registered for the events of {{ $content['event_data']->title }}
                                         </p>
                                         <p style="line-height: 24px; margin-bottom:20px;">
                                             Please see the attachment.
