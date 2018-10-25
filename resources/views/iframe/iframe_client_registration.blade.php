@@ -147,6 +147,8 @@
         <script type="text/javascript" src="{{ asset('js/jquery-ui.min.js')}}"></script>
         <script type="text/javascript" src="{{ asset('js/jquery.steps.min.js')}}"></script>
         <script type="text/javascript" src="{{ asset('js/registration_process.js')}}"></script>
+        <script type="text/javascript" src="{{ asset('js/sjfb-html-generator.js')}}"></script>
+        <script src="http://formbuilder.online/assets/js/form-builder.min.js"></script>
         <script type="text/javascript">
             function add_more_colleagues(){
                 var cln= $("#registration_area").first().clone().find("input,textarea").val("").end();
