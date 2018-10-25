@@ -205,9 +205,9 @@ class Backend extends Controller
     }
     
    public function generateEmbeddedEventsUrl(Request $request){
-       $url_string = explode(' ', ucwords($request->event_title));
+       $url_string  = explode(' ', ucwords($request->event_title));
        $url_text    =   implode('-', $url_string);
-       $event_registration_url  =   URL::to("/").'/'.$url_text;
+       $event_registration_url  =   URL::to("/").'/iframe/event_registration/'.$url_text;
        $view    = View::make('partial.iframe_event_embadded_code', compact('event_registration_url'));
         $feedback_data  = [
             'status'    => 'success',
