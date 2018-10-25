@@ -49,3 +49,8 @@ Route::get('su/registration_details_view/{event_id}', 'Backend@registration_deta
 
 //          PDF GENERATES
 Route::get('pdf_test', 'Frontend@pdf_test');
+//          API preview page
+Route::get('api_reg_form', 'api\ApiController@index_test');
+
+// OTHERWEBSITE REGISTRATION
+Route::get('iframe/event_registration/{event_url}', 'Frontend@iframe_events_form');

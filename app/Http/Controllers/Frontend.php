@@ -423,4 +423,17 @@ class Frontend extends Controller
         $sd =    str_pad(rand(0, pow(10, $digits)-1), $digits, '0', STR_PAD_LEFT);
         return $sd.$data['event_id'].$data['business_owner_id'];
     }
+    
+//    iframe event registrtion
+    public function iframe_events_form(Request $request){
+        $events        =   DB::table('events')->where('event_url',$request->event_url)->first();
+        $event_forms   =   DB::table('event_forms')->where('event_id',$events->id)->get();
+        $page_details   =   [
+            'page_title'    =>  "Eevnt's form preview",
+            'link_url'      =>  '/su/event_form',
+            'link_title'    =>  'Preview',
+            'base_url'      =>  URL::to("/").'/'.$request->event_url,
+        ];
+        return view('iframe/iframe_client_registration', compact('page_details','events','event_forms'));
+    }
 }
