@@ -146,5 +146,12 @@
         <script type="text/javascript" src="{{ asset('js/jquery-ui.min.js')}}"></script>
         <script type="text/javascript" src="{{ asset('js/jquery.steps.min.js')}}"></script>
         <script type="text/javascript" src="{{ asset('js/registration_process.js')}}"></script>
+        <script type="text/javascript">
+            function add_more_colleagues(){
+                var cln= $("#registration_area").first().clone().find("input,textarea").val("").end();
+                $('#cloneItem').append(cln)
+        //        $(".registration_area").clone().insertAfter("div.registration_area:last").find("input[type='text']").val("");;
+            }
+        </script>
     </body>
 </html>
