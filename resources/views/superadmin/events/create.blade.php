@@ -22,6 +22,11 @@
                         <input type="text" class="form-control" id="title" placeholder="Enter title" name="title">
                     </div>
                     <div class="form-group">
+                        <label for="comment">Embedded Code: <button type="button" class="btn btn-sm" onclick="generateEmbeddedEventsUrl('{{ url("su/generateEmbeddedEventsUrl")}}');">Create</button></label>
+                        <textarea class="form-control" rows="5" id="iframe_events_url" name="iframe_events_url"></textarea>
+                    </div>
+
+                    <div class="form-group">
                         <label for="organizer">Organizer:</label>
                         <input type="text" class="form-control" id="organizer" placeholder="Enter Organizer" name="organizer">
                     </div>

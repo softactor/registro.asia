@@ -33,6 +33,8 @@ Route::get('su/dashboard', 'Backend@dashboard');
 Route::get('su/events', 'Backend@events');
 Route::get('su/create_event', 'Backend@create_event');
 Route::post('su/store_event', 'Backend@store_event');
+Route::get('su/edit_event/{event_url}', 'Backend@edit_event');
+Route::get('su/generateEmbeddedEventsUrl', 'Backend@generateEmbeddedEventsUrl');
 
 //          EVENTS FORM
 Route::get('su/event_form', 'Backend@event_form');

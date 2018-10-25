@@ -1,0 +1,2 @@
+<iframe src="{{ $event_registration_url }}" style="border:0px #ffffff none;" name="myiFrame" scrolling="no" frameborder="1" marginheight="0px" marginwidth="0px" height="2100px" width="100%" allowfullscreen>
+</iframe>

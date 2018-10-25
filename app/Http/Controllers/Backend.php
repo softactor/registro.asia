@@ -27,6 +27,17 @@ class Backend extends Controller
         ];
         return view('superadmin.events/list', compact('page_details','evens_list'));
     }
+    public function edit_event(Request $request){
+        $events         =   DB::table('events')->where('event_url',$request->event_url)->first();
+        $page_details   =   [
+            'page_title'    =>  'Eevnt Edit',
+            'events'    =>  $events,
+            'link_url'      =>  '/su/events',
+            'link_title'    =>  'List',
+            'form_url'      =>  '/su/store_event'
+        ];
+        return view('superadmin.events/edit', compact('page_details', 'events'));
+    }
     public function create_event(){
         $page_details   =   [
             'page_title'    =>  'Eevnt',
@@ -46,14 +57,24 @@ class Backend extends Controller
             'venue_name' => $request->venue_name,
             'venue_address' => $request->venue_address,
             'event_url' => implode('-', $url_string),
+            'iframe_events_url' => $request->iframe_events_url,
             'created_at' => date('Y-m-d h:i:s'),
             'updated_at' => date('Y-m-d h:i:s')
         ]; //end of insert data  
-        DB::table('events')->insertGetId($event_details);
+
+        if (isset($request->event_edit_id) && !empty($request->event_edit_id)) {
+            DB::table('events')
+            ->where('id', $request->event_edit_id)
+            ->update($event_details);
+            $message    =   'Data have successfully updated.';
+        } else {
+            DB::table('events')->insertGetId($event_details);
+            $message    =   'Data have successfully created.';
+        }
         return redirect('/su/events')
-                        ->with('success', 'Data have successfully created.');
+                        ->with('success', $message);
     }
-    
+
     public function event_form(){
         $evens_list =   [];
         $events   =   DB::table('events')->get();
@@ -182,4 +203,17 @@ class Backend extends Controller
         ];
         return view('superadmin.events_registration/registration_details_view', compact('page_details','owners_details','png'));
     }
+    
+   public function generateEmbeddedEventsUrl(Request $request){
+       $url_string = explode(' ', ucwords($request->event_title));
+       $url_text    =   implode('-', $url_string);
+       $event_registration_url  =   URL::to("/").'/'.$url_text;
+       $view    = View::make('partial.iframe_event_embadded_code', compact('event_registration_url'));
+        $feedback_data  = [
+            'status'    => 'success',
+            'message'   => 'Data Found',
+            'data'      => $view->render()
+        ];
+        echo json_encode($feedback_data);
+   }
 }

@@ -126,5 +126,20 @@
             return true;
         },
     });
-    
+    function generateEmbeddedEventsUrl(url){
+        var eventTitle  =   $('#title').val();
+        if(eventTitle){
+            $.ajax({
+                url         : url,
+                type        : 'GET',
+                dataType    : 'json',
+                data        : 'event_title='+eventTitle,
+                success     : function (response) {
+                    $('#iframe_events_url').val(response.data);
+                }
+            });
+        }else{
+            swal("Error", "Event title was required!", "error")
+        }
+    }
 </script>

@@ -40,7 +40,7 @@
                                 <td><?php echo $list->organizer; ?></td>
                                 <td><?php echo $list->venue_name; ?></td>
                                 <td><?php echo $list->event_url; ?></td>
-                                <td><a href="">Edit</a>|<a href="">Delete</a></td>
+                                <td><a href="{{ url('su/edit_event/'.$list->event_url) }}">Edit</a>|<a href="">Delete</a></td>
                             </tr>
                                 <?php $count++; } ?>
                         </tbody>
