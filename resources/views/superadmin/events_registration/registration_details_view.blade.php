@@ -88,7 +88,7 @@
                                         </div>
                                     </div><!-- end of registration_area -->
                                     <?php
-                                     foreach (getFormIdByGroupby() as $form) {
+                                     foreach (getFormIdByGroupby($details->id) as $form) {
                                          echo '<h3><u>'.get_data_name_by_id('event_forms',$form->form_id)->lebel_name.'</u></h3>';
                                         foreach (getFormLabelName($form->form_id) as $fdata) {
                                             echo '<h4>' . $fdata->label_name . '</h4>';
