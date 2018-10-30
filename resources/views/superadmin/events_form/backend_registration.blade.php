@@ -10,7 +10,7 @@
             </div><!--/col-3-->
             <div class="col-sm-9">
                 <h2>
-                    {{ $page_details['page_title'] }} Preview
+                    {{ $page_details['page_title'] }}
                     <div class="pull-right">
                         <a href='{{ url($page_details['link_url']) }}'>{{ $page_details['link_title'] }}</a>
                     </div>
@@ -20,7 +20,7 @@
                         'page_details'          =>  $page_details,
                         'events'                =>  $events,
                         'event_forms'           =>  $event_forms,
-                        'step_form_selector'    =>  'example-basic',
+                        'step_form_selector'    =>  'profileSectionArea',
                     ];
                 ?>
                 @include('partial.registration_container', $data)
@@ -29,4 +29,8 @@
         </div><!--/col-9-->        
     </div>
 </section>
+@section('footer_js_scrip_area')
+@parent
+<script type="text/javascript" src="{{ asset('js/registration_process.js')}}"></script>
+@endsection
 @endsection

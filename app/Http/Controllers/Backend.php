@@ -25,7 +25,7 @@ class Backend extends Controller
             'link_url'      =>  '/su/create_event',
             'link_title'    =>  'Create'
         ];
-        return view('superadmin.events/list', compact('page_details','evens_list'));
+        return view('superadmin.events.list', compact('page_details','evens_list'));
     }
     public function edit_event(Request $request){
         $events         =   DB::table('events')->where('event_url',$request->event_url)->first();
@@ -36,7 +36,7 @@ class Backend extends Controller
             'link_title'    =>  'List',
             'form_url'      =>  '/su/store_event'
         ];
-        return view('superadmin.events/edit', compact('page_details', 'events'));
+        return view('superadmin.events.edit', compact('page_details', 'events'));
     }
     public function create_event(){
         $page_details   =   [
@@ -45,7 +45,7 @@ class Backend extends Controller
             'link_title'    =>  'List',
             'form_url'    =>  '/su/store_event'
         ];
-        return view('superadmin.events/create', compact('page_details'));
+        return view('superadmin.events.create', compact('page_details'));
     }
     public function store_event(Request $request) {
         $url_string = explode(' ', ucwords($request->title));
@@ -87,7 +87,7 @@ class Backend extends Controller
             'link_title'    =>  'Create',
             'preview_url'    =>  'su/preview_events_form/'
         ];
-        return view('superadmin.events_form/list', compact('page_details','evens_list'));
+        return view('superadmin.events_form.list', compact('page_details','evens_list'));
     }
     public function create_events_form(Request $request){
         $events   =   DB::table('events')->where('event_url',$request->event_url)->first();
@@ -98,7 +98,7 @@ class Backend extends Controller
             'form_url'      =>  '/su/store_event',
             'base_url'      =>  URL::to("/").'/'.$request->event_url,
         ];
-        return view('superadmin.events_form/create', compact('page_details','events'));
+        return view('superadmin.events_form.create', compact('page_details','events'));
     }
     public function edit_events_form(Request $request){
         $events        =   DB::table('events')->where('event_url',$request->event_url)->first();
@@ -109,7 +109,7 @@ class Backend extends Controller
             'link_title'    =>  'Event Form',
             'base_url'      =>  URL::to("/").'/'.$request->event_url,
         ];
-        return view('superadmin.events_form/edit', compact('page_details','events','event_forms'));
+        return view('superadmin.events_form.edit', compact('page_details','events','event_forms'));
     }
     public function preview_events_form(Request $request){
         $events        =   DB::table('events')->where('event_url',$request->event_url)->first();
@@ -120,7 +120,7 @@ class Backend extends Controller
             'link_title'    =>  'Event Form',
             'base_url'      =>  URL::to("/").'/'.$request->event_url,
         ];
-        return view('superadmin.events_form/preview', compact('page_details','events','event_forms'));
+        return view('superadmin.events_form.preview', compact('page_details','events','event_forms'));
     }
     public function modify_events_form(Request $request){
         $event_forms   =   DB::table('event_forms')->where('id',$request->form_id)->first();
@@ -132,7 +132,7 @@ class Backend extends Controller
             'form_url'      =>  '/su/store_event',
             'base_url'      =>  URL::to("/").'/'.$events->event_url,
         ];
-        return view('superadmin.events_form/modify', compact('page_details','events','event_forms'));
+        return view('superadmin.events_form.modify', compact('page_details','events','event_forms'));
     }
     public function store_events_form(Request $request){
         $all    =   json_decode(file_get_contents('php://input'));
@@ -187,7 +187,7 @@ class Backend extends Controller
             'link_title'    =>  'Create',
             'preview_url'    =>  'su/preview_events_form/'
         ];
-        return view('superadmin.events_registration/registration_details_list', compact('page_details','evens_list'));
+        return view('superadmin.events_registration.registration_details_list', compact('page_details','evens_list'));
     }
     public function registration_details_view(Request $request){
         $owners_details =   [];
@@ -201,7 +201,7 @@ class Backend extends Controller
             'link_title'    =>  'Create',
             'preview_url'    =>  'su/preview_events_form/'
         ];
-        return view('superadmin.events_registration/registration_details_view', compact('page_details','owners_details','png'));
+        return view('superadmin.events_registration.registration_details_view', compact('page_details','owners_details','png'));
     }
     
    public function generateEmbeddedEventsUrl(Request $request){
@@ -216,4 +216,28 @@ class Backend extends Controller
         ];
         echo json_encode($feedback_data);
    }
+   
+   public function backend_registration(Request $request) {
+        $events = DB::table('events')->where('event_url', $request->event_url)->first();
+        $event_forms = DB::table('event_forms')->where('event_id', $events->id)->get();
+        $page_details = [
+            'reg_prefix'    => $request->reg_prefix,
+            'page_title'    => ((isset($request->reg_prefix) && $request->reg_prefix == 'OSR') ? 'Onsite':'Online')." Eevnt's Registration",
+            'link_url'      => '/su/event_form',
+            'link_title'    => 'Events List',
+            'base_url'      => URL::to("/") . '/' . $request->event_url,
+        ];
+        return view('superadmin.events_form.backend_registration', compact('page_details', 'events', 'event_forms'));
+    }
+    
+    public function name_badge_view(){
+        $applicants = DB::table('event_business_owners_details')->get();
+        $events = DB::table('events')->get();
+        $page_details = [
+            'applicants'    => $applicants,
+            'events'        => $events,
+        ];
+        return view('superadmin.events_registration.name_badge_view', compact('page_details'));
+    }
+
 }

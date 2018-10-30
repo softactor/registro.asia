@@ -22,6 +22,11 @@
                     <i class="fa fa-calendar-times-o fa-user-circle"></i> Registration details
                 </a>
             </li>
+            <li>
+                <a href="{{ url('/su/name_badge_view') }}">
+                    <i class="fa fa-calendar-times-o fa fa-address-card-o"></i> Name Badge
+                </a>
+            </li>
         </ul>
     </div>
 </div>

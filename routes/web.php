@@ -45,9 +45,13 @@ Route::get('su/preview_events_form/{event_url}', 'Backend@preview_events_form');
 Route::post('su/store_events_form', 'Backend@store_events_form');
 Route::post('su/get_form_json_data', 'Backend@get_form_json_data');
 
+//          NAME BADGE VIEW
+Route::get('su/name_badge_view', 'Backend@name_badge_view');
+
 //          REGISTRATION
 Route::get('su/registration_details_list', 'Backend@registration_details_list');
 Route::get('su/registration_details_view/{event_id}', 'Backend@registration_details_view');
+Route::get('su/backend/registration/{event_url}/{reg_prefix}', 'Backend@backend_registration');
 
 //          PDF GENERATES
 Route::get('pdf_test', 'Frontend@pdf_test');
