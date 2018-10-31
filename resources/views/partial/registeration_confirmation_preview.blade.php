@@ -60,8 +60,14 @@
                                         ?>
                                         <li><?php echo $v; ?></li>
                                     </ul>
-                                <?php }}}
-                            } ?>
+                                <?php }// end of foreach
+                                
+                                    }else{
+                                        echo '<p>'.$fvalue.'</p>';
+                                    }
+                                            
+                                }// end of 2nd foreach
+                            }// end of 1st foreach ?>
                         </td>
                     </tr>    
             </tbody>

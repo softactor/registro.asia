@@ -37,8 +37,9 @@ class Frontend extends Controller
         echo json_encode($feedback_data);
     }
     public function store_event_business_owners($profile_data, $access_token, $event_details){
-        $insert_data    =   [];
-        $event_business_owners_details    =   [];        
+        $insert_data                        =   [];
+        $email_and_pdf_data                 =   [];
+        $event_business_owners_details      =   [];        
         $event_business_owners_data    =   [
             'event_id'            => $profile_data->event_business_owners_data->event_id,
             'owners_numbers'      => $profile_data->event_business_owners_data->owners_numbers,
@@ -76,12 +77,15 @@ class Frontend extends Controller
                 'profile_data'  => $event_business_owners_details,
                 'event_data'    => $event_details
             ];
-            // create pdf and sent email
-            $this->generate_pdf($pdfData);
+            // this is store for sending email and generate pdf later
+            $email_and_pdf_data[]   =   $pdfData;            
         }// End of for loop
         $dyna_form_data         =   DB::table('registraion_temp')->where('form_id', '!=' , 0)->where('access_token', $access_token)->get();        
         // store_event_registeration_form_values
         $this->store_event_registeration_form_values($dyna_form_data, $event_business_owners_id);
+        
+        // create pdf and sent email
+        //$this->generate_pdf($email_and_pdf_data);
     }    
     public function store_event_registeration_form_values($dyna_form_data, $event_business_owners_id){
         foreach ($dyna_form_data as $dfd) {
@@ -382,39 +386,42 @@ class Frontend extends Controller
 
         //--------------------- mail end
     }
-    public function generate_pdf($data) {
-        // generate qr code:
-        $qrdestPath = public_path('pdf/');
-        $qrfilename = $data['profile_data']['serial_digit'] . '.png';
-        $qr_path_with_file = $qrdestPath . $qrfilename;
-        $qrcodeData = [
-            'pathname'          => $qr_path_with_file,
-            'serial_number'     => $data['profile_data']['serial_digit']
-        ];
-        getQRCode($qrcodeData);
-        $event_data = $data['event_data'];
-        $pdfTemplateData = [
-            'user_data'     => $data['profile_data'],
-            'event_data'    => $event_data,
-            'qrcode'        => $qr_path_with_file
-        ];        
-        $destinationPath = public_path('pdf/');
-        $name = time() . '.pdf';
-        $path_with_file = $destinationPath . $name;
-        $pdf = PDF::loadView('template.registration_pdf', $pdfTemplateData)
-                ->save($path_with_file)
-                ->stream('registeration_complete.pdf');
-        //--------------------- mail start
-        $title = "Event Registration";
-        $content = "Congratulations!<br>You have been successfully registered";
-        $emails['to'] = $data['profile_data']['email'];
-        $emails['attachment'] = $path_with_file;
-        $mail = Mail::send('template.registration_email', ['title' => $title, 'content' => $pdfTemplateData], function ($message) use ($emails) {
-                    $message->from('admin@registro.asia', 'Registro Asia');
-                    $message->to($emails['to']);
-                    $message->subject("Registro Asia Registration Message");
-                    $message->attach($emails['attachment']);
-                });
+    public function generate_pdf($email_n_pdf_data) {
+        foreach ($email_n_pdf_data as $prefixKey=>$data) {
+            // generate qr code:
+            $qrdestPath         = public_path('pdf/');
+            $qrfilename         = $data['profile_data']['serial_digit'] . '.png';
+            $qr_path_with_file  = $qrdestPath . $qrfilename;
+            $qrcodeData         = [
+                'pathname'      => $qr_path_with_file,
+                'serial_number' => $data['profile_data']['serial_digit']
+            ];
+            getQRCode($qrcodeData);
+            $event_data         = $data['event_data'];
+            $pdfTemplateData    = [
+                'user_data'     => $data['profile_data'],
+                'event_data'    => $event_data,
+                'qrcode'        => $qr_path_with_file
+            ];
+            $destinationPath    = public_path('pdf/');
+            $addPrefixNumber    =   $prefixKey+1;
+            $name               = $addPrefixNumber.time() . '.pdf';
+            $path_with_file     = $destinationPath . $name;
+            $pdf = PDF::loadView('template.registration_pdf', $pdfTemplateData)
+                    ->save($path_with_file)
+                    ->stream('registeration_complete.pdf');
+            //--------------------- mail start
+            $title                  = "Event Registration";
+            $content                = "Congratulations!<br>You have been successfully registered";
+            $emails['to']           = $data['profile_data']['email'];
+            $emails['attachment']   = $path_with_file;
+            $mail                   = Mail::send('template.registration_email', ['title' => $title, 'content' => $pdfTemplateData], function ($message) use ($emails) {
+                        $message->from('admin@registro.asia', 'Registro Asia');
+                        $message->to($emails['to']);
+                        $message->subject("Registro Asia Registration Message");
+                        $message->attach($emails['attachment']);
+                    });
+        }
     }
 
     public function generate_serial_number($data){

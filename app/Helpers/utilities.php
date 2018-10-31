@@ -29,6 +29,10 @@ function get_data_name_by_id($table,$id){
     return DB::table($table)->where('id', '=', $id)->first();
 }
 
+function get_data_name_by_where($table,$where){
+    return DB::table($table)->where($where)->first();
+}
+
 // CHECK DUPLICATE DATA ENTRY:
 
 function check_duplicate_data($data){
@@ -239,10 +243,11 @@ function getFormIdByGroupby($user_register_id){
             ->get();
     return $results;
 }
-function getFormLabelName($form_id){
+function getFormLabelName($form_id, $business_owner_id){
     $results = DB::table('event_registeration_form_values as u')
             ->select('label_name')
             ->where('form_id', $form_id)
+            ->where('user_register_id', $business_owner_id)
             ->groupBy('label_name')
             ->get();
     return $results;
