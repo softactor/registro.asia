@@ -1,4 +1,7 @@
-<form action="/action_page.php">
+<form id="registared_users_search" action="">
+    <div class="form-group">
+        <input type="text" class="form-control" id="ticket" name="ticket" placeholder="Ticket">
+    </div>
     <div class="form-group">
         <input type="email" class="form-control" id="email" name="email" placeholder="Email">
     </div>
@@ -18,5 +21,5 @@
             <?php } ?>
         </select>
     </div>
-    <button type="submit" class="btn btn-default">Search</button>
+    <button type="button" class="btn btn-default" onclick="searchFilterData('{{ url('su/get_events_registrated_users') }}','registared_users_search','example2')">Search</button>
 </form>

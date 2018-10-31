@@ -47,6 +47,8 @@ Route::post('su/get_form_json_data', 'Backend@get_form_json_data');
 
 //          NAME BADGE VIEW
 Route::get('su/name_badge_view', 'Backend@name_badge_view');
+Route::get('su/get_registration_tickets', 'Backend@get_registration_tickets');
+Route::post('su/get_events_registrated_users', 'Backend@get_events_registrated_users');
 
 //          REGISTRATION
 Route::get('su/registration_details_list', 'Backend@registration_details_list');

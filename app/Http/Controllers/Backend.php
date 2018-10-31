@@ -207,7 +207,7 @@ class Backend extends Controller
    public function generateEmbeddedEventsUrl(Request $request){
        $url_string  = explode(' ', ucwords($request->event_title));
        $url_text    =   implode('-', $url_string);
-       $event_registration_url  =   URL::to("/").'/iframe/event_registration/'.$url_text;
+       $event_registration_url  =   'https://registro.asia/iframe/event_registration/'.$url_text;
        $view    = View::make('partial.iframe_event_embadded_code', compact('event_registration_url'));
         $feedback_data  = [
             'status'    => 'success',
@@ -238,6 +238,62 @@ class Backend extends Controller
             'events'        => $events,
         ];
         return view('superadmin.events_registration.name_badge_view', compact('page_details'));
+    }
+    
+    public function get_registration_tickets(){
+        $serial_digits  = DB::table('event_business_owners_details')->pluck('serial_digit');
+        $mobiles        = DB::table('event_business_owners_details')->pluck('mobile');
+        $emails         = DB::table('event_business_owners_details')->pluck('email');
+        $first_names    = DB::table('event_business_owners_details')->pluck('first_name');
+        //foreach
+        $page_details = [
+            'status'    => 'success',
+            'message'   => 'Tickest found',
+            'data'      => [
+                'serial_digits' => $serial_digits,
+                'mobiles'       => $mobiles,
+                'emails'        => $emails,
+                'first_names'   => $first_names,
+            ],
+        ];
+        echo json_encode($page_details);
+    }
+    
+    public function get_events_registrated_users(Request $request) {
+        // get all table data:
+        $query = DB::table('event_business_owners_details as p');
+        if (isset($request->ticket) && !empty($request->ticket)) {
+            $query->where('p.serial_digit', 'like', '%' . $request->ticket . '%');
+        }
+        if (isset($request->email) && !empty($request->email)) {
+            $query->where('p.email', 'like', '%' . $request->email . '%');
+        }
+        if (isset($request->name) && !empty($request->name)) {
+            $query->where('p.email', 'like', '%' . $request->email . '%');
+        }
+        if (isset($request->mobile) && !empty($request->mobile)) {
+            $query->where('p.mobile', 'like', '%' . $request->mobile . '%');
+        }
+        if (isset($request->events) && !empty($request->events)) {
+            $query->where('p.event_id', 'like', '%' . $request->events . '%');
+        }
+        $list_data = $query->get();
+        if ($list_data->isEmpty()) {
+            $search_data = View::make('search.events_registrated_users_list', compact('list_data', 'print_url'));
+            $feedback_data = [
+                'status' => 'error',
+                'message' => 'Data Not Found',
+                'data' => $search_data->render()
+            ];
+        } else {
+            $search_data = View::make('search.events_registrated_users_list', compact('list_data'));
+            $feedback_data = [
+                'status' => 'success',
+                'message' => 'Data Found',
+                'data' => $search_data->render()
+            ];
+        }
+        echo json_encode($feedback_data);
     }
 
 }

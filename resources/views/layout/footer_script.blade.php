@@ -142,4 +142,59 @@
             swal("Error", "Event title was required!", "error")
         }
     }
+    function searchFilterData(urlAddress, formId, tableSelector){
+        $.ajax({
+                url:urlAddress,
+                type:'POST',
+                dataType:'json',
+                data:$("#"+formId).serialize(),
+                headers: {
+                    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content'),
+                },
+                success: function(response){
+                    if(response.status=='success'){
+                        $(".box-body").empty();
+                        $(".box-body").append(response.data);
+                    }else{
+                        $("#info_message").show();
+                        $("#info_message").html(response.message);
+                        $(".box-body").empty();
+                        $(".box-body").append(response.data);
+                    }
+                }
+            });
+    }
 </script>
+<script>
+  $( function() {
+      var serial_digits;
+      var mobiles;
+      var emails;
+      var first_names;
+    $.ajax({
+        url         : "{{ url('su/get_registration_tickets') }}",
+        type        : 'GET',
+        dataType    : 'json',
+        success     : function (response) {
+            serial_digits = response.data.serial_digits;
+            mobiles = response.data.mobiles;
+                  emails = response.data.emails;
+                  first_names = response.data.first_names;
+              },
+              async: false
+          });
+
+          $("#ticket").autocomplete({
+              source: serial_digits
+          });
+          $("#mobile").autocomplete({
+              source: mobiles
+          });
+          $("#email").autocomplete({
+              source: emails
+          });
+          $("#name").autocomplete({
+              source: first_names
+          });
+      });
+  </script>

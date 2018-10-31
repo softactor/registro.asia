@@ -13,10 +13,10 @@
                 <h2>
                     Name badge search
                 </h2>
-                @include('search.name_badge_search', $page_details) 
+                @include('search.name_badge_search', $page_details)
+                <div class="box-body"></div>
             </div><!--/tab-content-->
-
-        </div><!--/col-9-->        
+        </div><!--/col-9--> 
     </div>
 </section>
 @endsection
