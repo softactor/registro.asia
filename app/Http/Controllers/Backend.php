@@ -279,14 +279,14 @@ class Backend extends Controller
         }
         $list_data = $query->get();
         if ($list_data->isEmpty()) {
-            $search_data = View::make('search.events_registrated_users_list', compact('list_data', 'print_url'));
+            $search_data = View::make('search.events_registrated_users_list');
             $feedback_data = [
                 'status' => 'error',
                 'message' => 'Data Not Found',
                 'data' => $search_data->render()
             ];
         } else {
-            $search_data = View::make('search.events_registrated_users_list', compact('list_data'));
+            $search_data = View::make('search.events_registrated_users_list', compact('list_data', 'print_url'));
             $feedback_data = [
                 'status' => 'success',
                 'message' => 'Data Found',
