@@ -156,10 +156,8 @@
                         $(".box-body").empty();
                         $(".box-body").append(response.data);
                     }else{
-                        $("#info_message").show();
-                        $("#info_message").html(response.message);
                         $(".box-body").empty();
-                        $(".box-body").append(response.data);
+                        swal("Error", response.message, "error")
                     }
                 }
             });
