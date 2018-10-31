@@ -92,14 +92,14 @@ function generateHtmlForm(currentIndex, eventFormId, urlAddress){
                                 return '' +
                                         '<div id="sjfb-' + uniqueID + '" class="sjfb-field sjfb-textarea form-group">' +
                                         '<label for="textarea-' + uniqueID + '"></label>' +
-                                        '<textarea id="textarea-' + uniqueID + '" class="form-control"></textarea>' +
+                                        '<textarea id="textarea-' + uniqueID + '" class="form-control" name="'+name+'"></textarea>' +
                                         '</div>';
 
                             case 'select':
                                 return '' +
                                         '<div id="sjfb-' + uniqueID + '" class="sjfb-field sjfb-select form-group">' +
                                         '<label for="select-' + uniqueID + '"></label>' +
-                                        '<select id="select-' + uniqueID + '" class="choices choices-select form-control"></select>' +
+                                        '<select id="select-' + uniqueID + '" class="choices choices-select form-control" name="'+name+'"></select>' +
                                         '</div>';
 
                             case 'radio-group':
@@ -119,7 +119,7 @@ function generateHtmlForm(currentIndex, eventFormId, urlAddress){
                                 return '' +
                                         '<div id="sjfb-' + uniqueID + '" class="sjfb-field sjfb-text form-group">' +
                                         '<label for="text-' + uniqueID + '"></label>' +
-                                        '<input type="date" id="text-' + uniqueID + '" class="form-control">' +
+                                        '<input type="date" id="text-' + uniqueID + '" class="form-control" name="'+name+'">' +
                                         '</div>';
                             case 'agree':
                                 return '' +
