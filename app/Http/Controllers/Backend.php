@@ -295,5 +295,15 @@ class Backend extends Controller
         }
         echo json_encode($feedback_data);
     }
-
+    
+    public function print_events_name_badge(Request $request){
+        $user_data     = DB::table('event_business_owners_details')->where('id', $request->print_id)->first();
+        $search_data = View::make('template.name_badge', compact('user_data'));
+        $feedback_data = [
+            'status' => 'success',
+            'message' => 'Data Found',
+            'data' => $search_data->render()
+        ];
+        echo json_encode($feedback_data);    
+    }
 }
