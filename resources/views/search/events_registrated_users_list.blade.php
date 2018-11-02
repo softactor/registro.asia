@@ -9,6 +9,7 @@
                 <th>Name</th>
                 <th>Email</th>
                 <th>Mobile</th>
+                <th>Type</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -25,6 +26,16 @@
                 <td style="word-wrap: break-word;">{{ $data->first_name.' '.$data->last_name }}</td>
                 <td>{{ $data->email }}</td>
                 <td>{{ $data->mobile }}</td>
+                <td>
+                    <?php 
+                            $type   =   get_registration_type_by_business_owner_id($data->business_owner_id);
+                            if($type == 'Onsite'){
+                                echo '<span class="label label-info">'.$type.'</span>';
+                            }else{
+                                echo '<span class="label label-primary">'.$type.'</span>';
+                            }
+                    ?>
+                </td>
                 <td><button class="btn btn-primary btn-sm" onclick="printSingleNameBadge('{{ url('su/print_events_name_badge') }}', '{{$data->id}}')">Print</button></td>
             </tr>
             @endforeach

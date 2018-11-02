@@ -289,3 +289,8 @@ function generate_name_page_view($data){
     ];
     return $feedback_data;
 } 
+
+function get_registration_type_by_business_owner_id($id){
+    $data     = DB::table('event_business_owners')->where('id', $id)->first();
+    return $data->registration_type;
+}
