@@ -92,7 +92,7 @@ class Frontend extends Controller
         $this->store_event_registeration_form_values($dyna_form_data, $event_business_owners_id);
         
         // create pdf and sent email
-        //$this->generate_pdf($email_and_pdf_data);
+        $this->generate_pdf($email_and_pdf_data);
         return $insert_ids;
     }    
     public function store_event_registeration_form_values($dyna_form_data, $event_business_owners_id){
