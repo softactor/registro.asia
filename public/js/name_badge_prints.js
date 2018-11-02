@@ -23,3 +23,7 @@ function printSingleNameBadge(url, print_id){
 function printExecuteSingleNameBadge(url, print_id){
     $('#printBody').printThis();   
 }
+
+function refreshCurrentPage(){
+    location.reload();
+}

@@ -23,26 +23,32 @@ class Frontend extends Controller
     }    
     public function confirmation_process(Request $request){
         // get event details
+        $print_data =   [];
         $get_profile_row_data   =   DB::table('registraion_temp')->where('form_id', 0)->where('access_token', $request->access_token)->first();
         $profile_data           =   json_decode($get_profile_row_data->temp_data);
         $event_details  =   DB::table('events')->where('id', $profile_data->event_business_owners_data->event_id)->first();
         // store_event_business_owners
-        $this->store_event_business_owners($profile_data, $request->access_token, $event_details);
+        $response   =   $this->store_event_business_owners($profile_data, $request->access_token, $event_details);
+        if($profile_data->event_business_owners_data->registration_type == 'Onsite'){
+            $print_data = generate_name_page_view($response);
+        }
         $feedback_data  =   [
-            'status'    => "success",
-            'data'      => '',
-            'message'   => "Registration have done successfully."
+            'registration_type' => $profile_data->event_business_owners_data->registration_type,
+            'status'            => "success",
+            'data'              => $print_data,
+            'message'           => "Registration have done successfully."
         ];
-        
         echo json_encode($feedback_data);
     }
     public function store_event_business_owners($profile_data, $access_token, $event_details){
         $insert_data                        =   [];
+        $insert_ids                         =   [];
         $email_and_pdf_data                 =   [];
         $event_business_owners_details      =   [];        
         $event_business_owners_data    =   [
             'event_id'            => $profile_data->event_business_owners_data->event_id,
             'owners_numbers'      => $profile_data->event_business_owners_data->owners_numbers,
+            'registration_type'   => $profile_data->event_business_owners_data->registration_type,
             'created_at'          => date('Y-m-d h:i:s'),
             'updated_at'          => date('Y-m-d h:i:s')
           ]; //end of insert data
@@ -72,20 +78,22 @@ class Frontend extends Controller
                 'created_at'        => date('Y-m-d h:i:s'),
                 'updated_at'        => date('Y-m-d h:i:s')
               ]; //end of insert data  
-            DB::table('event_business_owners_details')->insertGetId($event_business_owners_details);  
+            $return_id   =   DB::table('event_business_owners_details')->insertGetId($event_business_owners_details); 
+            $insert_ids[]   =   $return_id;
             $pdfData    =   [
                 'profile_data'  => $event_business_owners_details,
                 'event_data'    => $event_details
             ];
             // this is store for sending email and generate pdf later
             $email_and_pdf_data[]   =   $pdfData;            
-        }// End of for loop
+        }// End of foreach loop
         $dyna_form_data         =   DB::table('registraion_temp')->where('form_id', '!=' , 0)->where('access_token', $access_token)->get();        
         // store_event_registeration_form_values
         $this->store_event_registeration_form_values($dyna_form_data, $event_business_owners_id);
         
         // create pdf and sent email
-        $this->generate_pdf($email_and_pdf_data);
+        //$this->generate_pdf($email_and_pdf_data);
+        return $insert_ids;
     }    
     public function store_event_registeration_form_values($dyna_form_data, $event_business_owners_id){
         foreach ($dyna_form_data as $dfd) {
@@ -134,17 +142,20 @@ class Frontend extends Controller
         $events        =   DB::table('events')->where('event_url',$request->event_url)->first();
         $event_forms   =   DB::table('event_forms')->where('event_id',$events->id)->get();
         $page_details   =   [
-            'page_title'    =>  "Eevnt's form preview",
-            'link_url'      =>  '/su/event_form',
-            'link_title'    =>  'Preview',
-            'base_url'      =>  URL::to("/").'/'.$request->event_url,
+            'reg_prefix'            =>  "OLR",
+            'page_title'            =>  "Eevnt's form preview",
+            'link_url'              =>  '/su/event_form',
+            'link_title'            =>  'Preview',
+            'base_url'              =>  URL::to("/").'/'.$request->event_url,
+            'redirectUrl'           =>  'ongoing_events',
         ];
         return view('client_registration', compact('page_details','events','event_forms'));
     }    
     public function client_registration_first_step_varifications(Request $request) {
 
-        $formData = $request->all();
-        $event_id = $formData['event_id'];
+        $formData           = $request->all();
+        $event_id           = $formData['event_id'];
+        $registration_type  = $formData['registration_type'];
         $number_of_owners = count($formData['salutation']);
         // Create a new validator instance
         $validator = Validator::make($request->all(), [
@@ -213,13 +224,14 @@ class Frontend extends Controller
             ];
             echo json_encode($feedback);
         } else {
-            $insert_data = [];
-            $event_business_owners_details = [];
-            $event_business_owners_data = [
-                'event_id' => $event_id,
-                'owners_numbers' => $number_of_owners,
-                'created_at' => date('Y-m-d h:i:s'),
-                'updated_at' => date('Y-m-d h:i:s')
+            $insert_data                    = [];
+            $event_business_owners_details  = [];
+            $event_business_owners_data     = [
+                'event_id'              => $event_id,
+                'owners_numbers'        => $number_of_owners,
+                'registration_type'     => get_registration_type_name($registration_type),
+                'created_at'        => date('Y-m-d h:i:s'),
+                'updated_at'        => date('Y-m-d h:i:s')
             ]; //end of insert data
             for ($i = 0; $i < $number_of_owners; $i++) {
                 $event_business_owners_details[] = [
@@ -423,14 +435,12 @@ class Frontend extends Controller
                     });
         }
     }
-
     public function generate_serial_number($data){
         $comingDigit    = strlen($data['event_id'].$data['business_owner_id']);
         $digits = (12 - $comingDigit);
         $sd =    str_pad(rand(0, pow(10, $digits)-1), $digits, '0', STR_PAD_LEFT);
         return $sd.$data['event_id'].$data['business_owner_id'];
-    }
-    
+    }    
 //    iframe event registrtion
     public function iframe_events_form(Request $request){
         $events        =   DB::table('events')->where('event_url',$request->event_url)->first();

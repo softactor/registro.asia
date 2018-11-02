@@ -12,6 +12,8 @@
 //-----------------------------------------------
 use Illuminate\Support\Facades\DB;
 use QR_Code\QR_Code;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\View;
 
 // GET TABLE DATA BY TABLE NAME:
 
@@ -262,3 +264,28 @@ function getLabelValueFormLabelName($label_name){
 function getQRCode($data){
     QR_Code::png($data['serial_number'], $data['pathname']);
 }
+
+function get_registration_type_name($regis){
+    $name   =   'Online';
+    switch($regis){
+        case 'OLR':
+            $name   =   'Online';
+            break;
+        case 'OSR':
+            $name   =   'Onsite';
+            break;
+    }
+    
+    return $name;
+}
+
+function generate_name_page_view($data){
+    $user_datas     = DB::table('event_business_owners_details')->whereIn('id', $data)->get();
+    $search_data    = View::make('template.name_badge', compact('user_datas'));
+    $feedback_data  = [
+        'status'    => 'success',
+        'message'   => 'Data Found',
+        'data'      => $search_data->render()
+    ];
+    return $feedback_data;
+} 

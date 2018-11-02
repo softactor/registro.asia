@@ -33,6 +33,9 @@
 {margin-top:20px;
 }
 </style>
+<?php
+    foreach($user_datas as $user_data){
+?>
 <table class="table table-user-information">
     <tbody>
         <tr>
@@ -71,4 +74,4 @@
         </tr>
     </tbody>
 </table>
-                        
+<?php } ?>

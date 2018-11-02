@@ -113,10 +113,16 @@ $("#profileSectionArea").steps({
                     data: 'access_token=' + $("#access_token").val(),
                     success: function (response) {
                         if(response.status == 'success'){
-                            swal("Registeration complete", "Registeration have been successfully done!", "success");
-                            setTimeout(function(){
-                                window.location = $('#redirectUrl').val();
-                            }, 2000);
+                            if(response.registration_type == 'Onsite'){
+                                swal.close();
+                                $("#open_name_badge_container_modal").modal();
+                                $('#printBody').html(response.data.data);
+                            }else{
+                                swal("Registeration complete", "Registeration have been successfully done!", "success");
+                                setTimeout(function(){
+                                    window.location = $('#redirectUrl').val();
+                                }, 2000);
+                            } 
                         }
                     },
                     async: false // <- this turns it into synchronous

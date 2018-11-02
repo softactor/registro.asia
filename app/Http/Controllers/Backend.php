@@ -226,6 +226,7 @@ class Backend extends Controller
             'link_url'      => '/su/event_form',
             'link_title'    => 'Events List',
             'base_url'      => URL::to("/") . '/' . $request->event_url,
+            'redirectUrl'   => 'su/backend/registration/' . $request->event_url.'/'.$request->reg_prefix,
         ];
         return view('superadmin.events_form.backend_registration', compact('page_details', 'events', 'event_forms'));
     }
@@ -297,13 +298,8 @@ class Backend extends Controller
     }
     
     public function print_events_name_badge(Request $request){
-        $user_data     = DB::table('event_business_owners_details')->where('id', $request->print_id)->first();
-        $search_data = View::make('template.name_badge', compact('user_data'));
-        $feedback_data = [
-            'status' => 'success',
-            'message' => 'Data Found',
-            'data' => $search_data->render()
-        ];
+        $ids[]  =   $request->print_id;
+        $feedback_data = generate_name_page_view($ids);
         echo json_encode($feedback_data);    
     }
 }

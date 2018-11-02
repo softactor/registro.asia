@@ -16,7 +16,7 @@
                 </p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="refreshCurrentPage();">Close</button>
                 <button class="btn btn-primary btn-sm" onclick="printExecuteSingleNameBadge('{{ url('su/print_events_name_badge') }}', '1')">Print</button>
             </div>
         </div>

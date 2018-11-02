@@ -29,8 +29,11 @@
         </div><!--/col-9-->        
     </div>
 </section>
+@include('modals.name_badge_modal_containers')
 @section('footer_js_scrip_area')
 @parent
 <script type="text/javascript" src="{{ asset('js/registration_process.js')}}"></script>
+<script type="text/javascript" src="{{ asset('js/printThis.js')}}"></script>
+<script type="text/javascript" src="{{ asset('js/name_badge_prints.js')}}"></script>
 @endsection
 @endsection
