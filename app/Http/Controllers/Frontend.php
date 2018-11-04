@@ -446,6 +446,7 @@ class Frontend extends Controller
         $events        =   DB::table('events')->where('event_url',$request->event_url)->first();
         $event_forms   =   DB::table('event_forms')->where('event_id',$events->id)->get();
         $page_details   =   [
+            'reg_prefix'    =>  "OLR",
             'page_title'    =>  "Eevnt's form preview",
             'link_url'      =>  '/su/event_form',
             'link_title'    =>  'Preview',
