@@ -450,6 +450,7 @@ class Frontend extends Controller
             'link_url'      =>  '/su/event_form',
             'link_title'    =>  'Preview',
             'base_url'      =>  URL::to("/").'/'.$request->event_url,
+            'redirectUrl'   =>  'ongoing_events',
         ];
         return view('iframe/iframe_client_registration', compact('page_details','events','event_forms'));
     }
