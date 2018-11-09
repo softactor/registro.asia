@@ -355,8 +355,8 @@ function generate_pdf($email_n_pdf_data) {
             
             // database update area
             $update_data    =   [
-                'qrcode_path'   =>  $qr_path_with_file,
-                'pdf_path'      =>  $path_with_file
+                'qrcode_path'   =>  $qrfilename,
+                'pdf_path'      =>  $name
             ];
             DB::table('event_business_owners_details')
             ->where('id', $data['profile_id'])
