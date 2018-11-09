@@ -302,4 +302,123 @@ class Backend extends Controller
         $feedback_data = generate_name_page_view($ids);
         echo json_encode($feedback_data);    
     }
+    
+    public function csv_uploader_view(Request $request){
+        $events         =   DB::table('events')->where('event_url',$request->event_url)->first();
+        $page_details   =   [
+            'page_title'    =>  'Import CSV',
+            'events'        =>  $events,
+        ];
+        
+        return view('superadmin.settings.csv_uploader', compact('page_details'));
+    }
+    
+    public function csv_import(Request $request) {
+        $events         =   DB::table('events')->where('event_url',$request->event_url)->first();
+        $page_details   =   [
+            'page_title'    =>  'Import CSV Details',
+            'events'        =>  $events,
+        ];
+        $file           = $_FILES['registraion']['tmp_name'];
+        $csv_reg_data     = $this->csvToArray($file);        
+        return view('superadmin.events_registration.confirm_csv_uploader', compact('csv_reg_data','page_details'));
+    }// end of method;
+    public function csvToArray($filename = '', $delimiter = ',') {
+        if (!file_exists($filename) || !is_readable($filename))
+            return false;
+
+        $header = null;
+        $data = array();
+        $count  =   1;
+        if (($handle = fopen($filename, 'r')) !== false) {
+            while ($row = fgetcsv($handle)) {
+                if($count==1){
+                    $count++;
+                    continue;
+                }
+                $data[]     =     $row;
+                
+            }
+            fclose($handle);
+        }
+
+        return $data;
+    } // end of method
+    
+    public function csvdatamapping($csvData, $mappingData, $dataObj, $mappingObj){
+        foreach($mappingData as $mapping){
+            if(strtolower($mapping->$mappingObj) == strtolower($csvData->$dataObj)){
+                $csvData->$dataObj     =    $mapping->id;
+            }           
+        }
+        
+        return $csvData;
+    }
+    
+    public function csv_data_store(Request $request){
+        $tempData       =    json_decode($request->tempData);
+        $total_number   =    count($tempData);   
+        $event_id       =    $request->event_id;
+        $paranet_data    =   [
+                'event_id'          => $event_id,
+                'parent_id'         => 0,
+                'total_number'      => $total_number,
+                'salutation'        => '',
+                'first_name'        => '',
+                'last_name'         => '',
+                'company_name'      => '',
+                'company_address'   => '',
+                'gender'            => '',
+                'designation'       => '',
+                'mobile'            => '',
+                'country'           => '',
+                'email'             => '',
+                'status'            => 0,
+                'created_at'        => date('Y-m-d h:i:s'),
+                'updated_at'        => date('Y-m-d h:i:s')
+              ]; //end of insert data  
+        $parent_id   =   DB::table('temp_csv_import_data')->insertGetId($paranet_data);
+        foreach($tempData as $pd){
+            $child_data    =   [
+                'event_id'          => $event_id,
+                'parent_id'         => $parent_id,
+                'total_number'      => 1,
+                'salutation'        => $pd->salutation,
+                'first_name'        => $pd->first_name,
+                'last_name'         => $pd->last_name,
+                'company_name'      => $pd->company,
+                'company_address'   => $pd->company_address,
+                'gender'            => $pd->gender,
+                'designation'       => $pd->designation,
+                'mobile'            => $pd->mobile,
+                'country'           => $pd->country,
+                'email'             => $pd->email,
+                'status'            => 0,
+                'created_at'        => date('Y-m-d h:i:s'),
+                'updated_at'        => date('Y-m-d h:i:s')
+              ]; //end of insert data  
+            $return_id   =   DB::table('temp_csv_import_data')->insertGetId($child_data);             
+        }// End of foreach loop
+        
+        $feedbackData   =   [
+            'status'        => 'success',
+            'message'       => 'Data have successfully stored',
+            'redirect_url'  => url('su/backend/registration_import_status/'.$parent_id.'/'.$event_id)
+        ];
+        
+        echo json_encode($feedbackData);
+    }
+    
+    public function registration_import_status(Request $request){
+        $parent_id      =   $request->parent_id;
+        $event_id       =   $request->event_id;
+        $events         =   DB::table('events')->where('id',$event_id)->first();
+        $tempData       =   DB::table('temp_csv_import_data')->where('parent_id',$parent_id)->get();
+        $page_details   =   [
+            'page_title'    =>  'Import CSV Details Status',
+            'events'        =>  $events,
+            'tempData'      =>  $tempData,
+        ];     
+        return view('superadmin.events_registration.registration_import_status', compact('page_details'));
+    }
 }

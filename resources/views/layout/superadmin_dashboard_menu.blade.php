@@ -27,6 +27,11 @@
                     <i class="fa fa-calendar-times-o fa fa-address-card-o"></i> Name Badge
                 </a>
             </li>
+            <li>
+                <a href="{{ url('/su/settings') }}">
+                    <i class="fa fa-calendar-times-o fa fa-gears"></i> Settings
+                </a>
+            </li>
         </ul>
     </div>
 </div>

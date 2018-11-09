@@ -195,4 +195,69 @@
               source: first_names
           });
       });
+      
+      $(function() {
+        $('span.edit_text').on('click', function() {
+          var div = $(this);
+          var tb = div.find('input:text');//get textbox, if exist
+          if (tb.length) {//text box already exist
+            div.text(tb.val());//remove text box & put its current value as text to the div
+          } else {
+            tb = $('<input>').prop({
+              'type': 'text',
+              'value': div.text()//set text box value from div current text
+            });
+            div.empty().append(tb);//add new text box
+            tb.focus();//put text box on focus
+          }
+        });
+      });
+      
+      
+      function csv_upload_confirm(urlAddress){
+          swal({
+              title: 'Do you want to import',
+              type: "warning",
+              showCancelButton: true,
+              confirmButtonClass: "btn-success",
+              confirmButtonText: "Yes",
+              cancelButtonText: 'No',
+              closeOnConfirm: false
+          },
+          function () {
+              var csvData   =   [];              
+              var table = $("table#csv_data tbody");
+                table.find('tr').each(function (i) {
+                    var $tds = $(this).find('td');
+                    var csvDataiTems   =   {};
+                    csvDataiTems['salutation']          =   $tds.eq(1).text();
+                    csvDataiTems['first_name']          =   $tds.eq(2).text();
+                    csvDataiTems['last_name']           =   $tds.eq(3).text();
+                    csvDataiTems['company']             =   $tds.eq(4).text();
+                    csvDataiTems['company_address']     =   $tds.eq(5).text();
+                    csvDataiTems['gender']              =   $tds.eq(6).text();
+                    csvDataiTems['designation']         =   $tds.eq(7).text();
+                    csvDataiTems['mobile']              =   $tds.eq(8).text();
+                    csvDataiTems['country']             =   $tds.eq(9).text();
+                    csvDataiTems['email']               =   $tds.eq(10).text();
+                    csvData.push(csvDataiTems);                    
+                }); // end of each function
+                console.log(csvData);
+                $.ajax({
+                    url:urlAddress,
+                    type:'POST',
+                    dataType:'json',
+                    data:'tempData='+ JSON.stringify(csvData) + '&event_id='+ $('#event_id').val(),
+                    headers: {
+                        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content'),
+                    },
+                    success: function(response){
+                        if(response.status == 'success'){
+                            window.location = response.redirect_url;
+                        }
+                    }
+                });
+          });
+        }
+      
   </script>
