@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\DB;
 use QR_Code\QR_Code;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\URL;
+use PDF;
+use Mail;
 
 // GET TABLE DATA BY TABLE NAME:
 
@@ -294,3 +297,83 @@ function get_registration_type_by_business_owner_id($id){
     $data     = DB::table('event_business_owners')->where('id', $id)->first();
     return $data->registration_type;
 }
+
+function get_is_status_by_registration_type($reg_type){
+    $status    =   0;
+    switch($reg_type){
+        case 'Online':
+            $status =   1;
+            break;
+        case 'Onsite':
+            $status =   1;
+            break;
+            default :
+            $status =   0;
+                break;
+    }
+    return $status;
+}
+function get_is_confirmed_by_registration_type($reg_type){
+    $status    =   0;
+    switch($reg_type){
+        case 'Online':
+            $status =   1;
+            break;
+        case 'Onsite':
+            $status =   1;
+            break;
+            default :
+            $status =   0;
+                break;
+    }
+    return $status;
+}
+function generate_pdf($email_n_pdf_data) {
+        foreach ($email_n_pdf_data as $prefixKey=>$data) {
+            // generate qr code:
+            $qrdestPath         = public_path('pdf/');
+            $qrfilename         = $data['profile_data']['serial_digit'] . '.png';
+            $qr_path_with_file  = $qrdestPath . $qrfilename;
+            $qrcodeData         = [
+                'pathname'      => $qr_path_with_file,
+                'serial_number' => $data['profile_data']['serial_digit']
+            ];
+            getQRCode($qrcodeData);
+            $event_data         = $data['event_data'];
+            $pdfTemplateData    = [
+                'user_data'     => $data['profile_data'],
+                'event_data'    => $event_data,
+                'qrcode'        => $qr_path_with_file
+            ];
+            $destinationPath    = public_path('pdf/');
+            $addPrefixNumber    =   $prefixKey+1;
+            $name               = $addPrefixNumber.time() . '.pdf';
+            $path_with_file     = $destinationPath . $name;
+            $pdf = PDF::loadView('template.registration_pdf', $pdfTemplateData)
+                    ->save($path_with_file)
+                    ->stream('registeration_complete.pdf');
+            
+            // database update area
+            $update_data    =   [
+                'qrcode_path'   =>  $qr_path_with_file,
+                'pdf_path'      =>  $path_with_file
+            ];
+            DB::table('event_business_owners_details')
+            ->where('id', $data['profile_data']['id'])
+            ->update($update_data);
+            if($data['profile_data']['id']){
+            
+                //--------------------- mail start
+                $title                  = "Event Registration";
+                $content                = "Congratulations!<br>You have been successfully registered";
+                $emails['to']           = $data['profile_data']['email'];
+                $emails['attachment']   = $path_with_file;
+                $mail                   = Mail::send('template.registration_email', ['title' => $title, 'content' => $pdfTemplateData], function ($message) use ($emails) {
+                            $message->from('admin@registro.asia', 'Registro Asia');
+                            $message->to($emails['to']);
+                            $message->subject("Registro Asia Registration Message");
+                            $message->attach($emails['attachment']);
+                        });
+            }
+        }// end foreach
+    }

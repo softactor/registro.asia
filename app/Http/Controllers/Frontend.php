@@ -44,11 +44,14 @@ class Frontend extends Controller
         $insert_data                        =   [];
         $insert_ids                         =   [];
         $email_and_pdf_data                 =   [];
-        $event_business_owners_details      =   [];        
+        $event_business_owners_details      =   [];    
+        $is_status  = get_is_status_by_registration_type($profile_data->event_business_owners_data->registration_type);
+        $is_confirmed  = get_is_confirmed_by_registration_type($profile_data->event_business_owners_data->registration_type);
         $event_business_owners_data    =   [
             'event_id'            => $profile_data->event_business_owners_data->event_id,
             'owners_numbers'      => $profile_data->event_business_owners_data->owners_numbers,
             'registration_type'   => $profile_data->event_business_owners_data->registration_type,
+            'is_status'           => $is_status,
             'created_at'          => date('Y-m-d h:i:s'),
             'updated_at'          => date('Y-m-d h:i:s')
           ]; //end of insert data
@@ -75,6 +78,8 @@ class Frontend extends Controller
                 'fax'               => $pd->fax,
                 'email'             => $pd->email,
                 'serial_digit'      => $serialNumber,
+                'is_status'         => $is_status,
+                'is_confirmed'      => $is_confirmed,
                 'created_at'        => date('Y-m-d h:i:s'),
                 'updated_at'        => date('Y-m-d h:i:s')
               ]; //end of insert data  
@@ -92,7 +97,7 @@ class Frontend extends Controller
         $this->store_event_registeration_form_values($dyna_form_data, $event_business_owners_id);
         
         // create pdf and sent email
-        $this->generate_pdf($email_and_pdf_data);
+        generate_pdf($email_and_pdf_data);
         return $insert_ids;
     }    
     public function store_event_registeration_form_values($dyna_form_data, $event_business_owners_id){
@@ -398,7 +403,7 @@ class Frontend extends Controller
 
         //--------------------- mail end
     }
-    public function generate_pdf($email_n_pdf_data) {
+    public function _generate_pdf($email_n_pdf_data) {
         foreach ($email_n_pdf_data as $prefixKey=>$data) {
             // generate qr code:
             $qrdestPath         = public_path('pdf/');
@@ -422,18 +427,30 @@ class Frontend extends Controller
             $pdf = PDF::loadView('template.registration_pdf', $pdfTemplateData)
                     ->save($path_with_file)
                     ->stream('registeration_complete.pdf');
-            //--------------------- mail start
-            $title                  = "Event Registration";
-            $content                = "Congratulations!<br>You have been successfully registered";
-            $emails['to']           = $data['profile_data']['email'];
-            $emails['attachment']   = $path_with_file;
-            $mail                   = Mail::send('template.registration_email', ['title' => $title, 'content' => $pdfTemplateData], function ($message) use ($emails) {
-                        $message->from('admin@registro.asia', 'Registro Asia');
-                        $message->to($emails['to']);
-                        $message->subject("Registro Asia Registration Message");
-                        $message->attach($emails['attachment']);
-                    });
-        }
+            
+            // database update area
+            $update_data    =   [
+                'qrcode_path'   =>  $qr_path_with_file,
+                'pdf_path'      =>  $path_with_file
+            ];
+            DB::table('event_business_owners_details')
+            ->where('id', $data['profile_data']['id'])
+            ->update($update_data);
+            if($data['profile_data']['id']){
+            
+                //--------------------- mail start
+                $title                  = "Event Registration";
+                $content                = "Congratulations!<br>You have been successfully registered";
+                $emails['to']           = $data['profile_data']['email'];
+                $emails['attachment']   = $path_with_file;
+                $mail                   = Mail::send('template.registration_email', ['title' => $title, 'content' => $pdfTemplateData], function ($message) use ($emails) {
+                            $message->from('admin@registro.asia', 'Registro Asia');
+                            $message->to($emails['to']);
+                            $message->subject("Registro Asia Registration Message");
+                            $message->attach($emails['attachment']);
+                        });
+            }
+        }// end foreach
     }
     public function generate_serial_number($data){
         $comingDigit    = strlen($data['event_id'].$data['business_owner_id']);
