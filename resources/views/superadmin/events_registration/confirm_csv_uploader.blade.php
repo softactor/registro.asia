@@ -59,7 +59,7 @@
                                     <td><span class='edit_text'>{{ $data->mobile }}</span></td>
                                     <td><span class='edit_text'>{{ $data->country }}</span></td>
                                     <td><span class='edit_text'>{{ $data->email }}</span></td>
-                                    <th><button type="button" class="btn btn-sm" onclick="confirm_item_child({{$data->id}});">Conform</button></th>
+                                    <th><button type="button" class="btn btn-sm" onclick="csv_upload_confirm('{{ url('su/backend/csv_data/store') }}');">Conform</button></th>
                                 </tr>
                                 <?php } ?>
                             </tbody>
