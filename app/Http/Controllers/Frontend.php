@@ -86,6 +86,7 @@ class Frontend extends Controller
             $return_id   =   DB::table('event_business_owners_details')->insertGetId($event_business_owners_details); 
             $insert_ids[]   =   $return_id;
             $pdfData    =   [
+                'profile_id'    => $return_id,
                 'profile_data'  => $event_business_owners_details,
                 'event_data'    => $event_details
             ];

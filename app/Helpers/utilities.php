@@ -359,9 +359,9 @@ function generate_pdf($email_n_pdf_data) {
                 'pdf_path'      =>  $path_with_file
             ];
             DB::table('event_business_owners_details')
-            ->where('id', $data['profile_data']['id'])
+            ->where('id', $data['profile_id'])
             ->update($update_data);
-            if($data['profile_data']['id']){
+            if($data['profile_data']['is_confirmed']){
             
                 //--------------------- mail start
                 $title                  = "Event Registration";
