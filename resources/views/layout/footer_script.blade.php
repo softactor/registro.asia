@@ -215,7 +215,16 @@
       
       
       function csv_upload_confirm(urlAddress){
-          swal({
+          var valuesSelected = new Array();
+           $.each($("input[name='item_child[]']:checked"), function() {
+            valuesSelected.push($(this).val());
+            // or you can do something to the actual checked checkboxes by working directly with  'this'
+            // something like $(this).hide() (only something useful, probably) :P
+          }); 
+          if(valuesSelected.length < 1 || valuesSelected == undefined){
+              swal("Error!", "No data selected!", "error")
+          }else{
+              swal({
               title: 'Do you want to import',
               type: "warning",
               showCancelButton: true,
@@ -230,19 +239,22 @@
                 table.find('tr').each(function (i) {
                     var $tds = $(this).find('td');
                     var csvDataiTems   =   {};
-                    csvDataiTems['salutation']          =   $tds.eq(1).text();
-                    csvDataiTems['first_name']          =   $tds.eq(2).text();
-                    csvDataiTems['last_name']           =   $tds.eq(3).text();
-                    csvDataiTems['company']             =   $tds.eq(4).text();
-                    csvDataiTems['company_address']     =   $tds.eq(5).text();
-                    csvDataiTems['gender']              =   $tds.eq(6).text();
-                    csvDataiTems['designation']         =   $tds.eq(7).text();
-                    csvDataiTems['mobile']              =   $tds.eq(8).text();
-                    csvDataiTems['country']             =   $tds.eq(9).text();
-                    csvDataiTems['email']               =   $tds.eq(10).text();
-                    csvData.push(csvDataiTems);                    
+                    var inputId =   $tds.eq(0).find('input').attr('id');
+                    if($('#'+inputId).is(':checked')){
+                        csvDataiTems['id']                  =   $('#'+inputId).val();
+                        csvDataiTems['salutation']          =   $tds.eq(1).text();
+                        csvDataiTems['first_name']          =   $tds.eq(2).text();
+                        csvDataiTems['last_name']           =   $tds.eq(3).text();
+                        csvDataiTems['company']             =   $tds.eq(4).text();
+                        csvDataiTems['company_address']     =   $tds.eq(5).text();
+                        csvDataiTems['gender']              =   $tds.eq(6).text();
+                        csvDataiTems['designation']         =   $tds.eq(7).text();
+                        csvDataiTems['mobile']              =   $tds.eq(8).text();
+                        csvDataiTems['country']             =   $tds.eq(9).text();
+                        csvDataiTems['email']               =   $tds.eq(10).text();
+                        csvData.push(csvDataiTems);  
+                    }
                 }); // end of each function
-                console.log(csvData);
                 $.ajax({
                     url:urlAddress,
                     type:'POST',
@@ -258,6 +270,18 @@
                     }
                 });
           });
+          }
         }
       
+  </script>
+  
+  <script type="text/javascript">
+    $('#checkall').click(function(){
+        if($("#checkall").is(':checked')){
+            $('input:checkbox').prop('checked',true);
+        }
+        else{
+            $('input:checkbox').prop('checked',false);
+        }
+    });
   </script>

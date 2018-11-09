@@ -5,10 +5,10 @@
 <section class="container">
     <div class="container-page">
         <div class="row">
-            <div class="col-sm-3"><!--left col-->
+            <div class="col-sm-1"><!--left col-->
                 @include('layout.superadmin_dashboard_menu')
             </div><!--/col-3-->
-            <div class="col-sm-9">
+            <div class="col-sm-11">
                 <h2>
                     {{ $page_details['page_title'] }} Preview
                     <div class="pull-right">

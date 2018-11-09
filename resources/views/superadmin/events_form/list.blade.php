@@ -3,10 +3,10 @@
 <!--Content insert section-->
 @section('content')
 <div class="row">
-    <div class="col-sm-3"><!--left col-->
+    <div class="col-sm-1"><!--left col-->
         @include('layout.superadmin_dashboard_menu')
     </div><!--/col-3-->
-    <div class="col-sm-9">
+    <div class="col-sm-11">
         @include('layout/operation_message') 
         <h2>
             {{ $page_details['page_title'] }} List
@@ -25,6 +25,7 @@
                     <tbody>
                         <?php
                         $count = 1;
+                        $is_confirmed   =   1;
                         foreach ($evens_list as $list) {
                             ?>
                             <tr>
@@ -37,7 +38,9 @@
                                     <a href="{{ url('/su/edit_events_form/'.$list->event_url) }}"> Edit </a>|
                                     <a href="{{ url('/su/backend/registration/'.$list->event_url) }}/OLR"> OLR Reg </a>|
                                     <a href="{{ url('/su/backend/registration/'.$list->event_url) }}/OSR"> OSR Reg </a>|
-                                    <a href="{{ url('/su/backend/csv_uploader_view/'.$list->event_url) }}"> Import</a>
+                                    <a href="{{ url('/su/backend/csv_uploader_view/'.$list->event_url) }}"> Import</a>|
+                                    <a href="{{ url('/su/backend/registration_import/confirm_csv_uploader/'.$list->event_url) }}"> Import Confirm</a>|
+                                    <a href="{{ url('/su/backend/registration_import_status/'.$is_confirmed.'/'.$list->id) }}"> Import Status</a>
                                 </td>
                             </tr>
                             <?php $count++;

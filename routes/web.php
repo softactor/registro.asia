@@ -56,6 +56,7 @@ Route::get('su/registration_details_list', 'Backend@registration_details_list');
 Route::get('su/registration_details_view/{event_id}', 'Backend@registration_details_view');
 Route::get('su/backend/registration/{event_url}/{reg_prefix}', 'Backend@backend_registration');
 Route::post('su/backend/registration/csv_import', 'Backend@csv_import');
+Route::get('su/backend/registration_import/confirm_csv_uploader/{event_url}', 'Backend@confirm_csv_uploader');
 Route::get('su/backend/csv_uploader_view/{event_url}', 'Backend@csv_uploader_view');
 Route::post('su/backend/csv_data/store', 'Backend@csv_data_store');
 
@@ -70,4 +71,4 @@ Route::get('iframe/event_registration/{event_url}', 'Frontend@iframe_events_form
 Route::get('su/settings', 'Settings\SettingsController@index');
 
 //          Pending queue confirmation
-Route::get('su/backend/registration_import_status/{parent_id}/{event_id}', 'Backend@registration_import_status');
+Route::get('su/backend/registration_import_status/{is_confirmed}/{event_id}', 'Backend@registration_import_status');

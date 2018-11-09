@@ -19,6 +19,7 @@
                         <table class="table table-hover" id='csv_data'>
                             <thead>
                                 <tr>
+                                    <th><input type="checkbox" class="check" name="checkall" id="checkall" value="checkall"></th>
                                     <th>#</th>
                                     <th>Salutation</th>
                                     <th>First Name</th>
@@ -30,22 +31,35 @@
                                     <th>Mobile</th>
                                     <th>Country</th>
                                     <th>Email</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach($csv_reg_data as $key=>$data){ ?>
+                                <?php
+                                    $param['table'] =   'temp_csv_import_data';
+                                    $checkWhereParam = [
+                                        ['event_id',    '=',     $page_details['events']->id],
+                                        ['parent_id',   '!=',    0],
+                                        ['is_confirmed','=',    0],
+                                    ];
+                                    $param['where'] =   $checkWhereParam;
+                                    $csv_reg_data   =   get_table_data_by_clause($param);
+                                    foreach($csv_reg_data as $key=>$data){
+                                ?>
                                 <tr>
+                                    <td><input type="checkbox" name="item_child[]" id="item_child_check_{{$data->id}}" value="{{$data->id}}"></td>
                                     <td>{{$key+1}}</td>
-                                    <td><span class='edit_text'>{{ $data[0] }}</span></td>
-                                    <td><span class='edit_text'>{{ $data[1] }}</span></td>
-                                    <td><span class='edit_text'>{{ $data[2] }}</span></td>
-                                    <td><span class='edit_text'>{{ $data[3] }}</span></td>
-                                    <td><span class='edit_text'>{{ $data[4] }}</span></td>
-                                    <td><span class='edit_text'>{{ $data[5] }}</span></td>
-                                    <td><span class='edit_text'>{{ $data[6] }}</span></td>
-                                    <td><span class='edit_text'>{{ $data[7] }}</span></td>
-                                    <td><span class='edit_text'>{{ $data[8] }}</span></td>
-                                    <td><span class='edit_text'>{{ $data[9] }}</span></td>
+                                    <td><span class='edit_text'>{{ $data->salutation }}</span></td>                                    
+                                    <td><span class='edit_text'>{{ $data->first_name }}</span></td>
+                                    <td><span class='edit_text'>{{ $data->last_name }}</span></td>
+                                    <td><span class='edit_text'>{{ $data->company_name }}</span></td>
+                                    <td><span class='edit_text'>{{ $data->company_address }}</span></td>
+                                    <td><span class='edit_text'>{{ $data->gender }}</span></td>
+                                    <td><span class='edit_text'>{{ $data->designation }}</span></td>
+                                    <td><span class='edit_text'>{{ $data->mobile }}</span></td>
+                                    <td><span class='edit_text'>{{ $data->country }}</span></td>
+                                    <td><span class='edit_text'>{{ $data->email }}</span></td>
+                                    <th><button type="button" class="btn btn-sm" onclick="confirm_item_child({{$data->id}});">Conform</button></th>
                                 </tr>
                                 <?php } ?>
                             </tbody>
