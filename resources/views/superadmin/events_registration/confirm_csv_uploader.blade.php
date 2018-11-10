@@ -36,7 +36,7 @@
                             </thead>
                             <tbody>
                                 <?php
-                                    $param['table'] =   'temp_csv_import_data';
+                                    $param['table'] =   'event_business_owners_details';
                                     $checkWhereParam = [
                                         ['event_id',    '=',     $page_details['events']->id],
                                         ['parent_id',   '!=',    0],
