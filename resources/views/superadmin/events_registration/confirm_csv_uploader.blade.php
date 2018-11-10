@@ -37,11 +37,18 @@
                             <tbody>
                                 <?php
                                     $param['table'] =   'event_business_owners_details';
-                                    $checkWhereParam = [
-                                        ['event_id',            '=',     $page_details['events']->id],
-                                        ['business_owner_id',   '=',    $page_details['business_owner_id']],
-                                        ['is_confirmed',        '=',    0],
-                                    ];
+                                    if (isset($page_details['business_owner_id']) && !empty($page_details['business_owner_id'])) {
+                                        $checkWhereParam = [
+                                            ['event_id', '=', $page_details['events']->id],
+                                            ['business_owner_id', '=', $page_details['business_owner_id']],
+                                            ['is_confirmed', '=', 0],
+                                        ];
+                                    } else {
+                                        $checkWhereParam = [
+                                            ['event_id', '=', $page_details['events']->id],
+                                            ['is_confirmed', '=', 0],
+                                        ];
+                                    }
                                     $param['where'] =   $checkWhereParam;
                                     $csv_reg_data   =   get_table_data_by_clause($param);
                                     foreach($csv_reg_data as $key=>$data){
