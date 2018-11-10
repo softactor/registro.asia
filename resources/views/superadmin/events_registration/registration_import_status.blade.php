@@ -33,7 +33,15 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach($page_details['tempData'] as $key=>$data){ ?>
+                                <?php
+                                $param['table'] =   'event_business_owners_details';
+                                $checkWhereParam = [
+                                    ['event_id',            '=',     $page_details['events']->id],
+                                    ['is_status',           '=',    0],
+                                ];
+                                $param['where'] =   $checkWhereParam;
+                                $csv_reg_data   =   get_table_data_by_clause($param);
+                                foreach($csv_reg_data as $key=>$data){ ?>
                                 <tr>
                                     <td>{{ $key+1 }}</td>
                                     <td><span class='import_text'>{{ $data->salutation }}</span></td>
