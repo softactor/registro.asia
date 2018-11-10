@@ -332,7 +332,7 @@ class Backend extends Controller
             $x->gender          =   $d[5];
             $x->designation     =   $d[6];
             $x->mobile          =   $d[7];
-            $x->country         =   $d[8];
+            $x->country_id      =   $d[8];
             $x->email           =   $d[9];
             $csv_data[]          =   $x;
         }
