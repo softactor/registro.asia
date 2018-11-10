@@ -419,6 +419,7 @@ function generate_pdf($email_n_pdf_data) {
             $return_id   =   DB::table('event_business_owners_details')->insertGetId($event_business_owners_details); 
             $insert_ids[]   =   $return_id;
             $pdfData    =   [
+                'business_owner_id'    => $event_business_owners_id,
                 'profile_id'    => $return_id,
                 'profile_data'  => $event_business_owners_details,
                 'event_data'    => $profile_data['events_details']

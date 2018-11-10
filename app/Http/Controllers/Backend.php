@@ -352,14 +352,15 @@ class Backend extends Controller
         $email_and_pdf_data                       =  process_store_event_business_owners($profile_data_param);
         // create pdf and sent email
         generate_pdf($email_and_pdf_data);
-        $redirect_url   =   'su/backend/registration_import/confirm_csv_uploader/'.$events->event_url;
+        $redirect_url   =   'su/backend/registration_import/confirm_csv_uploader/'.$email_and_pdf_data['business_owner_id'].'/'.$events->event_url;
         return redirect($redirect_url);
     }// end of method;
     public function confirm_csv_uploader(Request $request){
         $events         =   DB::table('events')->where('event_url',$request->event_url)->first();
         $page_details   =   [
-            'page_title'    =>  'Import CSV Details',
-            'events'        =>  $events,
+            'page_title'                =>  'Import CSV Details',
+            'events'                    =>  $events,
+            'business_owner_id'         =>  $request->business_owner_id,
         ];
         return view('superadmin.events_registration.confirm_csv_uploader', compact('page_details'));
     }
@@ -420,7 +421,7 @@ class Backend extends Controller
         $is_confirmed   =   $request->is_confirmed;
         $event_id       =   $request->event_id;
         $events         =   DB::table('events')->where('id',$event_id)->first();
-        $tempData       =   DB::table('temp_csv_import_data')->where('is_confirmed',$is_confirmed)->where('event_id',$event_id)->get();
+        $tempData       =   DB::table('event_business_owners_details')->where('is_confirmed',$is_confirmed)->where('event_id',$event_id)->get();
         $page_details   =   [
             'page_title'    =>  'Import CSV Details Status',
             'events'        =>  $events,

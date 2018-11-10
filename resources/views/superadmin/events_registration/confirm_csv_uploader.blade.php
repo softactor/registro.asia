@@ -38,9 +38,9 @@
                                 <?php
                                     $param['table'] =   'event_business_owners_details';
                                     $checkWhereParam = [
-                                        ['event_id',    '=',     $page_details['events']->id],
-                                        ['parent_id',   '!=',    0],
-                                        ['is_confirmed','=',    0],
+                                        ['event_id',            '=',     $page_details['events']->id],
+                                        ['business_owner_id',   '=',    $page_details['business_owner_id']],
+                                        ['is_confirmed',        '=',    0],
                                     ];
                                     $param['where'] =   $checkWhereParam;
                                     $csv_reg_data   =   get_table_data_by_clause($param);

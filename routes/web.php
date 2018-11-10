@@ -56,7 +56,7 @@ Route::get('su/registration_details_list', 'Backend@registration_details_list');
 Route::get('su/registration_details_view/{event_id}', 'Backend@registration_details_view');
 Route::get('su/backend/registration/{event_url}/{reg_prefix}', 'Backend@backend_registration');
 Route::post('su/backend/registration/csv_import', 'Backend@csv_import');
-Route::get('su/backend/registration_import/confirm_csv_uploader/{event_url}', 'Backend@confirm_csv_uploader');
+Route::get('su/backend/registration_import/confirm_csv_uploader/{business_owner_id}/{event_url}', 'Backend@confirm_csv_uploader');
 Route::get('su/backend/csv_uploader_view/{event_url}', 'Backend@csv_uploader_view');
 Route::post('su/backend/csv_data/store', 'Backend@csv_data_store');
 
