@@ -14,14 +14,14 @@ class CronEmail extends Command
      *
      * @var string
      */
-    protected $signature = 'command:name';
+    protected $signature = 'registered:users';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Send an email of registered users';
 
     /**
      * Create a new command instance.
