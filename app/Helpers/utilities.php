@@ -406,7 +406,7 @@ function generate_pdf($email_n_pdf_data) {
                 'gender'            => $pd['gender'],
                 'designation'       => $pd['designation'],
                 'mobile'            => $pd['mobile'],
-                'country_id'        => (isset($pd['country_id']) && !empty($pd['country_id']) ? $pd['country_id'] : ''),
+                'country_id'        => (isset($pd['country_id']) && !empty($pd['country_id']) ? $pd['country_id'] : 1),
                 'tel'               => (isset($pd['tel']) && !empty($pd['tel']) ? $pd['tel'] : ''),
                 'fax'               => (isset($pd['fax']) && !empty($pd['fax']) ? $pd['fax'] : ''),
                 'email'             => $pd['email'],
