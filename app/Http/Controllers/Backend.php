@@ -74,7 +74,6 @@ class Backend extends Controller
         return redirect('/su/events')
                         ->with('success', $message);
     }
-
     public function event_form(){
         $evens_list =   [];
         $events   =   DB::table('events')->get();
@@ -339,11 +338,20 @@ class Backend extends Controller
         }
         $csvTempStoreParam  =   [
             'op_type'       => 'add',
+            'op_type'       => 'add',
             'temp_data'     => $csv_data,
             'event_id'      =>  $events->id,  
             'total_number'  =>  count($csv_data)
         ];
-        $feedbackData   =   $this->process_data_into_temp_csv_import_table($csvTempStoreParam);
+        
+        $profile_data_param['event_id']           =   $events->id;
+        $profile_data_param['owners_numbers']     =   count($csv_data);
+        $profile_data_param['registration_type']  =   'Import';
+        $profile_data_param['owners_details']     =   $csv_data;
+        $profile_data_param['events_details']     =   $events;
+        $email_and_pdf_data                       =  process_store_event_business_owners($profile_data_param);
+        // create pdf and sent email
+        generate_pdf($email_and_pdf_data);
         $redirect_url   =   'su/backend/registration_import/confirm_csv_uploader/'.$events->event_url;
         return redirect($redirect_url);
     }// end of method;

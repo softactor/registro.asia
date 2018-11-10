@@ -45,55 +45,14 @@ class Frontend extends Controller
         $insert_ids                         =   [];
         $email_and_pdf_data                 =   [];
         $event_business_owners_details      =   [];    
-        $is_status  = get_is_status_by_registration_type($profile_data->event_business_owners_data->registration_type);
-        $is_confirmed  = get_is_confirmed_by_registration_type($profile_data->event_business_owners_data->registration_type);
-        $event_business_owners_data    =   [
-            'event_id'            => $profile_data->event_business_owners_data->event_id,
-            'owners_numbers'      => $profile_data->event_business_owners_data->owners_numbers,
-            'registration_type'   => $profile_data->event_business_owners_data->registration_type,
-            'is_status'           => $is_status,
-            'created_at'          => date('Y-m-d h:i:s'),
-            'updated_at'          => date('Y-m-d h:i:s')
-          ]; //end of insert data
-        $event_business_owners_id   =   DB::table('event_business_owners')->insertGetId($event_business_owners_data);
-        foreach($profile_data->event_business_owners_details as $pd){
-            $serialParam    =   [
-                'event_id'              =>  $profile_data->event_business_owners_data->event_id,
-                'business_owner_id'     =>  $event_business_owners_id,
-            ];
-            $serialNumber   =   $this->generate_serial_number($serialParam);
-            $event_business_owners_details    =   [
-                'event_id'          => $profile_data->event_business_owners_data->event_id,
-                'business_owner_id' => $event_business_owners_id,
-                'salutation'        => $pd->salutation,
-                'first_name'        => $pd->first_name,
-                'last_name'         => $pd->last_name,
-                'company_name'      => $pd->company_name,
-                'company_address'   => $pd->company_address,
-                'gender'            => $pd->gender,
-                'designation'       => $pd->designation,
-                'mobile'            => $pd->mobile,
-                'country_id'        => $pd->country_id,
-                'tel'               => $pd->tel,
-                'fax'               => $pd->fax,
-                'email'             => $pd->email,
-                'serial_digit'      => $serialNumber,
-                'is_status'         => $is_status,
-                'is_confirmed'      => $is_confirmed,
-                'created_at'        => date('Y-m-d h:i:s'),
-                'updated_at'        => date('Y-m-d h:i:s')
-              ]; //end of insert data  
-            $return_id   =   DB::table('event_business_owners_details')->insertGetId($event_business_owners_details); 
-            $insert_ids[]   =   $return_id;
-            $pdfData    =   [
-                'profile_id'    => $return_id,
-                'profile_data'  => $event_business_owners_details,
-                'event_data'    => $event_details
-            ];
-            // this is store for sending email and generate pdf later
-            $email_and_pdf_data[]   =   $pdfData;            
-        }// End of foreach loop
-        $dyna_form_data         =   DB::table('registraion_temp')->where('form_id', '!=' , 0)->where('access_token', $access_token)->get();        
+        
+        $profile_data_param['event_id']           =   $profile_data->event_business_owners_data->event_id;
+        $profile_data_param['owners_numbers']     =   $profile_data->event_business_owners_data->owners_numbers;
+        $profile_data_param['registration_type']  =   $profile_data->event_business_owners_data->registration_type;
+        $profile_data_param['owners_details']     =   $profile_data->event_business_owners_details;
+        $profile_data_param['events_details']     =   $event_details;
+        $email_and_pdf_data                       =  process_store_event_business_owners($profile_data_param);
+        $dyna_form_data                           =   DB::table('registraion_temp')->where('form_id', '!=' , 0)->where('access_token', $access_token)->get();        
         // store_event_registeration_form_values
         $this->store_event_registeration_form_values($dyna_form_data, $event_business_owners_id);
         

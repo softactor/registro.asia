@@ -15,8 +15,8 @@ use QR_Code\QR_Code;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\URL;
-use PDF;
-use Mail;
+use Barryvdh\DomPDF\PDF;
+use Illuminate\Support\Facades\Mail;
 
 // GET TABLE DATA BY TABLE NAME:
 
@@ -376,4 +376,62 @@ function generate_pdf($email_n_pdf_data) {
                         });
             }
         }// end foreach
+    }
+    
+    function process_store_event_business_owners($profile_data){
+        $event_business_owners_data    =   [
+            'event_id'            => $profile_data['event_id'],
+            'owners_numbers'      => $profile_data['owners_numbers'],
+            'registration_type'   => $profile_data['registration_type'],
+            'is_status'           => get_is_status_by_registration_type($profile_data['registration_type']),
+            'created_at'          => date('Y-m-d h:i:s'),
+            'updated_at'          => date('Y-m-d h:i:s')
+          ]; //end of insert data
+        $event_business_owners_id   =   DB::table('event_business_owners')->insertGetId($event_business_owners_data);
+        foreach($profile_data['owners_details'] as $pd){
+            $pd =   (array)$pd;
+            $serialParam    =   [
+                'event_id'              =>  $profile_data['event_id'],
+                'business_owner_id'     =>  $event_business_owners_id,
+            ];
+            $serialNumber   =   generate_serial_number($serialParam);
+            $event_business_owners_details    =   [
+                'event_id'          => $profile_data['event_id'],
+                'business_owner_id' => $event_business_owners_id,
+                'salutation'        => $pd['salutation'],
+                'first_name'        => $pd['first_name'],
+                'last_name'         => $pd['last_name'],
+                'company_name'      => $pd['company_name'],
+                'company_address'   => $pd['company_address'],
+                'gender'            => $pd['gender'],
+                'designation'       => $pd['designation'],
+                'mobile'            => $pd['mobile'],
+                'country_id'        => $pd['country_id'],
+                'tel'               => (isset($pd['tel']) && !empty($pd['tel']) ? $pd['tel'] : ''),
+                'fax'               => (isset($pd['fax']) && !empty($pd['fax']) ? $pd['fax'] : ''),
+                'email'             => $pd['email'],
+                'serial_digit'      => $serialNumber,
+                'is_status'         => get_is_status_by_registration_type($profile_data['registration_type']),
+                'is_confirmed'      => get_is_confirmed_by_registration_type($profile_data['registration_type']),
+                'created_at'        => date('Y-m-d h:i:s'),
+                'updated_at'        => date('Y-m-d h:i:s')
+              ]; //end of insert data  
+            $return_id   =   DB::table('event_business_owners_details')->insertGetId($event_business_owners_details); 
+            $insert_ids[]   =   $return_id;
+            $pdfData    =   [
+                'profile_id'    => $return_id,
+                'profile_data'  => $event_business_owners_details,
+                'event_data'    => $profile_data['events_details']
+            ];
+            // this is store for sending email and generate pdf later
+            $email_and_pdf_data[]   =   $pdfData;            
+        }// End of foreach loop
+        
+        return $email_and_pdf_data;
+    }
+    function generate_serial_number($data){
+        $comingDigit    = strlen($data['event_id'].$data['business_owner_id']);
+        $digits = (12 - $comingDigit);
+        $sd =    str_pad(rand(0, pow(10, $digits)-1), $digits, '0', STR_PAD_LEFT);
+        return $sd.$data['event_id'].$data['business_owner_id'];
     }
