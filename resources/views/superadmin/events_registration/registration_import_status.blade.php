@@ -38,6 +38,7 @@
                                 $checkWhereParam = [
                                     ['event_id',            '=',     $page_details['events']->id],
                                     ['is_status',           '=',    0],
+                                    ['is_confirmed',        '=',    1],
                                 ];
                                 $param['where'] =   $checkWhereParam;
                                 $csv_reg_data   =   get_table_data_by_clause($param);
