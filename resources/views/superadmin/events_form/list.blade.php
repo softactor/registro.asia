@@ -26,7 +26,7 @@
                         <?php
                         $count = 1;
                         $is_confirmed   =   1;
-                        $business_owner_id   =   null;
+                        $business_owner_id   =   'null';
                         foreach ($evens_list as $list) {
                             ?>
                             <tr>

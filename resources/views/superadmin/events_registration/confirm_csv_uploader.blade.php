@@ -37,7 +37,7 @@
                             <tbody>
                                 <?php
                                     $param['table'] =   'event_business_owners_details';
-                                    if (isset($page_details['business_owner_id']) && !empty($page_details['business_owner_id'])) {
+                                    if (isset($page_details['business_owner_id']) && $page_details['business_owner_id']!='null') {
                                         $checkWhereParam = [
                                             ['event_id', '=', $page_details['events']->id],
                                             ['business_owner_id', '=', $page_details['business_owner_id']],
