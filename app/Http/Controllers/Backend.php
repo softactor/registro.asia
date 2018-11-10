@@ -327,7 +327,7 @@ class Backend extends Controller
             $x->salutation      =   $d[0];
             $x->first_name      =   $d[1];
             $x->last_name       =   $d[2];
-            $x->company         =   $d[3];
+            $x->company_name    =   $d[3];
             $x->company_address =   $d[4];
             $x->gender          =   $d[5];
             $x->designation     =   $d[6];
