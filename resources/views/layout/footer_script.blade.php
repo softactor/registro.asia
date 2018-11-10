@@ -242,16 +242,16 @@
                     var inputId =   $tds.eq(0).find('input').attr('id');
                     if($('#'+inputId).is(':checked')){
                         csvDataiTems['id']                  =   $('#'+inputId).val();
-                        csvDataiTems['salutation']          =   $tds.eq(1).text();
-                        csvDataiTems['first_name']          =   $tds.eq(2).text();
-                        csvDataiTems['last_name']           =   $tds.eq(3).text();
-                        csvDataiTems['company']             =   $tds.eq(4).text();
-                        csvDataiTems['company_address']     =   $tds.eq(5).text();
-                        csvDataiTems['gender']              =   $tds.eq(6).text();
-                        csvDataiTems['designation']         =   $tds.eq(7).text();
-                        csvDataiTems['mobile']              =   $tds.eq(8).text();
-                        csvDataiTems['country']             =   $tds.eq(9).text();
-                        csvDataiTems['email']               =   $tds.eq(10).text();
+                        csvDataiTems['salutation']          =   $tds.eq(2).text();
+                        csvDataiTems['first_name']          =   $tds.eq(3).text();
+                        csvDataiTems['last_name']           =   $tds.eq(4).text();
+                        csvDataiTems['company']             =   $tds.eq(5).text();
+                        csvDataiTems['company_address']     =   $tds.eq(6).text();
+                        csvDataiTems['gender']              =   $tds.eq(7).text();
+                        csvDataiTems['designation']         =   $tds.eq(8).text();
+                        csvDataiTems['mobile']              =   $tds.eq(9).text();
+                        csvDataiTems['country']             =   $tds.eq(10).text();
+                        csvDataiTems['email']               =   $tds.eq(11).text();
                         csvData.push(csvDataiTems);  
                     }
                 }); // end of each function
