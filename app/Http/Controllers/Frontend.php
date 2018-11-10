@@ -432,4 +432,40 @@ class Frontend extends Controller
         ];
         return view('iframe/iframe_client_registration', compact('page_details','events','event_forms'));
     }
+    
+    public function send_corn_email(){
+        $details   =   DB::table('event_business_owners_details')
+                            ->where('is_status',0)
+                            ->where('is_confirmed',1)
+                            ->take(2)
+                            ->get();
+        if (!$details->isEmpty()) {
+            foreach($details as $d){
+                $event_data         =   DB::table('events')->where('id',$d->event_id)->first();
+                $pdfTemplateData    = [
+                    'user_data'     => (array)$d,
+                    'event_data'    => $event_data,
+                    'qrcode'        => public_path('pdf/').$d->qrcode_path
+                ];
+                //--------------------- mail start
+                $title                  = "Event Registration";
+                $content                = "Congratulations!<br>You have been successfully registered";
+                $emails['to']           = $d->email;
+                $emails['attachment']   = public_path('pdf/') . $d->pdf_path;
+                $mail                   = Mail::send('template.registration_email', ['title' => $title, 'content' => $pdfTemplateData], function ($message) use ($emails) {
+                            $message->from('admin@registro.asia', 'Registro Asia');
+                            $message->to($emails['to']);
+                            $message->subject("Registro Asia Registration Message");
+                            $message->attach($emails['attachment']);
+                        });
+                $child_data =   [
+                    'is_status' =>1
+                ];
+                DB::table('event_business_owners_details')
+                            ->where('id', $d->id)
+                            ->update($child_data);
+            }// end of foreach        
+        }
+        
+    }
 }

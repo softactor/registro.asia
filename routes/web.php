@@ -69,6 +69,7 @@ Route::get('api_reg_form', 'api\ApiController@index_test');
 Route::get('iframe/event_registration/{event_url}', 'Frontend@iframe_events_form');
 // SETTINGS
 Route::get('su/settings', 'Settings\SettingsController@index');
+Route::get('su/send_corn_email', 'Frontend@send_corn_email');
 
 //          Pending queue confirmation
 Route::get('su/backend/registration_import_status/{is_confirmed}/{event_id}', 'Backend@registration_import_status');
