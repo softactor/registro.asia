@@ -48,7 +48,7 @@
                                     <td><span class='import_text'>{{ $data->email }}</span></td>
                                     <td>
                                         <span class='import_text'>
-                                            <?php if(!$data->status){ ?>
+                                            <?php if(!$data->is_status){ ?>
                                             <span class="label label-warning">Pending</span>
                                             <?php }else{ ?>
                                             <span class="label label-success">Done</span>
