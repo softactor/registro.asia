@@ -490,13 +490,13 @@ class Backend extends Controller
                     'gender'            => $pd->gender,
                     'designation'       => $pd->designation,
                     'mobile'            => $pd->mobile,
-                    'country'           => $pd->country,
+                    'country_id'        => $pd->country,
                     'email'             => $pd->email,
                     'status'            => 0,
                     'is_confirmed'      => 1,
                     'updated_at'        => date('Y-m-d h:i:s')
                   ]; //end of insert data  
-                DB::table('temp_csv_import_data')
+                DB::table('event_business_owners_details')
                     ->where('id', $pd->id)
                     ->update($child_data);            
             }// End of foreach loop

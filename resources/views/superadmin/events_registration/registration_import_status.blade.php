@@ -44,7 +44,7 @@
                                     <td><span class='import_text'>{{ $data->gender }}</span></td>
                                     <td><span class='import_text'>{{ $data->designation }}</span></td>
                                     <td><span class='import_text'>{{ $data->mobile }}</span></td>
-                                    <td><span class='import_text'>{{ $data->country }}</span></td>
+                                    <td><span class='import_text'>{{ $data->country_id }}</span></td>
                                     <td><span class='import_text'>{{ $data->email }}</span></td>
                                     <td>
                                         <span class='import_text'>
