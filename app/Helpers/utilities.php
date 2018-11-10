@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\URL;
 use Barryvdh\DomPDF\PDF;
 use Illuminate\Support\Facades\Mail;
+use PDF;
+use Mail;
 
 // GET TABLE DATA BY TABLE NAME:
 
