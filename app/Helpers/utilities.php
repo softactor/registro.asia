@@ -436,3 +436,10 @@ function generate_pdf($email_n_pdf_data) {
         $sd =    str_pad(rand(0, pow(10, $digits)-1), $digits, '0', STR_PAD_LEFT);
         return $sd.$data['event_id'].$data['business_owner_id'];
     }
+    
+    function email_filtering($email){
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return false;
+        }
+        return true;
+    }
