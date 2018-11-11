@@ -56,16 +56,44 @@
                                 <tr>
                                     <td><input type="checkbox" name="item_child[]" id="item_child_check_{{$data->id}}" value="{{$data->id}}"></td>
                                     <td>{{$key+1}}</td>
-                                    <td><span class='edit_text'>{{ $data->salutation }}</span></td>                                    
+                                    <td>
+                                        <?php
+                                                $settings_param =   [];
+                                                $settings_param=   [
+                                                    'name' => 'salutation'
+                                                ];
+                                                $salutation_result      =   get_data_name_by_where('settings', $settings_param);
+                                                $salutation_array       = explode(',', $salutation_result->values);                                                
+                                            ?>
+                                        <span class='edit_text <?php if (!in_array($data->salutation, $salutation_array)){ echo 'bg-danger'; } ?>'>
+                                            
+                                            <?php  echo $data->salutation ?>
+                                        </span>
+                                    </td>                                    
                                     <td><span class='edit_text'>{{ $data->first_name }}</span></td>
                                     <td><span class='edit_text'>{{ $data->last_name }}</span></td>
                                     <td><span class='edit_text'>{{ $data->company_name }}</span></td>
                                     <td><span class='edit_text'>{{ $data->company_address }}</span></td>
-                                    <td><span class='edit_text'>{{ $data->gender }}</span></td>
+                                    <td>
+                                        <?php
+                                                $settings_param =   [];
+                                                $settings_param=   [
+                                                    'name' => 'gender'
+                                                ];
+                                                $salutation_result      =   get_data_name_by_where('settings', $settings_param);
+                                                $salutation_array       = explode(',', $salutation_result->values);                                                
+                                            ?>
+                                        <span class='edit_text <?php if (!in_array($data->gender, $salutation_array)){ echo 'bg-danger'; } ?>'>
+                                            <?php echo $data->gender ?>
+                                        </span>
+                                    </td>
                                     <td><span class='edit_text'>{{ $data->designation }}</span></td>
                                     <td><span class='edit_text'>{{ $data->mobile }}</span></td>
                                     <td><span class='edit_text'>{{ $data->country_id }}</span></td>
-                                    <td><span class='edit_text'>{{ $data->email }}</span></td>
+                                    <td><span class='edit_text <?php if (!email_filtering($data->email)){ echo 'bg-danger'; } ?>'>
+                                            <?php echo $data->email ?>
+                                        </span>
+                                    </td>
                                     <th><button type="button" class="btn btn-sm" onclick="csv_upload_confirm('{{ url('su/backend/csv_data/store') }}');">Conform</button></th>
                                 </tr>
                                 <?php } ?>
