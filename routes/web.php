@@ -73,3 +73,6 @@ Route::get('su/send_corn_email', 'Frontend@send_corn_email');
 
 //          Pending queue confirmation
 Route::get('su/backend/registration_import_status/{is_confirmed}/{event_id}', 'Backend@registration_import_status');
+    // REPORTS
+Route::get('/get_events_chart_data', 'Reports\ChartController@get_events_chart_data');
+Route::get('su/reports', 'Reports\ReportsController@index');

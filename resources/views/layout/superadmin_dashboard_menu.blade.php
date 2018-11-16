@@ -19,17 +19,22 @@
             </li>
             <li>
                 <a href="{{ url('/su/registration_details_list') }}">
-                    <i class="fa fa-calendar-times-o fa-user-circle"></i> Registration details
+                    <i class="fa fa-user-circle"></i> Registration details
                 </a>
             </li>
             <li>
                 <a href="{{ url('/su/name_badge_view') }}">
-                    <i class="fa fa-calendar-times-o fa fa-address-card-o"></i> Name Badge
+                    <i class="fa fa fa-address-card-o"></i> Name Badge
                 </a>
             </li>
             <li>
                 <a href="{{ url('/su/settings') }}">
-                    <i class="fa fa-calendar-times-o fa fa-gears"></i> Settings
+                    <i class="fa fa fa-gears"></i> Settings
+                </a>
+            </li>
+            <li>
+                <a href="{{ url('/su/reports') }}">
+                    <i class="fa fa fa-pie-chart"></i> Reports
                 </a>
             </li>
         </ul>
