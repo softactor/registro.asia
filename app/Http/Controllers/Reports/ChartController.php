@@ -262,7 +262,7 @@ class ChartController extends Controller{
     
     public function get_events_chart_data(Request $request){
         $param = json_decode($request->param);
-        $result    =   $this->pull_events_data($param);  
+        $result    =   $this->pull_events_data($param); 
         $feedbackData   =   [
             'status'    =>  'success',
             'message'   =>  'Data found',
@@ -302,6 +302,39 @@ class ChartController extends Controller{
                         $dataArray[]    =   $dataValue;
                     }// end of foreach
                 }// end of emty checking
+                break;
+            case 'yearly_events_reg_type':
+                $query = DB::table('events as ev');
+                if (isset($param->startDate) && !empty($param->startDate)) {
+                    $from_date      =   date("Y-m-d", strtotime($param->startDate));
+                    $query->where('ev.start_date', '>=', $from_date);
+                }            
+                if (isset($param->endDate) && !empty($param->endDate)) {
+                    $to_date      =   date("Y-m-d", strtotime($param->endDate));
+                    $query->where('ev.end_date', '<=', $to_date);
+                }
+                $list_data = $query->get();
+                if(!$list_data->isEmpty()){
+                    $ids = $list_data->pluck('id')->toArray();
+                    $dataArray      =   [];
+                    $totalAttendee  =   0;
+                    $query          = DB::table('event_business_owners as ebd')
+                            ->whereIn('ebd.event_id', $ids)
+                            ->groupBy('ebd.registration_type');
+                    if ($query->get()) {
+                        $query_data = $query->get();
+                        foreach ($query_data as $t) {
+                            $dataValue = [
+                                'name'  => $t->registration_type,
+                                'y'     => $t->owners_numbers
+                            ];
+                            $dataArray[]    =   $dataValue;
+                        } // END FOR FOREACH
+                    }
+                    
+                }// end of emty checking
+                break;
+            default:
                 break;
         }// end of switch case:
         

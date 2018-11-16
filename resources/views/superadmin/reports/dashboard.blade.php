@@ -32,7 +32,7 @@
                         <div id="yearly_events" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
                     </div>
                     <div class="col-md-6">
-                        <div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+                        <div id="yearly_events_type" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
                     </div>
                 </div>
             </div><!--/tab-content-->
@@ -49,27 +49,51 @@
       $( "#end_date" ).datepicker({ dateFormat: 'dd-mm-yy', changeYear: true,defaultDate: new Date() });
     });
     //yearly_events
-    var required_param = {
-        dataType    : "yearly_events",
-        startDate   : $('#start_date').val(),
-        endDate     : $('#end_date').val(),
-    };
-    $.ajax({
-        type: "GET",
-        url: "/get_events_chart_data",
-        dataType: "JSON",
-        data: 'param=' + JSON.stringify(required_param),
-        success: function (response) {
-            console.log('json');
-            console.log(response.result);
-            var chartParam = {
-                selector_id         : "yearly_events",
-                chart_title         : "Total<br>Events<br>2018",
-                data                : response.result,
-            };
-            yearly_events_report(chartParam);
-        }// end of success
-    }); // end of ajax call
+    function run_yearly_events_report(){
+        var required_param = {
+            dataType    : "yearly_events",
+            startDate   : $('#start_date').val(),
+            endDate     : $('#end_date').val(),
+        };
+        $.ajax({
+            type: "GET",
+            url: "/get_events_chart_data",
+            dataType: "JSON",
+            data: 'param=' + JSON.stringify(required_param),
+            success: function (response) {
+                var chartParam = {
+                    selector_id         : "yearly_events",
+                    chart_title         : "Total </n>Events</n> 2018",
+                    data                : response.result,
+                };
+                yearly_events_report(chartParam);
+            }// end of success
+        }); // end of ajax call
+    }
+    function run_yearly_events_registration_type_report(){
+        //yearly_events
+        var required_param = {
+            dataType    : "yearly_events_reg_type",
+            startDate   : $('#start_date').val(),
+            endDate     : $('#end_date').val(),
+        };
+        $.ajax({
+            type: "GET",
+            url: "/get_events_chart_data",
+            dataType: "JSON",
+            data: 'param=' + JSON.stringify(required_param),
+            success: function (response) {
+                var chartParam = {
+                    selector_id         : "yearly_events_type",
+                    chart_title         : "Total </n>Registration</n> 2018",
+                    data                : response.result,
+                };
+                yearly_events_registration_type_report(chartParam);
+            }// end of success
+        }); // end of ajax call
+    }
+    run_yearly_events_report();
+    run_yearly_events_registration_type_report();
 </script>
 @endsection
 @endsection

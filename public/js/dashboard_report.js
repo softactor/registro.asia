@@ -44,3 +44,36 @@ function yearly_events_report(params) {
             }]
     });
 }
+function yearly_events_registration_type_report(params) {
+    
+// Build the chart
+Highcharts.chart(params.selector_id, {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: params.chart_title
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: false
+            },
+            showInLegend: true
+        }
+    },
+    series: [{
+        name: 'Registration',
+        colorByPoint: true,
+        data: params.data
+    }]
+});
+} 
