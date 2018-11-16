@@ -294,12 +294,17 @@ class Backend extends Controller
             ];
         }
         echo json_encode($feedback_data);
-    }
-    
+    }    
     public function print_events_name_badge(Request $request){
         $ids[]  =   $request->print_id;
         $feedback_data = generate_name_page_view($ids);
         echo json_encode($feedback_data);    
+    }
+    public function name_badge_config_and_set_position(Request $request){
+        $page_details   =   [
+            'page_title'    =>  'Badge Design'
+        ];
+        return view('superadmin.events_registration.name_badge_position_config', compact('page_details'));   
     }
     
     public function csv_uploader_view(Request $request){
@@ -310,8 +315,7 @@ class Backend extends Controller
         ];
         
         return view('superadmin.settings.csv_uploader', compact('page_details'));
-    }
-    
+    }    
     public function csv_import(Request $request) {
         $x = (object) array();
         $csv_data   =   [];

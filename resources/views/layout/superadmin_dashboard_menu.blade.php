@@ -23,8 +23,13 @@
                 </a>
             </li>
             <li>
+                <a href="{{ url('/su/name_badge_config_and_set_position') }}">
+                    <i class="fa fa fa-address-card-o"></i> Name Badge Design
+                </a>
+            </li>
+            <li>
                 <a href="{{ url('/su/name_badge_view') }}">
-                    <i class="fa fa fa-address-card-o"></i> Name Badge
+                    <i class="fa fa fa-address-card-o"></i> Name Badge Search
                 </a>
             </li>
             <li>
