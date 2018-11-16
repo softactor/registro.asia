@@ -20,12 +20,12 @@
                 </h2>
                 <form class="form-inline" action="/action_page.php">
                     <div class="form-group">
-                        <input type="text" class="input-group form-control" id="start_date" placeholder="Enter start date" name="start_date" autocomplete="off" value="{{ date('01-m-Y', $fts) }}">
+                        <input type="text" class="input-group form-control" id="start_date" placeholder="Enter start date" name="start_date" autocomplete="off" value="{{ date('01-m-Y', $fts) }}" disabled>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="input-group form-control" id="end_date" placeholder="Enter End date" name="end_date" autocomplete="off" value="{{ date('t-m-Y', $lts) }}">
+                        <input type="text" class="input-group form-control" id="end_date" placeholder="Enter End date" name="end_date" autocomplete="off" value="{{ date('t-m-Y', $lts) }}" disabled>
                     </div>
-                    <button type="submit" class="btn btn-default">Submit</button>
+                    <!--<button type="submit" class="btn btn-default">Submit</button>-->
                 </form>
                 <div class="row">
                     <div class="col-md-6">
