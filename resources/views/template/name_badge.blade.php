@@ -35,43 +35,53 @@
 </style>
 <?php
     foreach($user_datas as $user_data){
+        $whereData  =   [
+            'event_id'=>$user_data->event_id
+        ];
+        $getConfig  =   get_data_name_by_where('name_badge_config', $whereData); 
 ?>
-<table class="table table-user-information">
-    <tbody>
-        <tr>
-            <td>Salutation:</td>
-            <td>{{ $user_data->salutation }}</td>
-        </tr>
-        <tr>
-            <td>First name:</td>
-            <td>{{ $user_data->first_name }}</td>
-        </tr>
-        <tr>
-            <td>Last name</td>
-            <td>{{ $user_data->last_name }}</td>
-        </tr>
-        <tr>
-            <td>Gender</td>
-            <td>{{ $user_data->gender }}</td>
-        </tr>
-        <tr>
-            <td>Company</td>
-            <td>{{ $user_data->company_name }}</td>
-        </tr>
-        <tr>
-            <td>Company Address</td>
-            <td>{{ $user_data->company_address }}</td>
-        </tr>
-        <tr>
-            <td>Email</td>
-            <td>{{ $user_data->email }}</td>
-        </tr>
-        <tr>
-            <td>Phone Number</td>
-            <td>{{ $user_data->tel }}(Landline)<br><br>{{ $user_data->mobile }}(Mobile)
-            </td>
-
-        </tr>
-    </tbody>
-</table>
+<div
+    style="width: <?php echo $getConfig->namebadge_width.$getConfig->measure_unit ?>;
+    height: <?php echo $getConfig->namebadge_height.$getConfig->measure_unit ?>;
+    background-repeat: no-repeat;
+    background-image: url({{ asset('namebadge/'.$getConfig->image_path) }});
+    ">
+    <?php
+    $salutation =   getNamebadgeFieldsPosition('salutation', $user_data->event_id, $user_data->salutation);
+    if($salutation['status'] == 'success'){
+        echo $salutation['data'];
+    }
+    
+    $first_name =   getNamebadgeFieldsPosition('first_name', $user_data->event_id, $user_data->first_name);
+    if($first_name['status'] == 'success'){
+        echo $first_name['data'];
+    }
+    
+    $last_name =   getNamebadgeFieldsPosition('last_name', $user_data->event_id, $user_data->last_name);
+    if($last_name['status'] == 'success'){
+        echo $last_name['data'];
+    }
+    
+    $company_name =   getNamebadgeFieldsPosition('company_name', $user_data->event_id, $user_data->company_name);
+    if($company_name['status'] == 'success'){
+        echo $company_name['data'];
+    }
+    
+    $gender =   getNamebadgeFieldsPosition('gender', $user_data->event_id, $user_data->gender);
+    if($gender['status'] == 'success'){
+        echo $gender['data'];
+    }
+    
+    $mobile =   getNamebadgeFieldsPosition('mobile', $user_data->event_id, $user_data->mobile);
+    if($mobile['status'] == 'success'){
+        echo $mobile['data'];
+    }
+    
+    $email =   getNamebadgeFieldsPosition('email', $user_data->event_id, $user_data->email);
+    if($email['status'] == 'success'){
+        echo $email['data'];
+    }
+    
+    ?>
+</div>
 <?php } ?>

@@ -23,7 +23,12 @@
                 </a>
             </li>
             <li>
-                <a href="{{ url('/su/name_badge_config_and_set_position') }}">
+                <a href="{{ url('/su/name_badge_config') }}">
+                    <i class="fa fa fa-address-card-o"></i> Name Badge Configuration
+                </a>
+            </li>
+            <li>
+                <a href="{{ url('/su/name_badge_set_position') }}">
                     <i class="fa fa fa-address-card-o"></i> Name Badge Design
                 </a>
             </li>

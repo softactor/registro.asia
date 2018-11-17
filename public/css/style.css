@@ -64,3 +64,20 @@ html, body {
 .page-break {
     page-break-after: always;
 }
+#content_loader{
+    position: relative;
+    left: 35%;
+    top: 35%;
+    z-index: 999;
+    display: none;
+}
+.dropable_object{
+    float: left;
+    border: 1px solid lightgray;
+    padding: 2%;
+    margin: 1% 0;
+    width: 100%;
+    cursor: move;
+    position: relative !important;
+    z-index: 99999;
+}

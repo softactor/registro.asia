@@ -201,8 +201,7 @@ class Backend extends Controller
             'preview_url'    =>  'su/preview_events_form/'
         ];
         return view('superadmin.events_registration.registration_details_view', compact('page_details','owners_details','png'));
-    }
-    
+    }    
    public function generateEmbeddedEventsUrl(Request $request){
        $url_string  = explode(' ', ucwords($request->event_title));
        $url_text    =   implode('-', $url_string);
@@ -214,8 +213,7 @@ class Backend extends Controller
             'data'      => $view->render()
         ];
         echo json_encode($feedback_data);
-   }
-   
+   }   
    public function backend_registration(Request $request) {
         $events = DB::table('events')->where('event_url', $request->event_url)->first();
         $event_forms = DB::table('event_forms')->where('event_id', $events->id)->get();
@@ -228,8 +226,7 @@ class Backend extends Controller
             'redirectUrl'   => 'su/backend/registration/' . $request->event_url.'/'.$request->reg_prefix,
         ];
         return view('superadmin.events_form.backend_registration', compact('page_details', 'events', 'event_forms'));
-    }
-    
+    }    
     public function name_badge_view(){
         $applicants = DB::table('event_business_owners_details')->get();
         $events = DB::table('events')->get();
@@ -238,8 +235,7 @@ class Backend extends Controller
             'events'        => $events,
         ];
         return view('superadmin.events_registration.name_badge_view', compact('page_details'));
-    }
-    
+    }    
     public function get_registration_tickets(){
         $serial_digits  = DB::table('event_business_owners_details')->pluck('serial_digit');
         $mobiles        = DB::table('event_business_owners_details')->pluck('mobile');
@@ -257,8 +253,7 @@ class Backend extends Controller
             ],
         ];
         echo json_encode($page_details);
-    }
-    
+    }    
     public function get_events_registrated_users(Request $request) {
         // get all table data:
         $query = DB::table('event_business_owners_details as p');
@@ -299,13 +294,7 @@ class Backend extends Controller
         $ids[]  =   $request->print_id;
         $feedback_data = generate_name_page_view($ids);
         echo json_encode($feedback_data);    
-    }
-    public function name_badge_config_and_set_position(Request $request){
-        $page_details   =   [
-            'page_title'    =>  'Badge Design'
-        ];
-        return view('superadmin.events_registration.name_badge_position_config', compact('page_details'));   
-    }
+    }    
     
     public function csv_uploader_view(Request $request){
         $events         =   DB::table('events')->where('event_url',$request->event_url)->first();

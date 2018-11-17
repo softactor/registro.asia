@@ -282,7 +282,7 @@ function get_registration_type_name($regis){
     return $name;
 }
 
-function generate_name_page_view($data){
+function generate_name_page_view($data){    
     $user_datas     = DB::table('event_business_owners_details')->whereIn('id', $data)->get();
     $search_data    = View::make('template.name_badge', compact('user_datas'));
     $feedback_data  = [
@@ -292,7 +292,24 @@ function generate_name_page_view($data){
     ];
     return $feedback_data;
 } 
-
+function getNamebadgeFieldsPosition($field, $event_id, $field_value){
+    $name_badge_config     = DB::table('name_badge_position')->where('field_id', $field)->where('event_id', $event_id)->first();
+    if (isset($name_badge_config)) {
+        $search_data           = View::make('template.name_badge_fields', compact('name_badge_config','field_value'));
+        $feedback_data  = [
+            'status'    => 'success',
+            'message'   => 'Data Found',
+            'data'      => $search_data->render()
+        ];
+    }else{
+        $feedback_data  = [
+            'status'    => 'error',
+            'message'   => 'Data not Found'
+        ];
+    }
+    
+    return $feedback_data;
+}
 function get_registration_type_by_business_owner_id($id){
     $data     = DB::table('event_business_owners')->where('id', $id)->first();
     return $data->registration_type;
@@ -442,4 +459,17 @@ function generate_pdf($email_n_pdf_data) {
             return false;
         }
         return true;
+    }
+    
+    function get_settings_value($key){
+        $data     = DB::table('settings')->where('name', $key)->first();
+        if(isset($data) && !empty($data)){
+            switch($data->data_type){
+                case 'csv':
+                    $get_values = explode(',', $data->values);
+                    break;
+            }
+            return $get_values;
+        }
+        
     }
