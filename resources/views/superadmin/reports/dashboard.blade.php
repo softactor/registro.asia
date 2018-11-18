@@ -25,7 +25,18 @@
                     <div class="form-group">
                         <input type="text" class="input-group form-control" id="end_date" placeholder="Enter End date" name="end_date" autocomplete="off" value="{{ date('t-m-Y', $lts) }}" disabled>
                     </div>
-                    <!--<button type="submit" class="btn btn-default">Submit</button>-->
+                    <div class="form-group">
+                            <select class="form-control" id="event_id" name="event_id">
+                            <option value="">Events List</option>
+                            <?php
+                                $events     =   get_table_data_by_table('events'); 
+                                foreach($events as $e){
+                            ?>
+                            <option value="<?php echo $e->id ?>"><?php echo $e->title ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                    <button type="button" class="btn btn-default" onclick="showReport()">Show Report</button>
                 </form>
                 <div class="row">
                     <div class="col-md-6">
@@ -54,6 +65,7 @@
             dataType    : "yearly_events",
             startDate   : $('#start_date').val(),
             endDate     : $('#end_date').val(),
+            event_id     : $('#event_id').val(),
         };
         $.ajax({
             type: "GET",
@@ -76,6 +88,7 @@
             dataType    : "yearly_events_reg_type",
             startDate   : $('#start_date').val(),
             endDate     : $('#end_date').val(),
+            event_id     : $('#event_id').val(),
         };
         $.ajax({
             type: "GET",
@@ -92,8 +105,10 @@
             }// end of success
         }); // end of ajax call
     }
-    run_yearly_events_report();
-    run_yearly_events_registration_type_report();
+    function showReport(){
+        run_yearly_events_report();
+        run_yearly_events_registration_type_report();
+    }
 </script>
 @endsection
 @endsection

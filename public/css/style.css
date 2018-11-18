@@ -7,6 +7,9 @@ html, body {
     height: 100vh;
     margin: 0;
 }
+.highcharts-credits{
+    display: none !important;
+}
 .full-height {
     height: 100vh;
 }

@@ -283,6 +283,9 @@ class ChartController extends Controller{
                     $to_date      =   date("Y-m-d", strtotime($param->endDate));
                     $query->where('ev.end_date', '<=', $to_date);
                 }
+                if (isset($param->event_id) && !empty($param->event_id)) {
+                    $query->where('ev.id', '=', $param->event_id);
+                }
                 $list_data = $query->get();
                 if(!$list_data->isEmpty()){
                     $dataArray  =   [];
@@ -312,6 +315,9 @@ class ChartController extends Controller{
                 if (isset($param->endDate) && !empty($param->endDate)) {
                     $to_date      =   date("Y-m-d", strtotime($param->endDate));
                     $query->where('ev.end_date', '<=', $to_date);
+                }
+                if (isset($param->event_id) && !empty($param->event_id)) {
+                    $query->where('ev.id', '=', $param->event_id);
                 }
                 $list_data = $query->get();
                 if(!$list_data->isEmpty()){
