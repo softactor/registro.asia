@@ -9,6 +9,7 @@
                 @include('layout.superadmin_dashboard_menu')
             </div><!--/col-3-->
             <div class="col-sm-11">
+                @include('partial/operation_message')
                 <h2>
                     {{ $page_details['page_title'] }}
                 </h2>

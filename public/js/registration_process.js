@@ -10,9 +10,6 @@ $("#profileSectionArea").steps({
         transitionEffect: "slideLeft",
         autoFocus: true,
         onStepChanged: function(event, currentIndex, priorIndex) {
-            console.log('onStepChanged');
-            console.log(currentIndex);
-            console.log(priorIndex);
             var wizardLength = $("#profileSectionArea").find('h3').length;
             var lastSteps   =   wizardLength-1;
             
@@ -38,9 +35,6 @@ $("#profileSectionArea").steps({
             }
         },
         onStepChanging: function (event, currentIndex, newIndex) {
-            console.log('onStepChanging');
-            console.log(currentIndex);
-            console.log(newIndex);
             var formId  =   $("#event-form-id-"+currentIndex).val();
             if (currentIndex == 0) {
                 var returnType = false;

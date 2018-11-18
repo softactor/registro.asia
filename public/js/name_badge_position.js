@@ -46,7 +46,11 @@ function save_position(){
             'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content'),
         },
         success: function(response){
-            location.reload();
+            swal("Position Saved", "Position have been successfully saved!", "success");
+            setTimeout(function(){
+                location.reload();
+            }, 2000);
+            
         }
     })
 }

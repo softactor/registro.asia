@@ -79,5 +79,5 @@ html, body {
     width: 100%;
     cursor: move;
     position: relative !important;
-    z-index: 99999;
+    z-index: 111;
 }
