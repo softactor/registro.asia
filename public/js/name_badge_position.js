@@ -2,10 +2,12 @@ $(function () {
     $(".draggable").draggable();
     $( "#containment-wrapper" ).droppable({
       drop: function( event, ui ) {
-        $( this )
+        var elem    =   $( this )
           .addClass( "ui-state-highlight" )
           .find( "p" )
             .html( "Dropped!" );
+        var draggableId = ui.draggable.attr("id");
+        $("#"+draggableId).addClass("droped_item_identity");
       }
     });
 });
@@ -24,7 +26,7 @@ $(document).on("mouseup", ".draggable", function () {
 
 function save_position(){
     var dataParam   =   [];
-    $(".draggable").each(function () {
+    $(".droped_item_identity").each(function () {
         var elem = $(this),
                 id      = elem.attr('id');
                 newleft = elem.attr('data-left'),
@@ -41,16 +43,20 @@ function save_position(){
     $.ajax({
         type: 'POST',
         url: $('#position_store').val(),
+        dataType:'json',
         data: 'dataParam='+JSON.stringify(dataParam)+'&event_id='+$('#event_id').val()+'&name_badge_id='+$('#name_badge_id').val(),
         headers: {
             'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content'),
         },
-        success: function(response){
-            swal("Position Saved", "Position have been successfully saved!", "success");
-            setTimeout(function(){
-                location.reload();
-            }, 2000);
-            
+        success: function (response) {
+            if (response.status == 'success') {
+                swal("Position Saved", response.message, "success");
+                setTimeout(function () {
+                    location.reload();
+                }, 2000);
+            }else{
+                swal("Error!", response.message, "error");
+            }
         }
     })
 }
@@ -63,14 +69,19 @@ function set_event_namebadge_background(event_id, url){
             url: url,
             dataType: 'json',
             data: 'event_id='+event_id,
-            success: function(response){
-                $('#content_loader').hide();
-                var imageUrl    =   $('#namebadge_bg_image_path').val()+'/'+response.data.image_path;
-                $('#containment-wrapper').css('background-image', 'url(' + imageUrl + ')');
-                $('#containment-wrapper').css('background-repeat', 'no-repeat');
-                $('#containment-wrapper').css('width', response.data.namebadge_width + response.data.measure_unit);
-                $('#containment-wrapper').css('height', response.data.namebadge_height + response.data.measure_unit);
-                $('#name_badge_id').val(response.data.id);
+            success: function (response) {
+                if (response.status == 'success') {
+                    $('#content_loader').hide();
+                    var imageUrl = $('#namebadge_bg_image_path').val() + '/' + response.data.image_path;
+                    $('#containment-wrapper').css('background-image', 'url(' + imageUrl + ')');
+                    $('#containment-wrapper').css('background-repeat', 'no-repeat');
+                    $('#containment-wrapper').css('width', response.data.namebadge_width + response.data.measure_unit);
+                    $('#containment-wrapper').css('height', response.data.namebadge_height + response.data.measure_unit);
+                    $('#name_badge_id').val(response.data.id);
+                }else{
+                    swal("Error!", response.message, "error");
+                    $('#content_loader').hide();
+                }
             }
         })
     }

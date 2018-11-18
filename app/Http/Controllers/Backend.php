@@ -280,7 +280,7 @@ class Backend extends Controller
                 'message' => 'Data Not Found',
                 'data' => $search_data->render()
             ];
-        } else {
+        } else {            
             $search_data = View::make('search.events_registrated_users_list', compact('list_data', 'print_url'));
             $feedback_data = [
                 'status' => 'success',
@@ -291,8 +291,8 @@ class Backend extends Controller
         echo json_encode($feedback_data);
     }    
     public function print_events_name_badge(Request $request){
-        $ids[]  =   $request->print_id;
-        $feedback_data = generate_name_page_view($ids);
+        $ids[]          =   $request->print_id;
+        $feedback_data  =   generate_name_page_view($ids);
         echo json_encode($feedback_data);    
     }    
     

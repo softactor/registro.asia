@@ -36,7 +36,19 @@
                             }
                     ?>
                 </td>
-                <td><button class="btn btn-primary btn-sm" onclick="printSingleNameBadge('{{ url('su/print_events_name_badge') }}', '{{$data->id}}')">Print</button></td>
+                <td>
+                    <?php
+                    $whereData = [
+                        'event_id' => $data->event_id
+                    ];
+                    $getConfig = get_data_name_by_where('name_badge_config', $whereData);
+                    if(isset($getConfig) && !empty($getConfig)){
+                    ?>
+                    <button class="btn btn-primary btn-sm" onclick="printSingleNameBadge('{{ url('su/print_events_name_badge') }}', '{{$data->id}}')">Print</button>
+                    <?php }else{ ?>
+                    <a href="{{ url('su/name_badge_config') }}"><img src="{{ asset('images/print_error.png') }}" title="Namebadge was not configured!"/></a>
+                    <?php } ?>
+                </td>
             </tr>
             @endforeach
             @else

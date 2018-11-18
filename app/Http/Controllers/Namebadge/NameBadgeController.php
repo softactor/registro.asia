@@ -96,45 +96,69 @@ class NameBadgeController extends Controller{
         ];
         return view('superadmin.namebadge.name_badge_set_position', compact('page_details'));   
     }
-    public function name_badge_background_by_event(Request $request){
-        $templates  =   NamebadgeConfigModel::where('event_id', $request->event_id)->first();
-        $feedback   =   [
-            'status'    => 'success',
-            'data'      => $templates,
-            'message'   => 'Data found',
-        ];
-        echo json_encode($feedback);
+    public function name_badge_background_by_event(Request $request) {
+        $templates = NamebadgeConfigModel::where('event_id', $request->event_id)->first();
+        if (isset($templates) && !empty($templates)) {
+            $feedback = [
+                'status' => 'success',
+                'data' => $templates,
+                'message' => 'Data found',
+            ];
+            echo json_encode($feedback);
+        } else {
+            $feedback = [
+                'status' => 'error',
+                'data' => '',
+                'message' => 'Did not found any events template!',
+            ];
+            echo json_encode($feedback);
+        }
     }
-    
+
     public function name_badge_set_position_store(Request $request) {
         $all = json_decode($request->dataParam);
         if (isset($all) && !empty($all)) {
-            $deleteParam = [
-                'name_badge_id' => $request->name_badge_id,
-                'event_id' => $request->event_id,
+            if (isset($request->event_id) && !empty($request->event_id)) {
+                $deleteParam = [
+                    'name_badge_id' => $request->name_badge_id,
+                    'event_id' => $request->event_id,
+                ];
+                DB::table('name_badge_position')->where($deleteParam)->delete();
+                foreach ($all as $dataval) {
+                    /* ----------------------------------------------------------
+                     * Insert area
+                     * ---------------------------------------------------------
+                     */
+                    $response = NamebadgePositionModel::create([
+                                'name_badge_id' => $dataval->name_badge_id,
+                                'event_id' => $dataval->event_id,
+                                'field_id' => $dataval->field_id,
+                                'left_value' => $dataval->newleft,
+                                'top_value' => $dataval->newtop,
+                    ]);
+                }// end of foreach
+                $feedback = [
+                    'status'    => 'sucess',
+                    'message'   => 'data have successfully updated',
+                    'data'      => $all
+                ];
+                echo json_encode($feedback);
+            }else{
+               $feedback   =   [
+                'status'    => 'error',
+                'message'   => 'Event was not selected',
+                'data'      =>''
             ];
-            DB::table('name_badge_position')->where($deleteParam)->delete();
-            foreach ($all as $dataval) {
-                /* ----------------------------------------------------------
-                 * Insert area
-                 * ---------------------------------------------------------
-                 */
-                $response = NamebadgePositionModel::create([
-                            'name_badge_id' => $dataval->name_badge_id,
-                            'event_id'      => $dataval->event_id,
-                            'field_id'      => $dataval->field_id,
-                            'left_value'    => $dataval->newleft,
-                            'top_value'     => $dataval->newtop,
-                ]);
-            }// end of foreach
-        }// end of if
-        
-        $feedback   =   [
-            'status'    => 'sucess',
-            'message'   => 'data have successfully updated',
-            'data'      => $all
-        ];
-        echo json_encode($feedback);
+            echo json_encode($feedback); 
+            }
+        }else{
+            $feedback   =   [
+                'status'    => 'error',
+                'message'   => 'Label was not selected',
+                'data'      =>''
+            ];
+            echo json_encode($feedback);
+        }
     }
 
 }

@@ -71,6 +71,9 @@
                         </select>
                     </div>
                     <div class="form-group">
+                        @if ($errors->has('namebadge_orientation'))
+                        <div class="alert-error">{{ $errors->first('background') }}</div>
+                        @endif
                         <label for="namebadge_height">File:</label>
                         <input type="file" class="form-control" id="background" name="background">
                     </div>
