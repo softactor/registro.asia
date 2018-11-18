@@ -84,3 +84,8 @@ html, body {
     position: relative !important;
     z-index: 111;
 }
+.general_fields_class{
+    margin: 0;
+    padding: 0;
+    height: 1px;
+}

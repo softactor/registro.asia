@@ -138,7 +138,7 @@ class NameBadgeController extends Controller{
                     ]);
                 }// end of foreach
                 $feedback = [
-                    'status'    => 'sucess',
+                    'status'    => 'success',
                     'message'   => 'data have successfully updated',
                     'data'      => $all
                 ];

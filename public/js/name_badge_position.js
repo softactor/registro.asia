@@ -1,28 +1,32 @@
 $(function () {
     $(".draggable").draggable();
     $( "#containment-wrapper" ).droppable({
-      drop: function( event, ui ) {
-        var elem    =   $( this )
-          .addClass( "ui-state-highlight" )
-          .find( "p" )
-            .html( "Dropped!" );
-        var draggableId = ui.draggable.attr("id");
-        $("#"+draggableId).addClass("droped_item_identity");
-      }
+        drop: function (event, ui) {
+            var elem = $(this)
+                    .addClass("ui-state-highlight")
+            var draggableId = ui.draggable.attr("id");
+            $("#" + draggableId).addClass("droped_item_identity");
+            var pos = ui.draggable.offset(), dPos = $(this).offset();
+//            console.log("nodeid: " + ui.draggable.data("noteid") +
+//                    ", Top: " + (pos.top - dPos.top) +
+//                    ", Left: " + (pos.left - dPos.left));
+            $("#" + draggableId).attr("data-left",(pos.left - dPos.left));
+            $("#" + draggableId).attr("data-top",(pos.top - dPos.top));
+        }
     });
 });
 
-$(document).on("mouseup", ".draggable", function () {
-
-    var elem = $(this),
-            id = elem.attr('id'),
-            desc = elem.attr('data-desc'),
-            pos = elem.position();
-            $('#'+id).attr("data-left",pos.left);
-            $('#'+id).attr("data-top",pos.top);
-    console.log('Left: ' + pos.left + '; Top:' + pos.top);
-
-});
+//$(document).on("mouseup", ".draggable", function () {
+//
+//    var elem = $(this),
+//            id = elem.attr('id'),
+//            desc = elem.attr('data-desc'),
+//            pos = elem.position();
+//            $('#'+id).attr("data-left",pos.left);
+//            $('#'+id).attr("data-top",pos.top);
+////    console.log('Left: ' + pos.left + '; Top:' + pos.top);
+//
+//});
 
 function save_position(){
     var dataParam   =   [];
