@@ -97,6 +97,7 @@ function set_event_namebadge_background(event_id, url){
 //                        $.each(response.name_badge_position, function (key, val) {
 //                            $("#" + key).remove();
 //                        });
+                        $(".edit_field_class").remove();
                         $("#containment-wrapper").append(response.positionEditView);
                     }
                 }else{
