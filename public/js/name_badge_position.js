@@ -12,6 +12,11 @@ $(function () {
 //                    ", Left: " + (pos.left - dPos.left));
             $("#" + draggableId).attr("data-left",(pos.left - dPos.left));
             $("#" + draggableId).attr("data-top",(pos.top - dPos.top));
+            // to save actual position:
+            var absPos = elem.offset();
+            
+            $("#" + draggableId).attr("data-absulate-left",pos.left);
+            $("#" + draggableId).attr("data-absulate-top",pos.top);
         }
     });
 });
@@ -32,13 +37,17 @@ function save_position(){
     var dataParam   =   [];
     $(".droped_item_identity").each(function () {
         var elem = $(this),
-                id      = elem.attr('id');
-                newleft = elem.attr('data-left'),
-                newtop = elem.attr('data-top');
+                id                  = elem.attr('id');
+                newleft             = elem.attr('data-left'),
+                newtop              = elem.attr('data-top');
+                left_absulate_value = elem.attr('data-absulate-left'),
+                top_absulate_value  = elem.attr('data-absulate-top');
         var dataParamObj = {
-            'field_id'      : id,
-            'newleft'       : newleft,
-            'newtop'        : newtop,
+            'field_id'                  : id,
+            'newleft'                   : newleft,
+            'newtop'                    : newtop,
+            'left_absulate_value'       : left_absulate_value,
+            'top_absulate_value'        : top_absulate_value,
             'event_id'      : $('#event_id').val(),
             'name_badge_id' : $('#name_badge_id').val()
         };
@@ -84,12 +93,12 @@ function set_event_namebadge_background(event_id, url){
                     $('#containment-wrapper').css('height', response.data.namebadge_height + response.data.measure_unit);
                     $('#name_badge_id').val(response.data.id);
                     
-//                    if(response.name_badge_position_status){
+                    if(response.name_badge_position_status){                                
 //                        $.each(response.name_badge_position, function (key, val) {
-//                            $("#" + key).css("left",(val.left_value)+'px');
-//                            $("#" + key).css("top",(val.top_value)+'px');
+//                            $("#" + key).remove();
 //                        });
-//                    }
+                        $("#containment-wrapper").append(response.positionEditView);
+                    }
                 }else{
                     swal("Error!", response.message, "error");
                     $('#content_loader').hide();
@@ -97,5 +106,32 @@ function set_event_namebadge_background(event_id, url){
             }
         })
     }
+}
+
+function confirmFieldDelete(del_id, del_url) {
+    swal({
+        title: 'Do you want to delete it?',
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-danger",
+        confirmButtonText: "Yes",
+        cancelButtonText: 'No',
+        closeOnConfirm: false
+    },
+    function () {
+        $.ajax({
+            url: del_url,
+            type: 'GET',
+            dataType: 'json',
+            data: 'del_id=' + del_id,
+            success: function (response) {
+                if (response.status == 'success') {
+                    $('#del_id_'+del_id).hide();
+                    swal("Delete complete", response.message, "success");
+                }
+            },
+            async: false // <- this turns it into synchronous
+        });
+    });
 }
   

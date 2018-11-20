@@ -43,13 +43,13 @@
                     <div class="col-md-12">
                         <div class="row">                            
                             <div class="col-md-2">
-                                <div class="ui-widget-content dropable_object draggable" data-left="10px" data-top="15px" id="salutation">Salutation</div>
-                                <div class="ui-widget-content dropable_object draggable" data-left="11px" data-top="12px" id="first_name">First Name</div>
-                                <div class="ui-widget-content dropable_object draggable" data-left="12px" data-top="13px" id="last_name">Last Name</div>
-                                <div class="ui-widget-content dropable_object draggable" data-left="13px" data-top="14px" id="company_name">Company Name</div>
-                                <div class="ui-widget-content dropable_object draggable" data-left="14px" data-top="15px" id="gender">Gender</div>
-                                <div class="ui-widget-content dropable_object draggable" data-left="16px" data-top="17px" id="mobile">Mobile</div>
-                                <div class="ui-widget-content dropable_object draggable" data-left="18px" data-top="19" id="email">Email</div>
+                                <div class="ui-widget-content dropable_object draggable" data-absulate-left="1px" data-absulate-top="1px" data-left="10px" data-top="15px" id="salutation">Salutation</div>
+                                <div class="ui-widget-content dropable_object draggable" data-absulate-left="" data-absulate-top="" data-left="11px" data-top="12px" id="first_name">First Name</div>
+                                <div class="ui-widget-content dropable_object draggable" data-absulate-left="" data-absulate-top="" data-left="12px" data-top="13px" id="last_name">Last Name</div>
+                                <div class="ui-widget-content dropable_object draggable" data-absulate-left="" data-absulate-top="" data-left="13px" data-top="14px" id="company_name">Company Name</div>
+                                <div class="ui-widget-content dropable_object draggable" data-absulate-left="" data-absulate-top="" data-left="14px" data-top="15px" id="gender">Gender</div>
+                                <div class="ui-widget-content dropable_object draggable" data-absulate-left="" data-absulate-top="" data-left="16px" data-top="17px" id="mobile">Mobile</div>
+                                <div class="ui-widget-content dropable_object draggable" data-absulate-left="" data-absulate-top="" data-left="18px" data-top="19" id="email">Email</div>
                             </div>
                             <div class="col-md-10">
                                 <div id="message" style="display:none"><h1>Saved!</h1></div>                

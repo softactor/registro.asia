@@ -89,3 +89,11 @@ html, body {
     padding: 0;
     height: 1px;
 }
+.edit_field_class{
+    font-size: 16px;
+    cursor: pointer;
+}
+.edit_field_class:hover{
+    font-style: italic;
+    color: yellow;
+}

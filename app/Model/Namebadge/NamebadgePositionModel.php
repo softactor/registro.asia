@@ -18,5 +18,5 @@ class NamebadgePositionModel extends Model
      *
      * @var array
      */
-    protected $fillable = ['event_id','name_badge_id','field_id','left_value','top_value','created_at','updated_at'];
+    protected $fillable = ['event_id','name_badge_id','field_id','left_value','top_value','left_absulate_value','top_absulate_value','created_at','updated_at'];
 }
