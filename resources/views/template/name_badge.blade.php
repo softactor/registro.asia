@@ -8,12 +8,25 @@
         if(isset($getConfig) && !empty($getConfig)){
             $configFound = true;
 ?>
-<div
-    style="width: <?php echo $getConfig->namebadge_width.$getConfig->measure_unit ?>;
-    height: <?php echo $getConfig->namebadge_height.$getConfig->measure_unit ?>;
-    background-repeat: no-repeat;
-    background-image: url({{ asset('namebadge/'.$getConfig->image_path) }});
-    ">
+        <style type="text/css">
+            @media screen {
+                .print_name_badge{
+                    width: <?php echo $getConfig->namebadge_width . $getConfig->measure_unit ?>;
+                    height: <?php echo $getConfig->namebadge_height . $getConfig->measure_unit ?>;
+                    background-repeat: no-repeat;
+                    background-image: url(<?php echo asset('namebadge/' . $getConfig->image_path) ?>)
+                }
+            }
+            @media print {
+                .print_name_badge{
+                    width: <?php echo $getConfig->namebadge_width . $getConfig->measure_unit ?> !important;
+                    height: <?php echo $getConfig->namebadge_height . $getConfig->measure_unit ?> !important;
+                    background-repeat: no-repeat !important;
+                    background-image: url(<?php echo asset('namebadge/' . $getConfig->image_path) ?>) !important;
+                }
+            }
+        </style>
+<div class="print_name_badge">
     <?php
     $salutation =   getNamebadgeFieldsPosition('salutation', $user_data->event_id, $user_data->salutation);
     if($salutation['status'] == 'success'){

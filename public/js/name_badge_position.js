@@ -74,6 +74,7 @@ function set_event_namebadge_background(event_id, url){
             dataType: 'json',
             data: 'event_id='+event_id,
             success: function (response) {
+                console.log(response);
                 if (response.status == 'success') {
                     $('#content_loader').hide();
                     var imageUrl = $('#namebadge_bg_image_path').val() + '/' + response.data.image_path;
@@ -82,6 +83,13 @@ function set_event_namebadge_background(event_id, url){
                     $('#containment-wrapper').css('width', response.data.namebadge_width + response.data.measure_unit);
                     $('#containment-wrapper').css('height', response.data.namebadge_height + response.data.measure_unit);
                     $('#name_badge_id').val(response.data.id);
+                    
+//                    if(response.name_badge_position_status){
+//                        $.each(response.name_badge_position, function (key, val) {
+//                            $("#" + key).css("left",(val.left_value)+'px');
+//                            $("#" + key).css("top",(val.top_value)+'px');
+//                        });
+//                    }
                 }else{
                     swal("Error!", response.message, "error");
                     $('#content_loader').hide();

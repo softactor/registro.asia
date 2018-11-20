@@ -42,51 +42,61 @@ class NameBadgeController extends Controller{
                             ->withInput()
                             ->with('error', 'Failed to save data');
         }
-        /*----------------------------------------------------------
-         *check duplicate entry
+        $events     = DB::table('events')->where('id', $request->event_id)->first();
+        $path       = $_FILES['background']['name'];
+        $ext        = pathinfo($path, PATHINFO_EXTENSION);
+        $filename   = implode('_', explode(' ', $events->title)) . "." . $ext;
+        $filepath   = public_path('/namebadge/');
+        /* ----------------------------------------------------------
+         * check duplicate entry
          * ---------------------------------------------------------
          */
-        $checkParam['table']    = "name_badge_config";
+        $checkParam['table'] = "name_badge_config";
         $checkWhereParam = [
-                ['event_id',      '=', $request->upz_id]
+            ['event_id', '=', $request->event_id]
         ];
         $checkParam['where']    = $checkWhereParam;
-        $duplicateCheck         = check_duplicate_data($checkParam); //check_duplicate_data is a helper method:
+        $duplicateCheck_id      = check_duplicate_data($checkParam); //check_duplicate_data is a helper method:
         // check is it duplicate or not
-        if ($duplicateCheck) {
-            return redirect('admin/area/create')
-                            ->withInput()
-                            ->with('error', 'Failed to save data. Duplicate Entry found.');
-        }// end of duplicate checking:
-        
-        
-        $events        =   DB::table('events')->where('id', $request->event_id)->first();
-        $path = $_FILES['background']['name'];
-        $ext = pathinfo($path, PATHINFO_EXTENSION);
-        $filename = implode('_',explode(' ',$events->title)) . "." . $ext;
-        $filepath = public_path('/namebadge/');
-        /*----------------------------------------------------------
-         *Insert area
-         * ---------------------------------------------------------
-         */
-        $response   =   NamebadgeConfigModel::create([
-            'event_id'                  =>  $request->event_id,
-            'namebadge_width'           =>  $request->namebadge_width,
-            'namebadge_height'          =>  $request->namebadge_height,
-            'namebadge_orientation'     =>  $request->namebadge_orientation,
-            'image_path'                =>  $filename,
-            'measure_unit'              =>  $request->measure_unit,
-        ]);
+        if ($duplicateCheck_id) {
+            $name_badge_configure = NamebadgeConfigModel::find($duplicateCheck_id);
+            $response   =   $name_badge_configure->update([
+                'event_id'              => $request->event_id,
+                'namebadge_width'       => $request->namebadge_width,
+                'namebadge_height'      => $request->namebadge_height,
+                'namebadge_orientation' => $request->namebadge_orientation,
+                'image_path'            => $filename,
+                'measure_unit'          => $request->measure_unit,
+            ]);
+            $file_path = public_path('/namebadge/'.$filename);
+            unlink($file_path);
+            $op_message =   'data have successfully updated';
+        } else {
+            /* ----------------------------------------------------------
+             * Insert area
+             * ---------------------------------------------------------
+             */
+            $response = NamebadgeConfigModel::create([
+                        'event_id' => $request->event_id,
+                        'namebadge_width' => $request->namebadge_width,
+                        'namebadge_height' => $request->namebadge_height,
+                        'namebadge_orientation' => $request->namebadge_orientation,
+                        'image_path' => $filename,
+                        'measure_unit' => $request->measure_unit,
+            ]);
+            $op_message =   'data have successfully saved';
+        }
         $checkMove = move_uploaded_file($_FILES['background']['tmp_name'], $filepath . $filename);
-        if($response){
+        if ($response) {
             return redirect('su/name_badge_config')
-                            ->with('success', 'Data have been saved successfully.');
-        }else{
+                            ->with('success', $op_message);
+        } else {
             return redirect('admin/area/create')
                             ->withInput()
                             ->with('error', 'Failed to save data.');
         }
     }
+
     public function name_badge_set_position(Request $request){
         $page_details   =   [
             'page_title'                =>  'Badge Design',
@@ -97,18 +107,33 @@ class NameBadgeController extends Controller{
         return view('superadmin.namebadge.name_badge_set_position', compact('page_details'));   
     }
     public function name_badge_background_by_event(Request $request) {
+        $name_badge_position            =   [];
+        $name_badge_position_status     =   false;
         $templates = NamebadgeConfigModel::where('event_id', $request->event_id)->first();
+        // check name_badge_position table have already saved position for this event
+        $position_details   =   DB::table('name_badge_position')->where('event_id',$request->event_id)->get();
+        if (!$position_details->isEmpty()) { 
+            foreach($position_details as $pd){
+                $name_badge_position[$pd->field_id]   =   $pd;
+            } 
+            $name_badge_position_status     =   TRUE;
+        }
         if (isset($templates) && !empty($templates)) {
             $feedback = [
-                'status' => 'success',
-                'data' => $templates,
-                'message' => 'Data found',
+                'status'                        => 'success',
+                'data'                          => $templates,
+                'name_badge_position_status'    => $name_badge_position_status,
+                'name_badge_position'           => $name_badge_position,
+                'data'                          => $templates,
+                'message'                       => 'Data found',
             ];
             echo json_encode($feedback);
         } else {
             $feedback = [
                 'status' => 'error',
                 'data' => '',
+                'name_badge_position_status'    => $name_badge_position_status,
+                'name_badge_position'           => $name_badge_position,
                 'message' => 'Did not found any events template!',
             ];
             echo json_encode($feedback);
