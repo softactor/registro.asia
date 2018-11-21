@@ -141,7 +141,7 @@ function getNameBadgeConfigDetails(event_id, url) {
             data: 'event_id=' + event_id,
             success: function (response) {
                 if (response.status == 'success') {
-                    $('#content_loader').show();
+                    $('#content_loader').hide();
                     $('#measure_unit').val(response.data.measure_unit);
                     $('#namebadge_width').val(response.data.namebadge_width);
                     $('#namebadge_height').val(response.data.namebadge_height);
