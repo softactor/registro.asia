@@ -96,8 +96,9 @@ function set_event_namebadge_background(event_id, url){
                         $("#containment-wrapper").append(response.positionEditView);
                     }
                 }else{
-                    swal("Error!", response.message, "error");
                     $('#content_loader').hide();
+                    $('#containment-wrapper').css('background-image', '');
+                    swal("Error!", response.message, "error");
                 }
             }
         })
