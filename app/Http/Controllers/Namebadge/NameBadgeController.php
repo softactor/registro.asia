@@ -44,8 +44,9 @@ class NameBadgeController extends Controller{
                             ->with('error', 'Failed to save data');
         }
         $events     = DB::table('events')->where('id', $request->event_id)->first();
-        $path       = $_FILES['background']['tmp_name'];
-        $imageDimention     =   getimagesize($path);
+        $path       = $_FILES['background']['name'];
+        $dimention_path       = $_FILES['background']['tmp_name'];
+        $imageDimention     =   getimagesize($dimention_path);
         if($imageDimention['0'] > 550){
             return redirect('su/name_badge_config')
                             ->withInput()
