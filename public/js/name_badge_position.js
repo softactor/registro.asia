@@ -12,11 +12,6 @@ $(function () {
 //                    ", Left: " + (pos.left - dPos.left));
             $("#" + draggableId).attr("data-left",(pos.left - dPos.left));
             $("#" + draggableId).attr("data-top",(pos.top - dPos.top));
-            // to save actual position:
-            var absPos = elem.offset();
-            
-            $("#" + draggableId).attr("data-absulate-left",pos.left);
-            $("#" + draggableId).attr("data-absulate-top",pos.top);
         }
     });
 });
@@ -134,5 +129,41 @@ function confirmFieldDelete(del_id, del_url) {
             async: false // <- this turns it into synchronous
         });
     });
+}
+
+function getNameBadgeConfigDetails(event_id, url) {
+    if (event_id) {
+        $.ajax({
+            url: url,
+            type: 'GET',
+            dataType: 'json',
+            data: 'event_id=' + event_id,
+            success: function (response) {
+                if (response.status == 'success') {
+                    $('#measure_unit').val(response.data.measure_unit);
+                    $('#namebadge_width').val(response.data.namebadge_width);
+                    $('#namebadge_height').val(response.data.namebadge_height);
+                    $('#namebadge_orientation').val(response.data.namebadge_orientation);
+                    $("#previous_bg_template").show();
+                    $("#previous_bg_template_img").attr("src",response.bg_template_url);
+                }else{
+                    $('#measure_unit').val('');
+                    $('#namebadge_width').val('');
+                    $('#namebadge_height').val('');
+                    $('#namebadge_orientation').val(''); 
+                    $("#previous_bg_template").hide();
+                    $("#previous_bg_template_img").attr("src",'');
+                }
+            },
+            async: false // <- this turns it into synchronous
+        });
+    }else{
+        $('#measure_unit').val('');
+        $('#namebadge_width').val('');
+        $('#namebadge_height').val('');
+        $('#namebadge_orientation').val('');
+        $("#previous_bg_template").hide();
+        $("#previous_bg_template_img").attr("src",'');
+    }
 }
   

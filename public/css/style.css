@@ -93,7 +93,3 @@ html, body {
     font-size: 16px;
     cursor: pointer;
 }
-.edit_field_class:hover{
-    font-style: italic;
-    color: yellow;
-}

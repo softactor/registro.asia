@@ -17,9 +17,10 @@ class NameBadgeController extends Controller{
     public function name_badge_config(Request $request){
         $events        =   DB::table('events')->get();
         $page_details   =   [
-            'page_title'    =>  "Namebadge Configuration",
-            'events'        =>  $events,
-            'form_url'      =>  'su/name_badge_config_store',
+            'page_title'            =>  "Namebadge Configuration",
+            'events'                =>  $events,
+            'form_url'              =>  'su/name_badge_config_store',
+            'previous_config_url'   =>  'su/name_badge_background_by_event',
         ];
         return view('superadmin.namebadge.config', compact('page_details'));
     }
@@ -43,9 +44,16 @@ class NameBadgeController extends Controller{
                             ->with('error', 'Failed to save data');
         }
         $events     = DB::table('events')->where('id', $request->event_id)->first();
-        $path       = $_FILES['background']['name'];
+        $path       = $_FILES['background']['tmp_name'];
+        $imageDimention     =   getimagesize($path);
+        if($imageDimention['0'] > 550){
+            return redirect('su/name_badge_config')
+                            ->withInput()
+                            ->with('error', 'Failed to save data.Background template maximum allowed width was 550');
+        }
+        
         $ext        = pathinfo($path, PATHINFO_EXTENSION);
-        $filename   = implode('_', explode(' ', $events->title)) . "." . $ext;
+        $filename   = implode('_', explode(' ', $events->title)) .time(). "." . $ext;
         $filepath   = public_path('/namebadge/');
         /* ----------------------------------------------------------
          * check duplicate entry
@@ -60,6 +68,8 @@ class NameBadgeController extends Controller{
         // check is it duplicate or not
         if ($duplicateCheck_id) {
             $name_badge_configure = NamebadgeConfigModel::find($duplicateCheck_id);
+            $file_path = public_path('/namebadge/'.$name_badge_configure->image_path);
+            unlink($file_path);
             $response   =   $name_badge_configure->update([
                 'event_id'              => $request->event_id,
                 'namebadge_width'       => $request->namebadge_width,
@@ -67,9 +77,7 @@ class NameBadgeController extends Controller{
                 'namebadge_orientation' => $request->namebadge_orientation,
                 'image_path'            => $filename,
                 'measure_unit'          => $request->measure_unit,
-            ]);
-            $file_path = public_path('/namebadge/'.$filename);
-            unlink($file_path);
+            ]);            
             $op_message =   'data have successfully updated';
         } else {
             /* ----------------------------------------------------------
@@ -91,12 +99,11 @@ class NameBadgeController extends Controller{
             return redirect('su/name_badge_config')
                             ->with('success', $op_message);
         } else {
-            return redirect('admin/area/create')
+            return redirect('su/name_badge_config')
                             ->withInput()
                             ->with('error', 'Failed to save data.');
         }
     }
-
     public function name_badge_set_position(Request $request){
         $page_details   =   [
             'page_title'                =>  'Badge Design',
@@ -124,11 +131,11 @@ class NameBadgeController extends Controller{
         if (isset($templates) && !empty($templates)) {
             $feedback = [
                 'status'                        => 'success',
-                'data'                          => $templates,
                 'name_badge_position_status'    => $name_badge_position_status,
                 'name_badge_position'           => $name_badge_position,
                 'positionEditView'              => $positionEditViewRender,
                 'data'                          => $templates,
+                'bg_template_url'               => asset('/namebadge/'.$templates->image_path),
                 'message'                       => 'Data found',
             ];
             echo json_encode($feedback);
