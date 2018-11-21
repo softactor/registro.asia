@@ -84,6 +84,9 @@
                                 <span class="text-info" style="font-size: 18px; font-style: italic;">Maximum allowed size is 550px</span>
                             </div>
                             <div class="col-md-6">
+                                <div id="content_loader">
+                                        <img src="{{ asset('images/content_loading.gif') }}" alt="Wait" />
+                                    </div>
                                 <div id="previous_bg_template" style="display: none;">
                                     <img id="previous_bg_template_img" class="img-responsive" src="" />
                                 </div>

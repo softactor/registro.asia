@@ -133,6 +133,7 @@ function confirmFieldDelete(del_id, del_url) {
 
 function getNameBadgeConfigDetails(event_id, url) {
     if (event_id) {
+        $('#content_loader').show();
         $.ajax({
             url: url,
             type: 'GET',
@@ -140,6 +141,7 @@ function getNameBadgeConfigDetails(event_id, url) {
             data: 'event_id=' + event_id,
             success: function (response) {
                 if (response.status == 'success') {
+                    $('#content_loader').hide();
                     $('#measure_unit').val(response.data.measure_unit);
                     $('#namebadge_width').val(response.data.namebadge_width);
                     $('#namebadge_height').val(response.data.namebadge_height);
@@ -147,6 +149,7 @@ function getNameBadgeConfigDetails(event_id, url) {
                     $("#previous_bg_template").show();
                     $("#previous_bg_template_img").attr("src",response.bg_template_url);
                 }else{
+                    $('#content_loader').hide();
                     $('#measure_unit').val('');
                     $('#namebadge_width').val('');
                     $('#namebadge_height').val('');
@@ -158,6 +161,7 @@ function getNameBadgeConfigDetails(event_id, url) {
             async: false // <- this turns it into synchronous
         });
     }else{
+        $('#content_loader').hide();
         $('#measure_unit').val('');
         $('#namebadge_width').val('');
         $('#namebadge_height').val('');
