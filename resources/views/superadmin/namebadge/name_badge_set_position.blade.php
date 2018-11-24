@@ -78,3 +78,4 @@
 <script type="text/javascript" src="{{ asset('js/name_badge_position.js')}}"></script>
 @endsection
 @endsection
+@include('partial/namebadge_template_fields_font_style')

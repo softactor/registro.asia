@@ -56,6 +56,7 @@ Route::get('su/name_badge_set_position', 'Namebadge\NameBadgeController@name_bad
 Route::get('su/name_badge_background_by_event', 'Namebadge\NameBadgeController@name_badge_background_by_event');
 Route::post('su/name_badge_set_position_store', 'Namebadge\NameBadgeController@name_badge_set_position_store');
 Route::get('su/name_badge_field_delete', 'Namebadge\NameBadgeController@name_badge_field_delete');
+Route::post('su/saveNamebadgeFontStyle', 'Namebadge\NameBadgeController@saveNamebadgeFontStyle');
 
 //          REGISTRATION
 Route::get('su/registration_details_list', 'Backend@registration_details_list');

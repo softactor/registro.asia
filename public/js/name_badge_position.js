@@ -171,4 +171,40 @@ function getNameBadgeConfigDetails(event_id, url) {
         $("#previous_bg_template_img").attr("src",'');
     }
 }
+
+// trying to load this method when mouse over from namebadge position fields:
+function displayStyleEditorEnableSection(id){
+    $('.font_style_and_delete_class_section').show();
+    $('.font_style_and_delete_class_section').not('#' + id).hide();
+}
+// open the font style modal:
+function openStyleEditor(id, fieldsName){
+    $('#nameBadgeFieldsId').val(id);
+    $('#fieldsName').html(fieldsName);
+    $("#name_badge_fields_font_style_edit").modal();
+}
+// store font style data:
+function saveNamebadgeFontStyle(url){
+    $.ajax({
+        type: 'POST',
+        url: url,
+        dataType:'json',
+        data: $("#namebadgefontstyleForm").serialize(),
+        headers: {
+            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content'),
+        },
+        success: function (response) {
+            if (response.status == 'success') {
+                $('#nameBadgeFieldsId').val('');
+                $('#font_unit').val('');
+                $('#font_size').val('');
+                $('#font_weight').val('');
+                $('#name_badge_fields_font_style_edit').modal('hide');
+                swal("Font style updated", response.message, "success");
+            }else{
+                swal("Error!", response.message, "error");
+            }
+        }
+    })
+}
   

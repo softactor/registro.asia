@@ -93,3 +93,24 @@ html, body {
     font-size: 16px;
     cursor: pointer;
 }
+.font_style_and_delete_class_section{
+    width: 200px;
+    height: 33px;
+    display: inline-block;
+    position: relative;
+    left: 0px;
+    z-index: 999;
+    top: 0px;
+    padding: 1%;
+}
+.font_style_and_delete_class_section ul{ 
+     margin: 0; 
+     padding: 0;
+}
+
+.font_style_and_delete_class_section ul li{
+    float: left;
+    list-style-type: none; 
+    margin: 0; 
+    padding: 0;
+}

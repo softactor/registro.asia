@@ -236,5 +236,59 @@ class NameBadgeController extends Controller{
             ];
             echo json_encode($feedback);
     }
+    
+    public function saveNamebadgeFontStyle(Request $request) {
+        $font_style = [];
+        $font_unit = '';
+        $font_size = '';
+        $font_weight = '';
+        $is_up_status = false;
+        if (isset($request->font_unit) && !empty($request->font_unit)) {
+            $font_unit = $request->font_unit;
+            $is_up_status = true;
+        }
+        if (isset($request->font_size) && !empty($request->font_size)) {
+            $font_size = $request->font_size;
+            $is_up_status = true;
+        }
+        if (isset($request->font_weight) && !empty($request->font_weight)) {
+            $font_weight = $request->font_weight;
+            $is_up_status = true;
+        }
+        if ($is_up_status) {
+            $name_badge_configure = NamebadgePositionModel::find($request->nameBadgeFieldsId);
+            $db_fontstyle = json_decode($name_badge_configure->font_style);
+            if (isset($db_fontstyle) && !empty($db_fontstyle)) {
+                $font_style = [
+                    'font_unit' => (isset($db_fontstyle->font_unit) && !empty($db_fontstyle->font_unit) ? $db_fontstyle->font_unit : $font_unit),
+                    'font_size' => (isset($db_fontstyle->font_size) && !empty($db_fontstyle->font_size) ? $db_fontstyle->font_size : $font_size),
+                    'font_weight' => (isset($db_fontstyle->font_weight) && !empty($db_fontstyle->font_weight) ? $db_fontstyle->font_weight : $font_weight),
+                ];
+            } else {
+                $font_style = [
+                    'font_unit' => $font_unit,
+                    'font_size' => $font_size,
+                    'font_weight' => $font_weight,
+                ];
+            }
+
+            $response = $name_badge_configure->update([
+                'font_style' => json_encode($font_style)
+            ]);
+            $feedback   =   [
+                'status'    => 'success',
+                'message'   => 'Data have successfully updated',
+                'data'      => $font_style,
+            ];
+        }else{
+            $feedback   =   [
+                'status'    => 'error',
+                'message'   => 'Nothing to Update',
+                'data'      => $font_style,
+            ];
+        }
+        
+        echo json_encode($feedback);
+    }
 
 }
