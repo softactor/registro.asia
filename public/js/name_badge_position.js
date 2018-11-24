@@ -182,6 +182,11 @@ function openStyleEditor(id, fieldsName){
     $('#nameBadgeFieldsId').val(id);
     $('#fieldsName').html(fieldsName);
     $("#name_badge_fields_font_style_edit").modal();
+    
+    $('#font_unit').val($('#badge_field_font_unit_'+id).val());
+    $('#font_size').val($('#badge_field_font_size_'+id).val());
+    $('#font_weight').val($('#badge_field_font_weight_'+id).val());
+    
 }
 // store font style data:
 function saveNamebadgeFontStyle(url){
@@ -194,7 +199,16 @@ function saveNamebadgeFontStyle(url){
             'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content'),
         },
         success: function (response) {
+            console.log('Take');
+            console.log(response);
             if (response.status == 'success') {
+                // updated the new value
+                var id  =   $('#nameBadgeFieldsId').val();
+                $('#badge_field_font_unit_'+id).val(response.data.font_unit);
+                $('#badge_field_font_size_'+id).val(response.data.font_size);
+                $('#badge_field_font_weight_'+id).val(response.data.font_weight);
+                
+                // in form deselect all values
                 $('#nameBadgeFieldsId').val('');
                 $('#font_unit').val('');
                 $('#font_size').val('');

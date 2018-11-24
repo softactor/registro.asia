@@ -6,7 +6,17 @@
  * and open the template in the editor.
  */
 foreach($position_details as $pos){
+    $font_unit      =   '';
+    $font_size      =   '';
+    $font_weight    =   '';
     $del_url    =   url('su/name_badge_field_delete');
+    $font_style_json =   $pos->font_style;
+    if(isset($font_style_json) && !empty($font_style_json)){
+        $font_style    =   json_decode($font_style_json);
+        $font_unit      =   $font_style->font_unit;
+        $font_size      =   $font_style->font_size;
+        $font_weight    =   $font_style->font_weight;
+    }
     ?>
     <div
         id='del_id_{{$pos->id}}'
@@ -15,6 +25,9 @@ foreach($position_details as $pos){
         left: {{ $pos->left_value.'px' }};
         top: {{ $pos->top_value.'px' }}"
         >
+        <input type="hidden" id="badge_field_font_unit_{{$pos->id}}" value="{{ $font_unit }}">
+        <input type="hidden" id="badge_field_font_size_{{$pos->id}}" value="{{ $font_size }}">
+        <input type="hidden" id="badge_field_font_weight_{{$pos->id}}" value="{{ $font_weight }}">
         <span>{{ $pos->field_id }}</span>
         <div class="font_style_and_delete_class_section" id="font_style_and_delete_class_section_id_{{ $pos->id }}">
             <ul>

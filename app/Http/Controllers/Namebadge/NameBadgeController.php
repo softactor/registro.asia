@@ -260,9 +260,9 @@ class NameBadgeController extends Controller{
             $db_fontstyle = json_decode($name_badge_configure->font_style);
             if (isset($db_fontstyle) && !empty($db_fontstyle)) {
                 $font_style = [
-                    'font_unit' => (isset($db_fontstyle->font_unit) && !empty($db_fontstyle->font_unit) ? $db_fontstyle->font_unit : $font_unit),
-                    'font_size' => (isset($db_fontstyle->font_size) && !empty($db_fontstyle->font_size) ? $db_fontstyle->font_size : $font_size),
-                    'font_weight' => (isset($db_fontstyle->font_weight) && !empty($db_fontstyle->font_weight) ? $db_fontstyle->font_weight : $font_weight),
+                    'font_unit' => (isset($font_unit) && !empty($font_unit) ? $font_unit : $db_fontstyle->font_unit),
+                    'font_size' => (isset($font_size) && !empty($font_size) ? $font_size : $db_fontstyle->font_size),
+                    'font_weight' => (isset($font_weight) && !empty($font_weight) ? $font_weight : $db_fontstyle->font_weight),
                 ];
             } else {
                 $font_style = [
