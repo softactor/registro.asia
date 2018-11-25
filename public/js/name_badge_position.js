@@ -142,21 +142,26 @@ function getNameBadgeConfigDetails(event_id, url) {
             data: 'event_id=' + event_id,
             success: function (response) {
                 if (response.status == 'success') {
+                    $('#saved_templates_area').show();
                     $('#content_loader').hide();
                     $('#measure_unit').val(response.data.measure_unit);
                     $('#namebadge_width').val(response.data.namebadge_width);
                     $('#namebadge_height').val(response.data.namebadge_height);
                     $('#namebadge_orientation').val(response.data.namebadge_orientation);
-                    $("#previous_bg_template").show();
-                    $("#previous_bg_template_img").attr("src",response.bg_template_url);
+                    if(response.templates_details_status){
+                        $('#saved_templates_area').html(response.templates_detailsViewRender);
+                    }
+                    $('#config_saved_button').val('Update');
                 }else{
                     $('#content_loader').hide();
+                    $('#saved_templates_area').hide();
                     $('#measure_unit').val('');
                     $('#namebadge_width').val('');
                     $('#namebadge_height').val('');
                     $('#namebadge_orientation').val(''); 
                     $("#previous_bg_template").hide();
                     $("#previous_bg_template_img").attr("src",'');
+                    $('#config_saved_button').val('Create');
                 }
             },
             async: false // <- this turns it into synchronous

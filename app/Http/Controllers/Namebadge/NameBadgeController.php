@@ -110,6 +110,14 @@ class NameBadgeController extends Controller{
                             ->with('error', 'No template file was selected!');
             }
         }
+        
+        // previous saved template name update area
+        if(isset($request->saved_template_name) && !empty($request->saved_template_name)){
+            $up_param   =   [
+                'saved_template_name' => $request->saved_template_name
+            ];
+            $this->previous_saved_template_name_update($up_param);
+        }
         if ($response) {
             return redirect('su/name_badge_config')
                             ->with('success', $op_message);
@@ -144,8 +152,7 @@ class NameBadgeController extends Controller{
         }
 
         return $uploaded_details;
-    }
-    
+    }    
     public function store_namebadge_template_details($template_details_param) {
         foreach($template_details_param['template_details'] as $template_details) {
             $response = NamebadgeTemplateDetailsModel::create([
@@ -153,6 +160,18 @@ class NameBadgeController extends Controller{
                         'template_name' => $template_details['template_name'],
                         'image_path'    => $template_details['template_file_name']
                     ])->id;
+        }
+    }
+    public function previous_saved_template_name_update($data){
+        // previous saved template name update area
+        $pre_saved_templets_name    =   $data['saved_template_name'];
+        if(isset($pre_saved_templets_name) && !empty($pre_saved_templets_name)){
+            foreach($pre_saved_templets_name as $pstn_key=>$pstn_val){
+                $ntd_data = NamebadgeTemplateDetailsModel::find($pstn_key);
+                $ntd_data_response = $ntd_data->update([
+                    'template_name' => $pstn_val
+                ]);
+            }
         }
     }
 
@@ -169,25 +188,36 @@ class NameBadgeController extends Controller{
         $name_badge_position            =   [];
         $positionEditViewRender         =   [];
         $name_badge_position_status     =   false;
-        $templates = NamebadgeConfigModel::where('event_id', $request->event_id)->first();
-        // check name_badge_position table have already saved position for this event
-        $position_details   =   DB::table('name_badge_position')->where('event_id',$request->event_id)->get();
-        if (!$position_details->isEmpty()) { 
-            foreach($position_details as $pd){
-                $name_badge_position[$pd->field_id]   =   $pd;
-            } 
-            $positionEditView    = View::make('partial.name_badge_position_edit_view', compact('position_details'));
-            $name_badge_position_status     =   TRUE;
-            $positionEditViewRender         =   $positionEditView->render();
-        }
-        if (isset($templates) && !empty($templates)) {
+        $templates_details_status     =   false;
+        $templates_config               = NamebadgeConfigModel::where('event_id', $request->event_id)->first();        
+        if (isset($templates_config) && !empty($templates_config)) {
+            // get templates from namebadge_template_details
+            $templates_details              = NamebadgeTemplateDetailsModel::where('config_id', $templates_config->id)->get();
+            // check name_badge_position table have already saved position for this event
+            $position_details   =   DB::table('name_badge_position')->where('event_id',$request->event_id)->get();
+            if (!$position_details->isEmpty()) { 
+                foreach($position_details as $pd){
+                    $name_badge_position[$pd->field_id]   =   $pd;
+                } 
+                $positionEditView    = View::make('partial.name_badge_position_edit_view', compact('position_details'));
+                $name_badge_position_status     =   TRUE;
+                $positionEditViewRender         =   $positionEditView->render();
+            }
+            if (!$templates_details->isEmpty()) {
+                $templates_detailsView                  = View::make('partial.namebadge_saved_templates', compact('templates_details'));
+                $templates_details_status               =   TRUE;
+                $templates_detailsViewRender            =   $templates_detailsView->render();
+            }
             $feedback = [
                 'status'                        => 'success',
+                'templates_details'             => ((!$templates_details->isEmpty())? $templates_details : ''),
                 'name_badge_position_status'    => $name_badge_position_status,
+                'templates_details_status'      => $templates_details_status,
                 'name_badge_position'           => $name_badge_position,
                 'positionEditView'              => $positionEditViewRender,
-                'data'                          => $templates,
-                'bg_template_url'               => asset('/namebadge/'.$templates->image_path),
+                'templates_detailsViewRender'   => $templates_detailsViewRender,
+                'data'                          => $templates_config,
+                'bg_template_url'               => asset('/namebadge/'.$templates_config->image_path),
                 'message'                       => 'Data found',
             ];
             echo json_encode($feedback);

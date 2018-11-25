@@ -114,3 +114,38 @@ html, body {
     margin: 0; 
     padding: 0;
 }
+
+ul.saved_templates{
+    margin: 0;
+    padding: 0;
+    float: left;
+    list-style: none;
+    width: 100%;    
+}
+ul.saved_templates li{
+    margin: 0;
+    padding: .5%;
+    float: left;
+    display: inline-block;
+}
+ul.saved_templates li .outer
+{
+    border: 1px solid lightgray;
+    width: 200px;
+    height: 200px;
+}
+
+ul.saved_templates li .inner
+{
+    display: table-cell;
+    height: 195px;
+    width: 195px;
+    vertical-align: middle;
+    padding: 5%;
+}
+ul.saved_templates li img{
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+    margin: auto auto;
+}

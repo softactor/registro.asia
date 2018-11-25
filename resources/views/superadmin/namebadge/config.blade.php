@@ -73,6 +73,7 @@
                             <?php } ?>
                         </select>
                     </div>
+                    <span id="saved_templates_area"></span>
                     <div id="template_area">
                         <div class="form-group">
                             @if ($errors->has('namebadge_width'))
@@ -106,7 +107,7 @@
                         </div>
                     </div>
                     <span id="cloneItem"></span>                    
-                    <input type="submit" name='create_event' value="Create" class="btn btn-default">
+                    <input type="submit" id="config_saved_button" name='create_event' value="Create" class="btn btn-default">
                 </form>
             </div><!--/tab-content-->
 
