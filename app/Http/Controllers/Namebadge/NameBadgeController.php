@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Namebadge\NamebadgeConfigModel;
 use App\Model\Namebadge\NamebadgePositionModel;
+use App\Model\Namebadge\NamebadgeTemplateDetailsModel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
@@ -32,7 +33,6 @@ class NameBadgeController extends Controller{
             'namebadge_height'      => 'required',
             'namebadge_orientation' => 'required',
             'measure_unit'          => 'required',
-            'background'            => 'required',
         ];
 
         // Create a new validator instance
@@ -44,18 +44,13 @@ class NameBadgeController extends Controller{
                             ->with('error', 'Failed to save data');
         }
         $events     = DB::table('events')->where('id', $request->event_id)->first();
-        $path       = $_FILES['background']['name'];
-        $dimention_path       = $_FILES['background']['tmp_name'];
-        $imageDimention     =   getimagesize($dimention_path);
-        if($imageDimention['0'] > 550){
-            return redirect('su/name_badge_config')
-                            ->withInput()
-                            ->with('error', 'Failed to save data.Background template maximum allowed width was 550');
-        }
         
-        $ext        = pathinfo($path, PATHINFO_EXTENSION);
-        $filename   = implode('_', explode(' ', $events->title)) .time(). "." . $ext;
-        $filepath   = public_path('/namebadge/');
+        // count_template_name
+        $template_image_upload_details  =   [
+            'templates_name'    =>  $request->template_name,
+            'templates'         =>  $_FILES['background']
+        ];
+        $template_upload_response    =   $this->upload_multiple_template_images($template_image_upload_details);        
         /* ----------------------------------------------------------
          * check duplicate entry
          * ---------------------------------------------------------
@@ -69,33 +64,52 @@ class NameBadgeController extends Controller{
         // check is it duplicate or not
         if ($duplicateCheck_id) {
             $name_badge_configure = NamebadgeConfigModel::find($duplicateCheck_id);
-            $file_path = public_path('/namebadge/'.$name_badge_configure->image_path);
-            unlink($file_path);
             $response   =   $name_badge_configure->update([
                 'event_id'              => $request->event_id,
                 'namebadge_width'       => $request->namebadge_width,
                 'namebadge_height'      => $request->namebadge_height,
                 'namebadge_orientation' => $request->namebadge_orientation,
-                'image_path'            => $filename,
+                'image_path'            => '',
                 'measure_unit'          => $request->measure_unit,
             ]);            
             $op_message =   'data have successfully updated';
+            if(isset($template_upload_response) && !empty($template_upload_response)){
+                $template_details_param  =   [
+                    'config_id'         =>  $duplicateCheck_id,
+                    'template_details'  =>  $template_upload_response,
+                ];
+                
+                $store_response   =  $this->store_namebadge_template_details($template_details_param);
+            }
         } else {
             /* ----------------------------------------------------------
              * Insert area
              * ---------------------------------------------------------
              */
-            $response = NamebadgeConfigModel::create([
-                        'event_id' => $request->event_id,
-                        'namebadge_width' => $request->namebadge_width,
-                        'namebadge_height' => $request->namebadge_height,
-                        'namebadge_orientation' => $request->namebadge_orientation,
-                        'image_path' => $filename,
-                        'measure_unit' => $request->measure_unit,
-            ]);
-            $op_message =   'data have successfully saved';
+            if (isset($template_upload_response) && !empty($template_upload_response)) {
+                $response = NamebadgeConfigModel::create([
+                            'event_id' => $request->event_id,
+                            'namebadge_width' => $request->namebadge_width,
+                            'namebadge_height' => $request->namebadge_height,
+                            'namebadge_orientation' => $request->namebadge_orientation,
+                            'image_path' => '',
+                            'measure_unit' => $request->measure_unit,
+                ])->id;
+                $op_message = 'data have successfully saved';
+                if(isset($template_upload_response) && !empty($template_upload_response)){
+                $template_details_param  =   [
+                    'config_id'         =>  $response,
+                    'template_details'  =>  $template_upload_response,
+                ];
+                
+                $store_response   =  $this->store_namebadge_template_details($template_details_param);
+            }
+            }else{
+                return redirect('su/name_badge_config')
+                            ->withInput()
+                            ->with('error', 'No template file was selected!');
+            }
         }
-        $checkMove = move_uploaded_file($_FILES['background']['tmp_name'], $filepath . $filename);
         if ($response) {
             return redirect('su/name_badge_config')
                             ->with('success', $op_message);
@@ -105,6 +119,43 @@ class NameBadgeController extends Controller{
                             ->with('error', 'Failed to save data.');
         }
     }
+    
+    public function upload_multiple_template_images($imageData) {
+        $uploaded_details = [];
+        $total_tamplate_image = count($imageData['templates_name']);
+        for ($i = 0; $i < $total_tamplate_image; $i++) {
+            if (isset($imageData['templates_name'][$i]) && $imageData['templates']['tmp_name'][$i]) {
+                $path = $imageData['templates']['name'][$i];
+                $dimention_path = $imageData['templates']['tmp_name'][$i];
+                $imageDimention = getimagesize($dimention_path);
+                if ($imageDimention['0'] > 550) {
+                    
+                }
+
+                $ext = pathinfo($path, PATHINFO_EXTENSION);
+                $filename = date('m-d-Y') . '_' . 'name_badge_template_' . $i . '_' . time() . "." . $ext;
+                $filepath = public_path('/namebadge/');
+                $checkMove = move_uploaded_file($imageData['templates']['tmp_name'][$i], $filepath . $filename);
+                $uploaded_details[] = [
+                    'template_name' => $imageData['templates_name'][$i],
+                    'template_file_name' => $filename
+                ];
+            }
+        }
+
+        return $uploaded_details;
+    }
+    
+    public function store_namebadge_template_details($template_details_param) {
+        foreach($template_details_param['template_details'] as $template_details) {
+            $response = NamebadgeTemplateDetailsModel::create([
+                        'config_id'     => $template_details_param['config_id'],
+                        'template_name' => $template_details['template_name'],
+                        'image_path'    => $template_details['template_file_name']
+                    ])->id;
+        }
+    }
+
     public function name_badge_set_position(Request $request){
         $page_details   =   [
             'page_title'                =>  'Badge Design',

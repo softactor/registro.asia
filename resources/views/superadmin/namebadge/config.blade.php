@@ -73,26 +73,39 @@
                             <?php } ?>
                         </select>
                     </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-6">
-                                @if ($errors->has('background'))
-                                <div class="alert-error">{{ $errors->first('background') }}</div>
-                                @endif
-                                <label for="namebadge_height">File:</label>
-                                <input type="file" class="form-control" id="background" name="background">
-                                <span class="text-info" style="font-size: 18px; font-style: italic;">Maximum allowed size is 550px</span>
-                            </div>
-                            <div class="col-md-6">
-                                <div id="content_loader">
+                    <div id="template_area">
+                        <div class="form-group">
+                            @if ($errors->has('namebadge_width'))
+                            <div class="alert-error">{{ $errors->first('namebadge_width') }}</div>
+                            @endif
+                            <label for="namebadge_width">Template Name:</label>
+                            <input type="text" class="form-control" placeholder="Enter template name" name="template_name[]" value="{{ old('template_name') }}">
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    @if ($errors->has('background'))
+                                    <div class="alert-error">{{ $errors->first('background') }}</div>
+                                    @endif
+                                    <label for="namebadge_height">File:</label>
+                                    <input type="file" class="form-control" name="background[]">
+                                    <span class="text-info" style="font-size: 18px; font-style: italic;">Maximum allowed size is 550px</span>
+                                </div>
+                                <div class="col-md-6">
+                                    <div id="content_loader">
                                         <img src="{{ asset('images/content_loading.gif') }}" alt="Wait" />
                                     </div>
-                                <div id="previous_bg_template" style="display: none;">
-                                    <img id="previous_bg_template_img" class="img-responsive" src="" />
+                                    <div id="previous_bg_template" style="display: none;">
+                                        <img id="previous_bg_template_img" class="img-responsive" src="" />
+                                    </div>
                                 </div>
-                            </div>
-                        </div>                        
+                            </div>                        
+                        </div>
+                        <div class="form-group col-lg-12">
+                            <button type="button" class="btn btn-primary pull-right" onclick="add_more_templates();">Add more template</button>
+                        </div>
                     </div>
+                    <span id="cloneItem"></span>                    
                     <input type="submit" name='create_event' value="Create" class="btn btn-default">
                 </form>
             </div><!--/tab-content-->

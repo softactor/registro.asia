@@ -221,4 +221,10 @@ function saveNamebadgeFontStyle(url){
         }
     })
 }
+
+    function add_more_templates(){
+        var cln= $("#template_area").first().clone().find("input,textarea").val("").end();
+        $('#cloneItem').append(cln)
+//        $(".registration_area").clone().insertAfter("div.registration_area:last").find("input[type='text']").val("");;
+    }
   
