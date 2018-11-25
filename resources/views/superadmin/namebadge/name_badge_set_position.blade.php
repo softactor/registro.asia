@@ -25,18 +25,27 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <?php
-                                $get_background_url     =   $page_details['get_background_url'];
+                            $get_background_url = $page_details['get_background_url'];
                             ?>
                             <select class="form-control" id="event_id" name="event_id" onchange="set_event_namebadge_background(this.value, '{{ url($get_background_url) }}');">
-                            <option value="">Events List</option>
-                            <?php
-                                $events     =   get_table_data_by_table('events'); 
-                                foreach($events as $e){
-                            ?>
-                            <option value="<?php echo $e->id ?>"><?php echo $e->title ?></option>
-                            <?php } ?>
-                        </select>
+                                <option value="">Events List</option>
+                                <?php
+                                $events = get_table_data_by_table('events');
+                                foreach ($events as $e) {
+                                    ?>
+                                    <option value="<?php echo $e->id ?>"><?php echo $e->title ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
                     </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <select class="form-control" id="image_path" name="image_path" onchange="update_event_namebadge_background(this.value);">
+                                <option value="">Template List</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div class="row">

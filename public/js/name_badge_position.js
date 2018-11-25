@@ -43,8 +43,8 @@ function save_position(){
             'newtop'                    : newtop,
             'left_absulate_value'       : left_absulate_value,
             'top_absulate_value'        : top_absulate_value,
-            'event_id'      : $('#event_id').val(),
-            'name_badge_id' : $('#name_badge_id').val()
+            'event_id'                  : $('#event_id').val(),
+            'name_badge_id'             : $('#name_badge_id').val()
         };
         dataParam.push(dataParamObj);
     })
@@ -52,7 +52,7 @@ function save_position(){
         type: 'POST',
         url: $('#position_store').val(),
         dataType:'json',
-        data: 'dataParam='+JSON.stringify(dataParam)+'&event_id='+$('#event_id').val()+'&name_badge_id='+$('#name_badge_id').val(),
+        data: 'dataParam='+JSON.stringify(dataParam)+'&event_id='+$('#event_id').val()+'&name_badge_id='+$('#name_badge_id').val()+'&image_path='+$('#image_path').val(),
         headers: {
             'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content'),
         },
@@ -80,7 +80,7 @@ function set_event_namebadge_background(event_id, url){
             success: function (response) {
                 console.log(response);
                 if (response.status == 'success') {
-                    $('#content_loader').hide();
+                    $('#content_loader').hide();                    
                     var imageUrl = $('#namebadge_bg_image_path').val() + '/' + response.data.image_path;
                     $('#containment-wrapper').css('background-image', 'url(' + imageUrl + ')');
                     $('#containment-wrapper').css('background-repeat', 'no-repeat');
@@ -88,21 +88,32 @@ function set_event_namebadge_background(event_id, url){
                     $('#containment-wrapper').css('height', response.data.namebadge_height + response.data.measure_unit);
                     $('#name_badge_id').val(response.data.id);
                     
-                    if(response.name_badge_position_status){                                
-//                        $.each(response.name_badge_position, function (key, val) {
-//                            $("#" + key).remove();
-//                        });
+                    if(response.name_badge_position_status){
                         $(".edit_field_class").remove();
                         $("#containment-wrapper").append(response.positionEditView);
                     }
+                    
+                    if(response.templates_details_status){
+                        $("#image_path").html(response.templates_detailsDropDown);
+                    }else{
+                        $("#image_path").html("");
+                    }
                 }else{
                     $('#content_loader').hide();
+                    $("#image_path").html("");
                     $('#containment-wrapper').css('background-image', '');
                     swal("Error!", response.message, "error");
                 }
+                $("#image_path").val(response.data.image_path).attr("selected", "selected");;
             }
         })
     }
+}
+
+function update_event_namebadge_background(image_path){
+    var imageUrl = $('#namebadge_bg_image_path').val() + '/' + image_path;
+    $('#containment-wrapper').css('background-image', 'url(' + imageUrl + ')');
+    $('#containment-wrapper').css('background-repeat', 'no-repeat');
 }
 
 function confirmFieldDelete(del_id, del_url) {
@@ -227,7 +238,7 @@ function saveNamebadgeFontStyle(url){
     })
 }
 
-    function add_more_templates(){
+function add_more_templates(){
         var cln= $("#template_area").first().clone().find("input,textarea").val("").end();
         $('#cloneItem').append(cln)
 //        $(".registration_area").clone().insertAfter("div.registration_area:last").find("input[type='text']").val("");;

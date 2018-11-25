@@ -126,8 +126,7 @@ class NameBadgeController extends Controller{
                             ->withInput()
                             ->with('error', 'Failed to save data.');
         }
-    }
-    
+    }    
     public function upload_multiple_template_images($imageData) {
         $uploaded_details = [];
         $total_tamplate_image = count($imageData['templates_name']);
@@ -174,6 +173,7 @@ class NameBadgeController extends Controller{
             }
         }
     }
+    
 
     public function name_badge_set_position(Request $request){
         $page_details   =   [
@@ -185,11 +185,12 @@ class NameBadgeController extends Controller{
         return view('superadmin.namebadge.name_badge_set_position', compact('page_details'));   
     }
     public function name_badge_background_by_event(Request $request) {
-        $name_badge_position            =   [];
-        $positionEditViewRender         =   [];
-        $name_badge_position_status     =   false;
-        $templates_details_status     =   false;
-        $templates_config               = NamebadgeConfigModel::where('event_id', $request->event_id)->first();        
+        $name_badge_position                    =   [];
+        $positionEditViewRender                 =   [];
+        $templates_detailsDropViewRender        =   [];
+        $name_badge_position_status             =   false;
+        $templates_details_status               =   false;
+        $templates_config                       =   NamebadgeConfigModel::where('event_id', $request->event_id)->first();        
         if (isset($templates_config) && !empty($templates_config)) {
             // get templates from namebadge_template_details
             $templates_details              = NamebadgeTemplateDetailsModel::where('config_id', $templates_config->id)->get();
@@ -204,9 +205,14 @@ class NameBadgeController extends Controller{
                 $positionEditViewRender         =   $positionEditView->render();
             }
             if (!$templates_details->isEmpty()) {
-                $templates_detailsView                  = View::make('partial.namebadge_saved_templates', compact('templates_details'));
+                $templates_detailsView                  =   View::make('partial.namebadge_saved_templates', compact('templates_details'));
                 $templates_details_status               =   TRUE;
                 $templates_detailsViewRender            =   $templates_detailsView->render();
+                
+                // for dropdown html
+                $templates_detailsDropView              =   View::make('partial.namebadge_templates_dropdown_by_config', compact('templates_details'));
+                $templates_detailsDropViewRender        =   $templates_detailsDropView->render();
+                
             }
             $feedback = [
                 'status'                        => 'success',
@@ -217,6 +223,7 @@ class NameBadgeController extends Controller{
                 'positionEditView'              => $positionEditViewRender,
                 'templates_detailsViewRender'   => $templates_detailsViewRender,
                 'data'                          => $templates_config,
+                'templates_detailsDropDown'     => $templates_detailsDropViewRender,
                 'bg_template_url'               => asset('/namebadge/'.$templates_config->image_path),
                 'message'                       => 'Data found',
             ];
@@ -236,11 +243,10 @@ class NameBadgeController extends Controller{
         $all = json_decode($request->dataParam);
         if (isset($all) && !empty($all)) {
             if (isset($request->event_id) && !empty($request->event_id)) {
-//                $deleteParam = [
-//                    'name_badge_id' => $request->name_badge_id,
-//                    'event_id' => $request->event_id,
-//                ];
-//                DB::table('name_badge_position')->where($deleteParam)->delete();
+                $name_badge_configure = NamebadgeConfigModel::find($request->name_badge_id);
+                $response = $name_badge_configure->update([
+                    'image_path' => $request->image_path,
+                ]);
                 foreach ($all as $dataval) {
                     /* ----------------------------------------------------------
                      * check duplicate entry
@@ -296,15 +302,19 @@ class NameBadgeController extends Controller{
                 echo json_encode($feedback);
             }
         } else {
+            
+            $name_badge_configure = NamebadgeConfigModel::find($request->name_badge_id);
+            $response = $name_badge_configure->update([
+                'image_path' => $request->image_path,
+            ]);
             $feedback = [
                 'status' => 'error',
-                'message' => 'Label was not selected',
+                'message' => 'Label was not selected but background image has updated',
                 'data' => ''
             ];
             echo json_encode($feedback);
         }
-    }
-    
+    }    
     public function name_badge_field_delete(Request $request) {
         $deleteParam = [
             'id' => $request->del_id
@@ -316,8 +326,7 @@ class NameBadgeController extends Controller{
                 'data' => ''
             ];
             echo json_encode($feedback);
-    }
-    
+    }    
     public function saveNamebadgeFontStyle(Request $request) {
         $font_style = [];
         $font_unit = '';
