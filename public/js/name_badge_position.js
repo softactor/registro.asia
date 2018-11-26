@@ -143,6 +143,33 @@ function confirmFieldDelete(del_id, del_url) {
     });
 }
 
+function deleteNameBadgeSavedTemplate(del_id, del_url) {
+    swal({
+        title: 'Do you want to delete it?',
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-danger",
+        confirmButtonText: "Yes",
+        cancelButtonText: 'No',
+        closeOnConfirm: false
+    },
+    function () {
+        $.ajax({
+            url: del_url,
+            type: 'GET',
+            dataType: 'json',
+            data: 'del_id=' + del_id,
+            success: function (response) {
+                if (response.status == 'success') {
+                    $('#del_id_'+del_id).hide();
+                    swal("Delete complete", response.message, "success");
+                }
+            },
+            async: false // <- this turns it into synchronous
+        });
+    });
+}
+
 function getNameBadgeConfigDetails(event_id, url) {
     if (event_id) {
         $('#content_loader').show();

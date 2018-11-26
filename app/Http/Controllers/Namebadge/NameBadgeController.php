@@ -327,6 +327,18 @@ class NameBadgeController extends Controller{
             ];
             echo json_encode($feedback);
     }    
+    public function name_badge_template_delete(Request $request) {
+        $deleteParam = [
+            'id' => $request->del_id
+        ];
+        DB::table('namebadge_template_details')->where($deleteParam)->delete();
+        $feedback = [
+                'status' => 'success',
+                'message' => 'Data have successfully deleted',
+                'data' => ''
+            ];
+            echo json_encode($feedback);
+    }    
     public function saveNamebadgeFontStyle(Request $request) {
         $font_style = [];
         $font_unit = '';
