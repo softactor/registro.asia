@@ -90,7 +90,7 @@
                                     @endif
                                     <label for="namebadge_height">File:</label>
                                     <input type="file" class="form-control" name="background[]">
-                                    <span class="text-info" style="font-size: 18px; font-style: italic;">Maximum allowed size is 550px</span>
+                                    <span class="text-info" style="font-size: 18px; font-style: italic;">Maximum allowed size is <b>210 × 297</b> millimeters</span>
                                 </div>
                                 <div class="col-md-6">
                                     <div id="content_loader">
