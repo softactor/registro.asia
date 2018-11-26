@@ -63,6 +63,16 @@
         echo $email['data'];
     }
     
+    $serial_digit =   getNamebadgeFieldsPosition('serial_digit', $user_data->event_id, $user_data->serial_digit);
+    if($serial_digit['status'] == 'success'){
+        echo $serial_digit['data'];
+    }
+    
+    $qrcode_path =   getNamebadgeFieldsPosition('qrcode_path', $user_data->event_id, $user_data->qrcode_path);
+    if($qrcode_path['status'] == 'success'){
+        echo $qrcode_path['data'];
+    }
+    
     ?>
 </div>
     <?php }} ?>

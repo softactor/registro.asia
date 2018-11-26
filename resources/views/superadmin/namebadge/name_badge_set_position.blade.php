@@ -52,6 +52,8 @@
                     <div class="col-md-12">
                         <div class="row">                            
                             <div class="col-md-2">
+                                <div class="ui-widget-content dropable_object draggable" data-absulate-left="1px" data-absulate-top="1px" data-left="10px" data-top="15px" id="serial_digit">Serial digit</div>
+                                <div class="ui-widget-content dropable_object draggable" data-absulate-left="1px" data-absulate-top="1px" data-left="10px" data-top="15px" id="qrcode_path">QRcode</div>
                                 <div class="ui-widget-content dropable_object draggable" data-absulate-left="1px" data-absulate-top="1px" data-left="10px" data-top="15px" id="salutation">Salutation</div>
                                 <div class="ui-widget-content dropable_object draggable" data-absulate-left="" data-absulate-top="" data-left="11px" data-top="12px" id="first_name">First Name</div>
                                 <div class="ui-widget-content dropable_object draggable" data-absulate-left="" data-absulate-top="" data-left="12px" data-top="13px" id="last_name">Last Name</div>

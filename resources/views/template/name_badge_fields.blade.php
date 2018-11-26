@@ -16,5 +16,11 @@
      font-size: {{ $font_size.$font_unit }};
      left: {{ $name_badge_config->left_value.'px' }};
      top: {{ $name_badge_config->top_value.'px' }}">
-    {{ $field_value }}
+    <?php
+    if($field!='qrcode_path'){
+        echo $field_value;
+    }else{ ?>
+        <img src="<?php echo asset('pdf/'.$field_value) ?>" />
+    <?php }
+    ?>
 </div>

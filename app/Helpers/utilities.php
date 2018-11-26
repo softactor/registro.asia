@@ -295,7 +295,7 @@ function generate_name_page_view($data){
 function getNamebadgeFieldsPosition($field, $event_id, $field_value){
     $name_badge_config     = DB::table('name_badge_position')->where('field_id', $field)->where('event_id', $event_id)->first();
     if (isset($name_badge_config)) {
-        $search_data           = View::make('template.name_badge_fields', compact('name_badge_config','field_value'));
+        $search_data           = View::make('template.name_badge_fields', compact('name_badge_config','field_value', 'field'));
         $feedback_data  = [
             'status'    => 'success',
             'message'   => 'Data Found',
