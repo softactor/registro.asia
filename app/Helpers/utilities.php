@@ -396,6 +396,17 @@ function generate_pdf($email_n_pdf_data) {
     }
     
     function process_store_event_business_owners($profile_data){
+        $namebadge_user_label   =   'visitor';
+        /*
+         * Namebadge User-label:
+         * $namebadge_user_label
+         * possible value will be : visitor, organiger 
+         * this value will come over the name badge printing section:
+         * if the registration_type will be onsite or online it will be automatically set as visitor
+         * others registration type will be set as defined by the admin:
+         */
+        //
+        
         $event_business_owners_data    =   [
             'event_id'            => $profile_data['event_id'],
             'owners_numbers'      => $profile_data['owners_numbers'],
@@ -405,6 +416,11 @@ function generate_pdf($email_n_pdf_data) {
             'updated_at'          => date('Y-m-d h:i:s')
           ]; //end of insert data
         $event_business_owners_id   =   DB::table('event_business_owners')->insertGetId($event_business_owners_data);
+        
+        if($profile_data['registration_type'] == 'Onsite' || $profile_data['registration_type'] == 'Online'){
+            $namebadge_user_label   =   'visitor';
+        }
+        
         foreach($profile_data['owners_details'] as $pd){
             $pd =   (array)$pd;
             $serialParam    =   [
@@ -413,25 +429,26 @@ function generate_pdf($email_n_pdf_data) {
             ];
             $serialNumber   =   generate_serial_number($serialParam);
             $event_business_owners_details    =   [
-                'event_id'          => $profile_data['event_id'],
-                'business_owner_id' => $event_business_owners_id,
-                'salutation'        => $pd['salutation'],
-                'first_name'        => $pd['first_name'],
-                'last_name'         => $pd['last_name'],
-                'company_name'      => $pd['company_name'],
-                'company_address'   => $pd['company_address'],
-                'gender'            => $pd['gender'],
-                'designation'       => $pd['designation'],
-                'mobile'            => $pd['mobile'],
-                'country_id'        => (isset($pd['country_id']) && !empty($pd['country_id']) ? $pd['country_id'] : 1),
-                'tel'               => (isset($pd['tel']) && !empty($pd['tel']) ? $pd['tel'] : ''),
-                'fax'               => (isset($pd['fax']) && !empty($pd['fax']) ? $pd['fax'] : ''),
-                'email'             => $pd['email'],
-                'serial_digit'      => $serialNumber,
-                'is_status'         => get_is_status_by_registration_type($profile_data['registration_type']),
-                'is_confirmed'      => get_is_confirmed_by_registration_type($profile_data['registration_type']),
-                'created_at'        => date('Y-m-d h:i:s'),
-                'updated_at'        => date('Y-m-d h:i:s')
+                'event_id'                  => $profile_data['event_id'],
+                'business_owner_id'         => $event_business_owners_id,
+                'salutation'                => $pd['salutation'],
+                'first_name'                => $pd['first_name'],
+                'last_name'                 => $pd['last_name'],
+                'company_name'              => $pd['company_name'],
+                'company_address'           => $pd['company_address'],
+                'gender'                    => $pd['gender'],
+                'designation'               => $pd['designation'],
+                'mobile'                    => $pd['mobile'],
+                'country_id'                => (isset($pd['country_id']) && !empty($pd['country_id']) ? $pd['country_id'] : 1),
+                'tel'                       => (isset($pd['tel']) && !empty($pd['tel']) ? $pd['tel'] : ''),
+                'fax'                       => (isset($pd['fax']) && !empty($pd['fax']) ? $pd['fax'] : ''),
+                'email'                     => $pd['email'],
+                'serial_digit'              => $serialNumber,
+                'namebadge_user_label'      => (isset($pd['namebadge_user_label']) && !empty($pd['namebadge_user_label']) ? $pd['namebadge_user_label'] : $namebadge_user_label),
+                'is_status'                 => get_is_status_by_registration_type($profile_data['registration_type']),
+                'is_confirmed'              => get_is_confirmed_by_registration_type($profile_data['registration_type']),
+                'created_at'                => date('Y-m-d h:i:s'),
+                'updated_at'                => date('Y-m-d h:i:s')
               ]; //end of insert data  
             $return_id   =   DB::table('event_business_owners_details')->insertGetId($event_business_owners_details); 
             $insert_ids[]   =   $return_id;

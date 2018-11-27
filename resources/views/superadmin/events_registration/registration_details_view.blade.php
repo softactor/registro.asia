@@ -86,6 +86,10 @@
                                             <label>Email Address</label>
                                             <?php echo $details->email; ?>
                                         </div>
+                                        <div class="form-group col-lg-12">
+                                            <label>Name Badge User Label</label>
+                                            <?php echo (isset($details->namebadge_user_label) && !empty($details->namebadge_user_label) ? $details->namebadge_user_label: 'Visitor'); ?>
+                                        </div>
                                     </div><!-- end of registration_area -->
                                     <?php
                                      foreach (getFormIdByGroupby($details->business_owner_id) as $form) {
