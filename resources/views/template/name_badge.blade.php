@@ -73,6 +73,11 @@
         echo $qrcode_path['data'];
     }
     
+    $namebadge_user_label =   getNamebadgeFieldsPosition('namebadge_user_label', $user_data->event_id, $user_data->namebadge_user_label);
+    if($namebadge_user_label['status'] == 'success'){
+        echo $namebadge_user_label['data'];
+    }
+    
     ?>
 </div>
     <?php }} ?>

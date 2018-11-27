@@ -61,6 +61,7 @@
                                 <div class="ui-widget-content dropable_object draggable" data-absulate-left="" data-absulate-top="" data-left="14px" data-top="15px" id="gender">Gender</div>
                                 <div class="ui-widget-content dropable_object draggable" data-absulate-left="" data-absulate-top="" data-left="16px" data-top="17px" id="mobile">Mobile</div>
                                 <div class="ui-widget-content dropable_object draggable" data-absulate-left="" data-absulate-top="" data-left="18px" data-top="19" id="email">Email</div>
+                                <div class="ui-widget-content dropable_object draggable" data-absulate-left="" data-absulate-top="" data-left="18px" data-top="19" id="namebadge_user_label">Namebadge user label</div>
                             </div>
                             <div class="col-md-10">
                                 <div id="message" style="display:none"><h1>Saved!</h1></div>                
