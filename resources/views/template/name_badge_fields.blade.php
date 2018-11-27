@@ -1,6 +1,6 @@
 <?php
     $font_unit      =   'px';
-    $font_size      =   '12';
+    $font_size      =   '20';
     $font_weight    =   'normal';
     $font_style_json =   $name_badge_config->font_style;
     if(isset($font_style_json) && !empty($font_style_json)){
