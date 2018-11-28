@@ -18,7 +18,7 @@ class CreateTemplateImageDetails extends Migration
             $table->integer('config_id')->unsigned()->comment('config_id from name_badge_config table');
             $table->text('template_name')->nullable()->comment("template_name");
             $table->text('image_path')->nullable()->comment("image_path");
-            $table->foreign('config_id')->references('id')->on('name_badge_config')->onDelete('cascade');;
+            $table->foreign('config_id')->references('id')->on('name_badge_config')->onDelete('cascade');
             $table->timestamps();
         });
     }

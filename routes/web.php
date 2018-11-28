@@ -78,9 +78,17 @@ Route::get('iframe/event_registration/{event_url}', 'Frontend@iframe_events_form
 // SETTINGS
 Route::get('su/settings', 'Settings\SettingsController@index');
 Route::get('su/send_corn_email', 'Frontend@send_corn_email');
+Route::get('su/printing_layout_config', 'Settings\SettingsController@printing_layout_config');   //          PRINTING LAYOUT CONFIG
+Route::get('su/get_event_print_configuration', 'Settings\SettingsController@get_event_print_configuration');   //          PRINTING LAYOUT CONFIG
+Route::post('su/savePrintLayoutConfiguration', 'Settings\SettingsController@savePrintLayoutConfiguration');   //          PRINTING LAYOUT CONFIG
+
 
 //          Pending queue confirmation
 Route::get('su/backend/registration_import_status/{is_confirmed}/{event_id}', 'Backend@registration_import_status');
     // REPORTS
 Route::get('/get_events_chart_data', 'Reports\ChartController@get_events_chart_data');
 Route::get('su/reports', 'Reports\ReportsController@index');
+
+
+
+

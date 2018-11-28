@@ -31,6 +31,11 @@
                                 <td>Registration CSV Format</td>
                                 <td><a href="{{ asset('csv/registration.csv') }}">Download</a></td>
                             </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Print layout configuration</td>
+                                <td><a href="#"  data-toggle="modal" data-target="#print_layout_template">Print layout configuration</a></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -39,4 +44,9 @@
         </div><!--/col-9-->        
     </div>
 </section>
+@section('footer_js_scrip_area')
+@parent
+<script type="text/javascript" src="{{ asset('js/settings.js')}}"></script>
 @endsection
+@endsection
+@include('partial/print_layout_template')

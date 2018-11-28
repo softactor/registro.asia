@@ -1,30 +1,65 @@
-<?php
+<?php    
     $configFound    =   false;
     foreach($user_datas as $user_data){
         $whereData  =   [
             'event_id'=>$user_data->event_id
         ];
         $getConfig  =   get_data_name_by_where('name_badge_config', $whereData);
-        if(isset($getConfig) && !empty($getConfig)){
+        if(isset($getConfig) && !empty($getConfig)){            
             $configFound = true;
+            
+            $layoutConfigwhereData  =   [
+                'event_id'=>$user_data->event_id
+            ];
+            $getLayoutConfig  =   get_data_name_by_where('print_layout_config', $layoutConfigwhereData);
+            if(isset($getLayoutConfig) && !empty($getLayoutConfig)){
+                $printLayout    = json_decode($getLayoutConfig->print_config_values);                
+            }else{
+                $printLayout    =   [];
+            }
+            
 ?>
         <style type="text/css">
-            @media screen {
-                .print_name_badge{
-                    width: <?php echo $getConfig->namebadge_width . $getConfig->measure_unit ?>;
-                    height: <?php echo $getConfig->namebadge_height . $getConfig->measure_unit ?>;
-                    background-repeat: no-repeat;
-                    background-image: url(<?php echo asset('namebadge/' . $getConfig->image_path) ?>)
-                }
-            }
-            @media print {
-                .print_name_badge{
-                    width: <?php echo $getConfig->namebadge_width . $getConfig->measure_unit ?> !important;
-                    height: <?php echo $getConfig->namebadge_height . $getConfig->measure_unit ?> !important;
-                    background-repeat: no-repeat !important;
-                    background-image: url(<?php echo asset('namebadge/' . $getConfig->image_path) ?>) !important;
-                }
-            }
+            @page {
+                        size: A4;
+                        margin: 0;
+                    }
+                body {
+                        width: 100%;
+                        height: 100%;
+                        margin: 0;
+                        padding: 0;
+                    }
+                    * {
+                        box-sizing: border-box;
+                        -moz-box-sizing: border-box;
+                    }
+                    @media screen {
+                        .print_name_badge{
+                            width: <?php echo $getConfig->namebadge_width . $getConfig->measure_unit ?>;
+                            height: <?php echo $getConfig->namebadge_height . $getConfig->measure_unit ?>;
+                            background-repeat: no-repeat;
+                            background-image: url(<?php echo asset('namebadge/' . $getConfig->image_path) ?>)
+                        }
+                    }
+                    @media print {
+                        html, body {
+                            width: <?php echo ((isset($printLayout->page_width) && !empty($printLayout->page_width))? $printLayout->page_width : '21cm') ?>;
+                            height: <?php echo ((isset($printLayout->page_height) && !empty($printLayout->page_height))? $printLayout->page_height : '9.7cm') ?>;
+                            margin-top: <?php echo ((isset($printLayout->margin_top) && !empty($printLayout->margin_top))? $printLayout->margin_top : '2cm') ?>;
+                            margin-right: <?php echo ((isset($printLayout->margin_right) && !empty($printLayout->margin_right))? $printLayout->margin_right : '0cm') ?>;
+                            margin-bottom: <?php echo ((isset($printLayout->margin_bottom) && !empty($printLayout->margin_bottom))? $printLayout->margin_bottom : '1.5cm') ?>;
+                            margin-left: <?php echo ((isset($printLayout->margin_left) && !empty($printLayout->margin_left))? $printLayout->margin_left : '1.5cm') ?>
+                        }
+                        .print_name_badge{
+                            width: <?php echo $getConfig->namebadge_width . $getConfig->measure_unit ?> !important;
+                            height: <?php echo $getConfig->namebadge_height . $getConfig->measure_unit ?> !important;
+                            background-repeat: no-repeat !important;
+                            background-image: url(<?php echo asset('namebadge/' . $getConfig->image_path) ?>) !important;
+                            color: <?php echo ((isset($printLayout->font_color) && !empty($printLayout->font_color))? $printLayout->font_color : '#000000') ?>;
+                        }                                
+                    }
+                    
         </style>
 <div class="print_name_badge">
     <?php
