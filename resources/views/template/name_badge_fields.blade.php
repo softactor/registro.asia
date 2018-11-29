@@ -11,7 +11,7 @@
     }
     ?>
 <div class="general_fields_class"
-     style="position: relative;
+     style="position: absolute;
      font-weight: {{ $font_weight }};
      font-size: {{ $font_size.$font_unit }};
      left: {{ $name_badge_config->left_value.'px' }};

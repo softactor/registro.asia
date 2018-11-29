@@ -21,7 +21,7 @@ foreach($position_details as $pos){
     <div
         id='del_id_{{$pos->id}}'
         class="general_fields_class edit_field_class"
-        style="position: relative;
+        style="position: absolute;
         left: {{ $pos->left_value.'px' }};
         top: {{ $pos->top_value.'px' }}"
         >

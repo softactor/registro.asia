@@ -87,7 +87,9 @@ html, body {
 .general_fields_class{
     margin: 0;
     padding: 0;
-    height: 1px;
+    /*width: 100%;*/
+    height: 25px;
+    /*border: 1px solid black;*/
 }
 .edit_field_class{
     font-size: 16px;
@@ -97,10 +99,10 @@ html, body {
     width: 200px;
     height: 33px;
     display: inline-block;
-    position: relative;
+    position: absolute;
     left: 0px;
     z-index: 999;
-    top: 0px;
+    top: -15px;
     padding: 1%;
 }
 .font_style_and_delete_class_section ul{ 
