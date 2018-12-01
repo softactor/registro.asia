@@ -12,6 +12,12 @@ $(function () {
 //                    ", Left: " + (pos.left - dPos.left));
             $("#" + draggableId).attr("data-left",(pos.left - dPos.left));
             $("#" + draggableId).attr("data-top",(pos.top - dPos.top));
+            
+            // try to preview the drag and drop:
+            var show_id =   'preview_'+draggableId;
+            $('#'+show_id).show();
+            $('#'+show_id).css('left', (pos.left - dPos.left));
+            $('#'+show_id).css('top', (pos.top - dPos.top));
         }
     });
 });
@@ -88,6 +94,15 @@ function set_event_namebadge_background(event_id, url){
                     $('#containment-wrapper').css('height', response.data.namebadge_height + response.data.measure_unit);
                     $('#name_badge_id').val(response.data.id);
                     
+                    // for preview:
+                    
+                    $('#containment-wrapper-preview').css('background-image', 'url(' + imageUrl + ')');
+                    $('#containment-wrapper-preview').css('background-repeat', 'no-repeat');
+                    $('#containment-wrapper-preview').css('width', response.data.namebadge_width + response.data.measure_unit);
+                    $('#containment-wrapper-preview').css('height', response.data.namebadge_height + response.data.measure_unit);
+                    
+                    // preview end:
+                    
                     if(response.name_badge_position_status){
                         $(".edit_field_class").remove();
                         $("#containment-wrapper").append(response.positionEditView);
@@ -102,6 +117,7 @@ function set_event_namebadge_background(event_id, url){
                     $('#content_loader').hide();
                     $("#image_path").html("");
                     $('#containment-wrapper').css('background-image', '');
+                    $('#containment-wrapper-preview').css('background-image', '');
                     swal("Error!", response.message, "error");
                 }
                 $("#image_path").val(response.data.image_path).attr("selected", "selected");;
@@ -114,6 +130,9 @@ function update_event_namebadge_background(image_path){
     var imageUrl = $('#namebadge_bg_image_path').val() + '/' + image_path;
     $('#containment-wrapper').css('background-image', 'url(' + imageUrl + ')');
     $('#containment-wrapper').css('background-repeat', 'no-repeat');
+    
+    $('#containment-wrapper-preview').css('background-image', 'url(' + imageUrl + ')');
+    $('#containment-wrapper-preview').css('background-repeat', 'no-repeat');
 }
 
 function confirmFieldDelete(del_id, del_url) {

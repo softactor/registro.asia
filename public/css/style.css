@@ -77,12 +77,13 @@ html, body {
 .dropable_object{
     float: left;
     border: 1px solid lightgray;
-    padding: 2%;
+    /*padding: 2%;*/
     margin: 1% 0;
     width: 100%;
     cursor: move;
     position: relative !important;
     z-index: 111;
+    text-align: center;
 }
 .general_fields_class{
     margin: 0;
@@ -150,4 +151,18 @@ ul.saved_templates li img{
     max-height: 100%;
     display: block;
     margin: auto auto;
+}
+.live_preview_fields{
+    display: none;
+}
+
+.center_line{
+    position: relative;
+    height: 394px;
+    width: 25px;
+    background:red;
+    /*top:calc(50% - 100px/2);  height divided by 2*/
+    left:calc(50% - 25px/2); /* width divided by 2*/
+    opacity: .2;
+    z-index: 1;
 }
