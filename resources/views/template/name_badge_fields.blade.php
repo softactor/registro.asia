@@ -6,7 +6,7 @@
     $font_style_json =   $name_badge_config->font_style;
     if(isset($font_style_json) && !empty($font_style_json)){
         $font_style     =   json_decode($font_style_json);
-        $font_color     =   $font_style->font_color;
+        $font_color     =   (isset($font_style->font_color) && !empty($font_style->font_color) ? $font_style->font_color : $font_color);
         $font_size      =   $font_style->font_size;
         $font_weight    =   $font_style->font_weight;
     }
