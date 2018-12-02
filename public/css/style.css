@@ -166,3 +166,6 @@ ul.saved_templates li img{
     opacity: .2;
     z-index: 1;
 }
+.widget-user-2 .widget-user-username, .widget-user-2 .widget-user-desc{
+    margin-left: 30px !important;
+}

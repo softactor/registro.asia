@@ -18,6 +18,7 @@
         <link rel="stylesheet" type="text/css" href="{{ asset('css/latofonts.css') }}">  
         <link rel="stylesheet" type="text/css" href="{{ asset('css/latostyle.css') }}">  
         <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">        
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/AdminLTE.min.css') }}">        
         <link rel="stylesheet" type="text/css" href="{{ asset('css/sweetalert.css') }}">        
         <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery-ui.min.css') }}">        
         <link rel="stylesheet" type="text/css" href="{{ asset('css/super_admin_dashboard_menu.css') }}">        
