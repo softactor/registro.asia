@@ -12,13 +12,8 @@
                 <div class="modal-body">    
                     <h4><span id="fieldsName"></span> font style</h4>
                     <div class="form-group">
-                        <label for="sel1">Font unit:</label>
-                        <select class="form-control" id="font_unit" name="font_unit">
-                            <option value="">Please select</option>
-                            <option value="px">px</option>
-                            <option value="pt">pt</option>
-                            <option value="em">em</option>
-                        </select>
+                        <label for="usr">Font color:</label>
+                        <input type="color" class="form-control" id="font_color" name="font_color" value="#000000">
                     </div>
                     <div class="form-group">
                         <label for="usr">Font size:</label>

@@ -90,6 +90,7 @@
                                             <label>Name Badge User Label</label>
                                             <?php echo (isset($details->namebadge_user_label) && !empty($details->namebadge_user_label) ? $details->namebadge_user_label: 'Visitor'); ?>
                                         </div>
+                                        <button type="button" class="button btn-primary" onclick="editBasicRegistrationDetails('<?php echo $details->id; ?>', '{{ url('su/get_event_business_owners_details') }}')">Edit</button>
                                     </div><!-- end of registration_area -->
                                     <?php
                                      foreach (getFormIdByGroupby($details->business_owner_id) as $form) {
@@ -115,3 +116,4 @@
     </div>
 </section>
 @endsection
+@include('modals.registration_edit_modal')

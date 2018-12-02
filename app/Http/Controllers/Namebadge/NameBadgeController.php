@@ -25,14 +25,12 @@ class NameBadgeController extends Controller{
         ];
         return view('superadmin.namebadge.config', compact('page_details'));
     }
-    public function name_badge_config_store(Request $request) {
+    public function name_badge_config_store(Request $request) {        
         //Define Rules
         $rules = [
             'event_id'              => 'required',
             'namebadge_width'       => 'required',
             'namebadge_height'      => 'required',
-            'namebadge_orientation' => 'required',
-            'measure_unit'          => 'required',
         ];
 
         // Create a new validator instance
@@ -68,9 +66,8 @@ class NameBadgeController extends Controller{
                 'event_id'              => $request->event_id,
                 'namebadge_width'       => $request->namebadge_width,
                 'namebadge_height'      => $request->namebadge_height,
-                'namebadge_orientation' => $request->namebadge_orientation,
                 'image_path'            => '',
-                'measure_unit'          => $request->measure_unit,
+                'measure_unit'          => 'mm',
             ]);            
             $op_message =   'data have successfully updated';
             if(isset($template_upload_response) && !empty($template_upload_response)){
@@ -88,12 +85,11 @@ class NameBadgeController extends Controller{
              */
             if (isset($template_upload_response) && !empty($template_upload_response)) {
                 $response = NamebadgeConfigModel::create([
-                            'event_id' => $request->event_id,
-                            'namebadge_width' => $request->namebadge_width,
-                            'namebadge_height' => $request->namebadge_height,
-                            'namebadge_orientation' => $request->namebadge_orientation,
-                            'image_path' => '',
-                            'measure_unit' => $request->measure_unit,
+                            'event_id'              => $request->event_id,
+                            'namebadge_width'       => $request->namebadge_width,
+                            'namebadge_height'      => $request->namebadge_height,
+                            'image_path'            => '',
+                            'measure_unit'          => 'mm',
                 ])->id;
                 $op_message = 'data have successfully saved';
                 if(isset($template_upload_response) && !empty($template_upload_response)){
@@ -341,12 +337,12 @@ class NameBadgeController extends Controller{
     }    
     public function saveNamebadgeFontStyle(Request $request) {
         $font_style = [];
-        $font_unit = '';
+        $font_color = '';
         $font_size = '';
         $font_weight = '';
         $is_up_status = false;
-        if (isset($request->font_unit) && !empty($request->font_unit)) {
-            $font_unit = $request->font_unit;
+        if (isset($request->font_color) && !empty($request->font_color)) {
+            $font_color = $request->font_color;
             $is_up_status = true;
         }
         if (isset($request->font_size) && !empty($request->font_size)) {
@@ -362,15 +358,15 @@ class NameBadgeController extends Controller{
             $db_fontstyle = json_decode($name_badge_configure->font_style);
             if (isset($db_fontstyle) && !empty($db_fontstyle)) {
                 $font_style = [
-                    'font_unit' => (isset($font_unit) && !empty($font_unit) ? $font_unit : $db_fontstyle->font_unit),
-                    'font_size' => (isset($font_size) && !empty($font_size) ? $font_size : $db_fontstyle->font_size),
-                    'font_weight' => (isset($font_weight) && !empty($font_weight) ? $font_weight : $db_fontstyle->font_weight),
+                    'font_color'    => (isset($font_color) && !empty($font_color) ? $font_color : $db_fontstyle->font_color),
+                    'font_size'     => (isset($font_size) && !empty($font_size) ? $font_size : $db_fontstyle->font_size),
+                    'font_weight'   => (isset($font_weight) && !empty($font_weight) ? $font_weight : $db_fontstyle->font_weight),
                 ];
             } else {
                 $font_style = [
-                    'font_unit' => $font_unit,
-                    'font_size' => $font_size,
-                    'font_weight' => $font_weight,
+                    'font_color'    => $font_color,
+                    'font_size'     => $font_size,
+                    'font_weight'   => $font_weight,
                 ];
             }
 

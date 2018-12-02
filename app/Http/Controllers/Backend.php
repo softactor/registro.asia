@@ -502,4 +502,61 @@ class Backend extends Controller
         
         return $feedbackData;
     }
+    
+    public function get_event_business_owners_details(Request $request){
+        // get all table data:
+        $query = DB::table('event_business_owners_details as p');
+        if (isset($request->ticket) && !empty($request->ticket)) {
+            $query->where('p.serial_digit', 'like', '%' . $request->ticket . '%');
+        }
+        if (isset($request->email) && !empty($request->email)) {
+            $query->where('p.email', 'like', '%' . $request->email . '%');
+        }
+        if (isset($request->name) && !empty($request->name)) {
+            $query->where('p.email', 'like', '%' . $request->email . '%');
+        }
+        if (isset($request->mobile) && !empty($request->mobile)) {
+            $query->where('p.mobile', 'like', '%' . $request->mobile . '%');
+        }
+        if (isset($request->events) && !empty($request->events)) {
+            $query->where('p.event_id', 'like', '%' . $request->events . '%');
+        }
+        if (isset($request->details_id) && !empty($request->details_id)) {
+            $query->where('p.id', $request->details_id);
+        }
+        $details_data = $query->first();
+        $feedback_data = [
+            'status'    => 'success',
+            'message'   => 'Data Found',
+            'data'      => $details_data
+        ];
+        echo json_encode($feedback_data);
+    }
+    
+    public function event_business_owners_details_store(Request $request){
+        $details = [
+            'salutation'            => $request->salutation,
+            'first_name'            => $request->first_name,
+            'last_name'             => $request->last_name,
+            'company_name'          => $request->company_name,
+            'company_address'       => $request->company_address,
+            'gender'                => $request->gender,
+            'designation'           => $request->designation,
+            'mobile'                => $request->mobile,
+            'country_id'            => $request->country_id,
+            'fax'                   => $request->fax,
+            'tel'                   => $request->tel,
+            'email'                 => $request->email,
+            'namebadge_user_label'  => $request->namebadge_user_label,
+            'updated_at'            => date('Y-m-d h:i:s')
+        ]; //end of insert data  
+        DB::table('event_business_owners_details')
+        ->where('id', $request->details_id)
+        ->update($details);
+        $feedback_data = [
+            'status'    => 'success',
+            'message'   => 'Data have been successfully updated'
+        ];
+        echo json_encode($feedback_data);
+    }
 }

@@ -32,46 +32,18 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        @if ($errors->has('measure_unit'))
-                        <div class="alert-error">{{ $errors->first('measure_unit') }}</div>
-                        @endif
-                        <select class="form-control" id="measure_unit" name="measure_unit">
-                            <option value="">Page unit</option>
-                            <?php
-                                $settings_val    =   get_settings_value('units');
-                                foreach($settings_val as $val){
-                            ?>
-                            <option value="<?php echo $val ?>"{{(old('measure_unit')==$val)? 'selected':''}}><?php echo $val ?></option>
-                            <?php } ?>
-                        </select>
-                    </div>
-                    <div class="form-group">
                         @if ($errors->has('namebadge_width'))
                         <div class="alert-error">{{ $errors->first('namebadge_width') }}</div>
                         @endif
-                        <label for="namebadge_width">Page width:</label>
+                        <label for="namebadge_width">Page width (mm):</label>
                         <input type="text" class="form-control" id="namebadge_width" placeholder="Enter width" name="namebadge_width" value="{{ old('namebadge_width') }}">
                     </div>
                     <div class="form-group">
                         @if ($errors->has('namebadge_height'))
                         <div class="alert-error">{{ $errors->first('namebadge_height') }}</div>
                         @endif
-                        <label for="namebadge_height">Page height:</label>
+                        <label for="namebadge_height">Page height (mm):</label>
                         <input type="text" class="form-control" id="namebadge_height" placeholder="Enter height" name="namebadge_height" value="{{ old('namebadge_height') }}">
-                    </div>
-                    <div class="form-group">
-                        @if ($errors->has('namebadge_orientation'))
-                        <div class="alert-error">{{ $errors->first('namebadge_orientation') }}</div>
-                        @endif
-                        <select class="form-control" id="namebadge_orientation" name="namebadge_orientation">
-                            <option value="">Page orientation</option>
-                            <?php
-                                $settings_val    =   get_settings_value('page orientation');
-                                foreach($settings_val as $val){
-                            ?>
-                            <option value="<?php echo $val ?>"{{(old('namebadge_orientation')==$val)? 'selected':''}}><?php echo $val ?></option>
-                            <?php } ?>
-                        </select>
                     </div>
                     <span id="saved_templates_area"></span>
                     <div id="template_area">
@@ -80,7 +52,7 @@
                             <div class="alert-error">{{ $errors->first('namebadge_width') }}</div>
                             @endif
                             <label for="namebadge_width">Template Name:</label>
-                            <input type="text" class="form-control" placeholder="Enter template name" name="template_name[]" value="{{ old('template_name') }}">
+                            <input type="text" class="form-control" placeholder="Enter template name" name="template_name[]" value="">
                         </div>
                         <div class="form-group">
                             <div class="row">

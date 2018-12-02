@@ -67,6 +67,8 @@ Route::post('su/backend/registration/csv_import', 'Backend@csv_import');
 Route::get('su/backend/registration_import/confirm_csv_uploader/{business_owner_id}/{event_url}', 'Backend@confirm_csv_uploader');
 Route::get('su/backend/csv_uploader_view/{event_url}', 'Backend@csv_uploader_view');
 Route::post('su/backend/csv_data/store', 'Backend@csv_data_store');
+Route::get('su/get_event_business_owners_details', 'Backend@get_event_business_owners_details');
+Route::post('su/event_business_owners_details_store', 'Backend@event_business_owners_details_store');
 
 //          PDF GENERATES
 Route::get('pdf_test', 'Frontend@pdf_test');

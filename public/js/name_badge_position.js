@@ -261,18 +261,16 @@ function saveNamebadgeFontStyle(url){
             'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content'),
         },
         success: function (response) {
-            console.log('Take');
-            console.log(response);
             if (response.status == 'success') {
                 // updated the new value
                 var id  =   $('#nameBadgeFieldsId').val();
-                $('#badge_field_font_unit_'+id).val(response.data.font_unit);
+                $('#badge_field_font_color_'+id).val(response.data.font_color);
                 $('#badge_field_font_size_'+id).val(response.data.font_size);
                 $('#badge_field_font_weight_'+id).val(response.data.font_weight);
                 
                 // in form deselect all values
                 $('#nameBadgeFieldsId').val('');
-                $('#font_unit').val('');
+                $('#font_color').val('#000000');
                 $('#font_size').val('');
                 $('#font_weight').val('');
                 $('#name_badge_fields_font_style_edit').modal('hide');

@@ -289,4 +289,54 @@
             $('input:checkbox').prop('checked',false);
         }
     });
+    
+    function editBasicRegistrationDetails(details_id, urlAddress){
+        $.ajax({
+            url:urlAddress,
+            type:'GET',
+            dataType:'json',
+            data:'details_id='+ details_id,
+            success: function(response){
+                if(response.status == 'success') {
+                    $('#registrationEditModal').modal('show');
+                    $('#details_id').val(response.data.id);
+                    $('#salutation').val(response.data.salutation);
+                    $('#first_name').val(response.data.first_name);
+                    $('#last_name').val(response.data.last_name);
+                    $('#company_name').val(response.data.company_name);
+                    $('#company_address').val(response.data.company_address);
+                    $('#gender').val(response.data.gender);
+                    $('#designation').val(response.data.designation);
+                    $('#mobile').val(response.data.mobile);
+                    $('#country_id').val(response.data.country_id);
+                    $('#fax').val(response.data.fax);
+                    $('#tel').val(response.data.tel);
+                    $('#email').val(response.data.email);
+                    $('#namebadge_user_label').val(response.data.namebadge_user_label);
+                }
+            }
+        }); 
+    }
+    
+    function updateUserRegisterationData(urlAddress){
+        $.ajax({
+            url:urlAddress,
+            type:'POST',
+            dataType:'json',
+            data:$('#registration_details_edit_view').serialize(),
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content'),
+            },
+            success: function(response){
+                if(response.status == 'success'){
+                    $('#registrationEditModal').modal('hide');
+                    swal("Updated", response.message, "success");
+                    setTimeout(function(){
+                        location.reload();
+                    }, 2000);
+                }
+            }
+        });
+    }
+    
   </script>

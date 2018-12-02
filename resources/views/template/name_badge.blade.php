@@ -56,7 +56,6 @@
                             height: <?php echo $getConfig->namebadge_height . $getConfig->measure_unit ?> !important;
                             background-repeat: no-repeat !important;
                             background-image: url(<?php echo asset('namebadge/' . $getConfig->image_path) ?>) !important;
-                            color: <?php echo ((isset($printLayout->font_color) && !empty($printLayout->font_color))? $printLayout->font_color : '#000000') ?>;
                         }                                
                     }
                     
