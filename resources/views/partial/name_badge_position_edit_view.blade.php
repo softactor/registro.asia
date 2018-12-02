@@ -9,11 +9,12 @@ foreach($position_details as $pos){
     $font_unit      =   '';
     $font_size      =   '';
     $font_weight    =   '';
+    $font_color     =   '';
     $del_url    =   url('su/name_badge_field_delete');
     $font_style_json =   $pos->font_style;
     if(isset($font_style_json) && !empty($font_style_json)){
         $font_style     =   json_decode($font_style_json);
-        $font_color     =   (isset($font_style->font_color) ? $font_style->font_color : '');
+        $font_color     =   (isset($font_style->font_color) && !empty($font_style->font_color) ? $font_style->font_color : $font_color);
         $font_size      =   $font_style->font_size;
         $font_weight    =   $font_style->font_weight;
     }
