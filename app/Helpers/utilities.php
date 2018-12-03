@@ -580,7 +580,7 @@ function generate_pdf($email_n_pdf_data) {
         $param['registration_type'] =   'Import';
         $importData  =   get_report_data_by_conditional_type($param);
         if (!$importData->isEmpty()) { 
-            $totalImportCount    =   count($importData);
+            $totalImportCount    =   $importData[0]->total_owners_numbers;
         }
         // GET TOTAL registration:
         $param['registration_type'] =   'registration';
@@ -628,7 +628,10 @@ function generate_pdf($email_n_pdf_data) {
             if (isset($param['registration_type']) && !empty($param['registration_type'])) {
                 if ($param['registration_type'] == 'event') {
                     $query->groupBy('event_id');
-                } elseif ($param['registration_type'] == 'registration') {
+                } elseif ($param['registration_type'] == 'Import') {
+                    $query->select(DB::raw("SUM(owners_numbers) as total_owners_numbers"));
+                    $query->where('p.registration_type', $param['registration_type']);
+                }  elseif ($param['registration_type'] == 'registration') {
                     $query->select(DB::raw("SUM(owners_numbers) as total_owners_numbers"));
                 } else {
                     $query->where('p.registration_type', $param['registration_type']);
