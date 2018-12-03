@@ -41,11 +41,6 @@ class Frontend extends Controller
         echo json_encode($feedback_data);
     }
     public function store_event_business_owners($profile_data, $access_token, $event_details){
-        print "<pre>";
-        print_r($profile_data);
-        print "</pre>";
-        exit;
-        
         $insert_data                        =   [];
         $insert_ids                         =   [];
         $email_and_pdf_data                 =   [];
