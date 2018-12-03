@@ -598,27 +598,42 @@ function generate_pdf($email_n_pdf_data) {
         ];
     }
     
-    function get_report_data_by_conditional_type($param){
+    function get_report_data_by_conditional_type($param) {
         // get all table data:
-        $query = DB::table('event_business_owners as p');       
-        if($param['report_type']!='all'){            
-            if (isset($param['startDate']) && !empty($param['startDate'])) {
-                $from_date = $param['startDate'] . ' 00:00:00';
-                $query->where('p.created_at', '>=', $from_date);
+        if (isset($param['registration_type']) && !empty($param['registration_type']) && $param['registration_type'] == 'event') {
+            $query = DB::table('events as p');
+            if ($param['report_type'] != 'all') {
+                if (isset($param['startDate']) && !empty($param['startDate'])) {
+                    $from_date = $param['startDate'] . ' 00:00:00';
+                    $query->where('p.created_at', '>=', $from_date);
+                }
+                if (isset($param['endDate']) && !empty($param['endDate'])) {
+                    $to_date = $param['endDate'] . ' 23:59:59';
+                    $query->where('p.created_at', '<=', $to_date);
+                }
             }
-            if (isset($param['endDate']) && !empty($param['endDate'])) {
-                $to_date = $param['endDate'] . ' 23:59:59';
-                $query->where('p.created_at', '<=', $to_date);
+            return $list_data = $query->get();
+        } else {
+            $query = DB::table('event_business_owners as p');
+            if ($param['report_type'] != 'all') {
+                if (isset($param['startDate']) && !empty($param['startDate'])) {
+                    $from_date = $param['startDate'] . ' 00:00:00';
+                    $query->where('p.created_at', '>=', $from_date);
+                }
+                if (isset($param['endDate']) && !empty($param['endDate'])) {
+                    $to_date = $param['endDate'] . ' 23:59:59';
+                    $query->where('p.created_at', '<=', $to_date);
+                }
             }
+            if (isset($param['registration_type']) && !empty($param['registration_type'])) {
+                if ($param['registration_type'] == 'event') {
+                    $query->groupBy('event_id');
+                } elseif ($param['registration_type'] == 'registration') {
+                    $query->select(DB::raw("SUM(owners_numbers) as total_owners_numbers"));
+                } else {
+                    $query->where('p.registration_type', $param['registration_type']);
+                }
+            }
+            return $list_data = $query->get();
         }
-        if (isset($param['registration_type']) && !empty($param['registration_type'])) {
-            if($param['registration_type']  ==  'event'){
-                $query->groupBy('event_id');
-            }elseif($param['registration_type']  ==  'registration'){
-                $query->select(DB::raw("SUM(owners_numbers) as total_owners_numbers"));
-            }else{
-                $query->where('p.registration_type',$param['registration_type']);
-            }
-        }
-        return $list_data = $query->get();
     }
