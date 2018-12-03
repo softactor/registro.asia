@@ -74,23 +74,26 @@ function savePrintLayoutConfiguration(url) {
 }
 
 function saveNameBadgeLabel(url) {
-    $.ajax({
-        type: 'POST',
-        url: url,
-        dataType: 'json',
-        data: 'name='+$('#label_name').val(),
-        headers: {
-            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content'),
-        },
-        success: function (response) {
-            if (response.status == 'success') {
-                // updated the new value
-                $('#name_badge_values').html(response.data);
-            } else {
-                swal("Error!", response.message, "error");
+    if($('#label_name').val()){
+        $.ajax({
+            type: 'POST',
+            url: url,
+            dataType: 'json',
+            data: 'name='+$('#label_name').val(),
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content'),
+            },
+            success: function (response) {
+                if (response.status == 'success') {
+                    $('#label_name').val("");
+                    // updated the new value
+                    $('#name_badge_values').html(response.data);
+                } else {
+                    swal("Error!", response.message, "error");
+                }
             }
-        }
-    })
+        });
+    }
 }
 
 function deleteNamebadgeValues(id, name, url){
