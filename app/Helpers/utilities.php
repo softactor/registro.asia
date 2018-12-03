@@ -450,13 +450,13 @@ function generate_pdf($email_n_pdf_data) {
                 'created_at'                => date('Y-m-d h:i:s'),
                 'updated_at'                => date('Y-m-d h:i:s')
               ]; //end of insert data  
-            $return_id   =   DB::table('event_business_owners_details')->insertGetId($event_business_owners_details); 
+            $return_id      =   DB::table('event_business_owners_details')->insertGetId($event_business_owners_details); 
             $insert_ids[]   =   $return_id;
-            $pdfData    =   [
-                'business_owner_id'    => $event_business_owners_id,
-                'profile_id'    => $return_id,
-                'profile_data'  => $event_business_owners_details,
-                'event_data'    => $profile_data['events_details']
+            $pdfData        =   [
+                'business_owner_id'     => $event_business_owners_id,
+                'profile_id'            => $return_id,
+                'profile_data'          => $event_business_owners_details,
+                'event_data'            => $profile_data['events_details']
             ];
             // this is store for sending email and generate pdf later
             $email_and_pdf_data[]   =   $pdfData;            

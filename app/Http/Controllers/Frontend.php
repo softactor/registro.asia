@@ -41,6 +41,11 @@ class Frontend extends Controller
         echo json_encode($feedback_data);
     }
     public function store_event_business_owners($profile_data, $access_token, $event_details){
+        print "<pre>";
+        print_r($profile_data);
+        print "</pre>";
+        exit;
+        
         $insert_data                        =   [];
         $insert_ids                         =   [];
         $email_and_pdf_data                 =   [];
@@ -53,6 +58,7 @@ class Frontend extends Controller
         $profile_data_param['events_details']     =   $event_details;
         $email_and_pdf_data                       =  process_store_event_business_owners($profile_data_param);
         $dyna_form_data                           =   DB::table('registraion_temp')->where('form_id', '!=' , 0)->where('access_token', $access_token)->get();        
+        $event_business_owners_id                 =   $email_and_pdf_data[0]['business_owner_id'];
         // store_event_registeration_form_values
         $this->store_event_registeration_form_values($dyna_form_data, $event_business_owners_id);
         
