@@ -31,80 +31,32 @@
                     <div class="col-md-4">
                         <!-- Widget: user widget style 1 -->
                         <div class="box box-widget widget-user-2">
-                            <!-- Add the bg color to the header using any of the bg-* classes -->
-                            <div class="widget-user-header bg-yellow">
-                                <h3 class="widget-user-username">At a glance</h3>
-                            </div>
-                            <div class="box-footer no-padding">
-                                <ul class="nav nav-stacked">
-                                    <li><a href="#">Total Events <span class="pull-right badge bg-blue">31</span></a></li>
-                                    <li><a href="#">Total Registration <span class="pull-right badge bg-aqua">5</span></a></li>
-                                    <li><a href="#">Online Registration <span class="pull-right badge bg-green">12</span></a></li>
-                                    <li><a href="#">Onsite Registration <span class="pull-right badge bg-red">842</span></a></li>
-                                    <li><a href="#">Total Imports <span class="pull-right badge bg-red">842</span></a></li>
-                                </ul>
-                            </div>
+                            @include('superadmin.reports.report_at_a_glance')
                         </div>
                         <!-- /.widget-user -->
                     </div>
                     <div class="col-md-4">
-                        <!-- Widget: user widget style 1 -->
+                        <!-- Report: last month -->
                         <div class="box box-widget widget-user-2">
-                            <!-- Add the bg color to the header using any of the bg-* classes -->
-                            <div class="widget-user-header bg-yellow">
-                                <h3 class="widget-user-username">Last month registration</h3>
-                            </div>
-                            <div class="box-footer no-padding">
-                                <ul class="nav nav-stacked">
-                                    <li><a href="#">Total Events <span class="pull-right badge bg-blue">31</span></a></li>
-                                    <li><a href="#">Total Registration <span class="pull-right badge bg-aqua">5</span></a></li>
-                                    <li><a href="#">Online Registration <span class="pull-right badge bg-green">12</span></a></li>
-                                    <li><a href="#">Onsite Registration <span class="pull-right badge bg-red">842</span></a></li>
-                                    <li><a href="#">Total Imports <span class="pull-right badge bg-red">842</span></a></li>
-                                </ul>
-                            </div>
+                            @include('superadmin.reports.report_last_month')                            
                         </div>
-                        <!-- /.widget-user -->
+                        <!-- /Report: last month -->
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <!-- Widget: user widget style 1 -->
+                        <!-- Report: last day -->
                         <div class="box box-widget widget-user-2">
-                            <!-- Add the bg color to the header using any of the bg-* classes -->
-                            <div class="widget-user-header bg-yellow">
-                                <h3 class="widget-user-username">Last day registration</h3>
-                            </div>
-                            <div class="box-footer no-padding">
-                                <ul class="nav nav-stacked">
-                                    <li><a href="#">Total Events <span class="pull-right badge bg-blue">31</span></a></li>
-                                    <li><a href="#">Total Registration <span class="pull-right badge bg-aqua">5</span></a></li>
-                                    <li><a href="#">Online Registration <span class="pull-right badge bg-green">12</span></a></li>
-                                    <li><a href="#">Onsite Registration <span class="pull-right badge bg-red">842</span></a></li>
-                                    <li><a href="#">Total Imports <span class="pull-right badge bg-red">842</span></a></li>
-                                </ul>
-                            </div>
+                            @include('superadmin.reports.report_last_day')
                         </div>
-                        <!-- /.widget-user -->
+                        <!-- /Report: last day -->
                     </div>
                     <div class="col-md-4">
-                        <!-- Widget: user widget style 1 -->
+                        <!-- Report: Today -->
                         <div class="box box-widget widget-user-2">
-                            <!-- Add the bg color to the header using any of the bg-* classes -->
-                            <div class="widget-user-header bg-yellow">
-                                <h3 class="widget-user-username">Today registration</h3>
-                            </div>
-                            <div class="box-footer no-padding">
-                                <ul class="nav nav-stacked">
-                                    <li><a href="#">Total Events <span class="pull-right badge bg-blue">31</span></a></li>
-                                    <li><a href="#">Total Registration <span class="pull-right badge bg-aqua">5</span></a></li>
-                                    <li><a href="#">Online Registration <span class="pull-right badge bg-green">12</span></a></li>
-                                    <li><a href="#">Onsite Registration <span class="pull-right badge bg-red">842</span></a></li>
-                                    <li><a href="#">Total Imports <span class="pull-right badge bg-red">842</span></a></li>
-                                </ul>
-                            </div>
+                            @include('superadmin.reports.report_today')
                         </div>
-                        <!-- /.widget-user -->
+                        <!-- /Report: Today -->
                     </div>
                 </div>
             </div><!--/tab-content-->

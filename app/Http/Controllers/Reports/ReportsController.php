@@ -13,4 +13,16 @@ class ReportsController extends Controller{
         ];
         return view('superadmin.reports.dashboard', compact('page_details'));
     }
+    
+    public function get_reports(Request $request){
+        $reportParam    =   [
+            'report_type'   =>  $request->report_type
+        ];
+        $response   =   get_quick_report($reportParam);
+        print "<pre>";
+        print_r($response);
+        print "</pre>";
+        exit;
+        
+    }
 }

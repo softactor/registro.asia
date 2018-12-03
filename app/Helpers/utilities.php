@@ -490,3 +490,135 @@ function generate_pdf($email_n_pdf_data) {
         }
         
     }
+    
+    //  QUICK REPORT:
+    
+    function get_quick_report($param){
+        $reportType     =   $param['report_type'];
+        $reportData     =   [];
+        switch($reportType){
+            case 'all':
+                $dataParam  =   [
+                    'report_type'           =>  $reportType,
+                ];
+                $reportData = get_processed_report_data($dataParam);
+                $status     =   'success';
+                $message    =   'Data found';
+                break;
+            case 'last month':
+                $startDate  =   date('Y-m-d', strtotime('first day of last month'));
+                $endDate   =   date('Y-m-d', strtotime('last day of last month'));
+                $dataParam  =   [
+                    'startDate'             =>  $startDate,
+                    'endDate'               =>  $endDate,
+                    'report_type'           =>  $reportType,
+                ];
+                $reportData = get_processed_report_data($dataParam);
+                $status     =   'success';
+                $message    =   'Data found';
+                break;
+            case 'last day':
+                $prev_date = date('Y-m-d', strtotime('-1 day'));
+                $dataParam  =   [
+                    'startDate'             =>  $prev_date,
+                    'endDate'               =>  $prev_date,
+                    'report_type'           =>  $reportType,
+                ];
+                $reportData = get_processed_report_data($dataParam);
+                $status     =   'success';
+                $message    =   'Data found';
+                break;
+            case 'today':
+                $prev_date = date('Y-m-d');
+                $dataParam  =   [
+                    'startDate'             =>  $prev_date,
+                    'endDate'               =>  $prev_date,
+                    'report_type'           =>  $reportType,
+                ];
+                $reportData = get_processed_report_data($dataParam);
+                $status     =   'success';
+                $message    =   'Data found';
+                break;
+            default:
+                $status     =   'error';
+                $message    =   'No report type found';
+                break;
+        }
+        
+        return $feedbackData    =   [
+            'status'    =>  $status,
+            'message'   =>  $message,
+            'data'      =>  $reportData
+        ];
+    }
+    
+    function get_processed_report_data($param) {
+        $totalEventCount     =   0;
+        $totalRegisCount     =   0;
+        $totalOnlineCount    =   0;
+        $totalOnsiteCount    =   0;
+        $totalImportCount    =   0;
+        // GET TOTAL EVENTS:
+        $param['registration_type'] =   'event';
+        $eventData  =   get_report_data_by_conditional_type($param);
+        if (!$eventData->isEmpty()) { 
+            $totalEventCount    =   count($eventData);
+        }
+        // GET TOTAL Online:
+        $param['registration_type'] =   'Online';
+        $onlineData  =   get_report_data_by_conditional_type($param);
+        if (!$onlineData->isEmpty()) { 
+            $totalOnlineCount    =   count($onlineData);
+        }
+        // GET TOTAL Onsite:
+        $param['registration_type'] =   'Onsite';
+        $onsiteData  =   get_report_data_by_conditional_type($param);
+        if (!$onsiteData->isEmpty()) { 
+            $totalOnsiteCount    =   count($onsiteData);
+        }
+        // GET TOTAL Import:
+        $param['registration_type'] =   'Import';
+        $importData  =   get_report_data_by_conditional_type($param);
+        if (!$importData->isEmpty()) { 
+            $totalImportCount    =   count($importData);
+        }
+        // GET TOTAL registration:
+        $param['registration_type'] =   'registration';
+        $regisData  =   get_report_data_by_conditional_type($param);
+        if (!$regisData->isEmpty()) { 
+            $totalRegisCount    =   $regisData[0]->total_owners_numbers;
+        }
+        
+        return $feedbackData   =   [
+            'event'         =>$totalEventCount,
+            'registeration' =>$totalRegisCount,
+            'online'        =>$totalOnlineCount,
+            'onsite'        =>$totalOnsiteCount,
+            'import'        =>$totalImportCount,
+        ];
+    }
+    
+    function get_report_data_by_conditional_type($param){
+        // get all table data:
+        $query = DB::table('event_business_owners as p');       
+        if($param['report_type']!='all'){            
+            if (isset($param['startDate']) && !empty($param['startDate'])) {
+                $from_date = $param['startDate'] . ' 00:00:00';
+                $query->where('p.created_at', '>=', $from_date);
+            }
+            if (isset($param['endDate']) && !empty($param['endDate'])) {
+                $to_date = $param['endDate'] . ' 23:59:59';
+                $query->where('p.created_at', '<=', $to_date);
+            }
+        }
+        if (isset($param['registration_type']) && !empty($param['registration_type'])) {
+            if($param['registration_type']  ==  'event'){
+                $query->groupBy('event_id');
+            }elseif($param['registration_type']  ==  'registration'){
+                $query->select(DB::raw("SUM(owners_numbers) as total_owners_numbers"));
+            }else{
+                $query->where('p.registration_type',$param['registration_type']);
+            }
+        }
+        return $list_data = $query->get();
+    }
