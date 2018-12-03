@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Settings;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Settings\PrintLayoutConfigurationModel;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
+use View;
 
 class SettingsController extends Controller{
     public function index(){
@@ -63,4 +66,49 @@ class SettingsController extends Controller{
 
         echo json_encode($feedback);
     }
+    
+    public function saveNameBadgeLabel(Request $request){
+        $name       =   $request->name;
+        $getAllData =   DB::table('settings')->where('name','namebadge label')->first(); 
+        if(isset($getAllData) && !empty($getAllData)){
+            $valuesArray    = explode(',', $getAllData->values);
+            if(!in_array($name, $valuesArray)){
+                array_push($valuesArray,$name);
+                $udateValues    = implode(',', $valuesArray);
+                DB::table('settings')
+                ->where('id', $getAllData->id)
+                ->update(['values' => $udateValues]);
+            }
+            $getAllData         =   DB::table('settings')->where('name','namebadge label')->first();
+            $listData           =   explode(',', $getAllData->values);
+            $listDataView       =   View::make('partial.settings_name_badge_values_list', compact('listData'));
+            $feedbackData   =   [
+                'status'    =>  'success',
+                'message'   => 'Successfully updated',
+                'data'      => $listDataView->render()
+            ];
+        }
+        echo json_encode($feedbackData);
+    }
+    
+    public function deleteNamebadgeValues(Request $request) {
+        $name       = $request->name;
+        $getAllData = DB::table('settings')->where('name', 'namebadge label')->first();
+        if (isset($getAllData) && !empty($getAllData)) {
+            $valuesArray = explode(',', $getAllData->values);
+            if (($key = array_search($name, $valuesArray)) !== false) {
+                unset($valuesArray[$key]);
+                $udateValues    = implode(',', $valuesArray);
+                DB::table('settings')
+                ->where('id', $getAllData->id)
+                ->update(['values' => $udateValues]);
+            }
+        }
+        $feedbackData   =   [
+            'status'    =>  'success',
+            'message'   => 'Successfully Deleted'
+        ];
+        echo json_encode($feedbackData);
+    }
+
 }

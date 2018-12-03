@@ -36,6 +36,11 @@
                                 <td>Print layout configuration</td>
                                 <td><a href="#"  data-toggle="modal" data-target="#print_layout_template">Print layout configuration</a></td>
                             </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Name badge label</td>
+                                <td><a href="#"  data-toggle="modal" data-target="#name_badge_label">Name badge label</a></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -50,3 +55,4 @@
 @endsection
 @endsection
 @include('partial/print_layout_template')
+@include('partial/name_badge_label')

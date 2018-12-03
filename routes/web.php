@@ -83,6 +83,8 @@ Route::get('su/send_corn_email', 'Frontend@send_corn_email');
 Route::get('su/printing_layout_config', 'Settings\SettingsController@printing_layout_config');   //          PRINTING LAYOUT CONFIG
 Route::get('su/get_event_print_configuration', 'Settings\SettingsController@get_event_print_configuration');   //          PRINTING LAYOUT CONFIG
 Route::post('su/savePrintLayoutConfiguration', 'Settings\SettingsController@savePrintLayoutConfiguration');   //          PRINTING LAYOUT CONFIG
+Route::post('su/saveNameBadgeLabel', 'Settings\SettingsController@saveNameBadgeLabel');   //          PRINTING LAYOUT CONFIG
+Route::get('su/deleteNamebadgeValues', 'Settings\SettingsController@deleteNamebadgeValues');   //          PRINTING LAYOUT CONFIG
 
 
 //          Pending queue confirmation

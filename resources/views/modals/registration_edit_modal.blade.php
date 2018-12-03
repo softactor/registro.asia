@@ -75,12 +75,18 @@
                         <label>Email Address<span class="required_title"></span></label>
                         <input type="" name="email" class="form-control" id="email" value="">
                     </div>
-                    <div class="form-group col-lg-12">
+                    <div class="form-group col-lg-12">                        
                         <label for="sel1">User Label type<span class="required_title"></span></label>
                         <select class="form-control" id="namebadge_user_label" name="namebadge_user_label">
                             <option value="">Please select</option>
-                            <option value="visitor">Visitor</option>
-                            <option value="organizer">Organizer</option>
+                            <?php
+                                $getAllData =   DB::table('settings')->where('name','namebadge label')->first(); 
+                                if(isset($getAllData) && !empty($getAllData)){
+                                    $listData    = explode(',', $getAllData->values);
+                                    foreach($listData as $key=>$data){
+                            ?>
+                            <option value="{{$data}}">{{$data}}</option>
+                                <?php }} ?>
                         </select>
                     </div>
                   <input type='hidden' name="details_id" id="details_id" value="">

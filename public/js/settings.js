@@ -72,3 +72,50 @@ function savePrintLayoutConfiguration(url) {
         }
     })
 }
+
+function saveNameBadgeLabel(url) {
+    $.ajax({
+        type: 'POST',
+        url: url,
+        dataType: 'json',
+        data: 'name='+$('#label_name').val(),
+        headers: {
+            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content'),
+        },
+        success: function (response) {
+            if (response.status == 'success') {
+                // updated the new value
+                $('#name_badge_values').html(response.data);
+            } else {
+                swal("Error!", response.message, "error");
+            }
+        }
+    })
+}
+
+function deleteNamebadgeValues(id, name, url){
+    swal({
+        title: 'Confirmed?',
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-danger",
+        confirmButtonText: "Yes",
+        cancelButtonText: 'No',
+        closeOnConfirm: false
+    },
+    function () {
+        $.ajax({
+            url: url,
+            type: 'GET',
+            dataType: 'json',
+            data: 'name=' + name,
+            success: function (response) {
+                if(response.status == 'success'){
+                    $('#name_badge_list_values_'+id).hide();
+                    swal("Delete complete", "Data have successfully deleted!", "success"); 
+                }
+            },
+            async: false // <- this turns it into synchronous
+        });
+    });
+}
