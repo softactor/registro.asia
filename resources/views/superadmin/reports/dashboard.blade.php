@@ -22,7 +22,7 @@
                                     <li><a href="#">Event wise</a></li>
                                     <li><a href="#">Date wise</a></li>
                                     <li><a href="#">Ticket wise</a></li>
-                                    <li><a href="#">Custom filter</a></li>
+                                    <li><a href="{{ url('su/reports_custom_filter')}}">Custom filter</a></li>
                                 </ul>
                             </div>
                         </div>

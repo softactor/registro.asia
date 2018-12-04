@@ -169,3 +169,10 @@ ul.saved_templates li img{
 .widget-user-2 .widget-user-username, .widget-user-2 .widget-user-desc{
     margin-left: 30px !important;
 }
+.report_modal_style{
+    width: 90%;
+}
+report_modal_style table tr,th,td{
+    font-size: 13px;
+    color: gray;
+}

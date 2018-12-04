@@ -89,10 +89,13 @@ Route::get('su/deleteNamebadgeValues', 'Settings\SettingsController@deleteNameba
 
 //          Pending queue confirmation
 Route::get('su/backend/registration_import_status/{is_confirmed}/{event_id}', 'Backend@registration_import_status');
-    // REPORTS
+    
+// **********************************REPORTS******************************************************************
 Route::get('/get_events_chart_data', 'Reports\ChartController@get_events_chart_data');
 Route::get('su/reports', 'Reports\ReportsController@index');
 Route::get('su/get_reports', 'Reports\ReportsController@get_reports');
+Route::get('su/reports_custom_filter', 'Reports\ReportsController@reports_custom_filter');
+Route::get('su/get_custom_filter_report', 'Reports\ReportsController@getCustomFilterReport');
 
 
 
