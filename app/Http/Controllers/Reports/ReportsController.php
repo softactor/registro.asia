@@ -68,4 +68,11 @@ class ReportsController extends Controller{
             echo json_encode($feedbackData);
         }        
     }
+    
+    public function reports_grphic_view(Request $request){
+        $page_details   =   [
+            'page_title'    =>  'Reports'
+        ];
+        return view('superadmin.reports.graphic_chart_view', compact('page_details'));
+    }
 }

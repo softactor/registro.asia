@@ -189,16 +189,16 @@ class Backend extends Controller
         return view('superadmin.events_registration.registration_details_list', compact('page_details','evens_list'));
     }
     public function registration_details_view(Request $request){
-        $owners_details =   [];
+        $owners_details         =   [];
         $owners_details_query   =   DB::table('event_business_owners_details')->where('event_id',$request->event_id)->get();
         if(!$owners_details_query->isEmpty()){
-            $owners_details =   $owners_details_query;
+            $owners_details     =   $owners_details_query;
         }
-        $page_details   =   [
+        $page_details       =   [
             'page_title'    =>  'Eevnt Registraion Details',
             'link_url'      =>  '/su/create_events_form',
             'link_title'    =>  'Create',
-            'preview_url'    =>  'su/preview_events_form/'
+            'preview_url'   =>  'su/preview_events_form/'
         ];
         return view('superadmin.events_registration.registration_details_view', compact('page_details','owners_details','png'));
     }    

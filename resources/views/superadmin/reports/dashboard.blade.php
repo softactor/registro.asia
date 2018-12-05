@@ -21,7 +21,7 @@
                                 <ul class="nav nav-stacked">
                                     <li><a href="#">Event wise</a></li>
                                     <li><a href="#">Date wise</a></li>
-                                    <li><a href="#">Ticket wise</a></li>
+                                    <li><a href="{{ url('su/reports_grphic_view')}}">Chart View</a></li>
                                     <li><a href="{{ url('su/reports_custom_filter')}}">Custom filter</a></li>
                                 </ul>
                             </div>

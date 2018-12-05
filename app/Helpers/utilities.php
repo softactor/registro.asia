@@ -240,10 +240,10 @@ function getTableFieldsSum($data){
                             ->first();
     return $total_row;
 }
-function getFormIdByGroupby($user_register_id){
+function getFormIdByGroupby($event_id){
     $results = DB::table('event_registeration_form_values as u')
             ->select('form_id')
-            ->where('user_register_id', $user_register_id)
+            ->where('event_id', $event_id)
             ->groupBy('form_id')
             ->get();
     return $results;
