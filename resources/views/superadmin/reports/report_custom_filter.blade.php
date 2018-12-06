@@ -85,10 +85,15 @@
                         <div class="col col-md-3">
                             <h4>Select Report Generate Type</h4>
                             <div class="radio">
-                                <label><input disabled type="radio" name="generate_type" value="chart_view">Chart view</label>
+                                <label>
+                                    <input type="radio" name="generate_type" value="chart" onclick="getEventCustomForm('chart', '{{ url('su/getEventCustomForm') }}');">Chart view
+                                </label>
                             </div>
+                            <span id="barchart_fields"></span>
                             <div class="radio">
-                                <label><input disabled type="radio" name="generate_type" value="export_view">Export view</label>
+                                <label>
+                                    <input checked type="radio" name="generate_type" value="export" onclick="getEventCustomForm('export', '{{ url('su/getEventCustomForm') }}');">Export view
+                                </label>
                             </div>
                         </div>
                     </div>
@@ -116,8 +121,89 @@
             success: function (response) {
                 $('#report_custom_filter_list_data').modal('show');
                 $('#generate_table').html(response.data);
+                $.each(response.chartData, function( index, value ) {
+                    console.log(value);
+                    var chartParam = {
+                        chart_type          : "bar",
+                        selector_id         : "dynamic_form_events_"+index,
+                        name                : value.name,
+                        xdata               : value.xdata,
+                        ydata               : value.ydata,
+                    };
+                events_dynamic_form_report(chartParam);
+                });
+                run_yearly_events_report();
+                run_yearly_events_registration_type_report();
             }
         })
+    }
+    
+    function getEventCustomForm(generate_type, url){
+        if(generate_type == 'chart'){
+            if(!$("#event_id").val()){
+                var errorString     =   '<span class="alert alert-danger">Please select an event first!</span>';
+                $('#barchart_fields').html(errorString);
+            }else{
+                $.ajax({
+                    type: 'GET',
+                    url: url,
+                    dataType: 'json',
+                    data: 'event_id='+ $("#event_id").val(),
+                    success: function (response) {
+                        $('#barchart_fields').html(response.data);
+                    }
+                })
+            }
+        }
+    }
+    function run_yearly_events_report(){
+        var required_param = {
+            dataType    : "yearly_events",
+            startDate   : $('#start_date').val(),
+            endDate     : $('#end_date').val(),
+            event_id     : $('#event_id').val(),
+        };
+        $.ajax({
+            type: "GET",
+            url: "/get_events_chart_data",
+            dataType: "JSON",
+            data: 'param=' + JSON.stringify(required_param),
+            success: function (response) {
+                var chartParam = {
+                    selector_id         : "yearly_events",
+                    chart_title         : "Total </n>Events</n> 2018",
+                    data                : response.result,
+                };
+                yearly_events_report(chartParam);
+            }// end of success
+        }); // end of ajax call
+    }
+    function run_yearly_events_registration_type_report(){
+        //yearly_events
+        var required_param = {
+            dataType    : "yearly_events_reg_type",
+            startDate   : $('#start_date').val(),
+            endDate     : $('#end_date').val(),
+            event_id     : $('#event_id').val(),
+        };
+        $.ajax({
+            type: "GET",
+            url: "/get_events_chart_data",
+            dataType: "JSON",
+            data: 'param=' + JSON.stringify(required_param),
+            success: function (response) {
+                var chartParam = {
+                    selector_id         : "yearly_events_type",
+                    chart_title         : "Total </n>Registration</n> 2018",
+                    data                : response.result,
+                };
+                yearly_events_registration_type_report(chartParam);
+            }// end of success
+        }); // end of ajax call
+    }
+    function showReport(){
+        run_yearly_events_report();
+        run_yearly_events_registration_type_report();
     }
 </script>
 @endsection

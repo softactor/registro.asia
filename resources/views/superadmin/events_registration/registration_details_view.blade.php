@@ -93,12 +93,12 @@
                                         <button type="button" class="button btn-primary" onclick="editBasicRegistrationDetails('<?php echo $details->id; ?>', '{{ url('su/get_event_business_owners_details') }}')">Edit</button>
                                     </div><!-- end of registration_area -->
                                     <?php
-                                     foreach (getFormIdByGroupby($details->business_owner_id) as $form) {
+                                     foreach (getFormIdByGroupby($details->event_id) as $form) {
                                          // get_data_name_by_where($data);
                                          echo '<h3><u>'.get_data_name_by_id('event_forms',$form->form_id)->lebel_name.'</u></h3>';
                                         foreach (getFormLabelName($form->form_id, $details->business_owner_id) as $fdata) {
                                             echo '<h4>' . $fdata->label_name . '</h4>';
-                                            foreach (getLabelValueFormLabelName($fdata->label_name) as $val) {
+                                            foreach (getLabelValueFormLabelName($fdata->label_name, $details->business_owner_id) as $val) {
                                                 echo $val->label_value . '<br>';
                                             }
                                         }

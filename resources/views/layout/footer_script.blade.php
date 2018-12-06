@@ -9,7 +9,7 @@
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
-
+<script type="text/javascript" src="{{ asset('js/dashboard_report.js')}}"></script>
 <script type="text/javascript">
     $( function() {
       $( "#event_start_date" ).datepicker({ dateFormat: 'dd-mm-yy' });

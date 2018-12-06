@@ -77,3 +77,51 @@ Highcharts.chart(params.selector_id, {
     }]
 });
 } 
+
+function events_dynamic_form_report(param) {
+    Highcharts.chart(param.selector_id, {
+            tooltip: {
+                formatter: function () {
+                    return this.x +
+                            ' ' + this.y + '%';
+                }
+            },
+            chart: {
+                type: 'bar',
+                style: {
+                    fontFamily: 'LatoWeb'
+                }
+            },
+
+            legend: {
+                enabled: false
+            },
+            title: {
+                text: param.name,
+            },
+            subtitle: {
+                text: '',
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: '',
+                }
+            },
+            xAxis: {
+                categories: param.xdata
+            },
+
+            series: [{
+
+                    name: '',
+                    data: param.ydata,
+                    color: ((param.colorCode) ? param.colorCode : "#29286c")
+                }],
+            navigation: {
+                buttonOptions: {
+                    align: 'right'
+                }
+            }
+        });
+}

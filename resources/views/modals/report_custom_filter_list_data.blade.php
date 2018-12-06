@@ -3,8 +3,14 @@
     <div class="modal-dialog report_modal_style">
         <!-- Modal content-->
         <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h2 class="pull-left">Custom Report.</h2>
+                <button type="button" class="btn btn-primary pull-right">PDF</button>
+                <button type="button" class="btn btn-primary pull-right">PRINT</button>
+            </div>
             <div class="modal-body">
-                <h2>Custom Report.</h2>
+                
                 <span id="generate_table"></span>
             </div>
             <div class="modal-footer">

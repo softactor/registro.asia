@@ -257,9 +257,18 @@ function getFormLabelName($form_id, $business_owner_id){
             ->get();
     return $results;
 }
-function getLabelValueFormLabelName($label_name){
+function getFormLabelByFormId($form_id){
+    $results = DB::table('event_registeration_form_values as u')
+            ->select('label_name')
+            ->where('form_id', $form_id)
+            ->groupBy('label_name')
+            ->get();
+    return $results;
+}
+function getLabelValueFormLabelName($label_name, $business_owner_id){
     $results = DB::table('event_registeration_form_values as u')
             ->where('label_name', $label_name)
+            ->where('user_register_id', $business_owner_id)
             ->get();
     return $results;
 }

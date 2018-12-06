@@ -92,6 +92,7 @@ Route::get('su/backend/registration_import_status/{is_confirmed}/{event_id}', 'B
     
 // **********************************REPORTS******************************************************************
 Route::get('/get_events_chart_data', 'Reports\ChartController@get_events_chart_data');
+Route::get('su/getEventCustomForm', 'Reports\ReportsController@getEventCustomForm');
 Route::get('su/reports', 'Reports\ReportsController@index');
 Route::get('su/get_reports', 'Reports\ReportsController@get_reports');
 Route::get('su/reports_custom_filter', 'Reports\ReportsController@reports_custom_filter');

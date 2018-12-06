@@ -176,3 +176,10 @@ report_modal_style table tr,th,td{
     font-size: 13px;
     color: gray;
 }
+.bar_chart_column_section{
+    font-size: 12px;
+    margin-left: 5%;
+}
+.bar_chart_column_section h4{
+    font-size: 13px;
+}
