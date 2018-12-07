@@ -58,7 +58,7 @@ Highcharts.chart(params.selector_id, {
         text: params.chart_title
     },
     tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        pointFormat: '{series.name}: <b>{point.y}</b>'
     },
     plotOptions: {
         pie: {

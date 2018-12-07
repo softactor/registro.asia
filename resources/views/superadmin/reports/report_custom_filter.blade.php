@@ -160,7 +160,7 @@
             dataType    : "yearly_events",
             startDate   : $('#start_date').val(),
             endDate     : $('#end_date').val(),
-            event_id     : $('#event_id').val(),
+            event_id    : $('#event_id').val(),
         };
         $.ajax({
             type: "GET",
