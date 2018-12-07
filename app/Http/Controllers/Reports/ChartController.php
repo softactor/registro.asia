@@ -325,14 +325,16 @@ class ChartController extends Controller{
                     $dataArray      =   [];
                     $totalAttendee  =   0;
                     $query          = DB::table('event_business_owners as ebd')
+                            ->select(DB::raw("SUM(owners_numbers) as owners_numbers, registration_type"))
                             ->whereIn('ebd.event_id', $ids)
                             ->groupBy('ebd.registration_type');
                     if ($query->get()) {
                         $query_data = $query->get();
+                        //$regT
                         foreach ($query_data as $t) {
                             $dataValue = [
                                 'name'  => $t->registration_type,
-                                'y'     => $t->owners_numbers
+                                'y'     => (int)$t->owners_numbers
                             ];
                             $dataArray[]    =   $dataValue;
                         } // END FOR FOREACH
@@ -343,7 +345,6 @@ class ChartController extends Controller{
             default:
                 break;
         }// end of switch case:
-        
         return $dataArray;
     }
 }

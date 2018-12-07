@@ -122,7 +122,6 @@
                 $('#report_custom_filter_list_data').modal('show');
                 $('#generate_table').html(response.data);
                 $.each(response.chartData, function( index, value ) {
-                    console.log(value);
                     var chartParam = {
                         chart_type          : "bar",
                         selector_id         : "dynamic_form_events_"+index,
@@ -169,6 +168,7 @@
             dataType: "JSON",
             data: 'param=' + JSON.stringify(required_param),
             success: function (response) {
+                console.log(response.result);
                 var chartParam = {
                     selector_id         : "yearly_events",
                     chart_title         : "Total </n>Events</n> 2018",
@@ -192,6 +192,7 @@
             dataType: "JSON",
             data: 'param=' + JSON.stringify(required_param),
             success: function (response) {
+                console.log(response.result);
                 var chartParam = {
                     selector_id         : "yearly_events_type",
                     chart_title         : "Total </n>Registration</n> 2018",
