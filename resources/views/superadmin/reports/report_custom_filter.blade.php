@@ -86,13 +86,13 @@
                             <h4>Select Report Generate Type</h4>
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="generate_type" value="chart" onclick="getEventCustomForm('chart', '{{ url('su/getEventCustomForm') }}');">Chart view
+                                    <input type="radio" name="generate_type" value="chart">Chart view
                                 </label>
                             </div>
                             <span id="barchart_fields"></span>
                             <div class="radio">
                                 <label>
-                                    <input checked type="radio" name="generate_type" value="export" onclick="getEventCustomForm('export', '{{ url('su/getEventCustomForm') }}');">Export view
+                                    <input checked type="radio" name="generate_type" value="export">Export view
                                 </label>
                             </div>
                         </div>

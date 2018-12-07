@@ -38,35 +38,38 @@ class ReportsController extends Controller{
     public function getCustomFilterReport(Request $request) {
         $all = $request->all();
         if ($request->generate_type == 'chart') {
-            $barColumnsArray = $request->dataBarColumn;
             $seriesData =   [];            
-            foreach ($barColumnsArray as $label_name) {
-                $xData =   [];
-                $yData =   [];
-                $label_value_results = DB::table('event_registeration_form_values as u')
-                        ->select('label_value')
-                        ->where('event_id', $request->event_id)
-                        ->where('label_name', $label_name)
-                        ->groupBy('label_value')
-                        ->get();
-                
-                foreach ($label_value_results as $label_value) {
-                    $label_value_count_results = DB::table('event_registeration_form_values as u')
-                            ->select('id')
+            foreach (getFormIdByGroupby($request->event_id) as $form) {
+                foreach (getFormLabelByFormId($form->form_id) as $fdata) {
+                    //            $barColumnsArray = $request->dataBarColumn;
+                    $label_name = $fdata->label_name;
+                    $xData = [];
+                    $yData = [];
+                    $label_value_results = DB::table('event_registeration_form_values as u')
+                            ->select('label_value')
                             ->where('event_id', $request->event_id)
                             ->where('label_name', $label_name)
-                            ->where('label_value', $label_value->label_value)
+                            ->groupBy('label_value')
                             ->get();
-                    $countLabelValues = count($label_value_count_results);
-                    $xData[] =   $label_value->label_value;
-                    $yData[] =   $countLabelValues;                    
-                } //end of label_value foreach
-                $seriesData[]   =   [
-                        'name'  => ucwords(str_replace('_', ' ', $label_name)),
-                        'xdata' =>  $xData,
-                        'ydata' =>  $yData,                        
+
+                    foreach ($label_value_results as $label_value) {
+                        $label_value_count_results = DB::table('event_registeration_form_values as u')
+                                ->select('id')
+                                ->where('event_id', $request->event_id)
+                                ->where('label_name', $label_name)
+                                ->where('label_value', $label_value->label_value)
+                                ->get();
+                        $countLabelValues = count($label_value_count_results);
+                        $xData[] = $label_value->label_value;
+                        $yData[] = $countLabelValues;
+                    } //end of label_value foreach
+                    $seriesData[] = [
+                        'name' => ucwords(str_replace('_', ' ', $label_name)),
+                        'xdata' => $xData,
+                        'ydata' => $yData,
                     ];
-            } //end of label_name foreach 
+                } //end of label_name foreach 
+            }
             $listDataView = View::make('partial.dynamic_form_bar_report', compact('seriesData'));
             $feedbackData   =   [
                 'status'    => 'success',

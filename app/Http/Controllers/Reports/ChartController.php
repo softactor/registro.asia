@@ -272,6 +272,7 @@ class ChartController extends Controller{
     }
     
     public function pull_events_data($param){
+        $dataArray  =   [];
         switch($param->dataType){
             case 'yearly_events':
                 $query = DB::table('events as ev');
