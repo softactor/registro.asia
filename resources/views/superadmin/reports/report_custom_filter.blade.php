@@ -206,6 +206,12 @@
         run_yearly_events_report();
         run_yearly_events_registration_type_report();
     }
+    function printExecuteSingleNameBadge(url, print_id){
+        $('#printBody').printThis();   
+    }
+    function documents_print(print_id){
+        $('#'+print_id).printThis(); 
+    }
 </script>
 @endsection
 @endsection

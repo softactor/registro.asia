@@ -10,6 +10,8 @@
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
 <script type="text/javascript" src="{{ asset('js/dashboard_report.js')}}"></script>
+<script type="text/javascript" src="{{ asset('js/printThis.js')}}"></script>
+<script type="text/javascript" src="{{ asset('js/jspdf.min.js')}}"></script>
 <script type="text/javascript">
     $( function() {
       $( "#event_start_date" ).datepicker({ dateFormat: 'dd-mm-yy' });
@@ -338,5 +340,20 @@
             }
         });
     }
-    
+    function documents_print(print_id){
+        $('#'+print_id).printThis(); 
+    }
+    function documents_pdf(print_id){
+        var doc = new jsPDF(); 
+        var specialElementHandlers = {
+            '#editor': function (element, renderer) {
+                return true;
+            }
+        };
+            doc.fromHTML($('#'+print_id).html(), 15, 15, {
+                'width': 170,
+                    'elementHandlers': specialElementHandlers
+            });
+            doc.save('sample-file.pdf');
+    }
   </script>
