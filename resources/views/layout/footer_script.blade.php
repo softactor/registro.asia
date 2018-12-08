@@ -343,7 +343,7 @@
     function documents_print(print_id){
         $('#'+print_id).printThis(); 
     }
-    function documents_pdf(print_id){
+    function documents_pdf_backup(print_id){
         var doc = new jsPDF(); 
         var specialElementHandlers = {
             '#editor': function (element, renderer) {
@@ -355,5 +355,17 @@
                     'elementHandlers': specialElementHandlers
             });
             doc.save('sample-file.pdf');
+    }
+    function documents_pdf(print_id, urlAddress){
+        $.ajax({
+            url:urlAddress,
+            type:'GET',
+            dataType:'html',
+            data: "data=" + JSON.stringify($("#"+print_id).html()),
+            success: function(response){
+                console.log('ok');
+                console.log(response);
+            }
+        });
     }
   </script>

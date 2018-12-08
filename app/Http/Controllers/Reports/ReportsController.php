@@ -132,4 +132,9 @@ class ReportsController extends Controller{
 
         echo json_encode($feedbackData);
     }
+    
+    public function reports_pdf_download(Request $request){
+        $param['html_data']  = $request->data;
+        download_reports_pdf($param);
+    }
 }

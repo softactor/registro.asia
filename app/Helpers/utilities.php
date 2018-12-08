@@ -649,3 +649,8 @@ function generate_pdf($email_n_pdf_data) {
             return $list_data = $query->get();
         }
     }
+    
+    function download_reports_pdf($param){
+        $pdf = PDF::loadView($param['html_data'])
+            ->download('Computers.pdf');
+    }

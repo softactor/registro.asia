@@ -98,6 +98,7 @@ Route::get('su/get_reports', 'Reports\ReportsController@get_reports');
 Route::get('su/reports_custom_filter', 'Reports\ReportsController@reports_custom_filter');
 Route::get('su/get_custom_filter_report', 'Reports\ReportsController@getCustomFilterReport');
 Route::get('su/reports_grphic_view', 'Reports\ReportsController@reports_grphic_view');
+Route::get('su/reports_pdf_download', 'Reports\ReportsController@reports_pdf_download');
 
 
 

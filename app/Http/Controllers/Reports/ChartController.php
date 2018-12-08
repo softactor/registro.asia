@@ -261,12 +261,19 @@ class ChartController extends Controller{
     }
     
     public function get_events_chart_data(Request $request){
-        $param = json_decode($request->param);
+        // gender wise report:
+        $others_reports =   [];
+        $param                              =   json_decode($request->param);
+        $others_reports['gender']                 =   $this->get_pie_chart_data_by_fields_name($param, 'gender');
+        $others_reports['designation']            =   $this->get_pie_chart_data_by_fields_name($param, 'designation');
+        $others_reports['country_id']             =   $this->get_pie_chart_data_by_fields_name($param, 'country_id');
+        $others_reports['namebadge_user_label']   =   $this->get_pie_chart_data_by_fields_name($param, 'namebadge_user_label');
         $result    =   $this->pull_events_data($param); 
         $feedbackData   =   [
-            'status'    =>  'success',
-            'message'   =>  'Data found',
-            'result'   =>  $result,
+            'status'            =>  'success',
+            'message'           =>  'Data found',
+            'result'            =>  $result,
+            'others_reports'    =>  $others_reports,
         ];
         echo json_encode($feedbackData);
     }
@@ -346,6 +353,46 @@ class ChartController extends Controller{
             default:
                 break;
         }// end of switch case:
+        return $dataArray;
+    }
+    
+    public function get_pie_chart_data_by_fields_name($param, $fields_name){
+        $dataArray  =   [];
+        $query = DB::table('events as ev');
+        if (isset($param->startDate) && !empty($param->startDate)) {
+            $from_date      =   date("Y-m-d", strtotime($param->startDate));
+            $query->where('ev.start_date', '>=', $from_date);
+        }            
+        if (isset($param->endDate) && !empty($param->endDate)) {
+            $to_date      =   date("Y-m-d", strtotime($param->endDate));
+            $query->where('ev.end_date', '<=', $to_date);
+        }
+        if (isset($param->event_id) && !empty($param->event_id)) {
+            $query->where('ev.id', '=', $param->event_id);
+        }
+        $list_data = $query->get();
+        if(!$list_data->isEmpty()){
+            $ids = $list_data->pluck('id')->toArray();
+            $dataArray      =   [];
+            $totalAttendee  =   0;
+            $query          = DB::table('event_business_owners_details')
+                    ->select(DB::raw("COUNT(id) as owners_numbers,$fields_name"))
+                    ->whereIn('event_id', $ids)
+                    ->groupBy($fields_name);
+            if ($query->get()) {
+                $query_data = $query->get();
+                //$regT
+                foreach ($query_data as $t) {
+                    $dataValue = [
+                        'name'  => $t->{$fields_name},
+                        'y'     => (int)$t->owners_numbers
+                    ];
+                    $dataArray[]    =   $dataValue;
+                } // END FOR FOREACH
+            }
+
+        }// end of emty checking
+        
         return $dataArray;
     }
 }

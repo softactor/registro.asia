@@ -6,7 +6,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h2 class="pull-left">Custom Report.</h2>
-                <button type="button" class="btn btn-primary pull-right" onclick="documents_pdf('generate_table');">PDF</button>
+                <!--<button type="button" class="btn btn-primary pull-right" onclick="documents_pdf('generate_table', '{{ url('su/reports_pdf_download') }}');">PDF</button>-->
                 <button type="button" class="btn btn-primary pull-right" onclick="documents_print('generate_table');">PRINT</button>
             </div>
             <div class="modal-body">

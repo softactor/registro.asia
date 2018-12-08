@@ -192,11 +192,41 @@
             dataType: "JSON",
             data: 'param=' + JSON.stringify(required_param),
             success: function (response) {
-                console.log(response.result);
                 var chartParam = {
                     selector_id         : "yearly_events_type",
                     chart_title         : "Total </n>Registration</n> 2018",
                     data                : response.result,
+                };
+                yearly_events_registration_type_report(chartParam);
+               // for gender 
+                var chartParam = {
+                    selector_id         : "gender_pie_chart",
+                    chart_title         : "Gender Chart View",
+                    data                : response.others_reports.gender,
+                };
+                yearly_events_registration_type_report(chartParam);
+                
+                // for designation
+                var chartParam = {
+                    selector_id         : "designation_pie_chart",
+                    chart_title         : "Designation Chart View",
+                    data                : response.others_reports.designation,
+                };
+                yearly_events_registration_type_report(chartParam);
+                
+                // for country
+                var chartParam = {
+                    selector_id         : "country_pie_chart",
+                    chart_title         : "Country Chart View",
+                    data                : response.others_reports.country_id,
+                };
+                yearly_events_registration_type_report(chartParam);
+                
+                // for namebadge label
+                var chartParam = {
+                    selector_id         : "namebadge_label_pie_chart",
+                    chart_title         : "Name Badge Chart View",
+                    data                : response.others_reports.namebadge_user_label,
                 };
                 yearly_events_registration_type_report(chartParam);
             }// end of success
