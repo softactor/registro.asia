@@ -12,6 +12,12 @@
 <script type="text/javascript" src="{{ asset('js/dashboard_report.js')}}"></script>
 <script type="text/javascript" src="{{ asset('js/printThis.js')}}"></script>
 <script type="text/javascript" src="{{ asset('js/jspdf.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('js/tinymce/tinymce.min.js')}}"></script>
+<script type="text/javascript">
+  tinymce.init({
+    selector: '.rich_editor'
+  });
+  </script>
 <script type="text/javascript">
     $( function() {
       $( "#event_start_date" ).datepicker({ dateFormat: 'dd-mm-yy' });

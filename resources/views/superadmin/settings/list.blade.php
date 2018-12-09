@@ -12,9 +12,6 @@
                 @include('layout/operation_message') 
                 <h2>
                     {{ $page_details['page_title'] }} List
-                    <div class="pull-right">
-                        <a href='{{ url($page_details['link_url']) }}'>{{ $page_details['link_title'] }}</a>
-                    </div>
                 </h2>
                 <div class="table-responsive">          
                     <table class="table">
@@ -40,6 +37,11 @@
                                 <td>3</td>
                                 <td>Name badge label</td>
                                 <td><a href="#"  data-toggle="modal" data-target="#name_badge_label">Name badge label</a></td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>Email Editor</td>
+                                <td><a href="{{ url('su/event_wise_mail_composer') }}">Compose</a></td>
                             </tr>
                         </tbody>
                     </table>

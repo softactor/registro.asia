@@ -183,3 +183,6 @@ report_modal_style table tr,th,td{
 .bar_chart_column_section h4{
     font-size: 13px;
 }
+#mceu_30{
+    display: none;
+}

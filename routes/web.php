@@ -85,7 +85,10 @@ Route::get('su/get_event_print_configuration', 'Settings\SettingsController@get_
 Route::post('su/savePrintLayoutConfiguration', 'Settings\SettingsController@savePrintLayoutConfiguration');   //          PRINTING LAYOUT CONFIG
 Route::post('su/saveNameBadgeLabel', 'Settings\SettingsController@saveNameBadgeLabel');   //          PRINTING LAYOUT CONFIG
 Route::get('su/deleteNamebadgeValues', 'Settings\SettingsController@deleteNamebadgeValues');   //          PRINTING LAYOUT CONFIG
-
+//*******************************COMPOSER*************************************************
+Route::get('su/event_wise_mail_composer', 'Settings\SettingsController@eventWiseMailComposer');
+Route::post('su/event_wise_mail_composer_store', 'Settings\SettingsController@eventWiseMailComposerStore');
+Route::get('su/get_email_text', 'Settings\SettingsController@getEmailText');
 
 //          Pending queue confirmation
 Route::get('su/backend/registration_import_status/{is_confirmed}/{event_id}', 'Backend@registration_import_status');
@@ -99,7 +102,3 @@ Route::get('su/reports_custom_filter', 'Reports\ReportsController@reports_custom
 Route::get('su/get_custom_filter_report', 'Reports\ReportsController@getCustomFilterReport');
 Route::get('su/reports_grphic_view', 'Reports\ReportsController@reports_grphic_view');
 Route::get('su/reports_pdf_download', 'Reports\ReportsController@reports_pdf_download');
-
-
-
-
