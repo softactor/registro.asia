@@ -141,7 +141,7 @@
     <body class="respond" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
         <?php
         $whereParam = [
-            'name' => $content['event_data']->event_id,
+            'name' => $content['event_data']->id,
             'post_type' => 'email_text',
         ];
         $query = DB::table('settings')->select('values')->where($whereParam)->first();
