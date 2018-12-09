@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 09, 2018 at 04:33 PM
+-- Generation Time: Dec 09, 2018 at 07:16 PM
 -- Server version: 5.5.61-cll
 -- PHP Version: 7.2.7
 
@@ -80,7 +80,8 @@ INSERT INTO `event_business_owners` (`id`, `event_id`, `owners_numbers`, `regist
 (67, 11, 1, 'Online', 1, '2018-12-04 19:40:27', '2018-12-04 19:40:27'),
 (68, 11, 1, 'Online', 1, '2018-12-04 19:42:23', '2018-12-04 19:42:23'),
 (69, 11, 1, 'Onsite', 1, '2018-12-04 19:47:14', '2018-12-04 19:47:14'),
-(70, 5, 1, 'Online', 1, '2018-12-06 18:43:27', '2018-12-06 18:43:27');
+(70, 5, 1, 'Online', 1, '2018-12-06 18:43:27', '2018-12-06 18:43:27'),
+(71, 12, 1, 'Online', 1, '2018-12-09 01:47:53', '2018-12-09 01:47:53');
 
 -- --------------------------------------------------------
 
@@ -122,7 +123,8 @@ INSERT INTO `event_business_owners_details` (`id`, `event_id`, `business_owner_i
 (58, 11, 67, 'Mr', 'Tanveer', 'Qureshee', 'Saif Power tec LTD', '72 Mohakhali.', 'Male', 'Web designer', '01716600843', 1, '02918', '12345', 'tanveerqureshee@hotmail.com', '490927701167', 'visitor', 1, 1, '490927701167.png', '11544024427.pdf', '2018-12-04 19:40:27', '2018-12-04 19:40:27'),
 (59, 11, 68, 'Ms', 'Meghna', 'Jahan', 'Dnet', 'Humayon Road', 'Female', 'Executive Officer', '0128171709', 2, '02134566', '0233134', 'tanveerqureshee1@gmail.com', '016057121168', 'visitor', 1, 1, '016057121168.png', '11544024543.pdf', '2018-12-04 19:42:23', '2018-12-04 19:42:23'),
 (60, 11, 69, 'Dr', 'Farad', 'Hassan', 'Technobd web solution PVT LTD', 'Kawran Bazar', 'Male', 'Engineer', '029373635', 2, '01929291', '01929383', 'tanveerqureshee1@gmail.com', '689646941169', 'visitor', 1, 1, '689646941169.png', '11544024834.pdf', '2018-12-04 19:47:14', '2018-12-04 19:47:14'),
-(61, 5, 70, 'Mr', 'Willium', 'Tuitman', 'PLIS', 'Germany', 'Male', 'Team Leader', '09282828', 1, '02', '02', 'tanveerqureshee1@gmail.com', '075759396570', 'visitor', 1, 1, '075759396570.png', '11544150607.pdf', '2018-12-06 18:43:27', '2018-12-06 18:43:27');
+(61, 5, 70, 'Mr', 'Willium', 'Tuitman', 'PLIS', 'Germany', 'Male', 'Team Leader', '09282828', 1, '02', '02', 'tanveerqureshee1@gmail.com', '075759396570', 'visitor', 1, 1, '075759396570.png', '11544150607.pdf', '2018-12-06 18:43:27', '2018-12-06 18:43:27'),
+(62, 12, 71, 'Mr', 'ze', 'teo', 'asd', NULL, NULL, NULL, '3462364', 1, '', '', 'zeteo87@gmail.com', '008899141271', 'visitor', 1, 1, '008899141271.png', '11544348873.pdf', '2018-12-09 01:47:53', '2018-12-09 01:47:53');
 
 -- --------------------------------------------------------
 
@@ -185,7 +187,9 @@ INSERT INTO `event_registeration_form_values` (`id`, `user_register_id`, `event_
 (42, 69, 11, 21, 'want_to_contact', 'no', '2018-12-04 19:47:14', '2018-12-04 19:47:14'),
 (43, 70, 5, 13, 'role', 'CFO', '2018-12-06 18:43:27', '2018-12-06 18:43:27'),
 (44, 70, 5, 17, 'select 1540803406765', 'Option 2', '2018-12-06 18:43:27', '2018-12-06 18:43:27'),
-(45, 70, 5, 17, 'text 1540803419797', 'test', '2018-12-06 18:43:27', '2018-12-06 18:43:27');
+(45, 70, 5, 17, 'text 1540803419797', 'test', '2018-12-06 18:43:27', '2018-12-06 18:43:27'),
+(46, 71, 12, 22, 'checkbox group 1544342869350', 'Exporter / Importer', '2018-12-09 01:47:53', '2018-12-09 01:47:53'),
+(47, 71, 12, 22, 'select 1544343330556', 'Radio', '2018-12-09 01:47:53', '2018-12-09 01:47:53');
 
 -- --------------------------------------------------------
 
@@ -360,7 +364,13 @@ INSERT INTO `registraion_temp` (`id`, `form_id`, `event_id`, `access_token`, `te
 (169, 21, 11, 'bbf51fd6c9213a6beab436935d1c1303', '{\"want_to_contact\":\"no\"}', '2018-12-04 19:46:44', '2018-12-04 19:46:44'),
 (170, 0, 5, '6a01064a1cf1f6c1a1f9f16c6320f3da', '{\"event_business_owners_data\":{\"event_id\":\"5\",\"owners_numbers\":1,\"registration_type\":\"Online\",\"created_at\":\"2018-12-07 02:43:00\",\"updated_at\":\"2018-12-07 02:43:00\"},\"event_business_owners_details\":[{\"event_id\":\"5\",\"business_owner_id\":\"\",\"salutation\":\"Mr\",\"first_name\":\"Willium\",\"last_name\":\"Tuitman\",\"company_name\":\"PLIS\",\"company_address\":\"Germany\",\"gender\":\"Male\",\"designation\":\"Team Leader\",\"mobile\":\"09282828\",\"country_id\":\"1\",\"tel\":\"02\",\"fax\":\"02\",\"email\":\"tanveerqureshee1@gmail.com\",\"created_at\":\"2018-12-07 02:43:00\",\"updated_at\":\"2018-12-07 02:43:00\"}]}', '2018-12-06 18:43:00', '2018-12-06 18:43:00'),
 (171, 13, 5, '6a01064a1cf1f6c1a1f9f16c6320f3da', '{\"role\":\"CFO\"}', '2018-12-06 18:43:12', '2018-12-06 18:43:12'),
-(172, 17, 5, '6a01064a1cf1f6c1a1f9f16c6320f3da', '{\"select-1540803406765\":\"Option 2\",\"text-1540803419797\":\"test\"}', '2018-12-06 18:43:22', '2018-12-06 18:43:22');
+(172, 17, 5, '6a01064a1cf1f6c1a1f9f16c6320f3da', '{\"select-1540803406765\":\"Option 2\",\"text-1540803419797\":\"test\"}', '2018-12-06 18:43:22', '2018-12-06 18:43:22'),
+(173, 0, 12, 'fe69da47de2780e8e2fd9e347a496a7a', '{\"event_business_owners_data\":{\"event_id\":\"12\",\"owners_numbers\":1,\"registration_type\":\"Online\",\"created_at\":\"2018-12-09 09:19:39\",\"updated_at\":\"2018-12-09 09:19:39\"},\"event_business_owners_details\":[{\"event_id\":\"12\",\"business_owner_id\":\"\",\"salutation\":\"Mr\",\"first_name\":\"Ze\",\"last_name\":\"Teo\",\"company_name\":\"Asd\",\"company_address\":null,\"gender\":\"Male\",\"designation\":null,\"mobile\":\"94747483\",\"country_id\":\"1\",\"tel\":null,\"fax\":null,\"email\":\"zeteo87@gmail.com\",\"created_at\":\"2018-12-09 09:19:39\",\"updated_at\":\"2018-12-09 09:19:39\"}]}', '2018-12-09 01:19:39', '2018-12-09 01:19:39'),
+(174, 22, 12, 'fe69da47de2780e8e2fd9e347a496a7a', '{\"checkbox-group-1544342869350\":[\"Auction House\",\"Galleries\"],\"checkbox-group-1544343035235\":[\"Purchase \\/ Place Order\",\"Seek DIstribution Channels\"],\"checkbox-group-1544343447753\":[\"Pearl Jewelry\"],\"select-1544343330556\":\"Radio\",\"radio-group-1544343541917\":\"No\"}', '2018-12-09 01:21:40', '2018-12-09 01:21:40'),
+(175, 0, 12, '527f8743eb9a86b2310bf7eb3dc6c853', '{\"event_business_owners_data\":{\"event_id\":\"12\",\"owners_numbers\":1,\"registration_type\":\"Online\",\"created_at\":\"2018-12-09 09:26:13\",\"updated_at\":\"2018-12-09 09:26:13\"},\"event_business_owners_details\":[{\"event_id\":\"12\",\"business_owner_id\":\"\",\"salutation\":\"Mr\",\"first_name\":\"ze\",\"last_name\":\"teo\",\"company_name\":\"asd\",\"company_address\":null,\"gender\":null,\"designation\":null,\"mobile\":\"36236\",\"country_id\":\"1\",\"tel\":null,\"fax\":null,\"email\":\"zeteo87@gmail.com\",\"created_at\":\"2018-12-09 09:26:13\",\"updated_at\":\"2018-12-09 09:26:13\"}]}', '2018-12-09 01:26:13', '2018-12-09 01:26:13'),
+(176, 22, 12, '527f8743eb9a86b2310bf7eb3dc6c853', '{\"checkbox-group-1544342869350\":[\"Galleries\"],\"select-1544343330556\":\"Radio\"}', '2018-12-09 01:26:17', '2018-12-09 01:26:17'),
+(177, 0, 12, '159d4440c4a004b65783e683de2ab9d5', '{\"event_business_owners_data\":{\"event_id\":\"12\",\"owners_numbers\":1,\"registration_type\":\"Online\",\"created_at\":\"2018-12-09 09:47:42\",\"updated_at\":\"2018-12-09 09:47:42\"},\"event_business_owners_details\":[{\"event_id\":\"12\",\"business_owner_id\":\"\",\"salutation\":\"Mr\",\"first_name\":\"ze\",\"last_name\":\"teo\",\"company_name\":\"asd\",\"company_address\":null,\"gender\":null,\"designation\":null,\"mobile\":\"3462364\",\"country_id\":\"1\",\"tel\":null,\"fax\":null,\"email\":\"zeteo87@gmail.com\",\"created_at\":\"2018-12-09 09:47:42\",\"updated_at\":\"2018-12-09 09:47:42\"}]}', '2018-12-09 01:47:42', '2018-12-09 01:47:42'),
+(178, 22, 12, '159d4440c4a004b65783e683de2ab9d5', '{\"checkbox-group-1544342869350\":[\"Exporter \\/ Importer\"],\"select-1544343330556\":\"Radio\"}', '2018-12-09 01:47:47', '2018-12-09 01:47:47');
 
 -- --------------------------------------------------------
 
@@ -544,13 +554,13 @@ ALTER TABLE `events`
 -- AUTO_INCREMENT for table `event_business_owners`
 --
 ALTER TABLE `event_business_owners`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 
 --
 -- AUTO_INCREMENT for table `event_business_owners_details`
 --
 ALTER TABLE `event_business_owners_details`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- AUTO_INCREMENT for table `event_forms`
@@ -562,7 +572,7 @@ ALTER TABLE `event_forms`
 -- AUTO_INCREMENT for table `event_registeration_form_values`
 --
 ALTER TABLE `event_registeration_form_values`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -598,7 +608,7 @@ ALTER TABLE `print_layout_config`
 -- AUTO_INCREMENT for table `registraion_temp`
 --
 ALTER TABLE `registraion_temp`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=173;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=179;
 
 --
 -- AUTO_INCREMENT for table `settings`

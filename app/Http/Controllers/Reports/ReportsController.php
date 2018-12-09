@@ -79,12 +79,13 @@ class ReportsController extends Controller{
             ];
             echo json_encode($feedbackData);
         } else {
-
             $query = DB::table('event_business_owners_details');
             $columns = [];
             $columnsArray = $request->dataColumn;
             if (isset($columnsArray) && !empty($columnsArray)) {
                 $query->select($columnsArray);
+            }else{
+                $query->select('salutation','first_name','last_name','company_name','company_address','gender','designation','mobile','country_id','tel','fax','email','serial_digit','namebadge_user_label');
             }
 
             if (isset($request->event_id) && !empty($request->event_id)) {
@@ -101,14 +102,14 @@ class ReportsController extends Controller{
             // check query has row or not
             if ($query->get()) {
                 $listData = $query->get()->toArray();
-                $columnNames = array_keys((array) array_shift($listData));
+                $columnNamesData    =   $listData;
+                $columnNames = array_keys((array) array_shift($columnNamesData));
                 $listDataView = View::make('superadmin.reports.report_custom_filters_show_view', compact('listData', 'columnNames'));
                 $feedbackData = [
                     'status' => 'success',
                     'message' => 'Successfully updated',
                     'data' => $listDataView->render()
                 ];
-
                 echo json_encode($feedbackData);
             }
         }

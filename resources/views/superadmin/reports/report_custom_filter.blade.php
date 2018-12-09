@@ -121,18 +121,20 @@
             success: function (response) {
                 $('#report_custom_filter_list_data').modal('show');
                 $('#generate_table').html(response.data);
-                $.each(response.chartData, function( index, value ) {
-                    var chartParam = {
-                        chart_type          : "bar",
-                        selector_id         : "dynamic_form_events_"+index,
-                        name                : value.name,
-                        xdata               : value.xdata,
-                        ydata               : value.ydata,
-                    };
-                events_dynamic_form_report(chartParam);
-                });
-                run_yearly_events_report();
-                run_yearly_events_registration_type_report();
+                if($('input[name=generate_type]:checked').val()  ==  'chart'){
+                    $.each(response.chartData, function( index, value ) {
+                        var chartParam = {
+                            chart_type          : "bar",
+                            selector_id         : "dynamic_form_events_"+index,
+                            name                : value.name,
+                            xdata               : value.xdata,
+                            ydata               : value.ydata,
+                        };
+                    events_dynamic_form_report(chartParam);
+                    });
+                    run_yearly_events_report();
+                    run_yearly_events_registration_type_report();
+                }
             }
         })
     }

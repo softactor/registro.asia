@@ -18,6 +18,7 @@
             ?>
             @if(isset($listData))
             @foreach ($listData as $data)
+            
             <tr>
                 <td class="text-center">{{ $slNo++}}</td>
                 <?php
