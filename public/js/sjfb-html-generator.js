@@ -23,12 +23,13 @@ function generateHtmlForm(currentIndex, eventFormId, urlAddress){
                     if (response.data) {
                         var data = response.data.form_data;
                         if (data) {
+                            
                             //go through each saved field object and render the form HTML
                             $.each(JSON.parse(data), function (k, v) {
-                                var optionsLavel    =   v.name;
-                                var fieldType = v['type'];
+                                var optionsLavel    =   ((v.name) ?  v.name: 'no_name');
+                                var fieldType       =   v.type;
                                 //Add the field
-                                $('#sjfb_fields_' + currentIndex).append(addFieldHTML(fieldType, v['name']));
+                                $('#sjfb_fields_' + currentIndex).append(addFieldHTML(fieldType, optionsLavel));
                                 var $currentField = $('#sjfb_fields_' + currentIndex + ' .sjfb-field').last();
                                 //Add the label
                                 $currentField.find('label').text(v['label']);
@@ -123,10 +124,14 @@ function generateHtmlForm(currentIndex, eventFormId, urlAddress){
                                         '</div>';
                             case 'agree':
                                 return '' +
-                                        '<div id="sjfb-agree-' + uniqueID + '" class="sjfb-field sjfb-agree required-field">' +
+                                        '<div id="sjfb-agree-' + uniqueID + '" class="sjfb-field sjfb-agree form-group">' +
                                         '<input type="checkbox" required>' +
                                         '<label></label>' +
-                                        '</div>'
+                                        '</div>';
+                            case 'header':
+                                return '' +
+                                        '<div id="sjfb-agree-' + uniqueID + '" class="sjfb-field sjfb-header form-group">' +
+                                        '<label></label>';
                         }
                     }
                 }
