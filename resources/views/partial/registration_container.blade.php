@@ -12,8 +12,8 @@
                     <input type="hidden" id="client_registration_first_step_varifications" value="{{ url('client_registration_first_step_varifications') }}" >
                     <input type="hidden" id="client_registration_others_step_varifications" value="{{ url('client_registration_others_step_varifications') }}" >
                     <input type="hidden" id="confirmation_process" value="{{ url('confirmation_process') }}" >
-                    <input type="hidden" id="redirectUrl" value="{{ url($page_details['redirectUrl']) }}" >
-                    <input type="hidden" id="registration_type" name="registration_type" value="{{ $page_details['reg_prefix'] }}" >
+                    <input type="hidden" id="redirectUrl" value="<?php if(isset($page_details['redirectUrl'])){ echo url($page_details['redirectUrl']); } ?>" >
+                    <input type="hidden" id="registration_type" name="registration_type" value="<?php if(isset($page_details['reg_prefix'])){ echo url($page_details['reg_prefix']); } ?>" >
                     <div id="registration_area">
                         <div class="form-group col-lg-12">
                             <label for="sel1">Salutation<span class="required_title"></span></label>

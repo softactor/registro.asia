@@ -118,6 +118,10 @@ class Backend extends Controller
             'link_url'      =>  '/su/event_form',
             'link_title'    =>  'Event Form',
             'base_url'      =>  URL::to("/").'/'.$request->event_url,
+            'link_url'      => '/su/event_form',
+            'link_title'    => 'Events List',
+            'base_url'      => URL::to("/") . '/' . $request->event_url,
+            'redirectUrl'   => '/su/event_form',
         ];
         return view('superadmin.events_form.preview', compact('page_details','events','event_forms'));
     }

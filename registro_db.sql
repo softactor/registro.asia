@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 07, 2018 at 10:49 AM
+-- Generation Time: Dec 09, 2018 at 04:33 PM
 -- Server version: 5.5.61-cll
 -- PHP Version: 7.2.7
 
@@ -53,7 +53,8 @@ INSERT INTO `events` (`id`, `title`, `organizer`, `start_date`, `end_date`, `ven
 (8, 'Water Week', 'PUB', '2018-10-26', '2018-10-31', 'Expo', 'expo drive', 'Water-Week', '<iframe src=\"http://registro.asia/iframe/event_registration/Water-Week/\" style=\"border:0px #ffffff none;\" name=\"myiFrame\" scrolling=\"no\" frameborder=\"1\" marginheight=\"0px\" marginwidth=\"0px\" height=\"2100px\" width=\"100%\" allowfullscreen>\r\n</iframe>', '2018-10-28 19:48:31', '2018-10-28 19:48:31'),
 (9, 'MDDRM Events', 'DEB Company', '2018-10-05', '2018-10-31', 'International Stadium', 'Dhaka', 'MDDRM-Events', '<iframe src=\"https://registro.asia/iframe/event_registration/MDDRM-Events/\" style=\"border:0px #ffffff none;\" name=\"myiFrame\" scrolling=\"no\" frameborder=\"1\" marginheight=\"0px\" marginwidth=\"0px\" height=\"2100px\" width=\"100%\" allowfullscreen>\r\n</iframe>', '2018-10-30 15:32:48', '2018-10-30 15:32:48'),
 (10, 'toy show', 'ATZE', '2018-10-30', '2018-10-31', 'expo', '1 expo', 'Toy-Show', '<iframe src=\"http://registro.asia/iframe/event_registration/Toy-Show/\" style=\"border:0px #ffffff none;\" name=\"myiFrame\" scrolling=\"no\" frameborder=\"1\" marginheight=\"0px\" marginwidth=\"0px\" height=\"2100px\" width=\"100%\" allowfullscreen>\r\n</iframe>', '2018-10-29 21:28:44', '2018-10-29 21:28:44'),
-(11, 'SMA Show 2019', 'SMA', '2018-11-02', '2018-11-02', 'NUS', 'PGPR', 'SMA-Show-2019', '<iframe src=\"https://registro.asia/iframe/event_registration/SMA-Show-2019/\" style=\"border:0px #ffffff none;\" name=\"myiFrame\" scrolling=\"no\" frameborder=\"1\" marginheight=\"0px\" marginwidth=\"0px\" height=\"2100px\" width=\"100%\" allowfullscreen>\r\n</iframe>', '2018-12-05 19:31:02', '2018-12-05 19:31:02');
+(11, 'SMA Show 2019', 'SMA', '2018-11-02', '2018-11-02', 'NUS', 'PGPR', 'SMA-Show-2019', '<iframe src=\"https://registro.asia/iframe/event_registration/SMA-Show-2019/\" style=\"border:0px #ffffff none;\" name=\"myiFrame\" scrolling=\"no\" frameborder=\"1\" marginheight=\"0px\" marginwidth=\"0px\" height=\"2100px\" width=\"100%\" allowfullscreen>\r\n</iframe>', '2018-12-05 19:31:02', '2018-12-05 19:31:02'),
+(12, 'Singapore International Jewelry Expo 2019', 'SIJE', '2019-02-01', '2019-02-03', 'Marina Bay Sands', '10 Bayfront Ave, Singapore 018956', 'Singapore-International-Jewelry-Expo-2019', NULL, '2018-12-09 00:06:07', '2018-12-09 00:06:07');
 
 -- --------------------------------------------------------
 
@@ -151,7 +152,8 @@ INSERT INTO `event_forms` (`id`, `event_id`, `lebel_name`, `form_data`, `created
 (18, 9, 'Interaction', '[{\"type\":\"checkbox-group\",\"label\":\"Point Of Interest\",\"name\":\"checkbox-group-1540812186641\",\"values\":[{\"label\":\"Interest 1\",\"value\":\"Interest 1\",\"selected\":true},{\"label\":\"Interest 2\",\"value\":\"Interest 2\"}]},{\"type\":\"radio-group\",\"label\":\"Gender\",\"name\":\"radio-group-1540812312252\",\"values\":[{\"label\":\"Male\",\"value\":\"Male\"},{\"label\":\"Female\",\"value\":\"Female\"}]}]', '2018-10-29 01:31:11', '2018-10-29 01:31:11'),
 (19, 10, 'your info', '[{\"type\":\"select\",\"label\":\"Country\",\"className\":\"form-control\",\"name\":\"select-1540884928383\",\"values\":[{\"label\":\"A\",\"value\":\"option-1\",\"selected\":true},{\"label\":\"B\",\"value\":\"option-2\"},{\"label\":\"C\",\"value\":\"option-3\"}]}]', '2018-10-29 21:35:42', '2018-10-29 21:35:42'),
 (20, 11, 'Product Like', '[{\"type\":\"radio-group\",\"label\":\"Do you like this product?\",\"name\":\"product_like\",\"values\":[{\"label\":\"yes\",\"value\":\"yes\"},{\"label\":\"no\",\"value\":\"no\"},{\"label\":\"medium \",\"value\":\"medium\"}]}]', '2018-12-04 18:45:31', '2018-12-04 18:45:31'),
-(21, 11, 'Do you want to contact you?', '[{\"type\":\"radio-group\",\"label\":\"Again contact you?\",\"name\":\"want_to_contact\",\"values\":[{\"label\":\"yes\",\"value\":\"yes\"},{\"label\":\"no\",\"value\":\"no\"}]}]', '2018-12-04 19:18:57', '2018-12-04 19:18:57');
+(21, 11, 'Do you want to contact you?', '[{\"type\":\"radio-group\",\"label\":\"Again contact you?\",\"name\":\"want_to_contact\",\"values\":[{\"label\":\"yes\",\"value\":\"yes\"},{\"label\":\"no\",\"value\":\"no\"}]}]', '2018-12-04 19:18:57', '2018-12-04 19:18:57'),
+(22, 12, 'Trade Profile', '[{\"type\":\"checkbox-group\",\"label\":\"Please indicate your type of business\",\"name\":\"checkbox-group-1544342869350\",\"other\":true,\"values\":[{\"label\":\"Auction House\",\"value\":\"Auction House\"},{\"label\":\"Department Stores\",\"value\":\"\"},{\"label\":\"Engraver\",\"value\":\"\"},{\"label\":\"Exporter / Importer\",\"value\":\"\"},{\"label\":\"Galleries\",\"value\":\"\"},{\"label\":\"Gems and Jewelry wholesalers\",\"value\":\"\"},{\"label\":\"Gold and Silversmiths\",\"value\":\"\"}]},{\"type\":\"checkbox-group\",\"label\":\"Please indicate your purpose of visit\",\"name\":\"checkbox-group-1544343035235\",\"other\":true,\"values\":[{\"label\":\"Evaluate for future participation\",\"value\":\"Evaluate for future participation\"},{\"label\":\"Gather Information\",\"value\":\"Gather Information\"},{\"label\":\"Networking\",\"value\":\"Networking\"},{\"label\":\"Purchase / Place Order\",\"value\":\"Purchase / Place Order\"},{\"label\":\"Seek DIstribution Channels\",\"value\":\"Seek DIstribution Channels\"},{\"label\":\"Source for new product(s)\",\"value\":\"Source for new product(s)\"}]},{\"type\":\"radio-group\",\"label\":\"What is the estimated budget of your company to purchase jewelry products?\",\"name\":\"radio-group-1544343184748\",\"values\":[{\"label\":\"< USD 30,000\",\"value\":\"option-1\"},{\"label\":\"USD 30,000 - 100,000\",\"value\":\"option-2\"},{\"label\":\"USD 100,000 - 300,000\",\"value\":\"option-3\"},{\"label\":\"USD 300,000 - 1,000,000\",\"value\":\"\"},{\"label\":\">USD 1,000,000\",\"value\":\"\"}]},{\"type\":\"header\",\"subtype\":\"h3\",\"label\":\"Please indicate your main product interest\"},{\"type\":\"checkbox-group\",\"label\":\"Jewelry\",\"name\":\"checkbox-group-1544343447753\",\"values\":[{\"label\":\"Costume Jewelry\",\"value\":\"option-1\",\"selected\":true},{\"label\":\"Diamond Jewelry\",\"value\":\"\"},{\"label\":\"Gemset Jewelry\",\"value\":\"\"},{\"label\":\"Gold Jewelry\",\"value\":\"\"},{\"label\":\"Pearl Jewelry\",\"value\":\"\"}]},{\"type\":\"select\",\"label\":\"How did you know about us?\",\"className\":\"form-control\",\"name\":\"select-1544343330556\",\"values\":[{\"label\":\"Radio\",\"value\":\"option-1\",\"selected\":true},{\"label\":\"Newspaper\",\"value\":\"option-2\"},{\"label\":\"Other Trade show\",\"value\":\"option-3\"},{\"label\":\"Forums\",\"value\":\"\"}]},{\"type\":\"radio-group\",\"label\":\"Would you like to hear more from us?\",\"name\":\"radio-group-1544343541917\",\"values\":[{\"label\":\"Yes\",\"value\":\"option-1\"},{\"label\":\"No\",\"value\":\"option-2\"}]}]', '2018-12-09 00:19:31', '2018-12-09 00:19:31');
 
 -- --------------------------------------------------------
 
@@ -536,7 +538,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `event_business_owners`
@@ -554,7 +556,7 @@ ALTER TABLE `event_business_owners_details`
 -- AUTO_INCREMENT for table `event_forms`
 --
 ALTER TABLE `event_forms`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `event_registeration_form_values`
