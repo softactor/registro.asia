@@ -263,7 +263,8 @@ class ChartController extends Controller{
     public function get_events_chart_data(Request $request){
         // gender wise report:
         $others_reports =   [];
-        $param                              =   json_decode($request->param);
+        $param                                    =   json_decode($request->param);
+        
         $others_reports['gender']                 =   $this->get_pie_chart_data_by_fields_name($param, 'gender');
         $others_reports['designation']            =   $this->get_pie_chart_data_by_fields_name($param, 'designation');
         $others_reports['country_id']             =   $this->get_pie_chart_data_by_fields_name($param, 'country_id');
