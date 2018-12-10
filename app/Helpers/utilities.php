@@ -373,7 +373,7 @@ function generate_pdf($email_n_pdf_data) {
             ];
             $destinationPath    = public_path('pdf/');
             $addPrefixNumber    =   $prefixKey+1;
-            $name               = $addPrefixNumber.time() . '.pdf';
+            $name               = $event_data->title . '.pdf';
             $path_with_file     = $destinationPath . $name;
             $pdf = PDF::loadView('template.registration_pdf', $pdfTemplateData)
                     ->save($path_with_file)
