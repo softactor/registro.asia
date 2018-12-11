@@ -506,10 +506,7 @@ class Frontend extends Controller
                                 $message->subject("Registro Asia Registration Message");
                                 $message->attach($emails['attachment']);
                             });
-                            print '<pre>';
-                            var_dump($mail);
-                            print '</pre>';
-                            exit;
+                            
                             
                     $child_data = [
                         'is_status' => 1
@@ -517,6 +514,10 @@ class Frontend extends Controller
                     DB::table('event_business_owners_details')
                             ->where('id', $d->id)
                             ->update($child_data);
+                    print '<pre>';
+                            var_dump($mail);
+                            print '</pre>';
+                            exit;
                 }
             }// end of foreach        
         }
