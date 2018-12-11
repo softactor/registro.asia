@@ -474,6 +474,7 @@ class Frontend extends Controller
         $details = DB::table('event_business_owners_details')
                 ->where('is_status', 0)
                 ->where('is_confirmed', 1)
+                ->whereNotNull('email')
                 ->take(2)
                 ->get();
         if (!$details->isEmpty()) {
