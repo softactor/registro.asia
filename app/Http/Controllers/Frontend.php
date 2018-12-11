@@ -480,7 +480,6 @@ class Frontend extends Controller
             print '<pre>';
             print_r($details);
             print '</pre>';
-            exit;
             
             foreach ($details as $d) {
                 if (isset($d->email) && !empty($d->email)) {
