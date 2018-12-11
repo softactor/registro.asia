@@ -71,7 +71,7 @@ class CronEmail extends Command
 
                     $event_data = $event_data;
                     $pdfTemplateData = [
-                        'user_data' => $d, //$data['profile_data'],
+                        'user_data' => (array)$d, //$data['profile_data'],
                         'event_data' => $event_data,
                         'qrcode' => $qr_path_with_file
                     ];
