@@ -495,6 +495,11 @@ class Frontend extends Controller
                     $content = "Congratulations!<br>You have been successfully registered";
                     $emails['to'] = $d->email;
                     $emails['attachment'] = public_path('pdf/') . $d->pdf_path;
+                    print '<pre>';
+                    print_r($emails);
+                    print_r($pdfTemplateData);
+                    print '</pre>';
+                    
                     $mail = Mail::send('template.registration_email', ['title' => $title, 'content' => $pdfTemplateData], function ($message) use ($emails) {
                                 $message->from('admin@registro.asia', 'Registro Asia');
                                 $message->to($emails['to']);
@@ -502,7 +507,7 @@ class Frontend extends Controller
                                 $message->attach($emails['attachment']);
                             });
                             print '<pre>';
-                            print_r($mail);
+                            var_dump($mail);
                             print '</pre>';
                             exit;
                             
