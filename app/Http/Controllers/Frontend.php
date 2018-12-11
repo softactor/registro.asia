@@ -478,10 +478,6 @@ class Frontend extends Controller
                 ->take(2)
                 ->get();
         if (!$details->isEmpty()) {
-            print '<pre>';
-            print_r($details);
-            print '</pre>';
-            
             foreach ($details as $d) {
                 if (isset($d->email) && !empty($d->email)) {
                     $event_data = DB::table('events')->where('id', $d->event_id)->first();
@@ -495,11 +491,6 @@ class Frontend extends Controller
                     $content = "Congratulations!<br>You have been successfully registered";
                     $emails['to'] = $d->email;
                     $emails['attachment'] = public_path('pdf/') . $d->pdf_path;
-                    print '<pre>';
-                    print_r($emails);
-                    print_r($pdfTemplateData);
-                    print '</pre>';
-                    
                     $mail = Mail::send('template.registration_email', ['title' => $title, 'content' => $pdfTemplateData], function ($message) use ($emails) {
                                 $message->from('admin@registro.asia', 'Registro Asia');
                                 $message->to($emails['to']);
@@ -514,10 +505,6 @@ class Frontend extends Controller
                     DB::table('event_business_owners_details')
                             ->where('id', $d->id)
                             ->update($child_data);
-                    print '<pre>';
-                            var_dump($mail);
-                            print '</pre>';
-                            exit;
                 }
             }// end of foreach        
         }
