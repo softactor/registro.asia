@@ -477,6 +477,11 @@ class Frontend extends Controller
                 ->take(2)
                 ->get();
         if (!$details->isEmpty()) {
+            print '<pre>';
+            print_r($details);
+            print '</pre>';
+            exit;
+            
             foreach ($details as $d) {
                 if (isset($d->email) && !empty($d->email)) {
                     $event_data = DB::table('events')->where('id', $d->event_id)->first();
