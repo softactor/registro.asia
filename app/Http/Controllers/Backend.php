@@ -348,12 +348,7 @@ class Backend extends Controller
         $profile_data_param['events_details']     =   $events;
         $email_and_pdf_data                       =  process_store_event_business_owners($profile_data_param);
         // create pdf and sent email
-        $check  =   generate_pdf($email_and_pdf_data);
-        print '<pre>';
-        print_r($check);
-        print '</pre>';
-        exit;
-        
+        //$check  =   generate_pdf($email_and_pdf_data);
         $business_owner_id  =   $email_and_pdf_data[0]['business_owner_id'];
         $redirect_url   =   'su/backend/registration_import/confirm_csv_uploader/'.$business_owner_id.'/'.$events->event_url;
         return redirect($redirect_url);
