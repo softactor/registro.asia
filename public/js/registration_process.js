@@ -128,3 +128,18 @@ $("#profileSectionArea").steps({
         },
         saveState: true
     });
+    
+    function checkEmailMatching(repeat_email){
+        var emailvalues = $("input[name='email[]']")
+              .map(function(){return $(this).val();}).get();
+        var rep_emailvalues = $("input[name='rep_email[]']")
+              .map(function(){return $(this).val();}).get();        
+        var ind = $.inArray(repeat_email, rep_emailvalues);
+        if(repeat_email == emailvalues[ind]){
+            $('div.actions').show();
+        }else{
+             $(this).css("border", "1px solid red");
+            $('div.actions').hide();
+        }
+        
+    }

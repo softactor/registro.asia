@@ -77,12 +77,12 @@
                         </div>
                         <div class="form-group col-lg-12">
                             <label>Email Address<span class="required_title"></span></label>
-                            <input type="" name="email[]" class="form-control" id="" value="">
+                            <input type="" name="email[]" class="form-control" value="">
                         </div>
 
                         <div class="form-group col-lg-12">
                             <label>Repeat Email Address</label>
-                            <input type="" name="rep_email[]" class="form-control" id="" value="">
+                            <input type="" name="rep_email[]" class="form-control" value=""onkeyup="checkEmailMatching(this.value);">
                         </div>				
                         <div class="form-group col-lg-12">
                             <label>Register additional colleagues?</label>

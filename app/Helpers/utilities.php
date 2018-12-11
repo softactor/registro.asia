@@ -386,7 +386,7 @@ function generate_pdf($email_n_pdf_data) {
             ];
             DB::table('event_business_owners_details')
             ->where('id', $data['profile_id'])
-            ->update($update_data);
+            ->update($update_data);            
             if($data['profile_data']['is_confirmed']){
             
                 //--------------------- mail start
@@ -425,7 +425,6 @@ function generate_pdf($email_n_pdf_data) {
             'updated_at'          => date('Y-m-d h:i:s')
           ]; //end of insert data
         $event_business_owners_id   =   DB::table('event_business_owners')->insertGetId($event_business_owners_data);
-        
         if($profile_data['registration_type'] == 'Onsite' || $profile_data['registration_type'] == 'Online'){
             $namebadge_user_label   =   'visitor';
         }
