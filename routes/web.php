@@ -72,6 +72,7 @@ Route::post('su/event_business_owners_details_store', 'Backend@event_business_ow
 
 //          PDF GENERATES
 Route::get('pdf_test', 'Frontend@pdf_test');
+Route::get('cron_email_test', 'Frontend@cron_email_test');
 //          API preview page
 Route::get('api_reg_form', 'api\ApiController@index_test');
 
