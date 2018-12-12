@@ -50,7 +50,7 @@
                             <!--<img alt="User Pic" src="http://babyinfoforyou.com/wp-content/uploads/2014/10/avatar-300x300.png" class="img-circle img-responsive">-->
                         </div>
                         <div class=" col-md-9 col-lg-9 "> 
-                            <table class="table table-user-information">
+                            <table class="table table-responsive table-user-information">
                                 <tbody>
                                     <tr>
                                         <td>QR Code</td>
@@ -87,6 +87,12 @@
                                     <tr>
                                         <td>Phone Number</td>
                                         <td>{{ $user_data['tel'] }}(Landline)<br><br>{{ $user_data['mobile'] }}(Mobile)
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>Registration Type</td>
+                                        <td>{{ $user_data['namebadge_user_label'] }}
                                         </td>
 
                                     </tr>
