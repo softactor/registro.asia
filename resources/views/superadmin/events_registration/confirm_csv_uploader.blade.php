@@ -31,6 +31,7 @@
                                     <th>Mobile</th>
                                     <th>Country</th>
                                     <th>Email</th>
+                                    <th>Registration Type</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -66,6 +67,7 @@
                                     <td><span class='edit_text'>{{ $data->mobile }}</span></td>
                                     <td><span class='edit_text'>{{ $data->country_id }}</span></td>
                                     <td><span class='edit_text'>{{ $data->email }}</span></td>
+                                    <td><span class='edit_text'>{{ $data->namebadge_user_label }}</span></td>
                                     <th><button type="button" class="btn btn-sm" onclick="csv_upload_confirm('{{ url('su/backend/csv_data/store') }}');">Conform</button></th>
                                 </tr>
                                 <?php } ?>
