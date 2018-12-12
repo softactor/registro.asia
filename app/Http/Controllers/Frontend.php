@@ -14,6 +14,7 @@ use Mail;
 class Frontend extends Controller
 {
     public function index(){
+		// update;
         return view('welcome');
     }    
     public function client_registration(Request $request){
