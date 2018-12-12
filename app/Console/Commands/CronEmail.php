@@ -78,7 +78,8 @@ class CronEmail extends Command
 
                     $destinationPath = public_path('pdf/');
                     $addPrefixNumber = $prefixKey + 1;
-                    $name = $event_data->title . '.pdf';
+                    $url_string = explode(' ', ucwords($event_data->title));
+                    $name = implode('-', $url_string) .'_'.$d->serial_digit. '.pdf';
                     $path_with_file = $destinationPath . $name;
                     $pdf = PDF::loadView('template.registration_pdf', $pdfTemplateData)
                             ->save($path_with_file)
@@ -103,7 +104,7 @@ class CronEmail extends Command
                         $title = "Event Registration";
                         $content = "Congratulations!<br>You have been successfully registered";
                         $emails['to'] = $d->email;
-                        $emails['attachment'] = public_path('pdf/') . $d->pdf_path;
+                        $emails['attachment'] = public_path('pdf/') . $name;
                         $mail = Mail::send('template.registration_email', ['title' => $title, 'content' => $pdfTemplateData], function ($message) use ($emails) {
                                     $message->from('admin@registro.asia', 'Registro Asia');
                                     $message->to($emails['to']);
