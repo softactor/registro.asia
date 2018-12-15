@@ -48,7 +48,7 @@ class NameBadgeController extends Controller{
             'templates_name'    =>  $request->template_name,
             'templates'         =>  $_FILES['background']
         ];
-        $template_upload_response    =   $this->upload_multiple_template_images($template_image_upload_details);        
+        $template_upload_response    =   $this->upload_multiple_template_images($template_image_upload_details);
         /* ----------------------------------------------------------
          * check duplicate entry
          * ---------------------------------------------------------
@@ -157,19 +157,20 @@ class NameBadgeController extends Controller{
                     ])->id;
         }
     }
-    public function previous_saved_template_name_update($data){
+    public function previous_saved_template_name_update($data) {
         // previous saved template name update area
-        $pre_saved_templets_name    =   $data['saved_template_name'];
-        if(isset($pre_saved_templets_name) && !empty($pre_saved_templets_name)){
-            foreach($pre_saved_templets_name as $pstn_key=>$pstn_val){
+        $pre_saved_templets_name = $data['saved_template_name'];
+        if (isset($pre_saved_templets_name) && !empty($pre_saved_templets_name)) {
+            foreach ($pre_saved_templets_name as $pstn_key => $pstn_val) {
                 $ntd_data = NamebadgeTemplateDetailsModel::find($pstn_key);
-                $ntd_data_response = $ntd_data->update([
-                    'template_name' => $pstn_val
-                ]);
+                if (isset($ntd_data) && !empty($ntd_data)) {
+                    $ntd_data_response = $ntd_data->update([
+                        'template_name' => $pstn_val
+                    ]);
+                }
             }
         }
     }
-    
 
     public function name_badge_set_position(Request $request){
         $page_details   =   [
@@ -186,6 +187,7 @@ class NameBadgeController extends Controller{
         $templates_detailsDropViewRender        =   [];
         $name_badge_position_status             =   false;
         $templates_details_status               =   false;
+        $templates_detailsViewRender            =   [];
         $templates_config                       =   NamebadgeConfigModel::where('event_id', $request->event_id)->first();        
         if (isset($templates_config) && !empty($templates_config)) {
             // get templates from namebadge_template_details
