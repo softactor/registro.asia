@@ -15,7 +15,7 @@ use QR_Code\QR_Code;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\URL;
-use Barryvdh\DomPDF\PDF;
+use Barryvdh\DomPDF\PDF as PDF;
 use Illuminate\Support\Facades\Mail;
 //use PDF;
 //use Mail;
