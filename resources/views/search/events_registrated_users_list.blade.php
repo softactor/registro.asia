@@ -52,7 +52,7 @@
                     ?>
                     <button class="btn btn-primary btn-sm" onclick="printSingleNameBadge('{{ url('su/print_events_name_badge') }}', '{{$data->id}}')">Print</button>
                     <?php }else{ ?>
-                    <a href="{{ url('su/name_badge_config') }}"><img src="{{ asset('images/print_error.png') }}" title="Namebadge was not configured!"/></a>
+                    <a href="{{ url('su/name_badge_config') }}"><img style="height: 20px;" src="{{ asset('images/print_error.png') }}" title="Namebadge was not configured!"/></a>
                     <?php } ?>
                     <button type="button" class="btn btn-primary btn-sm" onclick="editBasicRegistrationDetails('<?php echo $data->id; ?>', '{{ url('su/get_event_business_owners_details') }}')">Edit</button>
                                             <button type="button" class="btn btn-primary btn-sm" onclick="emailRegistrationDetails('<?php echo $data->id; ?>', '{{ url('su/get_event_business_owners_details') }}')">Email</button>
