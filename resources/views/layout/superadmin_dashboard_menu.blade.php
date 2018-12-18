@@ -38,6 +38,11 @@
                 </a>
             </li>
             <li>
+                <a href="{{ url('/su/sendBulkEmailStatus') }}">
+                    <i class="fa fa fa-pie-chart"></i> Email sending status
+                </a>
+            </li>
+            <li>
                 <a href="{{ url('/su/settings') }}">
                     <i class="fa fa fa-gears"></i> Settings
                 </a>

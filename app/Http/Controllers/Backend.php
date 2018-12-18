@@ -313,6 +313,23 @@ class Backend extends Controller
         echo json_encode($feedback_data);    
     }
     
+    public function send_bulk_email(Request $request){
+        $ids    =   $request->name_badge_check;
+        DB::table('event_business_owners_details')->whereIn('id', $ids)->update(array('is_status' => 0));
+        $feedback_data  =   [
+            'status'=>'success',
+            'message'=>'Email on progress',
+        ];
+        echo json_encode($feedback_data);
+    }
+    
+    public function send_bulk_email_status(){
+        $page_details   =   [
+            'page_title'    =>  'Email sending status'
+        ];
+        return view('superadmin.events_registration.send_bulk_email_status', compact('page_details'));
+    }
+    
     public function csv_uploader_view(Request $request){
         $events         =   DB::table('events')->where('event_url',$request->event_url)->first();
         $page_details   =   [

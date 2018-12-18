@@ -16,9 +16,10 @@
                 @include('search.events_registration_search', $page_details)
                 <?php
                     $bulkNameBadgePrintUrl  =   url('su/printBulkNameBadge');
-                    $sendBulkEmail  =   url('su/sendBulkEmail');
+                    $sendBulkEmail          =   url('su/sendBulkEmail');
+                    $sendBulkEmailStatus    =   url('su/sendBulkEmailStatus');
                 ?>
-                <button type="button" class="btn btn-primary btn-sm pull-right" onclick="sendBulkEmail('<?php echo $sendBulkEmail; ?>')" style="margin: 0 .5%">Bulk Email</button>
+                <button type="button" class="btn btn-primary btn-sm pull-right" onclick="sendBulkEmail('<?php echo $sendBulkEmail; ?>','<?php echo $sendBulkEmailStatus; ?>')" style="margin: 0 .5%">Bulk Email</button>
                 <button type="button" class="btn btn-primary btn-sm pull-right" onclick="printBulkNameBadge('<?php echo $bulkNameBadgePrintUrl; ?>')">Bulk Print</button>
                 <div style="clear: both;"></div>
                 <form id='bulkEmailPrint'>

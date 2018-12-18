@@ -104,7 +104,8 @@ Route::get('su/get_custom_filter_report', 'Reports\ReportsController@getCustomFi
 Route::get('su/reports_grphic_view', 'Reports\ReportsController@reports_grphic_view');
 Route::get('su/reports_pdf_download', 'Reports\ReportsController@reports_pdf_download');
 
-// **************************************bulk print**************************************************
+// **************************************bulk print and email**************************************************
 
 Route::get('su/printBulkNameBadge', 'Backend@print_bulk_name_badge');
-Route::get('su/sendBulkEmail', 'Reports\ReportsController@reports_pdf_download');
+Route::get('su/sendBulkEmail', 'Backend@send_bulk_email');
+Route::get('su/sendBulkEmailStatus', 'Backend@send_bulk_email_status');

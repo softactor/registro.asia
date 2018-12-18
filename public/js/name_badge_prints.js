@@ -29,7 +29,6 @@ function refreshCurrentPage(){
 }
 
 function printBulkNameBadge(url){
-    var print_id = $('input[name="name_badge_check[]"]').map(function(){return $(this).val();}).get();
    $.ajax({
         url: url,
         type: 'GET',
@@ -38,6 +37,24 @@ function printBulkNameBadge(url){
         success: function (response) {
             $("#open_name_badge_container_modal").modal();
             $('#printBody').html(response.data);
+        },
+        async: false // <- this turns it into synchronous
+    }); 
+}
+
+function sendBulkEmail(url, checkStatusUrl){
+   $.ajax({
+        url: url,
+        type: 'GET',
+        dataType: 'json',
+        data:$('#bulkEmailPrint').serialize(),
+        success: function (response) {
+            if (response.status == 'success') {
+                swal("Progress", "Email send is on progress!", "success");
+                setTimeout(function () {
+                    window.location = checkStatusUrl;
+                }, 2000);
+            }
         },
         async: false // <- this turns it into synchronous
     }); 
