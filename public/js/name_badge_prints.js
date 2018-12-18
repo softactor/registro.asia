@@ -27,3 +27,18 @@ function printExecuteSingleNameBadge(url, print_id){
 function refreshCurrentPage(){
     location.reload();
 }
+
+function printBulkNameBadge(url){
+    var print_id = $('input[name="name_badge_check[]"]').map(function(){return $(this).val();}).get();
+   $.ajax({
+        url: url,
+        type: 'GET',
+        dataType: 'json',
+        data:$('#bulkEmailPrint').serialize(),
+        success: function (response) {
+            $("#open_name_badge_container_modal").modal();
+            $('#printBody').html(response.data);
+        },
+        async: false // <- this turns it into synchronous
+    }); 
+}

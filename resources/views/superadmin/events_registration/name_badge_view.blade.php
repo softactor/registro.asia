@@ -25,4 +25,5 @@
 <script type="text/javascript" src="{{ asset('js/name_badge_prints.js')}}"></script>
 @endsection
 @endsection
+@include('modals.registration_edit_modal')
 @include('modals.name_badge_modal_containers')

@@ -9,7 +9,9 @@
                 <th>Name</th>
                 <th>Email</th>
                 <th>Mobile</th>
+                <th>User<br> Label</th>
                 <th>Type</th>
+                <th>Registered<br> on</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -27,6 +29,9 @@
                 <td>{{ $data->email }}</td>
                 <td>{{ $data->mobile }}</td>
                 <td>
+                    <?php echo (isset($data->namebadge_user_label) && !empty($data->namebadge_user_label) ? $data->namebadge_user_label : 'Visitor'); ?>
+                </td>
+                <td>
                     <?php 
                             $type   =   get_registration_type_by_business_owner_id($data->business_owner_id);
                             if($type == 'Onsite'){
@@ -36,6 +41,7 @@
                             }
                     ?>
                 </td>
+                <td><span style="font-size: 10px; font-weight: bold;display: inline-block;width: 75%;"><?php echo date("j M, Y, g:i a", strtotime($data->updated_at)); ?></span></td>
                 <td>
                     <?php
                     $whereData = [
@@ -48,6 +54,8 @@
                     <?php }else{ ?>
                     <a href="{{ url('su/name_badge_config') }}"><img src="{{ asset('images/print_error.png') }}" title="Namebadge was not configured!"/></a>
                     <?php } ?>
+                    <button type="button" class="btn btn-primary btn-sm" onclick="editBasicRegistrationDetails('<?php echo $data->id; ?>', '{{ url('su/get_event_business_owners_details') }}')">Edit</button>
+                                            <button type="button" class="btn btn-primary btn-sm" onclick="emailRegistrationDetails('<?php echo $data->id; ?>', '{{ url('su/get_event_business_owners_details') }}')">Email</button>
                 </td>
             </tr>
             @endforeach

@@ -195,14 +195,18 @@ class Backend extends Controller
     public function registration_details_view(Request $request){
         $owners_details         =   [];
         $owners_details_query   =   DB::table('event_business_owners_details')->where('event_id',$request->event_id)->get();
+        $events = DB::table('events')->get();
         if(!$owners_details_query->isEmpty()){
             $owners_details     =   $owners_details_query;
         }
-        $page_details       =   [
-            'page_title'    =>  'Eevnt Registraion Details',
-            'link_url'      =>  '/su/create_events_form',
-            'link_title'    =>  'Create',
-            'preview_url'   =>  'su/preview_events_form/'
+        $page_details           =   [
+            'page_title'        =>  'Eevnt Registraion Details',
+            'link_url'          =>  '/su/create_events_form',
+            'link_title'        =>  'Create',
+            'preview_url'       =>  'su/preview_events_form/',
+            'events'            =>  $events,
+            'selected_event_id' =>  $request->event_id
+            
         ];
         return view('superadmin.events_registration.registration_details_view', compact('page_details','owners_details','png'));
     }    
@@ -276,6 +280,9 @@ class Backend extends Controller
         if (isset($request->events) && !empty($request->events)) {
             $query->where('p.event_id', 'like', '%' . $request->events . '%');
         }
+        if (isset($request->namebadge_user_label) && !empty($request->namebadge_user_label)) {
+            $query->where('p.namebadge_user_label', 'like', '%' . $request->namebadge_user_label . '%');
+        }
         $list_data = $query->get();
         if ($list_data->isEmpty()) {
             $search_data = View::make('search.events_registrated_users_list');
@@ -299,6 +306,12 @@ class Backend extends Controller
         $feedback_data  =   generate_name_page_view($ids);
         echo json_encode($feedback_data);    
     }    
+    
+    public function print_bulk_name_badge(Request $request){
+        $ids    =   $request->name_badge_check;
+        $feedback_data  =   generate_name_page_view($ids);
+        echo json_encode($feedback_data);    
+    }
     
     public function csv_uploader_view(Request $request){
         $events         =   DB::table('events')->where('event_url',$request->event_url)->first();
