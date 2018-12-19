@@ -50,6 +50,7 @@ Route::get('su/name_badge_view', 'Backend@name_badge_view');
 Route::get('su/get_registration_tickets', 'Backend@get_registration_tickets');
 Route::post('su/get_events_registrated_users', 'Backend@get_events_registrated_users');
 Route::get('su/print_events_name_badge', 'Backend@print_events_name_badge');
+Route::get('su/print_namebadge_status_updater', 'Backend@print_namebadge_status_updater');
 Route::get('su/name_badge_config', 'Namebadge\NameBadgeController@name_badge_config');
 Route::post('su/name_badge_config_store', 'Namebadge\NameBadgeController@name_badge_config_store');
 Route::get('su/name_badge_set_position', 'Namebadge\NameBadgeController@name_badge_set_position');

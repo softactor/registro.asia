@@ -1,3 +1,4 @@
+<form id="namebadgeprintcount">
 <?php    
     $configFound    =   false;
     foreach($user_datas as $user_data){
@@ -61,6 +62,7 @@
                     
         </style>
 <div class="print_name_badge">
+    <input type="hidden" name="name_badge_print[]" value="<?php echo $user_data->id; ?>">
     <?php
     $salutation =   getNamebadgeFieldsPosition('salutation', $user_data->event_id, $user_data->salutation);
     if($salutation['status'] == 'success'){
@@ -120,3 +122,4 @@
         echo '<h1>Please configure the template first.</h1>';
     }
 ?>
+</form>

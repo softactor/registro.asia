@@ -655,3 +655,8 @@ function generate_pdf($email_n_pdf_data) {
         $pdf = PDF::loadView($param['html_data'])
             ->download('Computers.pdf');
     }
+
+    function getNameBadgePrintCount($namebadgeId){
+        $data     = DB::table('namebadge_print_status')->where('namebadge_id', $namebadgeId)->get();
+        return count($data);
+    }

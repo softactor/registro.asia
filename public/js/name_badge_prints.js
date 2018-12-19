@@ -20,8 +20,18 @@ function printSingleNameBadge(url, print_id){
     
 }
 
-function printExecuteSingleNameBadge(url, print_id){
-    $('#printBody').printThis();   
+function printExecuteSingleNameBadge(url){
+    $.ajax({
+        url: url,
+        type: 'GET',
+        dataType: 'json',
+        data:$('#namebadgeprintcount').serialize(),
+        success: function (response) {
+            $('#printBody').printThis(); 
+        },
+        async: false // <- this turns it into synchronous
+    });
+      
 }
 
 function refreshCurrentPage(){

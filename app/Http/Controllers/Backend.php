@@ -323,6 +323,24 @@ class Backend extends Controller
         echo json_encode($feedback_data);
     }
     
+    public function print_namebadge_status_updater(Request $request){
+        $ids    =   $request->name_badge_print;
+        foreach($ids as $nameBadgeId){
+            $nameBadge_details = [
+                'namebadge_id'  => $nameBadgeId,
+                'print_date'    => date('Y-m-d h:i:s')
+            ]; //end of insert data  
+            
+            DB::table('namebadge_print_status')->insertGetId($nameBadge_details);
+            DB::table('event_business_owners_details')->where('id', $nameBadgeId)->update(array('namebadge_printed_date' => date('Y-m-d h:i:s')));
+        }
+        $feedback_data  =   [
+            'status'=>'success',
+            'message'=>'Email on progress',
+        ];
+        echo json_encode($feedback_data);
+    }
+    
     public function send_bulk_email_status(){
         $page_details   =   [
             'page_title'    =>  'Email sending status'
