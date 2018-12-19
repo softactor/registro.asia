@@ -76,7 +76,13 @@
                                                 ?>
                                             </td>
                                             <td>
-                                                <span style="font-size: 10px; font-weight: bold;display: inline-block;width: 75%;"><?php echo date("j M, Y, g:i a", strtotime($data->namebadge_printed_date)); ?></span>
+                                                <span style="font-size: 10px; font-weight: bold;display: inline-block;width: 75%;">
+                                                    <?php
+                                                    if(isset($data->namebadge_printed_date) && !empty($data->namebadge_printed_date)){
+                                                        echo date("j M, Y, g:i a", strtotime($data->namebadge_printed_date));
+                                                    }
+                                                    ?>
+                                                </span>
                                             </td>
                                             <td>
                                                 <?php
