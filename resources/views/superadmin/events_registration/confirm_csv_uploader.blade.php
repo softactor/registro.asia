@@ -71,7 +71,7 @@
                                     <td><span class='edit_text'>{{ $data->namebadge_user_label }}</span></td>
                                     <th>
                                         <button type="button" class="btn btn-sm" onclick="csv_upload_confirm('{{ url('su/backend/csv_data/store') }}', 'withEmail');">IWithE</button>
-                                        <button type="button" class="btn btn-sm" onclick="csv_upload_confirm('{{ url('$withoutEmailUrl') }}', 'withoutEmail');">IWithoutE</button>
+                                        <button type="button" class="btn btn-sm" onclick="csv_upload_confirm('<?php echo $withoutEmailUrl; ?>', 'withoutEmail');">IWithoutE</button>
                                     </th>
                                 </tr>
                                 <?php } ?>
@@ -80,7 +80,7 @@
                     </div>
                     <input type="hidden" id='event_id' name="event_id" value="<?php echo $page_details['events']->id ?>" />
                     <button type="button" class="btn btn-default" onclick="csv_upload_confirm('{{ url('su/backend/csv_data/store') }}', 'withEmail');">IWithE</button>
-                    <button type="button" class="btn btn-default" onclick="csv_upload_confirm('{{ url('$withoutEmailUrl') }}', 'withoutEmail');">IWithoutE</button>
+                    <button type="button" class="btn btn-default" onclick="csv_upload_confirm('<?php echo $withoutEmailUrl; ?>', 'withoutEmail');">IWithoutE</button>
                 </form>
             </div><!--/tab-content-->
 
