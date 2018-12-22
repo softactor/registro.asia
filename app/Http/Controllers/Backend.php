@@ -473,14 +473,18 @@ class Backend extends Controller
         return $csvData;
     }    
     public function csv_data_store(Request $request){
+        $emailConfirmType    =   false; // default email send status set as false;
         $tempData       =    json_decode($request->tempData);
         $total_number   =    count($tempData);   
         $event_id       =    $request->event_id;
-        
+        if(isset($request->emailConfirmType) && $request->emailConfirmType == 'withEmail'){
+            $emailConfirmType    =   true;
+        }
         $csvTempStoreParam  =   [
             'op_type'       => 'update',
             'temp_data'     => $tempData,
             'event_id'      =>  $event_id,  
+            'emailConfirmType'   =>  $emailConfirmType,  
             'total_number'  =>  $total_number
         ];
         
@@ -508,6 +512,7 @@ class Backend extends Controller
         return view('superadmin.events_registration.registration_import_status', compact('page_details'));
     }    
     public function process_data_into_temp_csv_import_table($data){
+        $emailConfirmType           =   $data['emailConfirmType'];
         $tempData           =   $data['temp_data'];
         $event_id           =   $data['event_id'];
         $total_number       =   $data['total_number'];
@@ -548,7 +553,7 @@ class Backend extends Controller
                     'mobile'            => $pd->mobile,
                     'country'           => $pd->country,
                     'email'             => $pd->email,
-                    'status'            => 0,
+                    'status'            => ( ($emailConfirmType) ? 1 : 0),
                     'is_confirmed'      => (isset($pd->is_confirmed) && !empty($pd->is_confirmed) ? $pd->is_confirmed : 0),
                     'created_at'        => date('Y-m-d h:i:s'),
                     'updated_at'        => date('Y-m-d h:i:s')
@@ -569,7 +574,7 @@ class Backend extends Controller
                     'mobile'            => $pd->mobile,
                     'country_id'        => $pd->country,
                     'email'             => $pd->email,
-                    'is_status'         => 0,
+                    'is_status'         => ( ($emailConfirmType) ? 1 : 0),
                     'is_confirmed'      => 1,
                     'updated_at'        => date('Y-m-d h:i:s')
                   ]; //end of insert data  

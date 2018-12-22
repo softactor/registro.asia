@@ -228,8 +228,8 @@
         });
       });
       
-      
-      function csv_upload_confirm(urlAddress){
+      // emailConfirmType will hold withemail and withoutemail;
+      function csv_upload_confirm(urlAddress, emailConfirmType){
           var valuesSelected = new Array();
            $.each($("input[name='item_child[]']:checked"), function() {
             valuesSelected.push($(this).val());
@@ -274,7 +274,7 @@
                     url:urlAddress,
                     type:'POST',
                     dataType:'json',
-                    data:'tempData='+ JSON.stringify(csvData) + '&event_id='+ $('#event_id').val(),
+                    data:'tempData='+ JSON.stringify(csvData) + '&event_id='+ $('#event_id').val() + '&emailConfirmType=' + emailConfirmType,
                     headers: {
                         'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content'),
                     },

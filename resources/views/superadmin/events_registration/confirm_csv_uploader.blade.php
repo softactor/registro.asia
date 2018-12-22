@@ -37,6 +37,7 @@
                             </thead>
                             <tbody>
                                 <?php
+                                    $withoutEmailUrl    =   url('su/registration_details_view/'.$page_details['events']->id);
                                     $param['table'] =   'event_business_owners_details';
                                     if (isset($page_details['business_owner_id']) && $page_details['business_owner_id']!='null') {
                                         $checkWhereParam = [
@@ -68,14 +69,18 @@
                                     <td><span class='edit_text'>{{ $data->country_id }}</span></td>
                                     <td><span class='edit_text'>{{ $data->email }}</span></td>
                                     <td><span class='edit_text'>{{ $data->namebadge_user_label }}</span></td>
-                                    <th><button type="button" class="btn btn-sm" onclick="csv_upload_confirm('{{ url('su/backend/csv_data/store') }}');">Conform</button></th>
+                                    <th>
+                                        <button type="button" class="btn btn-sm" onclick="csv_upload_confirm('{{ url('su/backend/csv_data/store') }}', 'withEmail');">IWithE</button>
+                                        <button type="button" class="btn btn-sm" onclick="csv_upload_confirm('{{ url('$withoutEmailUrl') }}', 'withoutEmail');">IWithoutE</button>
+                                    </th>
                                 </tr>
                                 <?php } ?>
                             </tbody>
                         </table>
                     </div>
                     <input type="hidden" id='event_id' name="event_id" value="<?php echo $page_details['events']->id ?>" />
-                    <button type="button" class="btn btn-default" onclick="csv_upload_confirm('{{ url('su/backend/csv_data/store') }}');">Confirm</button>
+                    <button type="button" class="btn btn-default" onclick="csv_upload_confirm('{{ url('su/backend/csv_data/store') }}', 'withEmail');">IWithE</button>
+                    <button type="button" class="btn btn-default" onclick="csv_upload_confirm('{{ url('$withoutEmailUrl') }}', 'withoutEmail');">IWithoutE</button>
                 </form>
             </div><!--/tab-content-->
 
