@@ -660,3 +660,24 @@ function generate_pdf($email_n_pdf_data) {
         $data     = DB::table('namebadge_print_status')->where('namebadge_id', $namebadgeId)->get();
         return count($data);
     }
+    
+    function makeCheckBoxGroupHtml($values){
+        $search_data           = View::make('template.make_check_box_group_html', compact('values'));
+        return $search_data->render();
+    }
+    function makeTextFieldHtml($values){
+        $search_data           = View::make('template.make_text_field_html', compact('values'));
+        return $search_data->render();
+    }
+    function makeTextAreaFieldHtml($values){
+        $search_data           = View::make('template.make_textarea_field_html', compact('values'));
+        return $search_data->render();
+    }
+    function makeRadioGroupHtml($values){
+        $search_data           = View::make('template.make_radiogroup_html', compact('values'));
+        return $search_data->render();
+    }
+    function makeSelectFieldHtml($values){
+        $search_data           = View::make('template.make_select_field_html', compact('values'));
+        return $search_data->render();
+    }

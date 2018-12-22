@@ -170,11 +170,43 @@ class Backend extends Controller
         echo json_encode($feedbackdata);
     }
     public function get_form_json_data(Request $request){
-        $event_forms    =   DB::table('event_forms')->where('id',$request->eventFormId)->first();
+        $all_data   =   '';
+        $event_forms        =   DB::table('event_forms')->where('id',24)->first();
+        $formValues         =   json_decode($event_forms->form_data);
+        foreach($formValues as $values){
+            switch($values->type){
+                case 'checkbox-group':
+                    $all_data.=makeCheckBoxGroupHtml($values);    
+                    break;
+                case 'radio-group':
+                    $all_data.=makeRadioGroupHtml($values);    
+                    break;
+                case 'text':
+                    $all_data.=makeTextFieldHtml($values);    
+                    break;
+                case 'textarea':
+                    $all_data.=makeTextAreaFieldHtml($values);    
+                    break;
+                case 'select':
+                    $all_data.=makeSelectFieldHtml($values);    
+                    break;
+                case 'date':
+                    $all_data.=makeCheckBoxGroupHtml($values);    
+                    break;
+                case 'agree':
+                    $all_data.=makeCheckBoxGroupHtml($values);    
+                    break;
+                case 'header':
+                    $all_data.=makeCheckBoxGroupHtml($values);    
+                    break;
+            } // End of switch   
+        } // End of switch
+//        $viewFormValues     =   View::make('partial.generate_dynamic_form_view', compact('formValues'));    
+//        $event_forms    =   DB::table('event_forms')->where('id',$request->eventFormId)->first();
         $feedbackdata   =   [
             'status'    =>  'success',
             'message'   =>  'Found data',
-            'data'      =>  $event_forms
+            'data'      =>  $all_data
         ];
         echo json_encode($feedbackdata);
     }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 11, 2018 at 02:37 PM
+-- Generation Time: Dec 21, 2018 at 11:13 AM
 -- Server version: 5.5.61-cll
 -- PHP Version: 7.2.7
 
@@ -21,6 +21,25 @@ SET time_zone = "+00:00";
 --
 -- Database: `registro_db`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cron_job_status`
+--
+
+CREATE TABLE `cron_job_status` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(500) DEFAULT NULL,
+  `is_running` tinyint(1) DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `cron_job_status`
+--
+
+INSERT INTO `cron_job_status` (`id`, `name`, `is_running`) VALUES
+(1, 'email_and_pdf', 0);
 
 -- --------------------------------------------------------
 
@@ -47,14 +66,9 @@ CREATE TABLE `events` (
 --
 
 INSERT INTO `events` (`id`, `title`, `organizer`, `start_date`, `end_date`, `venue_name`, `venue_address`, `event_url`, `iframe_events_url`, `created_at`, `updated_at`) VALUES
-(5, 'Airshow 2020', 'Registro', '2020-10-08', '2020-10-10', 'Singapore Expo', '1 expo drive', 'Airshow-2020', NULL, '2018-10-24 22:37:58', '2018-10-24 22:37:58'),
-(6, 'Singapore International jewelry Expo (SIZE) 2018', 'Jewelry community', '2018-10-01', '2018-10-30', 'International Stadium', 'Paltan Square', 'Singapore-International-Jewelry-Expo-(SIZE)-2018', NULL, '2018-10-24 22:45:46', '2018-10-24 22:45:46'),
-(7, 'Transport Show Oct 2018', 'Registro', '2018-10-01', '2018-10-03', 'Marina Bay Sands', '1 sands drive', 'Transport-Show-Oct-2018', NULL, '2018-10-24 22:38:27', '2018-10-24 22:38:27'),
-(8, 'Water Week', 'PUB', '2018-10-26', '2018-10-31', 'Expo', 'expo drive', 'Water-Week', '<iframe src=\"http://registro.asia/iframe/event_registration/Water-Week/\" style=\"border:0px #ffffff none;\" name=\"myiFrame\" scrolling=\"no\" frameborder=\"1\" marginheight=\"0px\" marginwidth=\"0px\" height=\"2100px\" width=\"100%\" allowfullscreen>\r\n</iframe>', '2018-10-28 19:48:31', '2018-10-28 19:48:31'),
-(9, 'MDDRM Events', 'DEB Company', '2018-10-05', '2018-10-31', 'International Stadium', 'Dhaka', 'MDDRM-Events', '<iframe src=\"https://registro.asia/iframe/event_registration/MDDRM-Events/\" style=\"border:0px #ffffff none;\" name=\"myiFrame\" scrolling=\"no\" frameborder=\"1\" marginheight=\"0px\" marginwidth=\"0px\" height=\"2100px\" width=\"100%\" allowfullscreen>\r\n</iframe>', '2018-10-30 15:32:48', '2018-10-30 15:32:48'),
-(10, 'toy show', 'ATZE', '2018-10-30', '2018-10-31', 'expo', '1 expo', 'Toy-Show', '<iframe src=\"http://registro.asia/iframe/event_registration/Toy-Show/\" style=\"border:0px #ffffff none;\" name=\"myiFrame\" scrolling=\"no\" frameborder=\"1\" marginheight=\"0px\" marginwidth=\"0px\" height=\"2100px\" width=\"100%\" allowfullscreen>\r\n</iframe>', '2018-10-29 21:28:44', '2018-10-29 21:28:44'),
-(11, 'SMA Show 2019', 'SMA', '2018-11-02', '2018-11-02', 'NUS', 'PGPR', 'SMA-Show-2019', '<iframe src=\"https://registro.asia/iframe/event_registration/SMA-Show-2019/\" style=\"border:0px #ffffff none;\" name=\"myiFrame\" scrolling=\"no\" frameborder=\"1\" marginheight=\"0px\" marginwidth=\"0px\" height=\"2100px\" width=\"100%\" allowfullscreen>\r\n</iframe>', '2018-12-05 19:31:02', '2018-12-05 19:31:02'),
-(12, 'Singapore International Jewelry Expo 2019', 'SIJE', '2019-02-01', '2019-02-03', 'Marina Bay Sands', '10 Bayfront Ave, Singapore 018956', 'Singapore-International-Jewelry-Expo-2019', NULL, '2018-12-09 00:06:07', '2018-12-09 00:06:07');
+(12, 'Singapore International Jewelry Expo 2019', 'SIJE', '2019-02-01', '2019-02-03', 'Marina Bay Sands', '10 Bayfront Ave, Singapore 018956', 'Singapore-International-Jewelry-Expo-2019', NULL, '2018-12-09 00:06:07', '2018-12-09 00:06:07'),
+(13, 'ABS 2019', 'Alvin', '2018-12-28', '2018-12-30', 'MBS', '1 MBS dive', 'ABS-2019', NULL, '2018-12-15 03:06:41', '2018-12-15 03:06:41'),
+(14, 'Architecture & Bulding Services 2018', 'Alot of Organisation', '2018-10-02', '2018-10-03', 'Marina Bay Sands Hall 2B', '1 Marina Drive', 'Architecture-&-Bulding-Services-2018', NULL, '2018-12-19 17:36:17', '2018-12-19 17:36:17');
 
 -- --------------------------------------------------------
 
@@ -77,17 +91,55 @@ CREATE TABLE `event_business_owners` (
 --
 
 INSERT INTO `event_business_owners` (`id`, `event_id`, `owners_numbers`, `registration_type`, `is_status`, `created_at`, `updated_at`) VALUES
-(67, 11, 1, 'Online', 1, '2018-12-04 19:40:27', '2018-12-04 19:40:27'),
-(68, 11, 1, 'Online', 1, '2018-12-04 19:42:23', '2018-12-04 19:42:23'),
-(69, 11, 1, 'Onsite', 1, '2018-12-04 19:47:14', '2018-12-04 19:47:14'),
-(70, 5, 1, 'Online', 1, '2018-12-06 18:43:27', '2018-12-06 18:43:27'),
 (71, 12, 1, 'Online', 1, '2018-12-09 01:47:53', '2018-12-09 01:47:53'),
-(72, 11, 1, 'Online', 1, '2018-12-09 03:48:58', '2018-12-09 03:48:58'),
-(73, 11, 1, 'Online', 1, '2018-12-09 03:49:29', '2018-12-09 03:49:29'),
-(74, 11, 1, 'Online', 1, '2018-12-09 03:50:50', '2018-12-09 03:50:50'),
-(75, 5, 1, 'Online', 1, '2018-12-09 03:53:59', '2018-12-09 03:53:59'),
-(76, 12, 49, 'Import', 0, '2018-12-10 19:36:42', '2018-12-10 19:36:42'),
-(77, 12, 1, 'Online', 1, '2018-12-10 20:24:58', '2018-12-10 20:24:58');
+(83, 12, 49, 'Import', 0, '2018-12-11 20:09:24', '2018-12-11 20:09:24'),
+(84, 13, 2, 'Online', 1, '2018-12-15 03:10:56', '2018-12-15 03:10:56'),
+(85, 13, 2, 'Online', 1, '2018-12-15 03:11:01', '2018-12-15 03:11:01'),
+(86, 13, 2, 'Online', 1, '2018-12-15 03:11:02', '2018-12-15 03:11:02'),
+(87, 13, 2, 'Online', 1, '2018-12-15 03:11:07', '2018-12-15 03:11:07'),
+(88, 13, 2, 'Online', 1, '2018-12-15 03:11:27', '2018-12-15 03:11:27'),
+(89, 13, 2, 'Online', 1, '2018-12-15 03:11:28', '2018-12-15 03:11:28'),
+(90, 13, 2, 'Online', 1, '2018-12-15 03:11:32', '2018-12-15 03:11:32'),
+(91, 13, 2, 'Online', 1, '2018-12-15 03:11:34', '2018-12-15 03:11:34'),
+(92, 13, 2, 'Online', 1, '2018-12-15 03:11:39', '2018-12-15 03:11:39'),
+(93, 13, 2, 'Online', 1, '2018-12-15 03:11:39', '2018-12-15 03:11:39'),
+(94, 13, 2, 'Online', 1, '2018-12-15 03:11:40', '2018-12-15 03:11:40'),
+(95, 13, 2, 'Online', 1, '2018-12-15 03:11:40', '2018-12-15 03:11:40'),
+(96, 13, 2, 'Online', 1, '2018-12-15 03:11:41', '2018-12-15 03:11:41'),
+(97, 13, 2, 'Online', 1, '2018-12-15 03:11:41', '2018-12-15 03:11:41'),
+(98, 13, 2, 'Online', 1, '2018-12-15 03:11:52', '2018-12-15 03:11:52'),
+(99, 13, 2, 'Online', 1, '2018-12-15 03:11:52', '2018-12-15 03:11:52'),
+(100, 13, 2, 'Online', 1, '2018-12-15 03:11:53', '2018-12-15 03:11:53'),
+(101, 13, 2, 'Online', 1, '2018-12-15 03:11:53', '2018-12-15 03:11:53'),
+(102, 13, 2, 'Online', 1, '2018-12-15 03:11:54', '2018-12-15 03:11:54'),
+(103, 13, 2, 'Online', 1, '2018-12-15 03:11:54', '2018-12-15 03:11:54'),
+(104, 13, 2, 'Online', 1, '2018-12-15 03:11:55', '2018-12-15 03:11:55'),
+(105, 13, 2, 'Online', 1, '2018-12-15 03:11:55', '2018-12-15 03:11:55'),
+(106, 13, 2, 'Online', 1, '2018-12-15 03:11:55', '2018-12-15 03:11:55'),
+(107, 13, 2, 'Online', 1, '2018-12-15 03:11:56', '2018-12-15 03:11:56'),
+(108, 13, 2, 'Online', 1, '2018-12-15 03:12:05', '2018-12-15 03:12:05'),
+(109, 13, 2, 'Online', 1, '2018-12-15 03:12:06', '2018-12-15 03:12:06'),
+(110, 13, 2, 'Online', 1, '2018-12-15 03:12:06', '2018-12-15 03:12:06'),
+(111, 13, 2, 'Online', 1, '2018-12-15 03:12:06', '2018-12-15 03:12:06'),
+(112, 13, 2, 'Online', 1, '2018-12-15 03:12:07', '2018-12-15 03:12:07'),
+(113, 13, 2, 'Online', 1, '2018-12-15 03:12:07', '2018-12-15 03:12:07'),
+(114, 13, 2, 'Online', 1, '2018-12-15 03:12:08', '2018-12-15 03:12:08'),
+(115, 13, 2, 'Online', 1, '2018-12-15 03:12:09', '2018-12-15 03:12:09'),
+(116, 13, 2, 'Online', 1, '2018-12-15 03:12:11', '2018-12-15 03:12:11'),
+(117, 13, 2, 'Online', 1, '2018-12-15 03:12:13', '2018-12-15 03:12:13'),
+(118, 12, 1, 'Online', 1, '2018-12-15 03:13:15', '2018-12-15 03:13:15'),
+(119, 13, 49, 'Import', 0, '2018-12-15 03:15:36', '2018-12-15 03:15:36'),
+(120, 13, 1, 'Online', 1, '2018-12-14 18:29:30', '2018-12-14 18:29:30'),
+(121, 13, 1, 'Online', 1, '2018-12-16 04:23:17', '2018-12-16 04:23:17'),
+(122, 13, 1, 'Online', 1, '2018-12-16 04:28:46', '2018-12-16 04:28:46'),
+(123, 13, 1, 'Online', 1, '2018-12-16 04:32:32', '2018-12-16 04:32:32'),
+(124, 13, 1, 'Online', 1, '2018-12-16 04:40:10', '2018-12-16 04:40:10'),
+(125, 13, 1, 'Online', 1, '2018-12-16 04:41:25', '2018-12-16 04:41:25'),
+(126, 13, 49, 'Import', 0, '2018-12-16 04:42:18', '2018-12-16 04:42:18'),
+(127, 13, 1, 'Online', 1, '2018-12-17 00:45:05', '2018-12-17 00:45:05'),
+(128, 13, 49, 'Import', 0, '2018-12-18 17:36:40', '2018-12-18 17:36:40'),
+(129, 13, 49, 'Import', 0, '2018-12-18 17:41:03', '2018-12-18 17:41:03'),
+(130, 13, 1, 'Online', 1, '2018-12-18 17:59:41', '2018-12-18 17:59:41');
 
 -- --------------------------------------------------------
 
@@ -117,6 +169,7 @@ CREATE TABLE `event_business_owners_details` (
   `is_status` int(11) NOT NULL DEFAULT '1',
   `qrcode_path` text COLLATE utf8mb4_unicode_ci,
   `pdf_path` text COLLATE utf8mb4_unicode_ci,
+  `namebadge_printed_date` datetime DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -125,66 +178,331 @@ CREATE TABLE `event_business_owners_details` (
 -- Dumping data for table `event_business_owners_details`
 --
 
-INSERT INTO `event_business_owners_details` (`id`, `event_id`, `business_owner_id`, `salutation`, `first_name`, `last_name`, `company_name`, `company_address`, `gender`, `designation`, `mobile`, `country_id`, `tel`, `fax`, `email`, `serial_digit`, `namebadge_user_label`, `is_confirmed`, `is_status`, `qrcode_path`, `pdf_path`, `created_at`, `updated_at`) VALUES
-(58, 11, 67, 'Mr', 'Tanveer', 'Qureshee', 'Saif Power tec LTD', '72 Mohakhali.', 'Male', 'Web designer', '01716600843', 1, '02918', '12345', 'tanveerqureshee@hotmail.com', '490927701167', 'visitor', 1, 1, '490927701167.png', '11544024427.pdf', '2018-12-04 19:40:27', '2018-12-04 19:40:27'),
-(59, 11, 68, 'Ms', 'Meghna', 'Jahan', 'Dnet', 'Humayon Road', 'Female', 'Executive Officer', '0128171709', 2, '02134566', '0233134', 'tanveerqureshee1@gmail.com', '016057121168', 'visitor', 1, 1, '016057121168.png', '11544024543.pdf', '2018-12-04 19:42:23', '2018-12-04 19:42:23'),
-(60, 11, 69, 'Dr', 'Farad', 'Hassan', 'Technobd web solution PVT LTD', 'Kawran Bazar', 'Male', 'Engineer', '029373635', 2, '01929291', '01929383', 'tanveerqureshee1@gmail.com', '689646941169', 'visitor', 1, 1, '689646941169.png', '11544024834.pdf', '2018-12-04 19:47:14', '2018-12-04 19:47:14'),
-(61, 5, 70, 'Mr', 'Willium', 'Tuitman', 'PLIS', 'Germany', 'Male', 'Team Leader', '09282828', 1, '02', '02', 'tanveerqureshee1@gmail.com', '075759396570', 'visitor', 1, 1, '075759396570.png', '11544150607.pdf', '2018-12-06 18:43:27', '2018-12-06 18:43:27'),
-(62, 12, 71, 'Mr', 'ze', 'teo', 'asd', NULL, NULL, NULL, '3462364', 1, '', '', 'zeteo87@gmail.com', '008899141271', 'visitor', 1, 1, '008899141271.png', '11544348873.pdf', '2018-12-09 01:47:53', '2018-12-09 01:47:53'),
-(63, 11, 72, 'Mr', 'tanveer', 'qureshee', 'abc', 'abc', 'Male', 'abc', '09383', 1, '092', '02', 'tanveerqureshee1@gmail.com', '805125501172', 'visitor', 1, 1, '805125501172.png', '11544399338.pdf', '2018-12-09 03:48:58', '2018-12-09 03:48:58'),
-(64, 11, 73, 'Mr', 'tanveer', 'qureshee', 'abc', 'abc', 'Male', 'abc', '09383', 1, '092', '02', 'tanveerqureshee1@gmail.com', '259632361173', 'visitor', 1, 1, '259632361173.png', '11544399369.pdf', '2018-12-09 03:49:29', '2018-12-09 03:49:29'),
-(65, 11, 74, 'Mr', 'tanveer', 'qureshee', 'abc', 'abc', 'Male', 'abc', '09383', 1, '092', '02', 'tanveerqureshee1@gmail.com', '941479481174', 'visitor', 1, 1, '941479481174.png', '11544399450.pdf', '2018-12-09 03:50:50', '2018-12-09 03:50:50'),
-(66, 5, 75, 'Mr', 'Mamun', 'Ur Rashid', 'DFY', 'ABC', 'Female', 'Desiner', '4646', 1, '23', '4', 'tanveerqureshee@hotmail.com', '469244978575', 'visitor', 1, 1, '469244978575.png', '11544399639.pdf', '2018-12-09 03:53:59', '2018-12-09 03:53:59'),
-(67, 12, 76, 'Mr.', 'Cyndi', 'Arlena', 'Cyndi Arlena Pte Ltd', 'Suntec City Mall 3 Temasek Boulevard #01-199 038983, Singapore', 'Male', '', '95167077', 1, '', '', 'Cyndi.Arlena@gmail.com', '145181871276', 'Visitor', 0, 0, '145181871276.png', 'Singapore International Jewelry Expo 2019.pdf', '2018-12-10 19:36:42', '2018-12-10 19:36:42'),
-(68, 12, 76, 'Mrs.', 'Golden', 'Brandi', 'Golden Brandi Pte Ltd', 'Suntec Tower Three 8 Temasek Boulevard #23-03 038988, Singapore', 'Female', '', '98940528', 1, '', '', 'Golden.Brandi@gmail.com', '578652711276', 'Visitor', 0, 0, '578652711276.png', 'Singapore International Jewelry Expo 2019.pdf', '2018-12-10 19:36:42', '2018-12-10 19:36:42'),
-(69, 12, 76, 'Ms', 'Jude', 'Lyndsay', 'Jude Lyndsay Pte Ltd', 'Crane+Resistoflex+Xomox Pte Ltd 16 Gul Link Singapore 629386, Singapore', 'Male', '', '98547857', 1, '', '', 'Jude.Lyndsay@gmail.com', '135969831276', 'Visitor', 0, 0, '135969831276.png', 'Singapore International Jewelry Expo 2019.pdf', '2018-12-10 19:36:42', '2018-12-10 19:36:42'),
-(70, 12, 76, 'Dr.', 'Doloris', 'Siobhan', 'Doloris Siobhan Pte Ltd', '8 Temasek Boulevard #40-02 Suntec Tower 3, 038988, Singapore', 'Male', '', '97708117', 1, '', '', 'Doloris.Siobhan@gmail.com', '412375561276', 'Visitor', 0, 0, '412375561276.png', 'Singapore International Jewelry Expo 2019.pdf', '2018-12-10 19:36:42', '2018-12-10 19:36:42'),
-(71, 12, 76, 'Prof', 'Glen', 'Ashly', 'Glen Ashly Pte Ltd', '108 Gerald Drive #04-38, 799035, Singapore', 'Female', '', '96744641', 1, '', '', 'Glen.Ashly@gmail.com', '838136481276', 'Visitor', 0, 0, '838136481276.png', 'Singapore International Jewelry Expo 2019.pdf', '2018-12-10 19:36:42', '2018-12-10 19:36:42'),
-(72, 12, 76, 'Mr.', 'Lillia', 'Jenniffer', 'Lillia Jenniffer Pte Ltd', '35 Gul Crescent, 629544, Singapore', 'Male', '', '98771508', 1, '', '', 'Lillia.Jenniffer@gmail.com', '636024701276', 'Visitor', 0, 0, '636024701276.png', 'Singapore International Jewelry Expo 2019.pdf', '2018-12-10 19:36:42', '2018-12-10 19:36:42'),
-(73, 12, 76, 'Mrs.', 'Denna', 'Stephany', 'Denna Stephany Pte Ltd', 'United Square 101 Thomson Road #12-01 /#16-01 to #16-02 307591, Singapore', 'Male', '', '93203051', 1, '', '', 'Denna.Stephany@gmail.com', '660629941276', 'Visitor', 0, 0, NULL, NULL, '2018-12-10 19:36:42', '2018-12-10 19:36:42'),
-(74, 12, 76, 'Ms', 'Esther', 'Florencia', 'Esther Florencia Pte Ltd', 'Suntec City Mall 3 Temasek Boulevard #01-199 038983, Singapore', 'Female', '', '94224847', 1, '', '', 'Esther.Florencia@gmail.com', '564681821276', 'Visitor', 0, 0, NULL, NULL, '2018-12-10 19:36:42', '2018-12-10 19:36:42'),
-(75, 12, 76, 'Dr.', 'Nguyet', 'Hannelore', 'Nguyet Hannelore Pte Ltd', 'Suntec Tower Three 8 Temasek Boulevard #23-03 038988, Singapore', 'Male', '', '90324269', 1, '', '', 'Nguyet.Hannelore@gmail.com', '717397531276', 'Visitor', 0, 0, NULL, NULL, '2018-12-10 19:36:42', '2018-12-10 19:36:42'),
-(76, 12, 76, 'Prof', 'Elias', 'Deedra', 'Elias Deedra Pte Ltd', 'Crane+Resistoflex+Xomox Pte Ltd 16 Gul Link Singapore 629386, Singapore', 'Male', '', '89073452', 1, '', '', 'Elias.Deedra@gmail.com', '137940251276', 'Visitor', 0, 0, NULL, NULL, '2018-12-10 19:36:42', '2018-12-10 19:36:42'),
-(77, 12, 76, 'Mr.', 'Trevor', 'Fatima', 'Trevor Fatima Pte Ltd', '9 Temasek Boulevard #40-02 Suntec Tower 3, 038988, Singapore', 'Female', '', '89600025', 1, '', '', 'Trevor.Fatima@gmail.com', '073033671276', 'Visitor', 0, 0, NULL, NULL, '2018-12-10 19:36:42', '2018-12-10 19:36:42'),
-(78, 12, 76, 'Mrs.', 'Berneice', 'Melvina', 'Berneice Melvina Pte Ltd', '109 Gerald Drive #04-38, 799035, Singapore', 'Male', '', '99223653', 1, '', '', 'Berneice.Melvina@gmail.com', '579200721276', 'Visitor', 0, 0, NULL, NULL, '2018-12-10 19:36:42', '2018-12-10 19:36:42'),
-(79, 12, 76, 'Ms', 'Dreama', 'Vincent', 'Dreama Vincent Pte Ltd', '36 Gul Crescent, 629544, Singapore', 'Male', '', '97278857', 1, '', '', 'Dreama.Vincent@gmail.com', '724762181276', 'Visitor', 0, 0, NULL, NULL, '2018-12-10 19:36:42', '2018-12-10 19:36:42'),
-(80, 12, 76, 'Dr.', 'Rozella', 'Lizzie', 'Rozella Lizzie Pte Ltd', 'United Square 101 Thomson Road #12-01 /#16-01 to #16-02 307591, Singapore', 'Female', '', '99875966', 1, '', '', 'Rozella.Lizzie@gmail.com', '625457941276', 'Visitor', 0, 0, NULL, NULL, '2018-12-10 19:36:42', '2018-12-10 19:36:42'),
-(81, 12, 76, 'Prof', 'Xiao', 'Mariela', 'Xiao Mariela Pte Ltd', 'Suntec City Mall 3 Temasek Boulevard #01-199 038983, Singapore', 'Male', '', '92648112', 1, '', '', 'Xiao.Mariela@gmail.com', '619629281276', 'Visitor', 0, 0, NULL, NULL, '2018-12-10 19:36:42', '2018-12-10 19:36:42'),
-(82, 12, 76, 'Mr.', 'Zandra', 'Yan', 'Zandra Yan Pte Ltd', 'Suntec Tower Three 8 Temasek Boulevard #23-03 038988, Singapore', 'Male', '', '90962634', 1, '', '', 'Zandra.Yan@gmail.com', '134757731276', 'Visitor', 0, 0, NULL, NULL, '2018-12-10 19:36:42', '2018-12-10 19:36:42'),
-(83, 12, 76, 'Mrs.', 'Nadia', 'Claris', 'Nadia Claris Pte Ltd', 'Crane+Resistoflex+Xomox Pte Ltd 16 Gul Link Singapore 629386, Singapore', 'Female', '', '94332539', 1, '', '', 'Nadia.Claris@gmail.com', '974638021276', 'Visitor', 0, 0, NULL, NULL, '2018-12-10 19:36:42', '2018-12-10 19:36:42'),
-(84, 12, 76, 'Ms', 'Barbie', 'Criselda', 'Barbie Criselda Pte Ltd', '10 Temasek Boulevard #40-02 Suntec Tower 3, 038988, Singapore', 'Male', '', '93093512', 1, '', '', 'Barbie.Criselda@gmail.com', '504641101276', 'Visitor', 0, 0, NULL, NULL, '2018-12-10 19:36:42', '2018-12-10 19:36:42'),
-(85, 12, 76, 'Dr.', 'Sudie', 'Hoa', 'Sudie Hoa Pte Ltd', '110 Gerald Drive #04-38, 799035, Singapore', 'Male', '', '97879423', 1, '', '', 'Sudie.Hoa@gmail.com', '934291071276', 'Visitor', 0, 0, NULL, NULL, '2018-12-10 19:36:42', '2018-12-10 19:36:42'),
-(86, 12, 76, 'Prof', 'Marti', 'Kirk', 'Marti Kirk Pte Ltd', '37 Gul Crescent, 629544, Singapore', 'Female', '', '96030158', 1, '', '', 'Marti.Kirk@gmail.com', '703564551276', 'Visitor', 0, 0, NULL, NULL, '2018-12-10 19:36:42', '2018-12-10 19:36:42'),
-(87, 12, 76, 'Mr.', 'Yan', 'Von', 'Yan Von Pte Ltd', 'United Square 101 Thomson Road #12-01 /#16-01 to #16-02 307591, Singapore', 'Male', '', '95821921', 1, '', '', 'Yan.Von@gmail.com', '383908671276', 'Visitor', 0, 0, NULL, NULL, '2018-12-10 19:36:42', '2018-12-10 19:36:42'),
-(88, 12, 76, 'Mrs.', 'Bruna', 'Karole', 'Bruna Karole Pte Ltd', 'Suntec City Mall 3 Temasek Boulevard #01-199 038983, Singapore', 'Male', '', '98244336', 1, '', '', 'Bruna.Karole@gmail.com', '998097261276', 'Visitor', 0, 0, NULL, NULL, '2018-12-10 19:36:42', '2018-12-10 19:36:42'),
-(89, 12, 76, 'Ms', 'Marry', 'Albertina', 'Marry Albertina Pte Ltd', 'Suntec Tower Three 8 Temasek Boulevard #23-03 038988, Singapore', 'Female', '', '93159479', 1, '', '', 'Marry.Albertina@gmail.com', '101184241276', 'Visitor', 0, 0, NULL, NULL, '2018-12-10 19:36:42', '2018-12-10 19:36:42'),
-(90, 12, 76, 'Dr.', 'Jana', 'Darlena', 'Jana Darlena Pte Ltd', 'Crane+Resistoflex+Xomox Pte Ltd 16 Gul Link Singapore 629386, Singapore', 'Male', '', '98172955', 1, '', '', 'Jana.Darlena@gmail.com', '530692811276', 'Visitor', 0, 0, NULL, NULL, '2018-12-10 19:36:42', '2018-12-10 19:36:42'),
-(91, 12, 76, 'Prof', 'Kiana', 'Antonietta', 'Kiana Antonietta Pte Ltd', '11 Temasek Boulevard #40-02 Suntec Tower 3, 038988, Singapore', 'Male', '', '98140891', 1, '', '', 'Kiana.Antonietta@gmail.com', '412166921276', 'Visitor', 0, 0, NULL, NULL, '2018-12-10 19:36:42', '2018-12-10 19:36:42'),
-(92, 12, 76, 'Mr.', 'Tuyet', 'Karri', 'Tuyet Karri Pte Ltd', '111 Gerald Drive #04-38, 799035, Singapore', 'Female', '', '89441381', 1, '', '', 'Tuyet.Karri@gmail.com', '658513251276', 'Visitor', 0, 0, NULL, NULL, '2018-12-10 19:36:42', '2018-12-10 19:36:42'),
-(93, 12, 76, 'Mrs.', 'Ronny', 'Michel', 'Ronny Michel Pte Ltd', '38 Gul Crescent, 629544, Singapore', 'Male', '', '94358957', 1, '', '', 'Ronny.Michel@gmail.com', '623880911276', 'Visitor', 0, 0, NULL, NULL, '2018-12-10 19:36:42', '2018-12-10 19:36:42'),
-(94, 12, 76, 'Ms', 'Anton', 'Shera', 'Anton Shera Pte Ltd', 'United Square 101 Thomson Road #12-01 /#16-01 to #16-02 307591, Singapore', 'Male', '', '97655645', 1, '', '', 'Anton.Shera@gmail.com', '863684891276', 'Visitor', 0, 0, NULL, NULL, '2018-12-10 19:36:42', '2018-12-10 19:36:42'),
-(95, 12, 76, 'Dr.', 'Sterling', 'Alease', 'Sterling Alease Pte Ltd', 'Suntec City Mall 3 Temasek Boulevard #01-199 038983, Singapore', 'Female', '', '97215691', 1, '', '', 'Sterling.Alease@gmail.com', '992075161276', 'Visitor', 0, 0, NULL, NULL, '2018-12-10 19:36:42', '2018-12-10 19:36:42'),
-(96, 12, 76, 'Prof', 'Zenaida', 'Kum', 'Zenaida Kum Pte Ltd', 'Suntec Tower Three 8 Temasek Boulevard #23-03 038988, Singapore', 'Male', '', '92525663', 1, '', '', 'Zenaida.Kum@gmail.com', '712650231276', 'Organiser', 0, 0, NULL, NULL, '2018-12-10 19:36:42', '2018-12-10 19:36:42'),
-(97, 12, 76, 'Mr.', 'Mikki', 'Markus', 'Mikki Markus Pte Ltd', 'Crane+Resistoflex+Xomox Pte Ltd 16 Gul Link Singapore 629386, Singapore', 'Male', '', '98084100', 1, '', '', 'Mikki.Markus@gmail.com', '544197551276', 'Organiser', 0, 0, NULL, NULL, '2018-12-10 19:36:42', '2018-12-10 19:36:42'),
-(98, 12, 76, 'Mrs.', 'Sixta', 'Ariane', 'Sixta Ariane Pte Ltd', '12 Temasek Boulevard #40-02 Suntec Tower 3, 038988, Singapore', 'Female', '', '99352902', 1, '', '', 'Sixta.Ariane@gmail.com', '998949101276', 'Organiser', 0, 0, NULL, NULL, '2018-12-10 19:36:42', '2018-12-10 19:36:42'),
-(99, 12, 76, 'Ms', 'Elbert', 'Nakita', 'Elbert Nakita Pte Ltd', '112 Gerald Drive #04-38, 799035, Singapore', 'Male', '', '91476589', 1, '', '', 'Elbert.Nakita@gmail.com', '547748391276', 'Visitor', 0, 0, NULL, NULL, '2018-12-10 19:36:42', '2018-12-10 19:36:42'),
-(100, 12, 76, 'Dr.', 'Lavera', 'Douglass', 'Lavera Douglass Pte Ltd', '39 Gul Crescent, 629544, Singapore', 'Male', '', '92382843', 1, '', '', 'Lavera.Douglass@gmail.com', '847753361276', 'Visitor', 0, 0, NULL, NULL, '2018-12-10 19:36:42', '2018-12-10 19:36:42'),
-(101, 12, 76, 'Prof', 'Hildegarde', 'Dinorah', 'Hildegarde Dinorah Pte Ltd', 'United Square 101 Thomson Road #12-01 /#16-01 to #16-02 307591, Singapore', 'Female', '', '90345600', 1, '', '', 'Hildegarde.Dinorah@gmail.com', '875310581276', 'Visitor', 0, 0, NULL, NULL, '2018-12-10 19:36:42', '2018-12-10 19:36:42'),
-(102, 12, 76, 'Mr.', 'Kenton', 'Sheryll', 'Kenton Sheryll Pte Ltd', 'Suntec City Mall 3 Temasek Boulevard #01-199 038983, Singapore', 'Male', '', '90787291', 1, '', '', 'Kenton.Sheryll@gmail.com', '779532501276', 'Visitor', 0, 0, NULL, NULL, '2018-12-10 19:36:42', '2018-12-10 19:36:42'),
-(103, 12, 76, 'Mrs.', 'Pearly', 'Marjory', 'Pearly Marjory Pte Ltd', 'Suntec Tower Three 8 Temasek Boulevard #23-03 038988, Singapore', 'Male', '', '93841256', 1, '', '', 'Pearly.Marjory@gmail.com', '851954551276', 'Visitor', 0, 0, NULL, NULL, '2018-12-10 19:36:42', '2018-12-10 19:36:42'),
-(104, 12, 76, 'Ms', 'Solomon', 'Isobel', 'Solomon Isobel Pte Ltd', 'Crane+Resistoflex+Xomox Pte Ltd 16 Gul Link Singapore 629386, Singapore', 'Female', '', '94383863', 1, '', '', 'Solomon.Isobel@gmail.com', '814706251276', 'Visitor', 0, 0, NULL, NULL, '2018-12-10 19:36:42', '2018-12-10 19:36:42'),
-(105, 12, 76, 'Dr.', 'Rafael', 'Sherie', 'Rafael Sherie Pte Ltd', '13 Temasek Boulevard #40-02 Suntec Tower 3, 038988, Singapore', 'Male', '', '89478508', 1, '', '', 'Rafael.Sherie@gmail.com', '861995921276', 'Visitor', 0, 0, NULL, NULL, '2018-12-10 19:36:42', '2018-12-10 19:36:42'),
-(106, 12, 76, 'Prof', 'Allen', 'Romona', 'Allen Romona Pte Ltd', '113 Gerald Drive #04-38, 799035, Singapore', 'Male', '', '94812274', 1, '', '', 'Allen.Romona@gmail.com', '869631961276', 'Visitor', 0, 0, NULL, NULL, '2018-12-10 19:36:42', '2018-12-10 19:36:42'),
-(107, 12, 76, 'Mr.', 'Rosia', 'Dorthea', 'Rosia Dorthea Pte Ltd', '40 Gul Crescent, 629544, Singapore', 'Female', '', '91600651', 1, '', '', 'Rosia.Dorthea@gmail.com', '745173441276', 'VIP', 0, 0, NULL, NULL, '2018-12-10 19:36:42', '2018-12-10 19:36:42'),
-(108, 12, 76, 'Mrs.', 'Lida', 'Mammie', 'Lida Mammie Pte Ltd', 'United Square 101 Thomson Road #12-01 /#16-01 to #16-02 307591, Singapore', 'Male', '', '92627695', 1, '', '', 'Lida.Mammie@gmail.com', '621534681276', 'VIP', 0, 0, NULL, NULL, '2018-12-10 19:36:42', '2018-12-10 19:36:42'),
-(109, 12, 76, 'Ms', 'Eva', 'Arvilla', 'Eva Arvilla Pte Ltd', 'Suntec City Mall 3 Temasek Boulevard #01-199 038983, Singapore', 'Male', '', '99346002', 1, '', '', 'Eva.Arvilla@gmail.com', '923077491276', 'VIP', 0, 0, NULL, NULL, '2018-12-10 19:36:42', '2018-12-10 19:36:42'),
-(110, 12, 76, 'Dr.', 'Gloria', 'Yoshiko', 'Gloria Yoshiko Pte Ltd', 'Suntec Tower Three 8 Temasek Boulevard #23-03 038988, Singapore', 'Female', '', '98753035', 1, '', '', 'Gloria.Yoshiko@gmail.com', '045128501276', 'VIP', 0, 0, NULL, NULL, '2018-12-10 19:36:42', '2018-12-10 19:36:42'),
-(111, 12, 76, 'Prof', 'Kendrick', 'Lin', 'Kendrick Lin Pte Ltd', 'Crane+Resistoflex+Xomox Pte Ltd 16 Gul Link Singapore 629386, Singapore', 'Male', '', '99322304', 1, '', '', 'Kendrick.Lin@gmail.com', '452548331276', 'VIP', 0, 0, NULL, NULL, '2018-12-10 19:36:42', '2018-12-10 19:36:42'),
-(112, 12, 76, 'Mr.', 'Yuki', 'Jenice', 'Yuki Jenice Pte Ltd', '14 Temasek Boulevard #40-02 Suntec Tower 3, 038988, Singapore', 'Male', '', '99959677', 1, '', '', 'Yuki.Jenice@gmail.com', '801807111276', 'VIP', 0, 0, NULL, NULL, '2018-12-10 19:36:42', '2018-12-10 19:36:42'),
-(113, 12, 76, 'Mrs.', 'Mackenzie', 'Dayna', 'Mackenzie Dayna Pte Ltd', '114 Gerald Drive #04-38, 799035, Singapore', 'Female', '', '97424525', 1, '', '', 'Mackenzie.Dayna@gmail.com', '432585241276', 'VIP', 0, 0, NULL, NULL, '2018-12-10 19:36:42', '2018-12-10 19:36:42'),
-(114, 12, 76, 'Ms', 'Marissa', 'Junie', 'Marissa Junie Pte Ltd', '41 Gul Crescent, 629544, Singapore', 'Male', '', '89270181', 1, '', '', 'Marissa.Junie@gmail.com', '647690631276', 'VIP', 0, 0, NULL, NULL, '2018-12-10 19:36:42', '2018-12-10 19:36:42'),
-(115, 12, 76, 'Dr.', 'Roma', 'Jerrie', 'Roma Jerrie Pte Ltd', 'United Square 101 Thomson Road #12-01 /#16-01 to #16-02 307591, Singapore', 'Male', '', '93184727', 1, '', '', 'Roma.Jerrie@gmail.com', '572217221276', 'VIP', 0, 0, NULL, NULL, '2018-12-10 19:36:42', '2018-12-10 19:36:42'),
-(116, 12, 77, 'Mr', 'teo', 'zheng eng', 'jumppy', NULL, 'Male', 'Dir', '9876543', 1, '', 'a', 'adrian_teo@jumppy.com.sg', '086158791277', 'visitor', 1, 1, '086158791277.png', 'Singapore International Jewelry Expo 2019.pdf', '2018-12-10 20:24:58', '2018-12-10 20:24:58');
+INSERT INTO `event_business_owners_details` (`id`, `event_id`, `business_owner_id`, `salutation`, `first_name`, `last_name`, `company_name`, `company_address`, `gender`, `designation`, `mobile`, `country_id`, `tel`, `fax`, `email`, `serial_digit`, `namebadge_user_label`, `is_confirmed`, `is_status`, `qrcode_path`, `pdf_path`, `namebadge_printed_date`, `created_at`, `updated_at`) VALUES
+(62, 12, 71, 'Mr', 'ze', 'teo', 'asd', NULL, NULL, NULL, '3462364', 1, NULL, NULL, 'tanveerqureshee1@gmail.com', '008899141271', 'Visitor', 1, 1, '008899141271.png', 'Singapore-International-Jewelry-Expo-2019_008899141271.pdf', '2018-12-19 12:20:46', '2018-12-09 01:47:53', '2018-12-18 02:38:44'),
+(275, 12, 83, NULL, 'Cyndi', 'Arlena', 'Cyndi Arlena Pte Ltd', 'Suntec City Mall 3 Temasek Boulevard #01-199 038983, Singapore', 'Male', NULL, '95167077', 1, NULL, NULL, 'tanveerqureshee@hotmail.com', '348431931283', 'Organiser', 1, 1, '348431931283.png', 'Singapore-International-Jewelry-Expo-2019_348431931283.pdf', '2018-12-19 12:20:29', '2018-12-11 20:09:24', '2018-12-18 02:39:20'),
+(276, 12, 83, 'Mrs.', 'Golden', 'Brandi', 'Golden Brandi Pte Ltd', 'Suntec Tower Three 8 Temasek Boulevard #23-03 038988, Singapore', 'Female', '', '98940528', 1, '', '', 'adrian_teo@jumppy.com.sg', '541433031283', 'Visitor', 1, 1, '541433031283.png', 'Singapore-International-Jewelry-Expo-2019_541433031283.pdf', '2018-12-19 12:20:29', '2018-12-11 20:09:24', '2018-12-11 20:10:25'),
+(277, 12, 83, 'Ms', 'Jude', 'Lyndsay', 'Jude Lyndsay Pte Ltd', 'Crane Resistoflex Xomox Pte Ltd 16 Gul Link Singapore 629386, Singapore', 'Male', '', '98547857', 1, '', '', 'happy@jumppy.com.sg', '792171711283', 'Visitor', 1, 1, '792171711283.png', 'Singapore-International-Jewelry-Expo-2019_792171711283.pdf', '2018-12-19 12:20:29', '2018-12-11 20:09:24', '2018-12-11 20:10:25'),
+(278, 12, 83, 'Dr.', 'Doloris', 'Siobhan', 'Doloris Siobhan Pte Ltd', '8 Temasek Boulevard #40-02 Suntec Tower 3, 038988, Singapore', 'Male', '', '97708117', 1, '', '', 'Doloris.Siobhan@gmail.com', '183555601283', 'Visitor', 1, 1, '183555601283.png', 'Singapore-International-Jewelry-Expo-2019_183555601283.pdf', NULL, '2018-12-11 20:09:24', '2018-12-11 20:10:25'),
+(279, 12, 83, 'Prof', 'Glen', 'Ashly', 'Glen Ashly Pte Ltd', '108 Gerald Drive #04-38, 799035, Singapore', 'Female', '', '96744641', 1, '', '', 'Glen.Ashly@gmail.com', '375838161283', 'Visitor', 1, 1, '375838161283.png', 'Singapore-International-Jewelry-Expo-2019_375838161283.pdf', NULL, '2018-12-11 20:09:24', '2018-12-11 20:10:25'),
+(280, 12, 83, 'Mr.', 'Lillia', 'Jenniffer', 'Lillia Jenniffer Pte Ltd', '35 Gul Crescent, 629544, Singapore', 'Male', '', '98771508', 1, '', '', 'Lillia.Jenniffer@gmail.com', '538572321283', 'Visitor', 1, 1, '538572321283.png', 'Singapore-International-Jewelry-Expo-2019_538572321283.pdf', NULL, '2018-12-11 20:09:24', '2018-12-11 20:10:25'),
+(281, 12, 83, 'Mrs.', 'Denna', 'Stephany', 'Denna Stephany Pte Ltd', 'United Square 101 Thomson Road #12-01 /#16-01 to #16-02 307591, Singapore', 'Male', '', '93203051', 1, '', '', 'Denna.Stephany@gmail.com', '451597641283', 'Visitor', 1, 1, '451597641283.png', 'Singapore-International-Jewelry-Expo-2019_451597641283.pdf', NULL, '2018-12-11 20:09:24', '2018-12-11 20:10:25'),
+(282, 12, 83, 'Ms', 'Esther', 'Florencia', 'Esther Florencia Pte Ltd', 'Suntec City Mall 3 Temasek Boulevard #01-199 038983, Singapore', 'Female', '', '94224847', 1, '', '', 'Esther.Florencia@gmail.com', '409965021283', 'Visitor', 1, 1, '409965021283.png', 'Singapore-International-Jewelry-Expo-2019_409965021283.pdf', NULL, '2018-12-11 20:09:24', '2018-12-11 20:10:25'),
+(283, 12, 83, 'Dr.', 'Nguyet', 'Hannelore', 'Nguyet Hannelore Pte Ltd', 'Suntec Tower Three 8 Temasek Boulevard #23-03 038988, Singapore', 'Male', '', '90324269', 1, '', '', 'Nguyet.Hannelore@gmail.com', '864710501283', 'Visitor', 1, 1, '864710501283.png', 'Singapore-International-Jewelry-Expo-2019_864710501283.pdf', NULL, '2018-12-11 20:09:24', '2018-12-11 20:10:25'),
+(284, 12, 83, 'Prof', 'Elias', 'Deedra', 'Elias Deedra Pte Ltd', 'Crane Resistoflex Xomox Pte Ltd 16 Gul Link Singapore 629386, Singapore', 'Male', '', '89073452', 1, '', '', 'Elias.Deedra@gmail.com', '897179901283', 'Visitor', 1, 1, '897179901283.png', 'Singapore-International-Jewelry-Expo-2019_897179901283.pdf', NULL, '2018-12-11 20:09:24', '2018-12-11 20:10:25'),
+(285, 12, 83, 'Mr.', 'Trevor', 'Fatima', 'Trevor Fatima Pte Ltd', '9 Temasek Boulevard #40-02 Suntec Tower 3, 038988, Singapore', 'Female', '', '89600025', 1, '', '', 'Trevor.Fatima@gmail.com', '959092021283', 'Visitor', 1, 1, '959092021283.png', 'Singapore-International-Jewelry-Expo-2019_959092021283.pdf', NULL, '2018-12-11 20:09:24', '2018-12-11 20:10:25'),
+(286, 12, 83, 'Mrs.', 'Berneice', 'Melvina', 'Berneice Melvina Pte Ltd', '109 Gerald Drive #04-38, 799035, Singapore', 'Male', '', '99223653', 1, '', '', 'Berneice.Melvina@gmail.com', '083244641283', 'Visitor', 1, 1, '083244641283.png', 'Singapore-International-Jewelry-Expo-2019_083244641283.pdf', NULL, '2018-12-11 20:09:24', '2018-12-11 20:10:25'),
+(287, 12, 83, 'Ms', 'Dreama', 'Vincent', 'Dreama Vincent Pte Ltd', '36 Gul Crescent, 629544, Singapore', 'Male', '', '97278857', 1, '', '', 'Dreama.Vincent@gmail.com', '942053541283', 'Visitor', 1, 1, '942053541283.png', 'Singapore-International-Jewelry-Expo-2019_942053541283.pdf', NULL, '2018-12-11 20:09:24', '2018-12-11 20:10:25'),
+(288, 12, 83, 'Dr.', 'Rozella', 'Lizzie', 'Rozella Lizzie Pte Ltd', 'United Square 101 Thomson Road #12-01 /#16-01 to #16-02 307591, Singapore', 'Female', '', '99875966', 1, '', '', 'Rozella.Lizzie@gmail.com', '978101811283', 'Visitor', 1, 1, '978101811283.png', 'Singapore-International-Jewelry-Expo-2019_978101811283.pdf', NULL, '2018-12-11 20:09:24', '2018-12-11 20:10:25'),
+(289, 12, 83, 'Prof', 'Xiao', 'Mariela', 'Xiao Mariela Pte Ltd', 'Suntec City Mall 3 Temasek Boulevard #01-199 038983, Singapore', 'Male', '', '92648112', 1, '', '', 'Xiao.Mariela@gmail.com', '467897031283', 'Visitor', 1, 1, '467897031283.png', 'Singapore-International-Jewelry-Expo-2019_467897031283.pdf', NULL, '2018-12-11 20:09:24', '2018-12-11 20:10:25'),
+(290, 12, 83, 'Mr.', 'Zandra', 'Yan', 'Zandra Yan Pte Ltd', 'Suntec Tower Three 8 Temasek Boulevard #23-03 038988, Singapore', 'Male', '', '90962634', 1, '', '', 'Zandra.Yan@gmail.com', '464140141283', 'Visitor', 1, 1, '464140141283.png', 'Singapore-International-Jewelry-Expo-2019_464140141283.pdf', NULL, '2018-12-11 20:09:24', '2018-12-11 20:10:25'),
+(291, 12, 83, 'Mrs.', 'Nadia', 'Claris', 'Nadia Claris Pte Ltd', 'Crane Resistoflex Xomox Pte Ltd 16 Gul Link Singapore 629386, Singapore', 'Female', '', '94332539', 1, '', '', 'Nadia.Claris@gmail.com', '977441401283', 'Visitor', 1, 1, '977441401283.png', 'Singapore-International-Jewelry-Expo-2019_977441401283.pdf', NULL, '2018-12-11 20:09:24', '2018-12-11 20:10:25'),
+(292, 12, 83, 'Ms', 'Barbie', 'Criselda', 'Barbie Criselda Pte Ltd', '10 Temasek Boulevard #40-02 Suntec Tower 3, 038988, Singapore', 'Male', '', '93093512', 1, '', '', 'Barbie.Criselda@gmail.com', '341511731283', 'Visitor', 1, 1, '341511731283.png', 'Singapore-International-Jewelry-Expo-2019_341511731283.pdf', NULL, '2018-12-11 20:09:24', '2018-12-11 20:10:25'),
+(293, 12, 83, 'Dr.', 'Sudie', 'Hoa', 'Sudie Hoa Pte Ltd', '110 Gerald Drive #04-38, 799035, Singapore', 'Male', '', '97879423', 1, '', '', 'Sudie.Hoa@gmail.com', '765368821283', 'Visitor', 1, 1, '765368821283.png', 'Singapore-International-Jewelry-Expo-2019_765368821283.pdf', NULL, '2018-12-11 20:09:24', '2018-12-11 20:10:25'),
+(294, 12, 83, 'Prof', 'Marti', 'Kirk', 'Marti Kirk Pte Ltd', '37 Gul Crescent, 629544, Singapore', 'Female', '', '96030158', 1, '', '', 'Marti.Kirk@gmail.com', '033949041283', 'Visitor', 1, 1, '033949041283.png', 'Singapore-International-Jewelry-Expo-2019_033949041283.pdf', NULL, '2018-12-11 20:09:24', '2018-12-11 20:10:25'),
+(295, 12, 83, 'Mr.', 'Yan', 'Von', 'Yan Von Pte Ltd', 'United Square 101 Thomson Road #12-01 /#16-01 to #16-02 307591, Singapore', 'Male', '', '95821921', 1, '', '', 'Yan.Von@gmail.com', '699807201283', 'Visitor', 1, 1, '699807201283.png', 'Singapore-International-Jewelry-Expo-2019_699807201283.pdf', NULL, '2018-12-11 20:09:24', '2018-12-11 20:10:25'),
+(296, 12, 83, 'Mrs.', 'Bruna', 'Karole', 'Bruna Karole Pte Ltd', 'Suntec City Mall 3 Temasek Boulevard #01-199 038983, Singapore', 'Male', '', '98244336', 1, '', '', 'Bruna.Karole@gmail.com', '955854021283', 'Visitor', 1, 1, '955854021283.png', 'Singapore-International-Jewelry-Expo-2019_955854021283.pdf', NULL, '2018-12-11 20:09:24', '2018-12-11 20:10:25'),
+(297, 12, 83, 'Ms', 'Marry', 'Albertina', 'Marry Albertina Pte Ltd', 'Suntec Tower Three 8 Temasek Boulevard #23-03 038988, Singapore', 'Female', '', '93159479', 1, '', '', 'Marry.Albertina@gmail.com', '607138201283', 'Visitor', 1, 1, '607138201283.png', 'Singapore-International-Jewelry-Expo-2019_607138201283.pdf', NULL, '2018-12-11 20:09:24', '2018-12-11 20:10:25'),
+(298, 12, 83, 'Dr.', 'Jana', 'Darlena', 'Jana Darlena Pte Ltd', 'Crane Resistoflex Xomox Pte Ltd 16 Gul Link Singapore 629386, Singapore', 'Male', '', '98172955', 1, '', '', 'Jana.Darlena@gmail.com', '632204551283', 'Visitor', 1, 1, '632204551283.png', 'Singapore-International-Jewelry-Expo-2019_632204551283.pdf', NULL, '2018-12-11 20:09:24', '2018-12-11 20:10:25'),
+(299, 12, 83, 'Prof', 'Kiana', 'Antonietta', 'Kiana Antonietta Pte Ltd', '11 Temasek Boulevard #40-02 Suntec Tower 3, 038988, Singapore', 'Male', '', '98140891', 1, '', '', 'Kiana.Antonietta@gmail.com', '916806521283', 'Visitor', 1, 1, '916806521283.png', 'Singapore-International-Jewelry-Expo-2019_916806521283.pdf', NULL, '2018-12-11 20:09:24', '2018-12-11 20:10:25'),
+(300, 12, 83, 'Mr.', 'Tuyet', 'Karri', 'Tuyet Karri Pte Ltd', '111 Gerald Drive #04-38, 799035, Singapore', 'Female', '', '89441381', 1, '', '', 'Tuyet.Karri@gmail.com', '990996881283', 'Visitor', 1, 1, '990996881283.png', 'Singapore-International-Jewelry-Expo-2019_990996881283.pdf', NULL, '2018-12-11 20:09:24', '2018-12-11 20:10:25'),
+(301, 12, 83, 'Mrs.', 'Ronny', 'Michel', 'Ronny Michel Pte Ltd', '38 Gul Crescent, 629544, Singapore', 'Male', '', '94358957', 1, '', '', 'Ronny.Michel@gmail.com', '592284651283', 'Visitor', 1, 1, '592284651283.png', 'Singapore-International-Jewelry-Expo-2019_592284651283.pdf', NULL, '2018-12-11 20:09:24', '2018-12-11 20:10:25'),
+(302, 12, 83, 'Ms', 'Anton', 'Shera', 'Anton Shera Pte Ltd', 'United Square 101 Thomson Road #12-01 /#16-01 to #16-02 307591, Singapore', 'Male', '', '97655645', 1, '', '', 'Anton.Shera@gmail.com', '726652991283', 'Visitor', 1, 1, '726652991283.png', 'Singapore-International-Jewelry-Expo-2019_726652991283.pdf', NULL, '2018-12-11 20:09:24', '2018-12-11 20:10:25'),
+(303, 12, 83, 'Dr.', 'Sterling', 'Alease', 'Sterling Alease Pte Ltd', 'Suntec City Mall 3 Temasek Boulevard #01-199 038983, Singapore', 'Female', '', '97215691', 1, '', '', 'Sterling.Alease@gmail.com', '348938741283', 'Visitor', 1, 1, '348938741283.png', 'Singapore-International-Jewelry-Expo-2019_348938741283.pdf', NULL, '2018-12-11 20:09:24', '2018-12-11 20:10:25'),
+(304, 12, 83, 'Prof', 'Zenaida', 'Kum', 'Zenaida Kum Pte Ltd', 'Suntec Tower Three 8 Temasek Boulevard #23-03 038988, Singapore', 'Male', '', '92525663', 1, '', '', 'Zenaida.Kum@gmail.com', '795576881283', 'Organiser', 1, 1, '795576881283.png', 'Singapore-International-Jewelry-Expo-2019_795576881283.pdf', NULL, '2018-12-11 20:09:24', '2018-12-11 20:10:25'),
+(305, 12, 83, 'Mr.', 'Mikki', 'Markus', 'Mikki Markus Pte Ltd', 'Crane Resistoflex Xomox Pte Ltd 16 Gul Link Singapore 629386, Singapore', 'Male', '', '98084100', 1, '', '', 'Mikki.Markus@gmail.com', '381010991283', 'Organiser', 1, 1, '381010991283.png', 'Singapore-International-Jewelry-Expo-2019_381010991283.pdf', NULL, '2018-12-11 20:09:24', '2018-12-11 20:10:25'),
+(306, 12, 83, 'Mrs.', 'Sixta', 'Ariane', 'Sixta Ariane Pte Ltd', '12 Temasek Boulevard #40-02 Suntec Tower 3, 038988, Singapore', 'Female', '', '99352902', 1, '', '', 'Sixta.Ariane@gmail.com', '012130541283', 'Organiser', 1, 1, '012130541283.png', 'Singapore-International-Jewelry-Expo-2019_012130541283.pdf', NULL, '2018-12-11 20:09:24', '2018-12-11 20:10:25'),
+(307, 12, 83, 'Ms', 'Elbert', 'Nakita', 'Elbert Nakita Pte Ltd', '112 Gerald Drive #04-38, 799035, Singapore', 'Male', '', '91476589', 1, '', '', 'Elbert.Nakita@gmail.com', '105657251283', 'Visitor', 1, 1, '105657251283.png', 'Singapore-International-Jewelry-Expo-2019_105657251283.pdf', NULL, '2018-12-11 20:09:24', '2018-12-11 20:10:25'),
+(308, 12, 83, 'Dr.', 'Lavera', 'Douglass', 'Lavera Douglass Pte Ltd', '39 Gul Crescent, 629544, Singapore', 'Male', '', '92382843', 1, '', '', 'Lavera.Douglass@gmail.com', '515813561283', 'Visitor', 1, 1, '515813561283.png', 'Singapore-International-Jewelry-Expo-2019_515813561283.pdf', NULL, '2018-12-11 20:09:24', '2018-12-11 20:10:25'),
+(309, 12, 83, 'Prof', 'Hildegarde', 'Dinorah', 'Hildegarde Dinorah Pte Ltd', 'United Square 101 Thomson Road #12-01 /#16-01 to #16-02 307591, Singapore', 'Female', '', '90345600', 1, '', '', 'Hildegarde.Dinorah@gmail.com', '835132291283', 'Visitor', 1, 1, '835132291283.png', 'Singapore-International-Jewelry-Expo-2019_835132291283.pdf', NULL, '2018-12-11 20:09:24', '2018-12-11 20:10:25'),
+(310, 12, 83, 'Mr.', 'Kenton', 'Sheryll', 'Kenton Sheryll Pte Ltd', 'Suntec City Mall 3 Temasek Boulevard #01-199 038983, Singapore', 'Male', '', '90787291', 1, '', '', 'Kenton.Sheryll@gmail.com', '245511851283', 'Visitor', 1, 1, '245511851283.png', 'Singapore-International-Jewelry-Expo-2019_245511851283.pdf', NULL, '2018-12-11 20:09:24', '2018-12-11 20:10:25'),
+(311, 12, 83, 'Mrs.', 'Pearly', 'Marjory', 'Pearly Marjory Pte Ltd', 'Suntec Tower Three 8 Temasek Boulevard #23-03 038988, Singapore', 'Male', '', '93841256', 1, '', '', 'Pearly.Marjory@gmail.com', '800460451283', 'Visitor', 1, 1, '800460451283.png', 'Singapore-International-Jewelry-Expo-2019_800460451283.pdf', NULL, '2018-12-11 20:09:24', '2018-12-11 20:10:25'),
+(312, 12, 83, 'Ms', 'Solomon', 'Isobel', 'Solomon Isobel Pte Ltd', 'Crane Resistoflex Xomox Pte Ltd 16 Gul Link Singapore 629386, Singapore', 'Female', '', '94383863', 1, '', '', 'Solomon.Isobel@gmail.com', '481524611283', 'Visitor', 1, 1, '481524611283.png', 'Singapore-International-Jewelry-Expo-2019_481524611283.pdf', NULL, '2018-12-11 20:09:24', '2018-12-11 20:10:25'),
+(313, 12, 83, 'Dr.', 'Rafael', 'Sherie', 'Rafael Sherie Pte Ltd', '13 Temasek Boulevard #40-02 Suntec Tower 3, 038988, Singapore', 'Male', '', '89478508', 1, '', '', 'Rafael.Sherie@gmail.com', '685924621283', 'Visitor', 1, 1, '685924621283.png', 'Singapore-International-Jewelry-Expo-2019_685924621283.pdf', NULL, '2018-12-11 20:09:24', '2018-12-11 20:10:25'),
+(314, 12, 83, 'Prof', 'Allen', 'Romona', 'Allen Romona Pte Ltd', '113 Gerald Drive #04-38, 799035, Singapore', 'Male', '', '94812274', 1, '', '', 'Allen.Romona@gmail.com', '729860411283', 'Visitor', 1, 1, '729860411283.png', 'Singapore-International-Jewelry-Expo-2019_729860411283.pdf', NULL, '2018-12-11 20:09:24', '2018-12-11 20:10:25'),
+(315, 12, 83, 'Mr.', 'Rosia', 'Dorthea', 'Rosia Dorthea Pte Ltd', '40 Gul Crescent, 629544, Singapore', 'Female', '', '91600651', 1, '', '', 'Rosia.Dorthea@gmail.com', '927772931283', 'VIP', 1, 1, '927772931283.png', 'Singapore-International-Jewelry-Expo-2019_927772931283.pdf', NULL, '2018-12-11 20:09:24', '2018-12-11 20:10:25'),
+(316, 12, 83, 'Mrs.', 'Lida', 'Mammie', 'Lida Mammie Pte Ltd', 'United Square 101 Thomson Road #12-01 /#16-01 to #16-02 307591, Singapore', 'Male', '', '92627695', 1, '', '', 'Lida.Mammie@gmail.com', '611728841283', 'VIP', 1, 1, '611728841283.png', 'Singapore-International-Jewelry-Expo-2019_611728841283.pdf', NULL, '2018-12-11 20:09:24', '2018-12-11 20:10:25'),
+(317, 12, 83, 'Ms', 'Eva', 'Arvilla', 'Eva Arvilla Pte Ltd', 'Suntec City Mall 3 Temasek Boulevard #01-199 038983, Singapore', 'Male', '', '99346002', 1, '', '', 'Eva.Arvilla@gmail.com', '818416891283', 'VIP', 1, 1, '818416891283.png', 'Singapore-International-Jewelry-Expo-2019_818416891283.pdf', NULL, '2018-12-11 20:09:24', '2018-12-11 20:10:25'),
+(318, 12, 83, 'Dr.', 'Gloria', 'Yoshiko', 'Gloria Yoshiko Pte Ltd', 'Suntec Tower Three 8 Temasek Boulevard #23-03 038988, Singapore', 'Female', '', '98753035', 1, '', '', 'Gloria.Yoshiko@gmail.com', '001233091283', 'VIP', 1, 1, '001233091283.png', 'Singapore-International-Jewelry-Expo-2019_001233091283.pdf', NULL, '2018-12-11 20:09:24', '2018-12-11 20:10:25'),
+(319, 12, 83, 'Prof', 'Kendrick', 'Lin', 'Kendrick Lin Pte Ltd', 'Crane Resistoflex Xomox Pte Ltd 16 Gul Link Singapore 629386, Singapore', 'Male', '', '99322304', 1, '', '', 'Kendrick.Lin@gmail.com', '681201571283', 'VIP', 1, 1, '681201571283.png', 'Singapore-International-Jewelry-Expo-2019_681201571283.pdf', NULL, '2018-12-11 20:09:24', '2018-12-11 20:10:25'),
+(320, 12, 83, 'Mr.', 'Yuki', 'Jenice', 'Yuki Jenice Pte Ltd', '14 Temasek Boulevard #40-02 Suntec Tower 3, 038988, Singapore', 'Male', '', '99959677', 1, '', '', 'Yuki.Jenice@gmail.com', '212004151283', 'VIP', 1, 1, '212004151283.png', 'Singapore-International-Jewelry-Expo-2019_212004151283.pdf', NULL, '2018-12-11 20:09:24', '2018-12-11 20:10:25'),
+(321, 12, 83, 'Mrs.', 'Mackenzie', 'Dayna', 'Mackenzie Dayna Pte Ltd', '114 Gerald Drive #04-38, 799035, Singapore', 'Female', '', '97424525', 1, '', '', 'Mackenzie.Dayna@gmail.com', '949092591283', 'VIP', 1, 1, '949092591283.png', 'Singapore-International-Jewelry-Expo-2019_949092591283.pdf', NULL, '2018-12-11 20:09:24', '2018-12-11 20:10:25'),
+(322, 12, 83, 'Ms', 'Marissa', 'Junie', 'Marissa Junie Pte Ltd', '41 Gul Crescent, 629544, Singapore', 'Male', '', '89270181', 1, '', '', 'Marissa.Junie@gmail.com', '443520441283', 'VIP', 1, 1, '443520441283.png', 'Singapore-International-Jewelry-Expo-2019_443520441283.pdf', NULL, '2018-12-11 20:09:24', '2018-12-11 20:10:25'),
+(323, 12, 83, 'Dr.', 'Roma', 'Jerrie', 'Roma Jerrie Pte Ltd', 'United Square 101 Thomson Road #12-01 /#16-01 to #16-02 307591, Singapore', 'Male', '', '93184727', 1, '', '', 'Roma.Jerrie@gmail.com', '735498301283', 'VIP', 1, 1, '735498301283.png', 'Singapore-International-Jewelry-Expo-2019_735498301283.pdf', NULL, '2018-12-11 20:09:24', '2018-12-11 20:10:25'),
+(324, 13, 84, 'Mr', 'alvin', 'tan', 'bls', '2gwrb', NULL, NULL, '57923479584', 1, '', '', 'alvinew@icloud.com', '519938231384', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:10:56', '2018-12-15 03:10:56'),
+(325, 13, 84, 'Ms', 'adrian', 't', 'hgjhg', NULL, NULL, NULL, '21252t25', 4, '', '', 'zeteo87@gmail.com', '960987501384', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:10:56', '2018-12-15 03:10:56'),
+(326, 13, 85, 'Mr', 'alvin', 'tan', 'bls', '2gwrb', NULL, NULL, '57923479584', 1, '', '', 'alvinew@icloud.com', '791657811385', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:11:01', '2018-12-15 03:11:01'),
+(327, 13, 85, 'Ms', 'adrian', 't', 'hgjhg', NULL, NULL, NULL, '21252t25', 4, '', '', 'zeteo87@gmail.com', '064014781385', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:11:01', '2018-12-15 03:11:01'),
+(328, 13, 86, 'Mr', 'alvin', 'tan', 'bls', '2gwrb', NULL, NULL, '57923479584', 1, '', '', 'alvinew@icloud.com', '973652411386', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:11:02', '2018-12-15 03:11:02'),
+(329, 13, 86, 'Ms', 'adrian', 't', 'hgjhg', NULL, NULL, NULL, '21252t25', 4, '', '', 'zeteo87@gmail.com', '675918011386', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:11:02', '2018-12-15 03:11:02'),
+(330, 13, 87, 'Mr', 'alvin', 'tan', 'bls', '2gwrb', NULL, NULL, '57923479584', 1, '', '', 'alvinew@icloud.com', '402550091387', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:11:07', '2018-12-15 03:11:07'),
+(331, 13, 87, 'Ms', 'adrian', 't', 'hgjhg', NULL, NULL, NULL, '21252t25', 4, '', '', 'zeteo87@gmail.com', '206931521387', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:11:07', '2018-12-15 03:11:07'),
+(332, 13, 88, 'Mr', 'alvin', 'tan', 'bls', '2gwrb', NULL, NULL, '57923479584', 1, '', '', 'alvinew@icloud.com', '303990701388', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:11:27', '2018-12-15 03:11:27'),
+(333, 13, 88, 'Ms', 'adrian', 't', 'hgjhg', NULL, NULL, NULL, '21252t25', 4, '', '', 'zeteo87@gmail.com', '705941451388', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:11:27', '2018-12-15 03:11:27'),
+(334, 13, 89, 'Mr', 'alvin', 'tan', 'bls', '2gwrb', NULL, NULL, '57923479584', 1, '', '', 'alvinew@icloud.com', '734748941389', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:11:28', '2018-12-15 03:11:28'),
+(335, 13, 89, 'Ms', 'adrian', 't', 'hgjhg', NULL, NULL, NULL, '21252t25', 4, '', '', 'zeteo87@gmail.com', '161354191389', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:11:28', '2018-12-15 03:11:28'),
+(336, 13, 90, 'Mr', 'alvin', 'tan', 'bls', '2gwrb', NULL, NULL, '57923479584', 1, '', '', 'alvinew@icloud.com', '842519991390', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:11:32', '2018-12-15 03:11:32'),
+(337, 13, 90, 'Ms', 'adrian', 't', 'hgjhg', NULL, NULL, NULL, '21252t25', 4, '', '', 'zeteo87@gmail.com', '320480711390', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:11:32', '2018-12-15 03:11:32'),
+(338, 13, 91, 'Mr', 'alvin', 'tan', 'bls', '2gwrb', NULL, NULL, '57923479584', 1, '', '', 'alvinew@icloud.com', '365064441391', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:11:34', '2018-12-15 03:11:34'),
+(339, 13, 91, 'Ms', 'adrian', 't', 'hgjhg', NULL, NULL, NULL, '21252t25', 4, '', '', 'zeteo87@gmail.com', '117356131391', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:11:34', '2018-12-15 03:11:34'),
+(340, 13, 92, 'Mr', 'alvin', 'tan', 'bls', '2gwrb', NULL, NULL, '57923479584', 1, '', '', 'alvinew@icloud.com', '441845321392', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:11:39', '2018-12-15 03:11:39'),
+(341, 13, 92, 'Ms', 'adrian', 't', 'hgjhg', NULL, NULL, NULL, '21252t25', 4, '', '', 'zeteo87@gmail.com', '707272831392', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:11:39', '2018-12-15 03:11:39'),
+(342, 13, 93, 'Mr', 'alvin', 'tan', 'bls', '2gwrb', NULL, NULL, '57923479584', 1, '', '', 'alvinew@icloud.com', '364789091393', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:11:39', '2018-12-15 03:11:39'),
+(343, 13, 93, 'Ms', 'adrian', 't', 'hgjhg', NULL, NULL, NULL, '21252t25', 4, '', '', 'zeteo87@gmail.com', '018002021393', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:11:39', '2018-12-15 03:11:39'),
+(344, 13, 94, 'Mr', 'alvin', 'tan', 'bls', '2gwrb', NULL, NULL, '57923479584', 1, '', '', 'alvinew@icloud.com', '556842631394', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:11:40', '2018-12-15 03:11:40'),
+(345, 13, 94, 'Ms', 'adrian', 't', 'hgjhg', NULL, NULL, NULL, '21252t25', 4, '', '', 'zeteo87@gmail.com', '815178361394', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:11:40', '2018-12-15 03:11:40'),
+(346, 13, 95, 'Mr', 'alvin', 'tan', 'bls', '2gwrb', NULL, NULL, '57923479584', 1, '', '', 'alvinew@icloud.com', '206716941395', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:11:40', '2018-12-15 03:11:40'),
+(347, 13, 95, 'Ms', 'adrian', 't', 'hgjhg', NULL, NULL, NULL, '21252t25', 4, '', '', 'zeteo87@gmail.com', '506541421395', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:11:40', '2018-12-15 03:11:40'),
+(348, 13, 96, 'Mr', 'alvin', 'tan', 'bls', '2gwrb', NULL, NULL, '57923479584', 1, '', '', 'alvinew@icloud.com', '645645361396', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:11:41', '2018-12-15 03:11:41'),
+(349, 13, 96, 'Ms', 'adrian', 't', 'hgjhg', NULL, NULL, NULL, '21252t25', 4, '', '', 'zeteo87@gmail.com', '326089611396', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:11:41', '2018-12-15 03:11:41'),
+(350, 13, 97, 'Mr', 'alvin', 'tan', 'bls', '2gwrb', NULL, NULL, '57923479584', 1, '', '', 'alvinew@icloud.com', '840876261397', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:11:41', '2018-12-15 03:11:41'),
+(351, 13, 97, 'Ms', 'adrian', 't', 'hgjhg', NULL, NULL, NULL, '21252t25', 4, '', '', 'zeteo87@gmail.com', '876221281397', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:11:41', '2018-12-15 03:11:41'),
+(352, 13, 98, 'Mr', 'alvin', 'tan', 'bls', '2gwrb', NULL, NULL, '57923479584', 1, '', '', 'alvinew@icloud.com', '337681601398', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:11:52', '2018-12-15 03:11:52'),
+(353, 13, 98, 'Ms', 'adrian', 't', 'hgjhg', NULL, NULL, NULL, '21252t25', 4, '', '', 'zeteo87@gmail.com', '459412831398', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:11:52', '2018-12-15 03:11:52'),
+(354, 13, 99, 'Mr', 'alvin', 'tan', 'bls', '2gwrb', NULL, NULL, '57923479584', 1, '', '', 'alvinew@icloud.com', '118813381399', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:11:52', '2018-12-15 03:11:52'),
+(355, 13, 99, 'Ms', 'adrian', 't', 'hgjhg', NULL, NULL, NULL, '21252t25', 4, '', '', 'zeteo87@gmail.com', '441136901399', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:11:52', '2018-12-15 03:11:52'),
+(356, 13, 100, 'Mr', 'alvin', 'tan', 'bls', '2gwrb', NULL, NULL, '57923479584', 1, '', '', 'alvinew@icloud.com', '262155213100', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:11:53', '2018-12-15 03:11:53'),
+(357, 13, 100, 'Ms', 'adrian', 't', 'hgjhg', NULL, NULL, NULL, '21252t25', 4, '', '', 'zeteo87@gmail.com', '959856113100', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:11:53', '2018-12-15 03:11:53'),
+(358, 13, 101, 'Mr', 'alvin', 'tan', 'bls', '2gwrb', NULL, NULL, '57923479584', 1, '', '', 'alvinew@icloud.com', '149588413101', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:11:53', '2018-12-15 03:11:53'),
+(359, 13, 101, 'Ms', 'adrian', 't', 'hgjhg', NULL, NULL, NULL, '21252t25', 4, '', '', 'zeteo87@gmail.com', '909163113101', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:11:53', '2018-12-15 03:11:53'),
+(360, 13, 102, 'Mr', 'alvin', 'tan', 'bls', '2gwrb', NULL, NULL, '57923479584', 1, '', '', 'alvinew@icloud.com', '801798713102', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:11:54', '2018-12-15 03:11:54'),
+(361, 13, 102, 'Ms', 'adrian', 't', 'hgjhg', NULL, NULL, NULL, '21252t25', 4, '', '', 'zeteo87@gmail.com', '641446313102', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:11:54', '2018-12-15 03:11:54'),
+(362, 13, 103, 'Mr', 'alvin', 'tan', 'bls', '2gwrb', NULL, NULL, '57923479584', 1, '', '', 'alvinew@icloud.com', '127460413103', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:11:54', '2018-12-15 03:11:54'),
+(363, 13, 103, 'Ms', 'adrian', 't', 'hgjhg', NULL, NULL, NULL, '21252t25', 4, '', '', 'zeteo87@gmail.com', '121180613103', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:11:54', '2018-12-15 03:11:54'),
+(364, 13, 104, 'Mr', 'alvin', 'tan', 'bls', '2gwrb', NULL, NULL, '57923479584', 1, '', '', 'alvinew@icloud.com', '790812013104', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:11:55', '2018-12-15 03:11:55'),
+(365, 13, 104, 'Ms', 'adrian', 't', 'hgjhg', NULL, NULL, NULL, '21252t25', 4, '', '', 'zeteo87@gmail.com', '671967713104', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:11:55', '2018-12-15 03:11:55'),
+(366, 13, 105, 'Mr', 'alvin', 'tan', 'bls', '2gwrb', NULL, NULL, '57923479584', 1, '', '', 'alvinew@icloud.com', '734025813105', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:11:55', '2018-12-15 03:11:55'),
+(367, 13, 105, 'Ms', 'adrian', 't', 'hgjhg', NULL, NULL, NULL, '21252t25', 4, '', '', 'zeteo87@gmail.com', '184036313105', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:11:55', '2018-12-15 03:11:55'),
+(368, 13, 106, 'Mr', 'alvin', 'tan', 'bls', '2gwrb', NULL, NULL, '57923479584', 1, '', '', 'alvinew@icloud.com', '254681013106', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:11:55', '2018-12-15 03:11:55'),
+(369, 13, 106, 'Ms', 'adrian', 't', 'hgjhg', NULL, NULL, NULL, '21252t25', 4, '', '', 'zeteo87@gmail.com', '603163413106', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:11:55', '2018-12-15 03:11:55'),
+(370, 13, 107, 'Mr', 'alvin', 'tan', 'bls', '2gwrb', NULL, NULL, '57923479584', 1, '', '', 'alvinew@icloud.com', '664379313107', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:11:56', '2018-12-15 03:11:56'),
+(371, 13, 107, 'Ms', 'adrian', 't', 'hgjhg', NULL, NULL, NULL, '21252t25', 4, '', '', 'zeteo87@gmail.com', '027219113107', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:11:56', '2018-12-15 03:11:56'),
+(372, 13, 108, 'Mr', 'alvin', 'tan', 'bls', '2gwrb', NULL, NULL, '57923479584', 1, '', '', 'alvinew@icloud.com', '973441713108', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:12:05', '2018-12-15 03:12:05'),
+(373, 13, 108, 'Ms', 'adrian', 't', 'hgjhg', NULL, NULL, NULL, '21252t25', 4, '', '', 'zeteo87@gmail.com', '908119613108', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:12:05', '2018-12-15 03:12:05'),
+(374, 13, 109, 'Mr', 'alvin', 'tan', 'bls', '2gwrb', NULL, NULL, '57923479584', 1, '', '', 'alvinew@icloud.com', '780742813109', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:12:06', '2018-12-15 03:12:06'),
+(375, 13, 109, 'Ms', 'adrian', 't', 'hgjhg', NULL, NULL, NULL, '21252t25', 4, '', '', 'zeteo87@gmail.com', '199077713109', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:12:06', '2018-12-15 03:12:06'),
+(376, 13, 110, 'Mr', 'alvin', 'tan', 'bls', '2gwrb', NULL, NULL, '57923479584', 1, '', '', 'alvinew@icloud.com', '074278313110', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:12:06', '2018-12-15 03:12:06'),
+(377, 13, 110, 'Ms', 'adrian', 't', 'hgjhg', NULL, NULL, NULL, '21252t25', 4, '', '', 'zeteo87@gmail.com', '464468013110', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:12:06', '2018-12-15 03:12:06'),
+(378, 13, 111, 'Mr', 'alvin', 'tan', 'bls', '2gwrb', NULL, NULL, '57923479584', 1, '', '', 'alvinew@icloud.com', '231861813111', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:12:06', '2018-12-15 03:12:06'),
+(379, 13, 111, 'Ms', 'adrian', 't', 'hgjhg', NULL, NULL, NULL, '21252t25', 4, '', '', 'zeteo87@gmail.com', '959329113111', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:12:06', '2018-12-15 03:12:06'),
+(380, 13, 112, 'Mr', 'alvin', 'tan', 'bls', '2gwrb', NULL, NULL, '57923479584', 1, '', '', 'alvinew@icloud.com', '710770913112', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:12:07', '2018-12-15 03:12:07'),
+(381, 13, 112, 'Ms', 'adrian', 't', 'hgjhg', NULL, NULL, NULL, '21252t25', 4, '', '', 'zeteo87@gmail.com', '442522913112', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:12:07', '2018-12-15 03:12:07'),
+(382, 13, 113, 'Mr', 'alvin', 'tan', 'bls', '2gwrb', NULL, NULL, '57923479584', 1, '', '', 'alvinew@icloud.com', '521914313113', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:12:07', '2018-12-15 03:12:07'),
+(383, 13, 113, 'Ms', 'adrian', 't', 'hgjhg', NULL, NULL, NULL, '21252t25', 4, '', '', 'zeteo87@gmail.com', '672217513113', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:12:07', '2018-12-15 03:12:07'),
+(384, 13, 114, 'Mr', 'alvin', 'tan', 'bls', '2gwrb', NULL, NULL, '57923479584', 1, '', '', 'alvinew@icloud.com', '799894413114', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:12:08', '2018-12-15 03:12:08'),
+(385, 13, 114, 'Ms', 'adrian', 't', 'hgjhg', NULL, NULL, NULL, '21252t25', 4, '', '', 'zeteo87@gmail.com', '796447813114', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:12:08', '2018-12-15 03:12:08'),
+(386, 13, 115, 'Mr', 'alvin', 'tan', 'bls', '2gwrb', NULL, NULL, '57923479584', 1, '', '', 'alvinew@icloud.com', '516905613115', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:12:09', '2018-12-15 03:12:09'),
+(387, 13, 115, 'Ms', 'adrian', 't', 'hgjhg', NULL, NULL, NULL, '21252t25', 4, '', '', 'zeteo87@gmail.com', '795969213115', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:12:09', '2018-12-15 03:12:09'),
+(388, 13, 116, 'Mr', 'alvin', 'tan', 'bls', '2gwrb', NULL, NULL, '57923479584', 1, '', '', 'alvinew@icloud.com', '599638513116', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:12:11', '2018-12-15 03:12:11'),
+(389, 13, 116, 'Ms', 'adrian', 't', 'hgjhg', NULL, NULL, NULL, '21252t25', 4, '', '', 'zeteo87@gmail.com', '408399713116', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:12:11', '2018-12-15 03:12:11'),
+(390, 13, 117, 'Mr', 'alvin', 'tan', 'bls', '2gwrb', NULL, NULL, '57923479584', 1, '', '', 'alvinew@icloud.com', '483342413117', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:12:13', '2018-12-15 03:12:13'),
+(391, 13, 117, 'Ms', 'adrian', 't', 'hgjhg', NULL, NULL, NULL, '21252t25', 4, '', '', 'zeteo87@gmail.com', '505846013117', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:12:13', '2018-12-15 03:12:13'),
+(392, 12, 118, 'Mr', 'alvin', 'tan', 'hhg', NULL, NULL, '2312521512', '21512541254', 1, '', '', 'alvinew@icloud.com', '427207412118', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-15 03:13:15', '2018-12-15 03:13:15'),
+(393, 13, 119, 'Mr.', 'Cyndi', 'Arlena', 'Cyndi Arlena Pte Ltd', 'Suntec City Mall 3 Temasek Boulevard #01-199 038983, Singapore', 'Male', '', '95167077', 1, '', '', 'Cyndi.Arlena@gmail.com', '264028813119', 'Visitor', 1, 1, '264028813119.png', 'ABS-2019_264028813119.pdf', NULL, '2018-12-15 03:15:36', '2018-12-15 03:23:23'),
+(394, 13, 119, 'Mrs.', 'Golden', 'Brandi', 'Golden Brandi Pte Ltd', 'Suntec Tower Three 8 Temasek Boulevard #23-03 038988, Singapore', 'Female', '', '98940528', 1, '', '', 'Golden.Brandi@gmail.com', '847326613119', 'Visitor', 1, 1, '847326613119.png', 'ABS-2019_847326613119.pdf', NULL, '2018-12-15 03:15:36', '2018-12-15 03:23:23'),
+(395, 13, 119, 'Ms', 'Jude', 'Lyndsay', 'Jude Lyndsay Pte Ltd', 'Crane Resistoflex Xomox Pte Ltd 16 Gul Link Singapore 629386, Singapore', 'Male', '', '98547857', 1, '', '', 'Jude.Lyndsay@gmail.com', '698585113119', 'Visitor', 1, 1, '698585113119.png', 'ABS-2019_698585113119.pdf', NULL, '2018-12-15 03:15:36', '2018-12-15 03:23:23'),
+(396, 13, 119, 'Dr.', 'Doloris', 'Siobhan', 'Doloris Siobhan Pte Ltd', '8 Temasek Boulevard #40-02 Suntec Tower 3, 038988, Singapore', 'Male', '', '97708117', 1, '', '', 'Doloris.Siobhan@gmail.com', '603753613119', 'Visitor', 1, 1, '603753613119.png', 'ABS-2019_603753613119.pdf', NULL, '2018-12-15 03:15:36', '2018-12-15 03:23:23'),
+(397, 13, 119, 'Prof', 'Glen', 'Ashly', 'Glen Ashly Pte Ltd', '108 Gerald Drive #04-38, 799035, Singapore', 'Female', '', '96744641', 1, '', '', 'Glen.Ashly@gmail.com', '958866513119', 'Visitor', 1, 1, '958866513119.png', 'ABS-2019_958866513119.pdf', NULL, '2018-12-15 03:15:36', '2018-12-15 03:23:23'),
+(398, 13, 119, 'Mr.', 'Lillia', 'Jenniffer', 'Lillia Jenniffer Pte Ltd', '35 Gul Crescent, 629544, Singapore', 'Male', '', '98771508', 1, '', '', 'Lillia.Jenniffer@gmail.com', '440770713119', 'Visitor', 1, 1, '440770713119.png', 'ABS-2019_440770713119.pdf', NULL, '2018-12-15 03:15:36', '2018-12-15 03:23:23'),
+(399, 13, 119, 'Mrs.', 'Denna', 'Stephany', 'Denna Stephany Pte Ltd', 'United Square 101 Thomson Road #12-01 /#16-01 to #16-02 307591, Singapore', 'Male', '', '93203051', 1, '', '', 'Denna.Stephany@gmail.com', '320403913119', 'Visitor', 1, 1, '320403913119.png', 'ABS-2019_320403913119.pdf', NULL, '2018-12-15 03:15:36', '2018-12-15 03:23:23'),
+(400, 13, 119, 'Ms', 'Esther', 'Florencia', 'Esther Florencia Pte Ltd', 'Suntec City Mall 3 Temasek Boulevard #01-199 038983, Singapore', 'Female', '', '94224847', 1, '', '', 'Esther.Florencia@gmail.com', '411146113119', 'Visitor', 1, 1, '411146113119.png', 'ABS-2019_411146113119.pdf', NULL, '2018-12-15 03:15:36', '2018-12-15 03:23:23'),
+(401, 13, 119, 'Dr.', 'Nguyet', 'Hannelore', 'Nguyet Hannelore Pte Ltd', 'Suntec Tower Three 8 Temasek Boulevard #23-03 038988, Singapore', 'Male', '', '90324269', 1, '', '', 'Nguyet.Hannelore@gmail.com', '454017513119', 'Visitor', 1, 1, '454017513119.png', 'ABS-2019_454017513119.pdf', NULL, '2018-12-15 03:15:36', '2018-12-15 03:23:23'),
+(402, 13, 119, 'Prof', 'Elias', 'Deedra', 'Elias Deedra Pte Ltd', 'Crane Resistoflex Xomox Pte Ltd 16 Gul Link Singapore 629386, Singapore', 'Male', '', '89073452', 1, '', '', 'Elias.Deedra@gmail.com', '875555913119', 'Visitor', 1, 1, '875555913119.png', 'ABS-2019_875555913119.pdf', NULL, '2018-12-15 03:15:36', '2018-12-15 03:23:23'),
+(403, 13, 119, 'Mr.', 'Trevor', 'Fatima', 'Trevor Fatima Pte Ltd', '9 Temasek Boulevard #40-02 Suntec Tower 3, 038988, Singapore', 'Female', '', '89600025', 1, '', '', 'Trevor.Fatima@gmail.com', '357092013119', 'Visitor', 1, 1, '357092013119.png', 'ABS-2019_357092013119.pdf', NULL, '2018-12-15 03:15:36', '2018-12-15 03:23:23'),
+(404, 13, 119, 'Mrs.', 'Berneice', 'Melvina', 'Berneice Melvina Pte Ltd', '109 Gerald Drive #04-38, 799035, Singapore', 'Male', '', '99223653', 1, '', '', 'Berneice.Melvina@gmail.com', '500383313119', 'Visitor', 1, 1, '500383313119.png', 'ABS-2019_500383313119.pdf', NULL, '2018-12-15 03:15:36', '2018-12-15 03:23:23'),
+(405, 13, 119, 'Ms', 'Dreama', 'Vincent', 'Dreama Vincent Pte Ltd', '36 Gul Crescent, 629544, Singapore', 'Male', '', '97278857', 1, '', '', 'Dreama.Vincent@gmail.com', '947506713119', 'Visitor', 1, 1, '947506713119.png', 'ABS-2019_947506713119.pdf', NULL, '2018-12-15 03:15:36', '2018-12-15 03:23:23'),
+(406, 13, 119, 'Dr.', 'Rozella', 'Lizzie', 'Rozella Lizzie Pte Ltd', 'United Square 101 Thomson Road #12-01 /#16-01 to #16-02 307591, Singapore', 'Female', '', '99875966', 1, '', '', 'Rozella.Lizzie@gmail.com', '189545113119', 'Visitor', 1, 1, '189545113119.png', 'ABS-2019_189545113119.pdf', NULL, '2018-12-15 03:15:36', '2018-12-15 03:23:23'),
+(407, 13, 119, 'Prof', 'Xiao', 'Mariela', 'Xiao Mariela Pte Ltd', 'Suntec City Mall 3 Temasek Boulevard #01-199 038983, Singapore', 'Male', '', '92648112', 1, '', '', 'Xiao.Mariela@gmail.com', '424758613119', 'Visitor', 1, 1, '424758613119.png', 'ABS-2019_424758613119.pdf', NULL, '2018-12-15 03:15:36', '2018-12-15 03:23:23'),
+(408, 13, 119, 'Mr.', 'Zandra', 'Yan', 'Zandra Yan Pte Ltd', 'Suntec Tower Three 8 Temasek Boulevard #23-03 038988, Singapore', 'Male', '', '90962634', 1, '', '', 'Zandra.Yan@gmail.com', '131706013119', 'Visitor', 1, 1, '131706013119.png', 'ABS-2019_131706013119.pdf', NULL, '2018-12-15 03:15:36', '2018-12-15 03:23:23'),
+(409, 13, 119, 'Mrs.', 'Nadia', 'Claris', 'Nadia Claris Pte Ltd', 'Crane Resistoflex Xomox Pte Ltd 16 Gul Link Singapore 629386, Singapore', 'Female', '', '94332539', 1, '', '', 'Nadia.Claris@gmail.com', '861142513119', 'Visitor', 1, 1, '861142513119.png', 'ABS-2019_861142513119.pdf', NULL, '2018-12-15 03:15:36', '2018-12-15 03:23:23'),
+(410, 13, 119, 'Ms', 'Barbie', 'Criselda', 'Barbie Criselda Pte Ltd', '10 Temasek Boulevard #40-02 Suntec Tower 3, 038988, Singapore', 'Male', '', '93093512', 1, '', '', 'Barbie.Criselda@gmail.com', '872580013119', 'Visitor', 1, 1, '872580013119.png', 'ABS-2019_872580013119.pdf', NULL, '2018-12-15 03:15:36', '2018-12-15 03:23:23'),
+(411, 13, 119, 'Dr.', 'Sudie', 'Hoa', 'Sudie Hoa Pte Ltd', '110 Gerald Drive #04-38, 799035, Singapore', 'Male', '', '97879423', 1, '', '', 'Sudie.Hoa@gmail.com', '889416113119', 'Visitor', 1, 1, '889416113119.png', 'ABS-2019_889416113119.pdf', NULL, '2018-12-15 03:15:36', '2018-12-15 03:23:23'),
+(412, 13, 119, 'Prof', 'Marti', 'Kirk', 'Marti Kirk Pte Ltd', '37 Gul Crescent, 629544, Singapore', 'Female', '', '96030158', 1, '', '', 'Marti.Kirk@gmail.com', '401119313119', 'Visitor', 1, 1, '401119313119.png', 'ABS-2019_401119313119.pdf', NULL, '2018-12-15 03:15:36', '2018-12-15 03:23:23'),
+(413, 13, 119, 'Mr.', 'Yan', 'Von', 'Yan Von Pte Ltd', 'United Square 101 Thomson Road #12-01 /#16-01 to #16-02 307591, Singapore', 'Male', '', '95821921', 1, '', '', 'Yan.Von@gmail.com', '490198513119', 'Visitor', 1, 1, '490198513119.png', 'ABS-2019_490198513119.pdf', NULL, '2018-12-15 03:15:36', '2018-12-15 03:23:23'),
+(414, 13, 119, 'Mrs.', 'Bruna', 'Karole', 'Bruna Karole Pte Ltd', 'Suntec City Mall 3 Temasek Boulevard #01-199 038983, Singapore', 'Male', '', '98244336', 1, '', '', 'Bruna.Karole@gmail.com', '486762413119', 'Visitor', 1, 1, '486762413119.png', 'ABS-2019_486762413119.pdf', NULL, '2018-12-15 03:15:36', '2018-12-15 03:23:23'),
+(415, 13, 119, 'Ms', 'Marry', 'Albertina', 'Marry Albertina Pte Ltd', 'Suntec Tower Three 8 Temasek Boulevard #23-03 038988, Singapore', 'Female', '', '93159479', 1, '', '', 'Marry.Albertina@gmail.com', '216579613119', 'Visitor', 1, 1, '216579613119.png', 'ABS-2019_216579613119.pdf', NULL, '2018-12-15 03:15:36', '2018-12-15 03:23:23'),
+(416, 13, 119, 'Dr.', 'Jana', 'Darlena', 'Jana Darlena Pte Ltd', 'Crane Resistoflex Xomox Pte Ltd 16 Gul Link Singapore 629386, Singapore', 'Male', '', '98172955', 1, '', '', 'Jana.Darlena@gmail.com', '194295813119', 'Visitor', 1, 1, '194295813119.png', 'ABS-2019_194295813119.pdf', NULL, '2018-12-15 03:15:36', '2018-12-15 03:23:23'),
+(417, 13, 119, 'Prof', 'Kiana', 'Antonietta', 'Kiana Antonietta Pte Ltd', '11 Temasek Boulevard #40-02 Suntec Tower 3, 038988, Singapore', 'Male', '', '98140891', 1, '', '', 'Kiana.Antonietta@gmail.com', '959404613119', 'Visitor', 1, 1, '959404613119.png', 'ABS-2019_959404613119.pdf', NULL, '2018-12-15 03:15:36', '2018-12-15 03:23:23'),
+(418, 13, 119, 'Mr.', 'Tuyet', 'Karri', 'Tuyet Karri Pte Ltd', '111 Gerald Drive #04-38, 799035, Singapore', 'Female', '', '89441381', 1, '', '', 'Tuyet.Karri@gmail.com', '060265113119', 'Visitor', 1, 1, '060265113119.png', 'ABS-2019_060265113119.pdf', NULL, '2018-12-15 03:15:36', '2018-12-15 03:23:23'),
+(419, 13, 119, 'Mrs.', 'Ronny', 'Michel', 'Ronny Michel Pte Ltd', '38 Gul Crescent, 629544, Singapore', 'Male', '', '94358957', 1, '', '', 'Ronny.Michel@gmail.com', '301102313119', 'Visitor', 1, 1, '301102313119.png', 'ABS-2019_301102313119.pdf', NULL, '2018-12-15 03:15:36', '2018-12-15 03:23:23'),
+(420, 13, 119, 'Ms', 'Anton', 'Shera', 'Anton Shera Pte Ltd', 'United Square 101 Thomson Road #12-01 /#16-01 to #16-02 307591, Singapore', 'Male', '', '97655645', 1, '', '', 'Anton.Shera@gmail.com', '873054013119', 'Visitor', 1, 1, '873054013119.png', 'ABS-2019_873054013119.pdf', NULL, '2018-12-15 03:15:36', '2018-12-15 03:23:23'),
+(421, 13, 119, 'Dr.', 'Sterling', 'Alease', 'Sterling Alease Pte Ltd', 'Suntec City Mall 3 Temasek Boulevard #01-199 038983, Singapore', 'Female', '', '97215691', 1, '', '', 'Sterling.Alease@gmail.com', '773570913119', 'Visitor', 1, 1, '773570913119.png', 'ABS-2019_773570913119.pdf', NULL, '2018-12-15 03:15:36', '2018-12-15 03:23:23'),
+(422, 13, 119, 'Prof', 'Zenaida', 'Kum', 'Zenaida Kum Pte Ltd', 'Suntec Tower Three 8 Temasek Boulevard #23-03 038988, Singapore', 'Male', '', '92525663', 1, '', '', 'Zenaida.Kum@gmail.com', '858137313119', 'Organiser', 1, 1, '858137313119.png', 'ABS-2019_858137313119.pdf', NULL, '2018-12-15 03:15:36', '2018-12-15 03:23:23'),
+(423, 13, 119, 'Mr.', 'Mikki', 'Markus', 'Mikki Markus Pte Ltd', 'Crane Resistoflex Xomox Pte Ltd 16 Gul Link Singapore 629386, Singapore', 'Male', '', '98084100', 1, '', '', 'Mikki.Markus@gmail.com', '160556613119', 'Organiser', 1, 1, '160556613119.png', 'ABS-2019_160556613119.pdf', NULL, '2018-12-15 03:15:36', '2018-12-15 03:23:23'),
+(424, 13, 119, 'Mrs.', 'Sixta', 'Ariane', 'Sixta Ariane Pte Ltd', '12 Temasek Boulevard #40-02 Suntec Tower 3, 038988, Singapore', 'Female', '', '99352902', 1, '', '', 'Sixta.Ariane@gmail.com', '147406113119', 'Organiser', 1, 1, '147406113119.png', 'ABS-2019_147406113119.pdf', NULL, '2018-12-15 03:15:36', '2018-12-15 03:23:23'),
+(425, 13, 119, 'Ms', 'Elbert', 'Nakita', 'Elbert Nakita Pte Ltd', '112 Gerald Drive #04-38, 799035, Singapore', 'Male', '', '91476589', 1, '', '', 'Elbert.Nakita@gmail.com', '747760713119', 'Visitor', 1, 1, '747760713119.png', 'ABS-2019_747760713119.pdf', NULL, '2018-12-15 03:15:36', '2018-12-15 03:23:23'),
+(426, 13, 119, 'Dr.', 'Lavera', 'Douglass', 'Lavera Douglass Pte Ltd', '39 Gul Crescent, 629544, Singapore', 'Male', '', '92382843', 1, '', '', 'Lavera.Douglass@gmail.com', '991171113119', 'Visitor', 1, 1, '991171113119.png', 'ABS-2019_991171113119.pdf', NULL, '2018-12-15 03:15:36', '2018-12-15 03:23:23'),
+(427, 13, 119, 'Prof', 'Hildegarde', 'Dinorah', 'Hildegarde Dinorah Pte Ltd', 'United Square 101 Thomson Road #12-01 /#16-01 to #16-02 307591, Singapore', 'Female', '', '90345600', 1, '', '', 'Hildegarde.Dinorah@gmail.com', '456684913119', 'Visitor', 1, 1, '456684913119.png', 'ABS-2019_456684913119.pdf', NULL, '2018-12-15 03:15:36', '2018-12-15 03:23:23'),
+(428, 13, 119, 'Mr.', 'Kenton', 'Sheryll', 'Kenton Sheryll Pte Ltd', 'Suntec City Mall 3 Temasek Boulevard #01-199 038983, Singapore', 'Male', '', '90787291', 1, '', '', 'Kenton.Sheryll@gmail.com', '472758113119', 'Visitor', 1, 1, '472758113119.png', 'ABS-2019_472758113119.pdf', NULL, '2018-12-15 03:15:36', '2018-12-15 03:23:23'),
+(429, 13, 119, 'Mrs.', 'Pearly', 'Marjory', 'Pearly Marjory Pte Ltd', 'Suntec Tower Three 8 Temasek Boulevard #23-03 038988, Singapore', 'Male', '', '93841256', 1, '', '', 'Pearly.Marjory@gmail.com', '517143213119', 'Visitor', 1, 1, '517143213119.png', 'ABS-2019_517143213119.pdf', NULL, '2018-12-15 03:15:36', '2018-12-15 03:23:23'),
+(430, 13, 119, 'Ms', 'Solomon', 'Isobel', 'Solomon Isobel Pte Ltd', 'Crane Resistoflex Xomox Pte Ltd 16 Gul Link Singapore 629386, Singapore', 'Female', '', '94383863', 1, '', '', 'Solomon.Isobel@gmail.com', '040781213119', 'Visitor', 1, 1, '040781213119.png', 'ABS-2019_040781213119.pdf', NULL, '2018-12-15 03:15:36', '2018-12-15 03:23:23'),
+(431, 13, 119, 'Dr.', 'Rafael', 'Sherie', 'Rafael Sherie Pte Ltd', '13 Temasek Boulevard #40-02 Suntec Tower 3, 038988, Singapore', 'Male', '', '89478508', 1, '', '', 'Rafael.Sherie@gmail.com', '174206013119', 'Visitor', 1, 1, '174206013119.png', 'ABS-2019_174206013119.pdf', NULL, '2018-12-15 03:15:36', '2018-12-15 03:23:23'),
+(432, 13, 119, 'Prof', 'Allen', 'Romona', 'Allen Romona Pte Ltd', '113 Gerald Drive #04-38, 799035, Singapore', 'Male', '', '94812274', 1, '', '', 'Allen.Romona@gmail.com', '760442213119', 'Visitor', 1, 1, '760442213119.png', 'ABS-2019_760442213119.pdf', NULL, '2018-12-15 03:15:36', '2018-12-15 03:23:23'),
+(433, 13, 119, 'Mr.', 'Rosia', 'Dorthea', 'Rosia Dorthea Pte Ltd', '40 Gul Crescent, 629544, Singapore', 'Female', '', '91600651', 1, '', '', 'Rosia.Dorthea@gmail.com', '287197913119', 'VIP', 1, 1, '287197913119.png', 'ABS-2019_287197913119.pdf', NULL, '2018-12-15 03:15:36', '2018-12-15 03:23:23'),
+(434, 13, 119, 'Mrs.', 'Lida', 'Mammie', 'Lida Mammie Pte Ltd', 'United Square 101 Thomson Road #12-01 /#16-01 to #16-02 307591, Singapore', 'Male', '', '92627695', 1, '', '', 'Lida.Mammie@gmail.com', '836238013119', 'VIP', 1, 1, '836238013119.png', 'ABS-2019_836238013119.pdf', NULL, '2018-12-15 03:15:36', '2018-12-15 03:23:23'),
+(435, 13, 119, 'Ms', 'Eva', 'Arvilla', 'Eva Arvilla Pte Ltd', 'Suntec City Mall 3 Temasek Boulevard #01-199 038983, Singapore', 'Male', '', '99346001', 1, '', '', 'Eva.Arvilla@gmail.com', '883392613119', 'VIP', 1, 1, '883392613119.png', 'ABS-2019_883392613119.pdf', NULL, '2018-12-15 03:15:36', '2018-12-15 03:23:23'),
+(436, 13, 119, 'Dr.', 'Gloria', 'Yoshiko', 'Gloria Yoshiko Pte Ltd', 'Suntec Tower Three 8 Temasek Boulevard #23-03 038988, Singapore', 'Female', '', '98753035', 1, '', '', 'Gloria.Yoshiko@gmail.com', '389780313119', 'VIP', 1, 1, '389780313119.png', 'ABS-2019_389780313119.pdf', NULL, '2018-12-15 03:15:36', '2018-12-15 03:23:23'),
+(437, 13, 119, 'Prof', 'Kendrick', 'Lin', 'Kendrick Lin Pte Ltd', 'Crane Resistoflex Xomox Pte Ltd 16 Gul Link Singapore 629386, Singapore', 'Male', '', '99322304', 1, '', '', 'Kendrick.Lin@gmail.com', '801349313119', 'VIP', 1, 1, '801349313119.png', 'ABS-2019_801349313119.pdf', NULL, '2018-12-15 03:15:36', '2018-12-15 03:23:23'),
+(438, 13, 119, 'Mr.', 'Yuki', 'Jenice', 'Yuki Jenice Pte Ltd', '14 Temasek Boulevard #40-02 Suntec Tower 3, 038988, Singapore', 'Male', '', '99959677', 1, '', '', 'Yuki.Jenice@gmail.com', '496663713119', 'VIP', 1, 1, '496663713119.png', 'ABS-2019_496663713119.pdf', NULL, '2018-12-15 03:15:36', '2018-12-15 03:23:23'),
+(439, 13, 119, 'Mrs.', 'Mackenzie', 'Dayna', 'Mackenzie Dayna Pte Ltd', '114 Gerald Drive #04-38, 799035, Singapore', 'Female', '', '97424525', 1, '', '', 'Mackenzie.Dayna@gmail.com', '424386013119', 'VIP', 1, 1, '424386013119.png', 'ABS-2019_424386013119.pdf', NULL, '2018-12-15 03:15:36', '2018-12-15 03:23:23'),
+(440, 13, 119, 'Ms', 'Marissa', 'Junie', 'Marissa Junie Pte Ltd', '41 Gul Crescent, 629544, Singapore', 'Male', '', '89270181', 1, '', '', 'Marissa.Junie@gmail.com', '116278413119', 'VIP', 1, 1, '116278413119.png', 'ABS-2019_116278413119.pdf', NULL, '2018-12-15 03:15:36', '2018-12-15 03:23:23'),
+(441, 13, 119, 'Dr.', 'Roma', 'Jerrie', 'Roma Jerrie Pte Ltd', 'United Square 101 Thomson Road #12-01 /#16-01 to #16-02 307591, Singapore', 'Male', '', '93184727', 1, '', '', 'Roma.Jerrie@gmail.com', '561407313119', 'VIP', 1, 1, '561407313119.png', 'ABS-2019_561407313119.pdf', NULL, '2018-12-15 03:15:36', '2018-12-15 03:23:23'),
+(442, 13, 120, 'Mr', 'Abc', 'Def', 'Abc', 'Abc', 'Male', 'Abc', '097715', 1, '0980', '021', 'Tanveerqureshee1@gmail.com', '639883213120', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-14 18:29:30', '2018-12-14 18:29:30'),
+(443, 13, 121, 'Mr', 'aa', 'bb', 'abc', 'abc', 'Male', 'abc', '0929282', 1, '02', '090', 'tanveerqureshee1@gmail.com', '753695813121', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-16 04:23:17', '2018-12-16 04:23:17'),
+(444, 13, 122, 'Mr', 'aa', 'bb', 'abc', 'abc', 'Male', 'abc', '0929282', 1, '02', '090', 'tanveerqureshee1@gmail.com', '002439813122', 'visitor', 1, 1, NULL, NULL, NULL, '2018-12-16 04:28:46', '2018-12-16 04:28:46'),
+(445, 13, 123, 'Mr', 'aa', 'bb', 'abc', 'abc', 'Male', 'abc', '0929282', 1, '02', '090', 'tanveerqureshee1@gmail.com', '232299413123', 'visitor', 1, 1, '232299413123.png', 'ABS 2019.pdf', NULL, '2018-12-16 04:32:32', '2018-12-16 04:32:32'),
+(446, 13, 124, 'Ms', 'a', 'v', 'cc', 'cc', 'Female', 'vc', '0928', 1, '09', '2', 'tanveerqureshee1@gmail.com', '117280613124', 'visitor', 1, 1, '117280613124.png', 'ABS 2019.pdf', NULL, '2018-12-16 04:40:10', '2018-12-16 04:40:10'),
+(447, 13, 125, 'Mdm', 'c', 'v', 'aaca', 'aca', 'Male', 'fd', '0182', 1, '09', '90', 'tanveerqureshee1@gmail.com', '136028613125', 'visitor', 1, 1, '136028613125.png', 'ABS 2019.pdf', NULL, '2018-12-16 04:41:25', '2018-12-16 04:41:25'),
+(448, 13, 126, 'Mr.', 'Cyndi', 'Arlena', 'Cyndi Arlena Pte Ltd', 'Suntec City Mall 3 Temasek Boulevard #01-199 038983, Singapore', 'Male', '', '95167077', 1, '', '', 'tanveerqureshee1@gmail.com', '031221813126', 'Visitor', 1, 1, '031221813126.png', 'ABS-2019_031221813126.pdf', NULL, '2018-12-16 04:42:18', '2018-12-16 04:42:45');
+INSERT INTO `event_business_owners_details` (`id`, `event_id`, `business_owner_id`, `salutation`, `first_name`, `last_name`, `company_name`, `company_address`, `gender`, `designation`, `mobile`, `country_id`, `tel`, `fax`, `email`, `serial_digit`, `namebadge_user_label`, `is_confirmed`, `is_status`, `qrcode_path`, `pdf_path`, `namebadge_printed_date`, `created_at`, `updated_at`) VALUES
+(449, 13, 126, 'Mrs.', 'Golden', 'Brandi', 'Golden Brandi Pte Ltd', 'Suntec Tower Three 8 Temasek Boulevard #23-03 038988, Singapore', 'Female', '', '98940528', 1, '', '', 'Golden.Brandi@gmail.com', '943556713126', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-16 04:42:18', '2018-12-16 04:42:18'),
+(450, 13, 126, 'Ms', 'Jude', 'Lyndsay', 'Jude Lyndsay Pte Ltd', 'Crane+Resistoflex+Xomox Pte Ltd 16 Gul Link Singapore 629386, Singapore', 'Male', '', '98547857', 1, '', '', 'Jude.Lyndsay@gmail.com', '662569913126', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-16 04:42:18', '2018-12-16 04:42:18'),
+(451, 13, 126, 'Dr.', 'Doloris', 'Siobhan', 'Doloris Siobhan Pte Ltd', '8 Temasek Boulevard #40-02 Suntec Tower 3, 038988, Singapore', 'Male', '', '97708117', 1, '', '', 'Doloris.Siobhan@gmail.com', '658251213126', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-16 04:42:18', '2018-12-16 04:42:18'),
+(452, 13, 126, 'Prof', 'Glen', 'Ashly', 'Glen Ashly Pte Ltd', '108 Gerald Drive #04-38, 799035, Singapore', 'Female', '', '96744641', 1, '', '', 'Glen.Ashly@gmail.com', '787533413126', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-16 04:42:18', '2018-12-16 04:42:18'),
+(453, 13, 126, 'Mr.', 'Lillia', 'Jenniffer', 'Lillia Jenniffer Pte Ltd', '35 Gul Crescent, 629544, Singapore', 'Male', '', '98771508', 1, '', '', 'Lillia.Jenniffer@gmail.com', '187442113126', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-16 04:42:18', '2018-12-16 04:42:18'),
+(454, 13, 126, 'Mrs.', 'Denna', 'Stephany', 'Denna Stephany Pte Ltd', 'United Square 101 Thomson Road #12-01 /#16-01 to #16-02 307591, Singapore', 'Male', '', '93203051', 1, '', '', 'Denna.Stephany@gmail.com', '542741613126', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-16 04:42:18', '2018-12-16 04:42:18'),
+(455, 13, 126, 'Ms', 'Esther', 'Florencia', 'Esther Florencia Pte Ltd', 'Suntec City Mall 3 Temasek Boulevard #01-199 038983, Singapore', 'Female', '', '94224847', 1, '', '', 'Esther.Florencia@gmail.com', '641100413126', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-16 04:42:18', '2018-12-16 04:42:18'),
+(456, 13, 126, 'Dr.', 'Nguyet', 'Hannelore', 'Nguyet Hannelore Pte Ltd', 'Suntec Tower Three 8 Temasek Boulevard #23-03 038988, Singapore', 'Male', '', '90324269', 1, '', '', 'Nguyet.Hannelore@gmail.com', '341379113126', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-16 04:42:18', '2018-12-16 04:42:18'),
+(457, 13, 126, 'Prof', 'Elias', 'Deedra', 'Elias Deedra Pte Ltd', 'Crane+Resistoflex+Xomox Pte Ltd 16 Gul Link Singapore 629386, Singapore', 'Male', '', '89073452', 1, '', '', 'Elias.Deedra@gmail.com', '965806113126', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-16 04:42:18', '2018-12-16 04:42:18'),
+(458, 13, 126, 'Mr.', 'Trevor', 'Fatima', 'Trevor Fatima Pte Ltd', '9 Temasek Boulevard #40-02 Suntec Tower 3, 038988, Singapore', 'Female', '', '89600025', 1, '', '', 'Trevor.Fatima@gmail.com', '601317113126', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-16 04:42:18', '2018-12-16 04:42:18'),
+(459, 13, 126, 'Mrs.', 'Berneice', 'Melvina', 'Berneice Melvina Pte Ltd', '109 Gerald Drive #04-38, 799035, Singapore', 'Male', '', '99223653', 1, '', '', 'Berneice.Melvina@gmail.com', '364943913126', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-16 04:42:18', '2018-12-16 04:42:18'),
+(460, 13, 126, 'Ms', 'Dreama', 'Vincent', 'Dreama Vincent Pte Ltd', '36 Gul Crescent, 629544, Singapore', 'Male', '', '97278857', 1, '', '', 'Dreama.Vincent@gmail.com', '687117913126', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-16 04:42:18', '2018-12-16 04:42:18'),
+(461, 13, 126, 'Dr.', 'Rozella', 'Lizzie', 'Rozella Lizzie Pte Ltd', 'United Square 101 Thomson Road #12-01 /#16-01 to #16-02 307591, Singapore', 'Female', '', '99875966', 1, '', '', 'Rozella.Lizzie@gmail.com', '707335013126', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-16 04:42:18', '2018-12-16 04:42:18'),
+(462, 13, 126, 'Prof', 'Xiao', 'Mariela', 'Xiao Mariela Pte Ltd', 'Suntec City Mall 3 Temasek Boulevard #01-199 038983, Singapore', 'Male', '', '92648112', 1, '', '', 'Xiao.Mariela@gmail.com', '119946413126', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-16 04:42:18', '2018-12-16 04:42:18'),
+(463, 13, 126, 'Mr.', 'Zandra', 'Yan', 'Zandra Yan Pte Ltd', 'Suntec Tower Three 8 Temasek Boulevard #23-03 038988, Singapore', 'Male', '', '90962634', 1, '', '', 'Zandra.Yan@gmail.com', '624205013126', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-16 04:42:18', '2018-12-16 04:42:18'),
+(464, 13, 126, 'Mrs.', 'Nadia', 'Claris', 'Nadia Claris Pte Ltd', 'Crane+Resistoflex+Xomox Pte Ltd 16 Gul Link Singapore 629386, Singapore', 'Female', '', '94332539', 1, '', '', 'Nadia.Claris@gmail.com', '137956113126', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-16 04:42:18', '2018-12-16 04:42:18'),
+(465, 13, 126, 'Ms', 'Barbie', 'Criselda', 'Barbie Criselda Pte Ltd', '10 Temasek Boulevard #40-02 Suntec Tower 3, 038988, Singapore', 'Male', '', '93093512', 1, '', '', 'Barbie.Criselda@gmail.com', '878787313126', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-16 04:42:18', '2018-12-16 04:42:18'),
+(466, 13, 126, 'Dr.', 'Sudie', 'Hoa', 'Sudie Hoa Pte Ltd', '110 Gerald Drive #04-38, 799035, Singapore', 'Male', '', '97879423', 1, '', '', 'Sudie.Hoa@gmail.com', '117279713126', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-16 04:42:18', '2018-12-16 04:42:18'),
+(467, 13, 126, 'Prof', 'Marti', 'Kirk', 'Marti Kirk Pte Ltd', '37 Gul Crescent, 629544, Singapore', 'Female', '', '96030158', 1, '', '', 'Marti.Kirk@gmail.com', '339639213126', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-16 04:42:18', '2018-12-16 04:42:18'),
+(468, 13, 126, 'Mr.', 'Yan', 'Von', 'Yan Von Pte Ltd', 'United Square 101 Thomson Road #12-01 /#16-01 to #16-02 307591, Singapore', 'Male', '', '95821921', 1, '', '', 'Yan.Von@gmail.com', '867718013126', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-16 04:42:18', '2018-12-16 04:42:18'),
+(469, 13, 126, 'Mrs.', 'Bruna', 'Karole', 'Bruna Karole Pte Ltd', 'Suntec City Mall 3 Temasek Boulevard #01-199 038983, Singapore', 'Male', '', '98244336', 1, '', '', 'Bruna.Karole@gmail.com', '594166113126', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-16 04:42:18', '2018-12-16 04:42:18'),
+(470, 13, 126, 'Ms', 'Marry', 'Albertina', 'Marry Albertina Pte Ltd', 'Suntec Tower Three 8 Temasek Boulevard #23-03 038988, Singapore', 'Female', '', '93159479', 1, '', '', 'Marry.Albertina@gmail.com', '179416813126', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-16 04:42:18', '2018-12-16 04:42:18'),
+(471, 13, 126, 'Dr.', 'Jana', 'Darlena', 'Jana Darlena Pte Ltd', 'Crane+Resistoflex+Xomox Pte Ltd 16 Gul Link Singapore 629386, Singapore', 'Male', '', '98172955', 1, '', '', 'Jana.Darlena@gmail.com', '993140513126', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-16 04:42:18', '2018-12-16 04:42:18'),
+(472, 13, 126, 'Prof', 'Kiana', 'Antonietta', 'Kiana Antonietta Pte Ltd', '11 Temasek Boulevard #40-02 Suntec Tower 3, 038988, Singapore', 'Male', '', '98140891', 1, '', '', 'Kiana.Antonietta@gmail.com', '182761213126', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-16 04:42:18', '2018-12-16 04:42:18'),
+(473, 13, 126, 'Mr.', 'Tuyet', 'Karri', 'Tuyet Karri Pte Ltd', '111 Gerald Drive #04-38, 799035, Singapore', 'Female', '', '89441381', 1, '', '', 'Tuyet.Karri@gmail.com', '106737713126', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-16 04:42:18', '2018-12-16 04:42:18'),
+(474, 13, 126, 'Mrs.', 'Ronny', 'Michel', 'Ronny Michel Pte Ltd', '38 Gul Crescent, 629544, Singapore', 'Male', '', '94358957', 1, '', '', 'Ronny.Michel@gmail.com', '287349413126', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-16 04:42:18', '2018-12-16 04:42:18'),
+(475, 13, 126, 'Ms', 'Anton', 'Shera', 'Anton Shera Pte Ltd', 'United Square 101 Thomson Road #12-01 /#16-01 to #16-02 307591, Singapore', 'Male', '', '97655645', 1, '', '', 'Anton.Shera@gmail.com', '469813513126', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-16 04:42:18', '2018-12-16 04:42:18'),
+(476, 13, 126, 'Dr.', 'Sterling', 'Alease', 'Sterling Alease Pte Ltd', 'Suntec City Mall 3 Temasek Boulevard #01-199 038983, Singapore', 'Female', '', '97215691', 1, '', '', 'Sterling.Alease@gmail.com', '979222513126', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-16 04:42:18', '2018-12-16 04:42:18'),
+(477, 13, 126, 'Prof', 'Zenaida', 'Kum', 'Zenaida Kum Pte Ltd', 'Suntec Tower Three 8 Temasek Boulevard #23-03 038988, Singapore', 'Male', '', '92525663', 1, '', '', 'Zenaida.Kum@gmail.com', '349835113126', 'Organiser', 0, 0, NULL, NULL, NULL, '2018-12-16 04:42:18', '2018-12-16 04:42:18'),
+(478, 13, 126, 'Mr.', 'Mikki', 'Markus', 'Mikki Markus Pte Ltd', 'Crane+Resistoflex+Xomox Pte Ltd 16 Gul Link Singapore 629386, Singapore', 'Male', '', '98084100', 1, '', '', 'Mikki.Markus@gmail.com', '043146513126', 'Organiser', 0, 0, NULL, NULL, NULL, '2018-12-16 04:42:18', '2018-12-16 04:42:18'),
+(479, 13, 126, 'Mrs.', 'Sixta', 'Ariane', 'Sixta Ariane Pte Ltd', '12 Temasek Boulevard #40-02 Suntec Tower 3, 038988, Singapore', 'Female', '', '99352902', 1, '', '', 'Sixta.Ariane@gmail.com', '824597513126', 'Organiser', 0, 0, NULL, NULL, NULL, '2018-12-16 04:42:18', '2018-12-16 04:42:18'),
+(480, 13, 126, 'Ms', 'Elbert', 'Nakita', 'Elbert Nakita Pte Ltd', '112 Gerald Drive #04-38, 799035, Singapore', 'Male', '', '91476589', 1, '', '', 'Elbert.Nakita@gmail.com', '004902013126', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-16 04:42:18', '2018-12-16 04:42:18'),
+(481, 13, 126, 'Dr.', 'Lavera', 'Douglass', 'Lavera Douglass Pte Ltd', '39 Gul Crescent, 629544, Singapore', 'Male', '', '92382843', 1, '', '', 'Lavera.Douglass@gmail.com', '771544013126', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-16 04:42:18', '2018-12-16 04:42:18'),
+(482, 13, 126, 'Prof', 'Hildegarde', 'Dinorah', 'Hildegarde Dinorah Pte Ltd', 'United Square 101 Thomson Road #12-01 /#16-01 to #16-02 307591, Singapore', 'Female', '', '90345600', 1, '', '', 'Hildegarde.Dinorah@gmail.com', '030107713126', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-16 04:42:18', '2018-12-16 04:42:18'),
+(483, 13, 126, 'Mr.', 'Kenton', 'Sheryll', 'Kenton Sheryll Pte Ltd', 'Suntec City Mall 3 Temasek Boulevard #01-199 038983, Singapore', 'Male', '', '90787291', 1, '', '', 'Kenton.Sheryll@gmail.com', '553543213126', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-16 04:42:18', '2018-12-16 04:42:18'),
+(484, 13, 126, 'Mrs.', 'Pearly', 'Marjory', 'Pearly Marjory Pte Ltd', 'Suntec Tower Three 8 Temasek Boulevard #23-03 038988, Singapore', 'Male', '', '93841256', 1, '', '', 'Pearly.Marjory@gmail.com', '670775713126', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-16 04:42:18', '2018-12-16 04:42:18'),
+(485, 13, 126, 'Ms', 'Solomon', 'Isobel', 'Solomon Isobel Pte Ltd', 'Crane+Resistoflex+Xomox Pte Ltd 16 Gul Link Singapore 629386, Singapore', 'Female', '', '94383863', 1, '', '', 'Solomon.Isobel@gmail.com', '677213913126', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-16 04:42:18', '2018-12-16 04:42:18'),
+(486, 13, 126, 'Dr.', 'Rafael', 'Sherie', 'Rafael Sherie Pte Ltd', '13 Temasek Boulevard #40-02 Suntec Tower 3, 038988, Singapore', 'Male', '', '89478508', 1, '', '', 'Rafael.Sherie@gmail.com', '372607013126', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-16 04:42:18', '2018-12-16 04:42:18'),
+(487, 13, 126, 'Prof', 'Allen', 'Romona', 'Allen Romona Pte Ltd', '113 Gerald Drive #04-38, 799035, Singapore', 'Male', '', '94812274', 1, '', '', 'Allen.Romona@gmail.com', '710180813126', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-16 04:42:18', '2018-12-16 04:42:18'),
+(488, 13, 126, 'Mr.', 'Rosia', 'Dorthea', 'Rosia Dorthea Pte Ltd', '40 Gul Crescent, 629544, Singapore', 'Female', '', '91600651', 1, '', '', 'Rosia.Dorthea@gmail.com', '837471113126', 'VIP', 0, 0, NULL, NULL, NULL, '2018-12-16 04:42:18', '2018-12-16 04:42:18'),
+(489, 13, 126, 'Mrs.', 'Lida', 'Mammie', 'Lida Mammie Pte Ltd', 'United Square 101 Thomson Road #12-01 /#16-01 to #16-02 307591, Singapore', 'Male', '', '92627695', 1, '', '', 'Lida.Mammie@gmail.com', '576927613126', 'VIP', 0, 0, NULL, NULL, NULL, '2018-12-16 04:42:18', '2018-12-16 04:42:18'),
+(490, 13, 126, 'Ms', 'Eva', 'Arvilla', 'Eva Arvilla Pte Ltd', 'Suntec City Mall 3 Temasek Boulevard #01-199 038983, Singapore', 'Male', '', '99346002', 1, '', '', 'Eva.Arvilla@gmail.com', '326896313126', 'VIP', 0, 0, NULL, NULL, NULL, '2018-12-16 04:42:18', '2018-12-16 04:42:18'),
+(491, 13, 126, 'Dr.', 'Gloria', 'Yoshiko', 'Gloria Yoshiko Pte Ltd', 'Suntec Tower Three 8 Temasek Boulevard #23-03 038988, Singapore', 'Female', '', '98753035', 1, '', '', 'Gloria.Yoshiko@gmail.com', '132009713126', 'VIP', 0, 0, NULL, NULL, NULL, '2018-12-16 04:42:18', '2018-12-16 04:42:18'),
+(492, 13, 126, 'Prof', 'Kendrick', 'Lin', 'Kendrick Lin Pte Ltd', 'Crane+Resistoflex+Xomox Pte Ltd 16 Gul Link Singapore 629386, Singapore', 'Male', '', '99322304', 1, '', '', 'Kendrick.Lin@gmail.com', '808200713126', 'VIP', 0, 0, NULL, NULL, NULL, '2018-12-16 04:42:18', '2018-12-16 04:42:18'),
+(493, 13, 126, 'Mr.', 'Yuki', 'Jenice', 'Yuki Jenice Pte Ltd', '14 Temasek Boulevard #40-02 Suntec Tower 3, 038988, Singapore', 'Male', '', '99959677', 1, '', '', 'Yuki.Jenice@gmail.com', '666089013126', 'VIP', 0, 0, NULL, NULL, NULL, '2018-12-16 04:42:18', '2018-12-16 04:42:18'),
+(494, 13, 126, 'Mrs.', 'Mackenzie', 'Dayna', 'Mackenzie Dayna Pte Ltd', '114 Gerald Drive #04-38, 799035, Singapore', 'Female', '', '97424525', 1, '', '', 'Mackenzie.Dayna@gmail.com', '594594313126', 'VIP', 0, 0, NULL, NULL, NULL, '2018-12-16 04:42:18', '2018-12-16 04:42:18'),
+(495, 13, 126, 'Ms', 'Marissa', 'Junie', 'Marissa Junie Pte Ltd', '41 Gul Crescent, 629544, Singapore', 'Male', '', '89270181', 1, '', '', 'Marissa.Junie@gmail.com', '519668313126', 'VIP', 0, 0, NULL, NULL, NULL, '2018-12-16 04:42:18', '2018-12-16 04:42:18'),
+(496, 13, 126, 'Dr.', 'Roma', 'Jerrie', 'Roma Jerrie Pte Ltd', 'United Square 101 Thomson Road #12-01 /#16-01 to #16-02 307591, Singapore', 'Male', '', '93184727', 1, '', '', 'Roma.Jerrie@gmail.com', '361269913126', 'VIP', 0, 0, NULL, NULL, NULL, '2018-12-16 04:42:18', '2018-12-16 04:42:18'),
+(497, 13, 127, 'Ms', 'asd', 'asd', 'asdasdasd', NULL, NULL, NULL, '212524512345', 2, '', '', 'zeteo87@gmail.com', '679228913127', 'visitor', 1, 1, '679228913127.png', 'ABS 2019.pdf', NULL, '2018-12-17 00:45:05', '2018-12-17 00:45:05'),
+(498, 13, 128, 'Mr.', 'Cyndi', 'Arlena', 'Cyndi Arlena Pte Ltd', 'Suntec City Mall 3 Temasek Boulevard #01-199 038983, Singapore', 'Male', '', '95167077', 1, '', '', 'Cyndi.Arlena@gmail.com', '776384313128', 'Visitor', 1, 1, '776384313128.png', 'ABS-2019_776384313128.pdf', NULL, '2018-12-18 17:36:40', '2018-12-18 17:37:46'),
+(499, 13, 128, 'Mrs.', 'Golden', 'Brandi', 'Golden Brandi Pte Ltd', 'Suntec Tower Three 8 Temasek Boulevard #23-03 038988, Singapore', 'Female', '', '98940528', 1, '', '', 'Golden.Brandi@gmail.com', '559360013128', 'Visitor', 1, 1, '559360013128.png', 'ABS-2019_559360013128.pdf', NULL, '2018-12-18 17:36:40', '2018-12-18 17:37:46'),
+(500, 13, 128, 'Ms', 'Jude', 'Lyndsay', 'Jude Lyndsay Pte Ltd', 'Crane Resistoflex Xomox Pte Ltd 16 Gul Link Singapore 629386, Singapore', 'Male', '', '98547857', 1, '', '', 'Jude.Lyndsay@gmail.com', '563430913128', 'Visitor', 1, 1, '563430913128.png', 'ABS-2019_563430913128.pdf', NULL, '2018-12-18 17:36:40', '2018-12-18 17:37:46'),
+(501, 13, 128, 'Dr.', 'Doloris', 'Siobhan', 'Doloris Siobhan Pte Ltd', '8 Temasek Boulevard #40-02 Suntec Tower 3, 038988, Singapore', 'Male', '', '97708117', 1, '', '', 'Doloris.Siobhan@gmail.com', '598165913128', 'Visitor', 1, 1, '598165913128.png', 'ABS-2019_598165913128.pdf', NULL, '2018-12-18 17:36:40', '2018-12-18 17:37:46'),
+(502, 13, 128, 'Prof', 'Glen', 'Ashly', 'Glen Ashly Pte Ltd', '108 Gerald Drive #04-38, 799035, Singapore', 'Female', '', '96744641', 1, '', '', 'Glen.Ashly@gmail.com', '456514013128', 'Visitor', 1, 1, '456514013128.png', 'ABS-2019_456514013128.pdf', NULL, '2018-12-18 17:36:40', '2018-12-18 17:37:46'),
+(503, 13, 128, 'Mr.', 'Lillia', 'Jenniffer', 'Lillia Jenniffer Pte Ltd', '35 Gul Crescent, 629544, Singapore', 'Male', '', '98771508', 1, '', '', 'Lillia.Jenniffer@gmail.com', '033719413128', 'Visitor', 1, 1, '033719413128.png', 'ABS-2019_033719413128.pdf', NULL, '2018-12-18 17:36:40', '2018-12-18 17:37:46'),
+(504, 13, 128, 'Mrs.', 'Denna', 'Stephany', 'Denna Stephany Pte Ltd', 'United Square 101 Thomson Road #12-01 /#16-01 to #16-02 307591, Singapore', 'Male', '', '93203051', 1, '', '', 'Denna.Stephany@gmail.com', '482092413128', 'Visitor', 1, 1, '482092413128.png', 'ABS-2019_482092413128.pdf', NULL, '2018-12-18 17:36:40', '2018-12-18 17:37:46'),
+(505, 13, 128, 'Ms', 'Esther', 'Florencia', 'Esther Florencia Pte Ltd', 'Suntec City Mall 3 Temasek Boulevard #01-199 038983, Singapore', 'Female', '', '94224847', 1, '', '', 'Esther.Florencia@gmail.com', '419413913128', 'Visitor', 1, 1, '419413913128.png', 'ABS-2019_419413913128.pdf', NULL, '2018-12-18 17:36:40', '2018-12-18 17:37:46'),
+(506, 13, 128, 'Dr.', 'Nguyet', 'Hannelore', 'Nguyet Hannelore Pte Ltd', 'Suntec Tower Three 8 Temasek Boulevard #23-03 038988, Singapore', 'Male', '', '90324269', 1, '', '', 'Nguyet.Hannelore@gmail.com', '746366313128', 'Visitor', 1, 1, '746366313128.png', 'ABS-2019_746366313128.pdf', NULL, '2018-12-18 17:36:40', '2018-12-18 17:37:46'),
+(507, 13, 128, 'Prof', 'Elias', 'Deedra', 'Elias Deedra Pte Ltd', 'Crane Resistoflex Xomox Pte Ltd 16 Gul Link Singapore 629386, Singapore', 'Male', '', '89073452', 1, '', '', 'Elias.Deedra@gmail.com', '406649013128', 'Visitor', 1, 1, '406649013128.png', 'ABS-2019_406649013128.pdf', NULL, '2018-12-18 17:36:40', '2018-12-18 17:37:46'),
+(508, 13, 128, 'Mr.', 'Trevor', 'Fatima', 'Trevor Fatima Pte Ltd', '9 Temasek Boulevard #40-02 Suntec Tower 3, 038988, Singapore', 'Female', '', '89600025', 1, '', '', 'Trevor.Fatima@gmail.com', '980019713128', 'Visitor', 1, 1, '980019713128.png', 'ABS-2019_980019713128.pdf', NULL, '2018-12-18 17:36:40', '2018-12-18 17:37:46'),
+(509, 13, 128, 'Mrs.', 'Berneice', 'Melvina', 'Berneice Melvina Pte Ltd', '109 Gerald Drive #04-38, 799035, Singapore', 'Male', '', '99223653', 1, '', '', 'Berneice.Melvina@gmail.com', '351415613128', 'Visitor', 1, 1, '351415613128.png', 'ABS-2019_351415613128.pdf', NULL, '2018-12-18 17:36:40', '2018-12-18 17:37:46'),
+(510, 13, 128, 'Ms', 'Dreama', 'Vincent', 'Dreama Vincent Pte Ltd', '36 Gul Crescent, 629544, Singapore', 'Male', '', '97278857', 1, '', '', 'Dreama.Vincent@gmail.com', '195222013128', 'Visitor', 1, 1, '195222013128.png', 'ABS-2019_195222013128.pdf', NULL, '2018-12-18 17:36:40', '2018-12-18 17:37:46'),
+(511, 13, 128, 'Dr.', 'Rozella', 'Lizzie', 'Rozella Lizzie Pte Ltd', 'United Square 101 Thomson Road #12-01 /#16-01 to #16-02 307591, Singapore', 'Female', '', '99875966', 1, '', '', 'Rozella.Lizzie@gmail.com', '026504713128', 'Visitor', 1, 1, '026504713128.png', 'ABS-2019_026504713128.pdf', NULL, '2018-12-18 17:36:40', '2018-12-18 17:37:46'),
+(512, 13, 128, 'Prof', 'Xiao', 'Mariela', 'Xiao Mariela Pte Ltd', 'Suntec City Mall 3 Temasek Boulevard #01-199 038983, Singapore', 'Male', '', '92648112', 1, '', '', 'Xiao.Mariela@gmail.com', '471387413128', 'Visitor', 1, 1, '471387413128.png', 'ABS-2019_471387413128.pdf', NULL, '2018-12-18 17:36:40', '2018-12-18 17:37:46'),
+(513, 13, 128, 'Mr.', 'Zandra', 'Yan', 'Zandra Yan Pte Ltd', 'Suntec Tower Three 8 Temasek Boulevard #23-03 038988, Singapore', 'Male', '', '90962634', 1, '', '', 'Zandra.Yan@gmail.com', '752791013128', 'Visitor', 1, 1, '752791013128.png', 'ABS-2019_752791013128.pdf', NULL, '2018-12-18 17:36:40', '2018-12-18 17:37:46'),
+(514, 13, 128, 'Mrs.', 'Nadia', 'Claris', 'Nadia Claris Pte Ltd', 'Crane Resistoflex Xomox Pte Ltd 16 Gul Link Singapore 629386, Singapore', 'Female', '', '94332539', 1, '', '', 'Nadia.Claris@gmail.com', '824207413128', 'Visitor', 1, 1, '824207413128.png', 'ABS-2019_824207413128.pdf', NULL, '2018-12-18 17:36:40', '2018-12-18 17:37:46'),
+(515, 13, 128, 'Ms', 'Barbie', 'Criselda', 'Barbie Criselda Pte Ltd', '10 Temasek Boulevard #40-02 Suntec Tower 3, 038988, Singapore', 'Male', '', '93093512', 1, '', '', 'Barbie.Criselda@gmail.com', '943386613128', 'Visitor', 1, 1, '943386613128.png', 'ABS-2019_943386613128.pdf', NULL, '2018-12-18 17:36:40', '2018-12-18 17:37:46'),
+(516, 13, 128, 'Dr.', 'Sudie', 'Hoa', 'Sudie Hoa Pte Ltd', '110 Gerald Drive #04-38, 799035, Singapore', 'Male', '', '97879423', 1, '', '', 'Sudie.Hoa@gmail.com', '233057813128', 'Visitor', 1, 1, '233057813128.png', 'ABS-2019_233057813128.pdf', NULL, '2018-12-18 17:36:40', '2018-12-18 17:37:46'),
+(517, 13, 128, 'Prof', 'Marti', 'Kirk', 'Marti Kirk Pte Ltd', '37 Gul Crescent, 629544, Singapore', 'Female', '', '96030158', 1, '', '', 'Marti.Kirk@gmail.com', '389880013128', 'Visitor', 1, 1, '389880013128.png', 'ABS-2019_389880013128.pdf', NULL, '2018-12-18 17:36:40', '2018-12-18 17:37:46'),
+(518, 13, 128, 'Mr.', 'Yan', 'Von', 'Yan Von Pte Ltd', 'United Square 101 Thomson Road #12-01 /#16-01 to #16-02 307591, Singapore', 'Male', '', '95821921', 1, '', '', 'Yan.Von@gmail.com', '673848013128', 'Visitor', 1, 1, '673848013128.png', 'ABS-2019_673848013128.pdf', NULL, '2018-12-18 17:36:40', '2018-12-18 17:37:46'),
+(519, 13, 128, 'Mrs.', 'Bruna', 'Karole', 'Bruna Karole Pte Ltd', 'Suntec City Mall 3 Temasek Boulevard #01-199 038983, Singapore', 'Male', '', '98244336', 1, '', '', 'Bruna.Karole@gmail.com', '710930013128', 'Visitor', 1, 1, '710930013128.png', 'ABS-2019_710930013128.pdf', NULL, '2018-12-18 17:36:40', '2018-12-18 17:37:46'),
+(520, 13, 128, 'Ms', 'Marry', 'Albertina', 'Marry Albertina Pte Ltd', 'Suntec Tower Three 8 Temasek Boulevard #23-03 038988, Singapore', 'Female', '', '93159479', 1, '', '', 'Marry.Albertina@gmail.com', '173023013128', 'Visitor', 1, 1, '173023013128.png', 'ABS-2019_173023013128.pdf', NULL, '2018-12-18 17:36:40', '2018-12-18 17:37:46'),
+(521, 13, 128, 'Dr.', 'Jana', 'Darlena', 'Jana Darlena Pte Ltd', 'Crane Resistoflex Xomox Pte Ltd 16 Gul Link Singapore 629386, Singapore', 'Male', '', '98172955', 1, '', '', 'Jana.Darlena@gmail.com', '411383813128', 'Visitor', 1, 1, '411383813128.png', 'ABS-2019_411383813128.pdf', NULL, '2018-12-18 17:36:40', '2018-12-18 17:37:46'),
+(522, 13, 128, 'Prof', 'Kiana', 'Antonietta', 'Kiana Antonietta Pte Ltd', '11 Temasek Boulevard #40-02 Suntec Tower 3, 038988, Singapore', 'Male', '', '98140891', 1, '', '', 'Kiana.Antonietta@gmail.com', '787384413128', 'Visitor', 1, 1, '787384413128.png', 'ABS-2019_787384413128.pdf', NULL, '2018-12-18 17:36:40', '2018-12-18 17:37:46'),
+(523, 13, 128, 'Mr.', 'Tuyet', 'Karri', 'Tuyet Karri Pte Ltd', '111 Gerald Drive #04-38, 799035, Singapore', 'Female', '', '89441381', 1, '', '', 'Tuyet.Karri@gmail.com', '808062513128', 'Visitor', 1, 1, '808062513128.png', 'ABS-2019_808062513128.pdf', NULL, '2018-12-18 17:36:40', '2018-12-18 17:37:46'),
+(524, 13, 128, 'Mrs.', 'Ronny', 'Michel', 'Ronny Michel Pte Ltd', '38 Gul Crescent, 629544, Singapore', 'Male', '', '94358957', 1, '', '', 'Ronny.Michel@gmail.com', '382089113128', 'Visitor', 1, 1, '382089113128.png', 'ABS-2019_382089113128.pdf', NULL, '2018-12-18 17:36:40', '2018-12-18 17:37:46'),
+(525, 13, 128, 'Ms', 'Anton', 'Shera', 'Anton Shera Pte Ltd', 'United Square 101 Thomson Road #12-01 /#16-01 to #16-02 307591, Singapore', 'Male', '', '97655645', 1, '', '', 'Anton.Shera@gmail.com', '197619613128', 'Visitor', 1, 1, '197619613128.png', 'ABS-2019_197619613128.pdf', NULL, '2018-12-18 17:36:40', '2018-12-18 17:37:46'),
+(526, 13, 128, 'Dr.', 'Sterling', 'Alease', 'Sterling Alease Pte Ltd', 'Suntec City Mall 3 Temasek Boulevard #01-199 038983, Singapore', 'Female', '', '97215691', 1, '', '', 'Sterling.Alease@gmail.com', '166038313128', 'Visitor', 1, 1, '166038313128.png', 'ABS-2019_166038313128.pdf', NULL, '2018-12-18 17:36:40', '2018-12-18 17:37:46'),
+(527, 13, 128, 'Prof', 'Zenaida', 'Kum', 'Zenaida Kum Pte Ltd', 'Suntec Tower Three 8 Temasek Boulevard #23-03 038988, Singapore', 'Male', '', '92525663', 1, '', '', 'Zenaida.Kum@gmail.com', '706322513128', 'Organiser', 1, 1, '706322513128.png', 'ABS-2019_706322513128.pdf', NULL, '2018-12-18 17:36:40', '2018-12-18 17:37:46'),
+(528, 13, 128, 'Mr.', 'Mikki', 'Markus', 'Mikki Markus Pte Ltd', 'Crane Resistoflex Xomox Pte Ltd 16 Gul Link Singapore 629386, Singapore', 'Male', '', '98084100', 1, '', '', 'Mikki.Markus@gmail.com', '448993513128', 'Organiser', 1, 1, '448993513128.png', 'ABS-2019_448993513128.pdf', NULL, '2018-12-18 17:36:40', '2018-12-18 17:37:46'),
+(529, 13, 128, 'Mrs.', 'Sixta', 'Ariane', 'Sixta Ariane Pte Ltd', '12 Temasek Boulevard #40-02 Suntec Tower 3, 038988, Singapore', 'Female', '', '99352902', 1, '', '', 'Sixta.Ariane@gmail.com', '567265213128', 'Organiser', 1, 1, '567265213128.png', 'ABS-2019_567265213128.pdf', NULL, '2018-12-18 17:36:40', '2018-12-18 17:37:46'),
+(530, 13, 128, 'Ms', 'Elbert', 'Nakita', 'Elbert Nakita Pte Ltd', '112 Gerald Drive #04-38, 799035, Singapore', 'Male', '', '91476589', 1, '', '', 'Elbert.Nakita@gmail.com', '399450213128', 'Visitor', 1, 1, '399450213128.png', 'ABS-2019_399450213128.pdf', NULL, '2018-12-18 17:36:40', '2018-12-18 17:37:46'),
+(531, 13, 128, 'Dr.', 'Lavera', 'Douglass', 'Lavera Douglass Pte Ltd', '39 Gul Crescent, 629544, Singapore', 'Male', '', '92382843', 1, '', '', 'Lavera.Douglass@gmail.com', '396229413128', 'Visitor', 1, 1, '396229413128.png', 'ABS-2019_396229413128.pdf', NULL, '2018-12-18 17:36:40', '2018-12-18 17:37:46'),
+(532, 13, 128, 'Prof', 'Hildegarde', 'Dinorah', 'Hildegarde Dinorah Pte Ltd', 'United Square 101 Thomson Road #12-01 /#16-01 to #16-02 307591, Singapore', 'Female', '', '90345600', 1, '', '', 'Hildegarde.Dinorah@gmail.com', '377881713128', 'Visitor', 1, 1, '377881713128.png', 'ABS-2019_377881713128.pdf', NULL, '2018-12-18 17:36:40', '2018-12-18 17:37:46'),
+(533, 13, 128, 'Mr.', 'Kenton', 'Sheryll', 'Kenton Sheryll Pte Ltd', 'Suntec City Mall 3 Temasek Boulevard #01-199 038983, Singapore', 'Male', '', '90787291', 1, '', '', 'Kenton.Sheryll@gmail.com', '790997513128', 'Visitor', 1, 1, '790997513128.png', 'ABS-2019_790997513128.pdf', NULL, '2018-12-18 17:36:40', '2018-12-18 17:37:46'),
+(534, 13, 128, 'Mrs.', 'Pearly', 'Marjory', 'Pearly Marjory Pte Ltd', 'Suntec Tower Three 8 Temasek Boulevard #23-03 038988, Singapore', 'Male', '', '93841256', 1, '', '', 'Pearly.Marjory@gmail.com', '374605213128', 'Visitor', 1, 1, '374605213128.png', 'ABS-2019_374605213128.pdf', NULL, '2018-12-18 17:36:40', '2018-12-18 17:37:46'),
+(535, 13, 128, 'Ms', 'Solomon', 'Isobel', 'Solomon Isobel Pte Ltd', 'Crane Resistoflex Xomox Pte Ltd 16 Gul Link Singapore 629386, Singapore', 'Female', '', '94383863', 1, '', '', 'Solomon.Isobel@gmail.com', '473757113128', 'Visitor', 1, 1, '473757113128.png', 'ABS-2019_473757113128.pdf', NULL, '2018-12-18 17:36:40', '2018-12-18 17:37:46'),
+(536, 13, 128, 'Dr.', 'Rafael', 'Sherie', 'Rafael Sherie Pte Ltd', '13 Temasek Boulevard #40-02 Suntec Tower 3, 038988, Singapore', 'Male', '', '89478508', 1, '', '', 'Rafael.Sherie@gmail.com', '453663813128', 'Visitor', 1, 1, '453663813128.png', 'ABS-2019_453663813128.pdf', NULL, '2018-12-18 17:36:40', '2018-12-18 17:37:46'),
+(537, 13, 128, 'Prof', 'Allen', 'Romona', 'Allen Romona Pte Ltd', '113 Gerald Drive #04-38, 799035, Singapore', 'Male', '', '94812274', 1, '', '', 'Allen.Romona@gmail.com', '807819013128', 'Visitor', 1, 1, '807819013128.png', 'ABS-2019_807819013128.pdf', NULL, '2018-12-18 17:36:40', '2018-12-18 17:37:46'),
+(538, 13, 128, 'Mr.', 'Rosia', 'Dorthea', 'Rosia Dorthea Pte Ltd', '40 Gul Crescent, 629544, Singapore', 'Female', '', '91600651', 1, '', '', 'Rosia.Dorthea@gmail.com', '236808313128', 'VIP', 1, 1, '236808313128.png', 'ABS-2019_236808313128.pdf', NULL, '2018-12-18 17:36:40', '2018-12-18 17:37:46'),
+(539, 13, 128, 'Mrs.', 'Lida', 'Mammie', 'Lida Mammie Pte Ltd', 'United Square 101 Thomson Road #12-01 /#16-01 to #16-02 307591, Singapore', 'Male', '', '92627695', 1, '', '', 'Lida.Mammie@gmail.com', '389179113128', 'VIP', 1, 1, '389179113128.png', 'ABS-2019_389179113128.pdf', NULL, '2018-12-18 17:36:40', '2018-12-18 17:37:46'),
+(540, 13, 128, 'Ms', 'Eva', 'Arvilla', 'Eva Arvilla Pte Ltd', 'Suntec City Mall 3 Temasek Boulevard #01-199 038983, Singapore', 'Male', '', '99346002', 1, '', '', 'Eva.Arvilla@gmail.com', '394029013128', 'VIP', 1, 1, '394029013128.png', 'ABS-2019_394029013128.pdf', NULL, '2018-12-18 17:36:40', '2018-12-18 17:37:46'),
+(541, 13, 128, 'Dr.', 'Gloria', 'Yoshiko', 'Gloria Yoshiko Pte Ltd', 'Suntec Tower Three 8 Temasek Boulevard #23-03 038988, Singapore', 'Female', '', '98753035', 1, '', '', 'Gloria.Yoshiko@gmail.com', '682242913128', 'VIP', 1, 1, '682242913128.png', 'ABS-2019_682242913128.pdf', NULL, '2018-12-18 17:36:40', '2018-12-18 17:37:46'),
+(542, 13, 128, 'Prof', 'Kendrick', 'Lin', 'Kendrick Lin Pte Ltd', 'Crane Resistoflex Xomox Pte Ltd 16 Gul Link Singapore 629386, Singapore', 'Male', '', '99322304', 1, '', '', 'Kendrick.Lin@gmail.com', '944783113128', 'VIP', 1, 1, '944783113128.png', 'ABS-2019_944783113128.pdf', NULL, '2018-12-18 17:36:40', '2018-12-18 17:37:46'),
+(543, 13, 128, 'Mr.', 'Yuki', 'Jenice', 'Yuki Jenice Pte Ltd', '14 Temasek Boulevard #40-02 Suntec Tower 3, 038988, Singapore', 'Male', '', '99959677', 1, '', '', 'Yuki.Jenice@gmail.com', '436395813128', 'VIP', 1, 1, '436395813128.png', 'ABS-2019_436395813128.pdf', NULL, '2018-12-18 17:36:40', '2018-12-18 17:37:46'),
+(544, 13, 128, 'Mrs.', 'Mackenzie', 'Dayna', 'Mackenzie Dayna Pte Ltd', '114 Gerald Drive #04-38, 799035, Singapore', 'Female', '', '97424525', 1, '', '', 'Mackenzie.Dayna@gmail.com', '653633113128', 'VIP', 1, 1, '653633113128.png', 'ABS-2019_653633113128.pdf', NULL, '2018-12-18 17:36:40', '2018-12-18 17:37:46'),
+(545, 13, 128, 'Ms', 'Marissa', 'Junie', 'Marissa Junie Pte Ltd', '41 Gul Crescent, 629544, Singapore', 'Male', '', '89270181', 1, '', '', 'Marissa.Junie@gmail.com', '458433813128', 'VIP', 1, 1, '458433813128.png', 'ABS-2019_458433813128.pdf', NULL, '2018-12-18 17:36:40', '2018-12-18 17:37:46'),
+(546, 13, 128, 'Dr.', 'Roma', 'Jerrie', 'Roma Jerrie Pte Ltd', 'United Square 101 Thomson Road #12-01 /#16-01 to #16-02 307591, Singapore', 'Male', '', '93184727', 1, '', '', 'Roma.Jerrie@gmail.com', '068131513128', 'VIP', 1, 1, '068131513128.png', 'ABS-2019_068131513128.pdf', NULL, '2018-12-18 17:36:40', '2018-12-18 17:37:46'),
+(547, 13, 129, 'Mr.', 'Cyndi', 'Arlena', 'Cyndi Arlena Pte Ltd', 'Suntec City Mall 3 Temasek Boulevard #01-199 038983, Singapore', 'Male', '', '95167077', 1, '', '', 'Cyndi.Arlena@gmail.com', '813271613129', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-18 17:41:03', '2018-12-18 17:41:03'),
+(548, 13, 129, 'Mrs.', 'Golden', 'Brandi', 'Golden Brandi Pte Ltd', 'Suntec Tower Three 8 Temasek Boulevard #23-03 038988, Singapore', 'Female', '', '98940528', 1, '', '', 'Golden.Brandi@gmail.com', '358904613129', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-18 17:41:03', '2018-12-18 17:41:03'),
+(549, 13, 129, 'Ms', 'Jude', 'Lyndsay', 'Jude Lyndsay Pte Ltd', 'Crane+Resistoflex+Xomox Pte Ltd 16 Gul Link Singapore 629386, Singapore', 'Male', '', '98547857', 1, '', '', 'Jude.Lyndsay@gmail.com', '321984613129', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-18 17:41:03', '2018-12-18 17:41:03'),
+(550, 13, 129, 'Dr.', 'Doloris', 'Siobhan', 'Doloris Siobhan Pte Ltd', '8 Temasek Boulevard #40-02 Suntec Tower 3, 038988, Singapore', 'Male', '', '97708117', 1, '', '', 'Doloris.Siobhan@gmail.com', '081135313129', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-18 17:41:03', '2018-12-18 17:41:03'),
+(551, 13, 129, 'Prof', 'Glen', 'Ashly', 'Glen Ashly Pte Ltd', '108 Gerald Drive #04-38, 799035, Singapore', 'Female', '', '96744641', 1, '', '', 'Glen.Ashly@gmail.com', '073407613129', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-18 17:41:03', '2018-12-18 17:41:03'),
+(552, 13, 129, 'Mr.', 'Lillia', 'Jenniffer', 'Lillia Jenniffer Pte Ltd', '35 Gul Crescent, 629544, Singapore', 'Male', '', '98771508', 1, '', '', 'Lillia.Jenniffer@gmail.com', '393576313129', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-18 17:41:03', '2018-12-18 17:41:03'),
+(553, 13, 129, 'Mrs.', 'Denna', 'Stephany', 'Denna Stephany Pte Ltd', 'United Square 101 Thomson Road #12-01 /#16-01 to #16-02 307591, Singapore', 'Male', '', '93203051', 1, '', '', 'Denna.Stephany@gmail.com', '504893713129', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-18 17:41:03', '2018-12-18 17:41:03'),
+(554, 13, 129, 'Ms', 'Esther', 'Florencia', 'Esther Florencia Pte Ltd', 'Suntec City Mall 3 Temasek Boulevard #01-199 038983, Singapore', 'Female', '', '94224847', 1, '', '', 'Esther.Florencia@gmail.com', '059331513129', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-18 17:41:03', '2018-12-18 17:41:03'),
+(555, 13, 129, 'Dr.', 'Nguyet', 'Hannelore', 'Nguyet Hannelore Pte Ltd', 'Suntec Tower Three 8 Temasek Boulevard #23-03 038988, Singapore', 'Male', '', '90324269', 1, '', '', 'Nguyet.Hannelore@gmail.com', '421993613129', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-18 17:41:03', '2018-12-18 17:41:03'),
+(556, 13, 129, 'Prof', 'Elias', 'Deedra', 'Elias Deedra Pte Ltd', 'Crane+Resistoflex+Xomox Pte Ltd 16 Gul Link Singapore 629386, Singapore', 'Male', '', '89073452', 1, '', '', 'Elias.Deedra@gmail.com', '468568113129', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-18 17:41:03', '2018-12-18 17:41:03'),
+(557, 13, 129, 'Mr.', 'Trevor', 'Fatima', 'Trevor Fatima Pte Ltd', '9 Temasek Boulevard #40-02 Suntec Tower 3, 038988, Singapore', 'Female', '', '89600025', 1, '', '', 'Trevor.Fatima@gmail.com', '707006513129', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-18 17:41:03', '2018-12-18 17:41:03'),
+(558, 13, 129, 'Mrs.', 'Berneice', 'Melvina', 'Berneice Melvina Pte Ltd', '109 Gerald Drive #04-38, 799035, Singapore', 'Male', '', '99223653', 1, '', '', 'Berneice.Melvina@gmail.com', '109277013129', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-18 17:41:03', '2018-12-18 17:41:03'),
+(559, 13, 129, 'Ms', 'Dreama', 'Vincent', 'Dreama Vincent Pte Ltd', '36 Gul Crescent, 629544, Singapore', 'Male', '', '97278857', 1, '', '', 'Dreama.Vincent@gmail.com', '151116913129', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-18 17:41:03', '2018-12-18 17:41:03'),
+(560, 13, 129, 'Dr.', 'Rozella', 'Lizzie', 'Rozella Lizzie Pte Ltd', 'United Square 101 Thomson Road #12-01 /#16-01 to #16-02 307591, Singapore', 'Female', '', '99875966', 1, '', '', 'Rozella.Lizzie@gmail.com', '221189013129', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-18 17:41:03', '2018-12-18 17:41:03'),
+(561, 13, 129, 'Prof', 'Xiao', 'Mariela', 'Xiao Mariela Pte Ltd', 'Suntec City Mall 3 Temasek Boulevard #01-199 038983, Singapore', 'Male', '', '92648112', 1, '', '', 'Xiao.Mariela@gmail.com', '693143613129', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-18 17:41:03', '2018-12-18 17:41:03'),
+(562, 13, 129, 'Mr.', 'Zandra', 'Yan', 'Zandra Yan Pte Ltd', 'Suntec Tower Three 8 Temasek Boulevard #23-03 038988, Singapore', 'Male', '', '90962634', 1, '', '', 'Zandra.Yan@gmail.com', '045200813129', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-18 17:41:03', '2018-12-18 17:41:03'),
+(563, 13, 129, 'Mrs.', 'Nadia', 'Claris', 'Nadia Claris Pte Ltd', 'Crane+Resistoflex+Xomox Pte Ltd 16 Gul Link Singapore 629386, Singapore', 'Female', '', '94332539', 1, '', '', 'Nadia.Claris@gmail.com', '962071113129', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-18 17:41:03', '2018-12-18 17:41:03'),
+(564, 13, 129, 'Ms', 'Barbie', 'Criselda', 'Barbie Criselda Pte Ltd', '10 Temasek Boulevard #40-02 Suntec Tower 3, 038988, Singapore', 'Male', '', '93093512', 1, '', '', 'Barbie.Criselda@gmail.com', '648312613129', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-18 17:41:03', '2018-12-18 17:41:03'),
+(565, 13, 129, 'Dr.', 'Sudie', 'Hoa', 'Sudie Hoa Pte Ltd', '110 Gerald Drive #04-38, 799035, Singapore', 'Male', '', '97879423', 1, '', '', 'Sudie.Hoa@gmail.com', '515302113129', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-18 17:41:03', '2018-12-18 17:41:03'),
+(566, 13, 129, 'Prof', 'Marti', 'Kirk', 'Marti Kirk Pte Ltd', '37 Gul Crescent, 629544, Singapore', 'Female', '', '96030158', 1, '', '', 'Marti.Kirk@gmail.com', '011534113129', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-18 17:41:03', '2018-12-18 17:41:03'),
+(567, 13, 129, 'Mr.', 'Yan', 'Von', 'Yan Von Pte Ltd', 'United Square 101 Thomson Road #12-01 /#16-01 to #16-02 307591, Singapore', 'Male', '', '95821921', 1, '', '', 'Yan.Von@gmail.com', '075030513129', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-18 17:41:03', '2018-12-18 17:41:03'),
+(568, 13, 129, 'Mrs.', 'Bruna', 'Karole', 'Bruna Karole Pte Ltd', 'Suntec City Mall 3 Temasek Boulevard #01-199 038983, Singapore', 'Male', '', '98244336', 1, '', '', 'Bruna.Karole@gmail.com', '518851913129', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-18 17:41:03', '2018-12-18 17:41:03'),
+(569, 13, 129, 'Ms', 'Marry', 'Albertina', 'Marry Albertina Pte Ltd', 'Suntec Tower Three 8 Temasek Boulevard #23-03 038988, Singapore', 'Female', '', '93159479', 1, '', '', 'Marry.Albertina@gmail.com', '467961713129', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-18 17:41:03', '2018-12-18 17:41:03'),
+(570, 13, 129, 'Dr.', 'Jana', 'Darlena', 'Jana Darlena Pte Ltd', 'Crane+Resistoflex+Xomox Pte Ltd 16 Gul Link Singapore 629386, Singapore', 'Male', '', '98172955', 1, '', '', 'Jana.Darlena@gmail.com', '483009713129', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-18 17:41:03', '2018-12-18 17:41:03'),
+(571, 13, 129, 'Prof', 'Kiana', 'Antonietta', 'Kiana Antonietta Pte Ltd', '11 Temasek Boulevard #40-02 Suntec Tower 3, 038988, Singapore', 'Male', '', '98140891', 1, '', '', 'Kiana.Antonietta@gmail.com', '595729013129', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-18 17:41:03', '2018-12-18 17:41:03'),
+(572, 13, 129, 'Mr.', 'Tuyet', 'Karri', 'Tuyet Karri Pte Ltd', '111 Gerald Drive #04-38, 799035, Singapore', 'Female', '', '89441381', 1, '', '', 'Tuyet.Karri@gmail.com', '658538513129', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-18 17:41:03', '2018-12-18 17:41:03'),
+(573, 13, 129, 'Mrs.', 'Ronny', 'Michel', 'Ronny Michel Pte Ltd', '38 Gul Crescent, 629544, Singapore', 'Male', '', '94358957', 1, '', '', 'Ronny.Michel@gmail.com', '900334013129', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-18 17:41:03', '2018-12-18 17:41:03'),
+(574, 13, 129, 'Ms', 'Anton', 'Shera', 'Anton Shera Pte Ltd', 'United Square 101 Thomson Road #12-01 /#16-01 to #16-02 307591, Singapore', 'Male', '', '97655645', 1, '', '', 'Anton.Shera@gmail.com', '378869013129', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-18 17:41:03', '2018-12-18 17:41:03'),
+(575, 13, 129, 'Dr.', 'Sterling', 'Alease', 'Sterling Alease Pte Ltd', 'Suntec City Mall 3 Temasek Boulevard #01-199 038983, Singapore', 'Female', '', '97215691', 1, '', '', 'Sterling.Alease@gmail.com', '619801413129', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-18 17:41:03', '2018-12-18 17:41:03'),
+(576, 13, 129, 'Prof', 'Zenaida', 'Kum', 'Zenaida Kum Pte Ltd', 'Suntec Tower Three 8 Temasek Boulevard #23-03 038988, Singapore', 'Male', '', '92525663', 1, '', '', 'Zenaida.Kum@gmail.com', '568999713129', 'Organiser', 0, 0, NULL, NULL, NULL, '2018-12-18 17:41:03', '2018-12-18 17:41:03'),
+(577, 13, 129, 'Mr.', 'Mikki', 'Markus', 'Mikki Markus Pte Ltd', 'Crane+Resistoflex+Xomox Pte Ltd 16 Gul Link Singapore 629386, Singapore', 'Male', '', '98084100', 1, '', '', 'Mikki.Markus@gmail.com', '292725113129', 'Organiser', 0, 0, NULL, NULL, NULL, '2018-12-18 17:41:03', '2018-12-18 17:41:03'),
+(578, 13, 129, 'Mrs.', 'Sixta', 'Ariane', 'Sixta Ariane Pte Ltd', '12 Temasek Boulevard #40-02 Suntec Tower 3, 038988, Singapore', 'Female', '', '99352902', 1, '', '', 'Sixta.Ariane@gmail.com', '663228713129', 'Organiser', 0, 0, NULL, NULL, NULL, '2018-12-18 17:41:03', '2018-12-18 17:41:03'),
+(579, 13, 129, 'Ms', 'Elbert', 'Nakita', 'Elbert Nakita Pte Ltd', '112 Gerald Drive #04-38, 799035, Singapore', 'Male', '', '91476589', 1, '', '', 'Elbert.Nakita@gmail.com', '057353413129', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-18 17:41:03', '2018-12-18 17:41:03'),
+(580, 13, 129, 'Dr.', 'Lavera', 'Douglass', 'Lavera Douglass Pte Ltd', '39 Gul Crescent, 629544, Singapore', 'Male', '', '92382843', 1, '', '', 'Lavera.Douglass@gmail.com', '560565513129', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-18 17:41:03', '2018-12-18 17:41:03'),
+(581, 13, 129, 'Prof', 'Hildegarde', 'Dinorah', 'Hildegarde Dinorah Pte Ltd', 'United Square 101 Thomson Road #12-01 /#16-01 to #16-02 307591, Singapore', 'Female', '', '90345600', 1, '', '', 'Hildegarde.Dinorah@gmail.com', '448175613129', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-18 17:41:03', '2018-12-18 17:41:03'),
+(582, 13, 129, 'Mr.', 'Kenton', 'Sheryll', 'Kenton Sheryll Pte Ltd', 'Suntec City Mall 3 Temasek Boulevard #01-199 038983, Singapore', 'Male', '', '90787291', 1, '', '', 'Kenton.Sheryll@gmail.com', '952719413129', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-18 17:41:03', '2018-12-18 17:41:03'),
+(583, 13, 129, 'Mrs.', 'Pearly', 'Marjory', 'Pearly Marjory Pte Ltd', 'Suntec Tower Three 8 Temasek Boulevard #23-03 038988, Singapore', 'Male', '', '93841256', 1, '', '', 'Pearly.Marjory@gmail.com', '120697913129', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-18 17:41:03', '2018-12-18 17:41:03'),
+(584, 13, 129, 'Ms', 'Solomon', 'Isobel', 'Solomon Isobel Pte Ltd', 'Crane+Resistoflex+Xomox Pte Ltd 16 Gul Link Singapore 629386, Singapore', 'Female', '', '94383863', 1, '', '', 'Solomon.Isobel@gmail.com', '657261313129', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-18 17:41:03', '2018-12-18 17:41:03'),
+(585, 13, 129, 'Dr.', 'Rafael', 'Sherie', 'Rafael Sherie Pte Ltd', '13 Temasek Boulevard #40-02 Suntec Tower 3, 038988, Singapore', 'Male', '', '89478508', 1, '', '', 'Rafael.Sherie@gmail.com', '466798113129', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-18 17:41:03', '2018-12-18 17:41:03'),
+(586, 13, 129, 'Prof', 'Allen', 'Romona', 'Allen Romona Pte Ltd', '113 Gerald Drive #04-38, 799035, Singapore', 'Male', '', '94812274', 1, '', '', 'Allen.Romona@gmail.com', '753648113129', 'Visitor', 0, 0, NULL, NULL, NULL, '2018-12-18 17:41:03', '2018-12-18 17:41:03'),
+(587, 13, 129, 'Mr.', 'Rosia', 'Dorthea', 'Rosia Dorthea Pte Ltd', '40 Gul Crescent, 629544, Singapore', 'Female', '', '91600651', 1, '', '', 'Rosia.Dorthea@gmail.com', '673582413129', 'VIP', 0, 0, NULL, NULL, NULL, '2018-12-18 17:41:03', '2018-12-18 17:41:03'),
+(588, 13, 129, 'Mrs.', 'Lida', 'Mammie', 'Lida Mammie Pte Ltd', 'United Square 101 Thomson Road #12-01 /#16-01 to #16-02 307591, Singapore', 'Male', '', '92627695', 1, '', '', 'Lida.Mammie@gmail.com', '948580013129', 'VIP', 0, 0, NULL, NULL, NULL, '2018-12-18 17:41:03', '2018-12-18 17:41:03'),
+(589, 13, 129, 'Ms', 'Eva', 'Arvilla', 'Eva Arvilla Pte Ltd', 'Suntec City Mall 3 Temasek Boulevard #01-199 038983, Singapore', 'Male', '', '99346002', 1, '', '', 'Eva.Arvilla@gmail.com', '602832213129', 'VIP', 0, 0, NULL, NULL, NULL, '2018-12-18 17:41:03', '2018-12-18 17:41:03'),
+(590, 13, 129, 'Dr.', 'Gloria', 'Yoshiko', 'Gloria Yoshiko Pte Ltd', 'Suntec Tower Three 8 Temasek Boulevard #23-03 038988, Singapore', 'Female', '', '98753035', 1, '', '', 'Gloria.Yoshiko@gmail.com', '698915313129', 'VIP', 0, 0, NULL, NULL, NULL, '2018-12-18 17:41:03', '2018-12-18 17:41:03'),
+(591, 13, 129, 'Prof', 'Kendrick', 'Lin', 'Kendrick Lin Pte Ltd', 'Crane+Resistoflex+Xomox Pte Ltd 16 Gul Link Singapore 629386, Singapore', 'Male', '', '99322304', 1, '', '', 'Kendrick.Lin@gmail.com', '798873613129', 'VIP', 0, 0, NULL, NULL, NULL, '2018-12-18 17:41:03', '2018-12-18 17:41:03'),
+(592, 13, 129, 'Mr.', 'Yuki', 'Jenice', 'Yuki Jenice Pte Ltd', '14 Temasek Boulevard #40-02 Suntec Tower 3, 038988, Singapore', 'Male', '', '99959677', 1, '', '', 'Yuki.Jenice@gmail.com', '056158813129', 'VIP', 0, 0, NULL, NULL, NULL, '2018-12-18 17:41:03', '2018-12-18 17:41:03'),
+(593, 13, 129, 'Mrs.', 'Mackenzie', 'Dayna', 'Mackenzie Dayna Pte Ltd', '114 Gerald Drive #04-38, 799035, Singapore', 'Female', '', '97424525', 1, '', '', 'Mackenzie.Dayna@gmail.com', '762331213129', 'VIP', 0, 0, NULL, NULL, NULL, '2018-12-18 17:41:03', '2018-12-18 17:41:03'),
+(594, 13, 129, 'Ms', 'Marissa', 'Junie', 'Marissa Junie Pte Ltd', '41 Gul Crescent, 629544, Singapore', 'Male', '', '89270181', 1, '', '', 'Marissa.Junie@gmail.com', '430767613129', 'VIP', 0, 0, NULL, NULL, NULL, '2018-12-18 17:41:03', '2018-12-18 17:41:03'),
+(595, 13, 129, 'Dr.', 'Roma', 'Jerrie', 'Roma Jerrie Pte Ltd', 'United Square 101 Thomson Road #12-01 /#16-01 to #16-02 307591, Singapore', 'Male', '', '93184727', 1, '', '', 'Roma.Jerrie@gmail.com', '852857313129', 'VIP', 0, 0, NULL, NULL, NULL, '2018-12-18 17:41:03', '2018-12-18 17:41:03'),
+(596, 13, 130, 'Mr', 'glkkjhg', 'kjhglkjhglk', 'kjlkhgkl', NULL, NULL, NULL, '3466242456', 1, '', '', 'asd@asd.com', '310104213130', 'visitor', 1, 1, '310104213130.png', 'ABS 2019.pdf', NULL, '2018-12-18 17:59:41', '2018-12-18 17:59:41');
 
 -- --------------------------------------------------------
 
@@ -215,7 +533,9 @@ INSERT INTO `event_forms` (`id`, `event_id`, `lebel_name`, `form_data`, `created
 (19, 10, 'your info', '[{\"type\":\"select\",\"label\":\"Country\",\"className\":\"form-control\",\"name\":\"select-1540884928383\",\"values\":[{\"label\":\"A\",\"value\":\"option-1\",\"selected\":true},{\"label\":\"B\",\"value\":\"option-2\"},{\"label\":\"C\",\"value\":\"option-3\"}]}]', '2018-10-29 21:35:42', '2018-10-29 21:35:42'),
 (20, 11, 'Product Like', '[{\"type\":\"radio-group\",\"label\":\"Do you like this product?\",\"name\":\"product_like\",\"values\":[{\"label\":\"yes\",\"value\":\"yes\"},{\"label\":\"no\",\"value\":\"no\"},{\"label\":\"medium \",\"value\":\"medium\"}]}]', '2018-12-04 18:45:31', '2018-12-04 18:45:31'),
 (21, 11, 'Do you want to contact you?', '[{\"type\":\"radio-group\",\"label\":\"Again contact you?\",\"name\":\"want_to_contact\",\"values\":[{\"label\":\"yes\",\"value\":\"yes\"},{\"label\":\"no\",\"value\":\"no\"}]}]', '2018-12-04 19:18:57', '2018-12-04 19:18:57'),
-(22, 12, 'Trade Profile', '[{\"type\":\"checkbox-group\",\"label\":\"Please indicate your type of business\",\"name\":\"checkbox-group-1544342869350\",\"other\":true,\"values\":[{\"label\":\"Auction House\",\"value\":\"Auction House\"},{\"label\":\"Department Stores\",\"value\":\"\"},{\"label\":\"Engraver\",\"value\":\"\"},{\"label\":\"Exporter / Importer\",\"value\":\"\"},{\"label\":\"Galleries\",\"value\":\"\"},{\"label\":\"Gems and Jewelry wholesalers\",\"value\":\"\"},{\"label\":\"Gold and Silversmiths\",\"value\":\"\"}]},{\"type\":\"checkbox-group\",\"label\":\"Please indicate your purpose of visit\",\"name\":\"checkbox-group-1544343035235\",\"other\":true,\"values\":[{\"label\":\"Evaluate for future participation\",\"value\":\"Evaluate for future participation\"},{\"label\":\"Gather Information\",\"value\":\"Gather Information\"},{\"label\":\"Networking\",\"value\":\"Networking\"},{\"label\":\"Purchase / Place Order\",\"value\":\"Purchase / Place Order\"},{\"label\":\"Seek DIstribution Channels\",\"value\":\"Seek DIstribution Channels\"},{\"label\":\"Source for new product(s)\",\"value\":\"Source for new product(s)\"}]},{\"type\":\"radio-group\",\"label\":\"What is the estimated budget of your company to purchase jewelry products?\",\"name\":\"radio-group-1544343184748\",\"values\":[{\"label\":\"< USD 30,000\",\"value\":\"option-1\"},{\"label\":\"USD 30,000 - 100,000\",\"value\":\"option-2\"},{\"label\":\"USD 100,000 - 300,000\",\"value\":\"option-3\"},{\"label\":\"USD 300,000 - 1,000,000\",\"value\":\"\"},{\"label\":\">USD 1,000,000\",\"value\":\"\"}]},{\"type\":\"header\",\"subtype\":\"h3\",\"label\":\"Please indicate your main product interest\"},{\"type\":\"checkbox-group\",\"label\":\"Jewelry\",\"name\":\"checkbox-group-1544343447753\",\"values\":[{\"label\":\"Costume Jewelry\",\"value\":\"option-1\",\"selected\":true},{\"label\":\"Diamond Jewelry\",\"value\":\"\"},{\"label\":\"Gemset Jewelry\",\"value\":\"\"},{\"label\":\"Gold Jewelry\",\"value\":\"\"},{\"label\":\"Pearl Jewelry\",\"value\":\"\"}]},{\"type\":\"select\",\"label\":\"How did you know about us?\",\"className\":\"form-control\",\"name\":\"select-1544343330556\",\"values\":[{\"label\":\"Radio\",\"value\":\"option-1\",\"selected\":true},{\"label\":\"Newspaper\",\"value\":\"option-2\"},{\"label\":\"Other Trade show\",\"value\":\"option-3\"},{\"label\":\"Forums\",\"value\":\"\"}]},{\"type\":\"radio-group\",\"label\":\"Would you like to hear more from us?\",\"name\":\"radio-group-1544343541917\",\"values\":[{\"label\":\"Yes\",\"value\":\"option-1\"},{\"label\":\"No\",\"value\":\"option-2\"}]}]', '2018-12-09 00:19:31', '2018-12-09 00:19:31');
+(22, 12, 'Trade Profile', '[{\"type\":\"checkbox-group\",\"label\":\"Please indicate your type of business\",\"name\":\"checkbox-group-1544342869350\",\"other\":true,\"values\":[{\"label\":\"Auction House\",\"value\":\"Auction House\"},{\"label\":\"Department Stores\",\"value\":\"\"},{\"label\":\"Engraver\",\"value\":\"\"},{\"label\":\"Exporter / Importer\",\"value\":\"\"},{\"label\":\"Galleries\",\"value\":\"\"},{\"label\":\"Gems and Jewelry wholesalers\",\"value\":\"\"},{\"label\":\"Gold and Silversmiths\",\"value\":\"\"}]},{\"type\":\"checkbox-group\",\"label\":\"Please indicate your purpose of visit\",\"name\":\"checkbox-group-1544343035235\",\"other\":true,\"values\":[{\"label\":\"Evaluate for future participation\",\"value\":\"Evaluate for future participation\"},{\"label\":\"Gather Information\",\"value\":\"Gather Information\"},{\"label\":\"Networking\",\"value\":\"Networking\"},{\"label\":\"Purchase / Place Order\",\"value\":\"Purchase / Place Order\"},{\"label\":\"Seek DIstribution Channels\",\"value\":\"Seek DIstribution Channels\"},{\"label\":\"Source for new product(s)\",\"value\":\"Source for new product(s)\"}]},{\"type\":\"radio-group\",\"label\":\"What is the estimated budget of your company to purchase jewelry products?\",\"name\":\"radio-group-1544343184748\",\"values\":[{\"label\":\"< USD 30,000\",\"value\":\"option-1\"},{\"label\":\"USD 30,000 - 100,000\",\"value\":\"option-2\"},{\"label\":\"USD 100,000 - 300,000\",\"value\":\"option-3\"},{\"label\":\"USD 300,000 - 1,000,000\",\"value\":\"\"},{\"label\":\">USD 1,000,000\",\"value\":\"\"}]},{\"type\":\"header\",\"subtype\":\"h3\",\"label\":\"Please indicate your main product interest\"},{\"type\":\"checkbox-group\",\"label\":\"Jewelry\",\"name\":\"checkbox-group-1544343447753\",\"values\":[{\"label\":\"Costume Jewelry\",\"value\":\"option-1\",\"selected\":true},{\"label\":\"Diamond Jewelry\",\"value\":\"\"},{\"label\":\"Gemset Jewelry\",\"value\":\"\"},{\"label\":\"Gold Jewelry\",\"value\":\"\"},{\"label\":\"Pearl Jewelry\",\"value\":\"\"}]},{\"type\":\"select\",\"label\":\"How did you know about us?\",\"className\":\"form-control\",\"name\":\"select-1544343330556\",\"values\":[{\"label\":\"Radio\",\"value\":\"option-1\",\"selected\":true},{\"label\":\"Newspaper\",\"value\":\"option-2\"},{\"label\":\"Other Trade show\",\"value\":\"option-3\"},{\"label\":\"Forums\",\"value\":\"\"}]},{\"type\":\"radio-group\",\"label\":\"Would you like to hear more from us?\",\"name\":\"radio-group-1544343541917\",\"values\":[{\"label\":\"Yes\",\"value\":\"option-1\"},{\"label\":\"No\",\"value\":\"option-2\"}]}]', '2018-12-09 00:19:31', '2018-12-09 00:19:31'),
+(23, 13, 'Professionalism', '[{\"type\":\"radio-group\",\"label\":\"Gender\",\"name\":\"Gender\",\"values\":[{\"label\":\"Boy\",\"value\":\"Boy\"},{\"label\":\"Girl\",\"value\":\"Girl\"},{\"label\":\"Option 3\",\"value\":\"option-3\"}]}]', '2018-12-18 17:58:52', '2018-12-18 17:58:52'),
+(24, 14, 'Profession', '[{\"type\":\"checkbox-group\",\"required\":true,\"label\":\"Please indicate the exhibition that you are vising\",\"name\":\"Please-indicate-the-exhibition-that-you-are-vising\",\"other\":true,\"values\":[{\"label\":\"ArchXpo 2018\",\"value\":\"ArchXpo 2018\"},{\"label\":\"International Facility Management Expo 2018\",\"value\":\"International Facility Management Expo 2018\"},{\"label\":\"LED+Light Asia 2018\",\"value\":\"LED+Light Asia 2018\"},{\"label\":\"Safety & Security Asia 2018\",\"value\":\"Safety & Security Asia 2018\"},{\"label\":\"Fire & Disaster Asia 2018\",\"value\":\"Fire & Disaster Asia 2018\"},{\"label\":\"Work Safe Asia 2018\",\"value\":\"Work Safe Asia 2018\"}]},{\"type\":\"checkbox-group\",\"required\":true,\"label\":\"Your Profession\",\"name\":\"Your-Profession\",\"other\":true,\"values\":[{\"label\":\"Academic / Researcher\",\"value\":\"Academic / Researcher\"},{\"label\":\"Administration / Human Resource / Finance\",\"value\":\"Administration / Human Resource / Finance\"},{\"label\":\"Architect\",\"value\":\"Architect\"},{\"label\":\"Association / Institution\",\"value\":\"Association / Institution\"},{\"label\":\"Building Manager / Facility Manger\",\"value\":\"Building Manager / Facility Manger\"},{\"label\":\"Building Owner / Developer\",\"value\":\"Building Owner / Developer\"},{\"label\":\"Consultant\",\"value\":\"Consultant\"},{\"label\":\"Contractor\",\"value\":\"Contractor\"},{\"label\":\"Distributor\",\"value\":\"Distributor\"},{\"label\":\"Engineer\",\"value\":\"Engineer\"},{\"label\":\"Government\",\"value\":\"Government\"},{\"label\":\"Hotelier\",\"value\":\"Hotelier\"},{\"label\":\"Interior Designer\",\"value\":\"Interior Designer\"},{\"label\":\"Light Specialist / Lighting Designer / Lighting Consultant\",\"value\":\"Light Specialist / Lighting Designer / Lighting Consultant\"},{\"label\":\"Manufacturer / Product Designer / Supplier\",\"value\":\"Manufacturer / Product Designer / Supplier\"},{\"label\":\"Media\",\"value\":\"Media\"},{\"label\":\"Project Manger\",\"value\":\"Project Manger\"},{\"label\":\"Purchasing / Procurement Manger\",\"value\":\"Puschasing / Procurement Manger\"},{\"label\":\"Quantity Surveyor\",\"value\":\"Quantity Surveyor\"},{\"label\":\"Retailer\",\"value\":\"Retailer\"}]},{\"type\":\"checkbox-group\",\"required\":true,\"label\":\"Please indicate your seniority in this company\",\"name\":\"Please-indicate-your-seniority-in-this-company\",\"other\":true,\"values\":[{\"label\":\"Senior Management\",\"value\":\"option-1\"},{\"label\":\"Middle Management\",\"value\":\"\"},{\"label\":\"Junior Management\",\"value\":\"\"}]},{\"type\":\"checkbox-group\",\"label\":\"Your Companys Nature of Business\",\"name\":\"Your-Companys-Nature-of-Business\",\"values\":[{\"label\":\"Option 1\",\"value\":\"option-1\"}]}]', '2018-12-20 18:13:58', '2018-12-20 18:13:58');
 
 -- --------------------------------------------------------
 
@@ -265,7 +585,84 @@ INSERT INTO `event_registeration_form_values` (`id`, `user_register_id`, `event_
 (60, 77, 12, 22, 'radio group 1544343184748', 'USD 30,000 - 100,000', '2018-12-10 20:24:58', '2018-12-10 20:24:58'),
 (61, 77, 12, 22, 'checkbox group 1544343447753', 'Diamond Jewelry', '2018-12-10 20:24:58', '2018-12-10 20:24:58'),
 (62, 77, 12, 22, 'select 1544343330556', 'Forums', '2018-12-10 20:24:58', '2018-12-10 20:24:58'),
-(63, 77, 12, 22, 'radio group 1544343541917', 'No', '2018-12-10 20:24:58', '2018-12-10 20:24:58');
+(63, 77, 12, 22, 'radio group 1544343541917', 'No', '2018-12-10 20:24:58', '2018-12-10 20:24:58'),
+(64, 84, 13, 23, 'checkbox group 1544872022797', 'gal', '2018-12-15 03:10:56', '2018-12-15 03:10:56'),
+(65, 84, 13, 23, 'checkbox group 1544872022797', 'boy', '2018-12-15 03:10:56', '2018-12-15 03:10:56'),
+(66, 85, 13, 23, 'checkbox group 1544872022797', 'gal', '2018-12-15 03:11:01', '2018-12-15 03:11:01'),
+(67, 85, 13, 23, 'checkbox group 1544872022797', 'boy', '2018-12-15 03:11:01', '2018-12-15 03:11:01'),
+(68, 86, 13, 23, 'checkbox group 1544872022797', 'gal', '2018-12-15 03:11:02', '2018-12-15 03:11:02'),
+(69, 86, 13, 23, 'checkbox group 1544872022797', 'boy', '2018-12-15 03:11:02', '2018-12-15 03:11:02'),
+(70, 87, 13, 23, 'checkbox group 1544872022797', 'gal', '2018-12-15 03:11:07', '2018-12-15 03:11:07'),
+(71, 87, 13, 23, 'checkbox group 1544872022797', 'boy', '2018-12-15 03:11:07', '2018-12-15 03:11:07'),
+(72, 88, 13, 23, 'checkbox group 1544872022797', 'gal', '2018-12-15 03:11:27', '2018-12-15 03:11:27'),
+(73, 88, 13, 23, 'checkbox group 1544872022797', 'boy', '2018-12-15 03:11:27', '2018-12-15 03:11:27'),
+(74, 89, 13, 23, 'checkbox group 1544872022797', 'gal', '2018-12-15 03:11:28', '2018-12-15 03:11:28'),
+(75, 89, 13, 23, 'checkbox group 1544872022797', 'boy', '2018-12-15 03:11:28', '2018-12-15 03:11:28'),
+(76, 90, 13, 23, 'checkbox group 1544872022797', 'gal', '2018-12-15 03:11:32', '2018-12-15 03:11:32'),
+(77, 90, 13, 23, 'checkbox group 1544872022797', 'boy', '2018-12-15 03:11:32', '2018-12-15 03:11:32'),
+(78, 91, 13, 23, 'checkbox group 1544872022797', 'gal', '2018-12-15 03:11:34', '2018-12-15 03:11:34'),
+(79, 91, 13, 23, 'checkbox group 1544872022797', 'boy', '2018-12-15 03:11:34', '2018-12-15 03:11:34'),
+(80, 92, 13, 23, 'checkbox group 1544872022797', 'gal', '2018-12-15 03:11:39', '2018-12-15 03:11:39'),
+(81, 92, 13, 23, 'checkbox group 1544872022797', 'boy', '2018-12-15 03:11:39', '2018-12-15 03:11:39'),
+(82, 93, 13, 23, 'checkbox group 1544872022797', 'gal', '2018-12-15 03:11:39', '2018-12-15 03:11:39'),
+(83, 93, 13, 23, 'checkbox group 1544872022797', 'boy', '2018-12-15 03:11:39', '2018-12-15 03:11:39'),
+(84, 94, 13, 23, 'checkbox group 1544872022797', 'gal', '2018-12-15 03:11:40', '2018-12-15 03:11:40'),
+(85, 94, 13, 23, 'checkbox group 1544872022797', 'boy', '2018-12-15 03:11:40', '2018-12-15 03:11:40'),
+(86, 95, 13, 23, 'checkbox group 1544872022797', 'gal', '2018-12-15 03:11:40', '2018-12-15 03:11:40'),
+(87, 95, 13, 23, 'checkbox group 1544872022797', 'boy', '2018-12-15 03:11:40', '2018-12-15 03:11:40'),
+(88, 96, 13, 23, 'checkbox group 1544872022797', 'gal', '2018-12-15 03:11:41', '2018-12-15 03:11:41'),
+(89, 96, 13, 23, 'checkbox group 1544872022797', 'boy', '2018-12-15 03:11:41', '2018-12-15 03:11:41'),
+(90, 97, 13, 23, 'checkbox group 1544872022797', 'gal', '2018-12-15 03:11:41', '2018-12-15 03:11:41'),
+(91, 97, 13, 23, 'checkbox group 1544872022797', 'boy', '2018-12-15 03:11:41', '2018-12-15 03:11:41'),
+(92, 98, 13, 23, 'checkbox group 1544872022797', 'gal', '2018-12-15 03:11:52', '2018-12-15 03:11:52'),
+(93, 98, 13, 23, 'checkbox group 1544872022797', 'boy', '2018-12-15 03:11:52', '2018-12-15 03:11:52'),
+(94, 99, 13, 23, 'checkbox group 1544872022797', 'gal', '2018-12-15 03:11:52', '2018-12-15 03:11:52'),
+(95, 99, 13, 23, 'checkbox group 1544872022797', 'boy', '2018-12-15 03:11:52', '2018-12-15 03:11:52'),
+(96, 100, 13, 23, 'checkbox group 1544872022797', 'gal', '2018-12-15 03:11:53', '2018-12-15 03:11:53'),
+(97, 100, 13, 23, 'checkbox group 1544872022797', 'boy', '2018-12-15 03:11:53', '2018-12-15 03:11:53'),
+(98, 101, 13, 23, 'checkbox group 1544872022797', 'gal', '2018-12-15 03:11:53', '2018-12-15 03:11:53'),
+(99, 101, 13, 23, 'checkbox group 1544872022797', 'boy', '2018-12-15 03:11:53', '2018-12-15 03:11:53'),
+(100, 102, 13, 23, 'checkbox group 1544872022797', 'gal', '2018-12-15 03:11:54', '2018-12-15 03:11:54'),
+(101, 102, 13, 23, 'checkbox group 1544872022797', 'boy', '2018-12-15 03:11:54', '2018-12-15 03:11:54'),
+(102, 103, 13, 23, 'checkbox group 1544872022797', 'gal', '2018-12-15 03:11:54', '2018-12-15 03:11:54'),
+(103, 103, 13, 23, 'checkbox group 1544872022797', 'boy', '2018-12-15 03:11:54', '2018-12-15 03:11:54'),
+(104, 104, 13, 23, 'checkbox group 1544872022797', 'gal', '2018-12-15 03:11:55', '2018-12-15 03:11:55'),
+(105, 104, 13, 23, 'checkbox group 1544872022797', 'boy', '2018-12-15 03:11:55', '2018-12-15 03:11:55'),
+(106, 105, 13, 23, 'checkbox group 1544872022797', 'gal', '2018-12-15 03:11:55', '2018-12-15 03:11:55'),
+(107, 105, 13, 23, 'checkbox group 1544872022797', 'boy', '2018-12-15 03:11:55', '2018-12-15 03:11:55'),
+(108, 106, 13, 23, 'checkbox group 1544872022797', 'gal', '2018-12-15 03:11:55', '2018-12-15 03:11:55'),
+(109, 106, 13, 23, 'checkbox group 1544872022797', 'boy', '2018-12-15 03:11:55', '2018-12-15 03:11:55'),
+(110, 107, 13, 23, 'checkbox group 1544872022797', 'gal', '2018-12-15 03:11:56', '2018-12-15 03:11:56'),
+(111, 107, 13, 23, 'checkbox group 1544872022797', 'boy', '2018-12-15 03:11:56', '2018-12-15 03:11:56'),
+(112, 108, 13, 23, 'checkbox group 1544872022797', 'gal', '2018-12-15 03:12:05', '2018-12-15 03:12:05'),
+(113, 108, 13, 23, 'checkbox group 1544872022797', 'boy', '2018-12-15 03:12:05', '2018-12-15 03:12:05'),
+(114, 109, 13, 23, 'checkbox group 1544872022797', 'gal', '2018-12-15 03:12:06', '2018-12-15 03:12:06'),
+(115, 109, 13, 23, 'checkbox group 1544872022797', 'boy', '2018-12-15 03:12:06', '2018-12-15 03:12:06'),
+(116, 110, 13, 23, 'checkbox group 1544872022797', 'gal', '2018-12-15 03:12:06', '2018-12-15 03:12:06'),
+(117, 110, 13, 23, 'checkbox group 1544872022797', 'boy', '2018-12-15 03:12:06', '2018-12-15 03:12:06'),
+(118, 111, 13, 23, 'checkbox group 1544872022797', 'gal', '2018-12-15 03:12:06', '2018-12-15 03:12:06'),
+(119, 111, 13, 23, 'checkbox group 1544872022797', 'boy', '2018-12-15 03:12:06', '2018-12-15 03:12:06'),
+(120, 112, 13, 23, 'checkbox group 1544872022797', 'gal', '2018-12-15 03:12:07', '2018-12-15 03:12:07'),
+(121, 112, 13, 23, 'checkbox group 1544872022797', 'boy', '2018-12-15 03:12:07', '2018-12-15 03:12:07'),
+(122, 113, 13, 23, 'checkbox group 1544872022797', 'gal', '2018-12-15 03:12:07', '2018-12-15 03:12:07'),
+(123, 113, 13, 23, 'checkbox group 1544872022797', 'boy', '2018-12-15 03:12:07', '2018-12-15 03:12:07'),
+(124, 114, 13, 23, 'checkbox group 1544872022797', 'gal', '2018-12-15 03:12:08', '2018-12-15 03:12:08'),
+(125, 114, 13, 23, 'checkbox group 1544872022797', 'boy', '2018-12-15 03:12:08', '2018-12-15 03:12:08'),
+(126, 115, 13, 23, 'checkbox group 1544872022797', 'gal', '2018-12-15 03:12:09', '2018-12-15 03:12:09'),
+(127, 115, 13, 23, 'checkbox group 1544872022797', 'boy', '2018-12-15 03:12:09', '2018-12-15 03:12:09'),
+(128, 116, 13, 23, 'checkbox group 1544872022797', 'gal', '2018-12-15 03:12:11', '2018-12-15 03:12:11'),
+(129, 116, 13, 23, 'checkbox group 1544872022797', 'boy', '2018-12-15 03:12:11', '2018-12-15 03:12:11'),
+(130, 117, 13, 23, 'checkbox group 1544872022797', 'gal', '2018-12-15 03:12:13', '2018-12-15 03:12:13'),
+(131, 117, 13, 23, 'checkbox group 1544872022797', 'boy', '2018-12-15 03:12:13', '2018-12-15 03:12:13'),
+(132, 118, 12, 22, 'select 1544343330556', 'Radio', '2018-12-15 03:13:15', '2018-12-15 03:13:15'),
+(133, 120, 13, 23, 'checkbox group 1544872022797', 'gal', '2018-12-14 18:29:30', '2018-12-14 18:29:30'),
+(134, 121, 13, 23, 'checkbox group 1544872022797', 'gal', '2018-12-16 04:23:17', '2018-12-16 04:23:17'),
+(135, 122, 13, 23, 'checkbox group 1544872022797', 'gal', '2018-12-16 04:28:46', '2018-12-16 04:28:46'),
+(136, 123, 13, 23, 'checkbox group 1544872022797', 'gal', '2018-12-16 04:32:32', '2018-12-16 04:32:32'),
+(137, 124, 13, 23, 'checkbox group 1544872022797', 'boy', '2018-12-16 04:40:10', '2018-12-16 04:40:10'),
+(138, 125, 13, 23, 'checkbox group 1544872022797', 'gal', '2018-12-16 04:41:25', '2018-12-16 04:41:25'),
+(139, 127, 13, 23, 'checkbox group 1544872022797', 'gal', '2018-12-17 00:45:05', '2018-12-17 00:45:05'),
+(140, 130, 13, 23, 'Gender', 'Boy', '2018-12-18 17:59:41', '2018-12-18 17:59:41');
 
 -- --------------------------------------------------------
 
@@ -278,6 +675,29 @@ CREATE TABLE `migrations` (
   `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `namebadge_print_status`
+--
+
+CREATE TABLE `namebadge_print_status` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `namebadge_id` int(10) UNSIGNED DEFAULT NULL,
+  `print_date` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `namebadge_print_status`
+--
+
+INSERT INTO `namebadge_print_status` (`id`, `namebadge_id`, `print_date`) VALUES
+(9, 62, '2018-12-19 12:20:01'),
+(10, 275, '2018-12-19 12:20:29'),
+(11, 276, '2018-12-19 12:20:29'),
+(12, 277, '2018-12-19 12:20:29'),
+(13, 62, '2018-12-19 12:20:46');
 
 -- --------------------------------------------------------
 
@@ -303,11 +723,8 @@ INSERT INTO `namebadge_template_details` (`id`, `config_id`, `template_name`, `i
 (4, 6, 'abc update', '11-25-2018_name_badge_template_1_1543112751.jpg', '2018-11-24 16:25:51', '2018-11-25 10:54:01'),
 (5, 7, 'test 1', '11-27-2018_name_badge_template_0_1543281552.JPG', '2018-11-26 15:19:12', '2018-11-26 15:19:12'),
 (6, 7, 'test 2', '11-29-2018_name_badge_template_0_1543531647.jpg', '2018-11-29 14:47:27', '2018-11-29 14:47:27'),
-(7, 8, 'test template', '12-01-2018_name_badge_template_0_1543694076.png', '2018-12-01 11:54:36', '2018-12-01 11:54:36'),
 (8, 9, 'test', '12-10-2018_name_badge_template_0_1544429213.php', '2018-12-10 00:06:53', '2018-12-10 00:06:53'),
-(11, 10, 'protrait', '12-11-2018_name_badge_template_0_1544496778.jpg', '2018-12-10 18:52:58', '2018-12-10 18:52:58'),
-(12, 10, 'landscape', '12-11-2018_name_badge_template_0_1544496810.jpg', '2018-12-10 18:53:30', '2018-12-10 18:53:30'),
-(13, 10, 'landscape 2', '12-11-2018_name_badge_template_0_1544496832.jpg', '2018-12-10 18:53:52', '2018-12-10 18:53:52');
+(16, 10, '135 x 90 landscape', '12-15-2018_name_badge_template_0_1544859442.jpg', '2018-12-14 23:37:22', '2018-12-14 23:37:22');
 
 -- --------------------------------------------------------
 
@@ -334,9 +751,9 @@ CREATE TABLE `name_badge_config` (
 INSERT INTO `name_badge_config` (`id`, `event_id`, `namebadge_width`, `namebadge_height`, `namebadge_orientation`, `image_path`, `measure_unit`, `created_at`, `updated_at`) VALUES
 (6, 5, '8', '5.347', 'portrait', '', 'mm', '2018-11-24 16:25:51', '2018-12-10 00:04:26'),
 (7, 11, '75', '105', 'portrait', '11-29-2018_name_badge_template_0_1543531647.jpg', 'mm', '2018-11-26 15:19:12', '2018-11-29 14:56:01'),
-(8, 10, '30', '35', NULL, '', 'cm', '2018-12-01 11:54:36', '2018-12-01 11:54:36'),
+(8, 10, '30', '35', NULL, '', 'mm', '2018-12-01 11:54:36', '2018-12-14 23:38:12'),
 (9, 9, '500', '500', NULL, '', 'mm', '2018-12-10 00:06:53', '2018-12-10 00:06:53'),
-(10, 12, '90', '135', NULL, '12-11-2018_name_badge_template_0_1544496778.jpg', 'mm', '2018-12-10 18:50:20', '2018-12-10 19:13:03');
+(10, 12, '135', '90', NULL, '12-15-2018_name_badge_template_0_1544859442.jpg', 'mm', '2018-12-10 18:50:20', '2018-12-14 23:38:55');
 
 -- --------------------------------------------------------
 
@@ -372,11 +789,11 @@ INSERT INTO `name_badge_position` (`id`, `name_badge_id`, `event_id`, `field_id`
 (118, 7, 11, 'last_name', '194.25', '72.859375', '', '', '{\"font_color\":\"#000000\",\"font_size\":\"18\",\"font_weight\":\"bold\"}', '2018-12-01 12:42:43', '2018-12-01 12:56:59'),
 (119, 7, 11, 'company_name', '150.25', '110.828125', '', '', '{\"font_color\":\"#000000\",\"font_size\":\"16\",\"font_weight\":\"bold\"}', '2018-12-01 12:42:43', '2018-12-01 12:57:11'),
 (120, 7, 11, 'namebadge_user_label', '135.25', '319.6875', '', '', '{\"font_color\":\"#ff0000\",\"font_size\":\"20\",\"font_weight\":\"bold\"}', '2018-12-01 12:42:43', '2018-12-01 13:08:45'),
-(121, 10, 12, 'serial_digit', '160.25', '211.96875', '1px', '1px', NULL, '2018-12-10 18:55:54', '2018-12-10 18:55:54'),
-(122, 10, 12, 'qrcode_path', '164.25', '187.9375', '1px', '1px', NULL, '2018-12-10 18:55:54', '2018-12-10 18:55:54'),
-(123, 10, 12, 'first_name', '160.25', '84.875', '', '', NULL, '2018-12-10 18:55:54', '2018-12-10 18:55:54'),
-(124, 10, 12, 'last_name', '161.25', '111.84375', '', '', NULL, '2018-12-10 18:55:54', '2018-12-10 18:55:54'),
-(125, 10, 12, 'namebadge_user_label', '166.25', '251.6875', '', '', NULL, '2018-12-10 18:55:54', '2018-12-10 18:55:54');
+(127, 10, 12, 'qrcode_path', '8.25', '114.9375', '1px', '1px', NULL, '2018-12-14 23:38:55', '2018-12-14 23:38:55'),
+(128, 10, 12, 'first_name', '177.25', '116.875', '', '', NULL, '2018-12-14 23:38:55', '2018-12-14 23:38:55'),
+(129, 10, 12, 'last_name', '174.25', '152.84375', '', '', NULL, '2018-12-14 23:38:55', '2018-12-14 23:38:55'),
+(130, 10, 12, 'namebadge_user_label', '154.25', '282.6875', '', '', NULL, '2018-12-14 23:38:55', '2018-12-14 23:38:55'),
+(131, 10, 12, 'serial_digit', '22.25', '216.97499084472656', '1px', '1px', NULL, '2018-12-14 23:45:07', '2018-12-14 23:45:07');
 
 -- --------------------------------------------------------
 
@@ -403,13 +820,6 @@ CREATE TABLE `print_layout_config` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `print_layout_config`
---
-
-INSERT INTO `print_layout_config` (`id`, `event_id`, `print_config_values`, `created_at`, `updated_at`) VALUES
-(1, 11, '{\"event_id\":\"11\",\"page_height\":\"10.5cm\",\"page_width\":\"7.5cm\",\"margin_top\":\"0cm\",\"margin_right\":\"0cm\",\"margin_bottom\":\"0cm\",\"margin_left\":\"0cm\",\"font_color\":\"#000000\"}', '2018-11-27 15:14:57', '2018-11-27 15:53:57');
 
 -- --------------------------------------------------------
 
@@ -465,7 +875,24 @@ INSERT INTO `registraion_temp` (`id`, `form_id`, `event_id`, `access_token`, `te
 (183, 13, 5, '2b4ab4f627b25096f4163b763b48ba62', '{\"role\":\"CFO\"}', '2018-12-09 03:53:49', '2018-12-09 03:53:49'),
 (184, 17, 5, '2b4ab4f627b25096f4163b763b48ba62', '{\"select-1540803406765\":\"Option 2\",\"text-1540803419797\":\"fgg\"}', '2018-12-09 03:53:54', '2018-12-09 03:53:54'),
 (185, 0, 12, '06c72a70b67dc056d2e0d59ee1a5d7ab', '{\"event_business_owners_data\":{\"event_id\":\"12\",\"owners_numbers\":1,\"registration_type\":\"Online\",\"created_at\":\"2018-12-11 04:24:37\",\"updated_at\":\"2018-12-11 04:24:37\"},\"event_business_owners_details\":[{\"event_id\":\"12\",\"business_owner_id\":\"\",\"salutation\":\"Mr\",\"first_name\":\"teo\",\"last_name\":\"zheng eng\",\"company_name\":\"jumppy\",\"company_address\":null,\"gender\":\"Male\",\"designation\":\"Dir\",\"mobile\":\"9876543\",\"country_id\":\"1\",\"tel\":null,\"fax\":\"a\",\"email\":\"adrian_teo@jumppy.com.sg\",\"created_at\":\"2018-12-11 04:24:37\",\"updated_at\":\"2018-12-11 04:24:37\"}]}', '2018-12-10 20:24:37', '2018-12-10 20:24:37'),
-(186, 22, 12, '06c72a70b67dc056d2e0d59ee1a5d7ab', '{\"checkbox-group-1544342869350\":[\"Department Stores\",\"Gems and Jewelry wholesalers\"],\"checkbox-group-1544343035235\":[\"Source for new product(s)\"],\"radio-group-1544343184748\":\"USD 30,000 - 100,000\",\"checkbox-group-1544343447753\":[\"Diamond Jewelry\"],\"select-1544343330556\":\"Forums\",\"radio-group-1544343541917\":\"No\"}', '2018-12-10 20:24:50', '2018-12-10 20:24:50');
+(186, 22, 12, '06c72a70b67dc056d2e0d59ee1a5d7ab', '{\"checkbox-group-1544342869350\":[\"Department Stores\",\"Gems and Jewelry wholesalers\"],\"checkbox-group-1544343035235\":[\"Source for new product(s)\"],\"radio-group-1544343184748\":\"USD 30,000 - 100,000\",\"checkbox-group-1544343447753\":[\"Diamond Jewelry\"],\"select-1544343330556\":\"Forums\",\"radio-group-1544343541917\":\"No\"}', '2018-12-10 20:24:50', '2018-12-10 20:24:50'),
+(187, 0, 13, 'e020d3384697ea37f7200b4ec99f2a25', '{\"event_business_owners_data\":{\"event_id\":\"13\",\"owners_numbers\":2,\"registration_type\":\"Online\",\"created_at\":\"2018-12-15 11:10:11\",\"updated_at\":\"2018-12-15 11:10:11\"},\"event_business_owners_details\":[{\"event_id\":\"13\",\"business_owner_id\":\"\",\"salutation\":\"Mr\",\"first_name\":\"alvin\",\"last_name\":\"tan\",\"company_name\":\"bls\",\"company_address\":\"2gwrb\",\"gender\":null,\"designation\":null,\"mobile\":\"57923479584\",\"country_id\":\"1\",\"tel\":null,\"fax\":null,\"email\":\"alvinew@icloud.com\",\"created_at\":\"2018-12-15 11:10:11\",\"updated_at\":\"2018-12-15 11:10:11\"},{\"event_id\":\"13\",\"business_owner_id\":\"\",\"salutation\":\"Ms\",\"first_name\":\"adrian\",\"last_name\":\"t\",\"company_name\":\"hgjhg\",\"company_address\":null,\"gender\":null,\"designation\":null,\"mobile\":\"21252t25\",\"country_id\":\"4\",\"tel\":null,\"fax\":null,\"email\":\"zeteo87@gmail.com\",\"created_at\":\"2018-12-15 11:10:11\",\"updated_at\":\"2018-12-15 11:10:11\"}]}', '2018-12-15 03:10:11', '2018-12-15 03:10:11'),
+(188, 23, 13, 'e020d3384697ea37f7200b4ec99f2a25', '{\"checkbox-group-1544872022797\":[\"gal\",\"boy\"]}', '2018-12-15 03:10:46', '2018-12-15 03:10:46'),
+(189, 0, 12, '953486698f7495299663bde860dd7301', '{\"event_business_owners_data\":{\"event_id\":\"12\",\"owners_numbers\":1,\"registration_type\":\"Online\",\"created_at\":\"2018-12-15 11:13:03\",\"updated_at\":\"2018-12-15 11:13:03\"},\"event_business_owners_details\":[{\"event_id\":\"12\",\"business_owner_id\":\"\",\"salutation\":\"Mr\",\"first_name\":\"alvin\",\"last_name\":\"tan\",\"company_name\":\"hhg\",\"company_address\":null,\"gender\":null,\"designation\":\"2312521512\",\"mobile\":\"21512541254\",\"country_id\":\"1\",\"tel\":null,\"fax\":null,\"email\":\"alvinew@icloud.com\",\"created_at\":\"2018-12-15 11:13:03\",\"updated_at\":\"2018-12-15 11:13:03\"}]}', '2018-12-15 03:13:03', '2018-12-15 03:13:03'),
+(190, 22, 12, '953486698f7495299663bde860dd7301', '{\"select-1544343330556\":\"Radio\"}', '2018-12-15 03:13:10', '2018-12-15 03:13:10'),
+(191, 0, 13, 'e8604f0d3233c23524c6f1ab618251c9', '{\"event_business_owners_data\":{\"event_id\":\"13\",\"owners_numbers\":1,\"registration_type\":\"Online\",\"created_at\":\"2018-12-15 02:29:19\",\"updated_at\":\"2018-12-15 02:29:19\"},\"event_business_owners_details\":[{\"event_id\":\"13\",\"business_owner_id\":\"\",\"salutation\":\"Mr\",\"first_name\":\"Abc\",\"last_name\":\"Def\",\"company_name\":\"Abc\",\"company_address\":\"Abc\",\"gender\":\"Male\",\"designation\":\"Abc\",\"mobile\":\"097715\",\"country_id\":\"1\",\"tel\":\"0980\",\"fax\":\"021\",\"email\":\"Tanveerqureshee1@gmail.com\",\"created_at\":\"2018-12-15 02:29:19\",\"updated_at\":\"2018-12-15 02:29:19\"}]}', '2018-12-14 18:29:19', '2018-12-14 18:29:19'),
+(192, 23, 13, 'e8604f0d3233c23524c6f1ab618251c9', '{\"checkbox-group-1544872022797\":[\"gal\"]}', '2018-12-14 18:29:24', '2018-12-14 18:29:24'),
+(193, 0, 13, 'c11f46ba64075d81ab64334d8803e7c3', '{\"event_business_owners_data\":{\"event_id\":\"13\",\"owners_numbers\":1,\"registration_type\":\"Online\",\"created_at\":\"2018-12-16 12:22:56\",\"updated_at\":\"2018-12-16 12:22:56\"},\"event_business_owners_details\":[{\"event_id\":\"13\",\"business_owner_id\":\"\",\"salutation\":\"Mr\",\"first_name\":\"aa\",\"last_name\":\"bb\",\"company_name\":\"abc\",\"company_address\":\"abc\",\"gender\":\"Male\",\"designation\":\"abc\",\"mobile\":\"0929282\",\"country_id\":\"1\",\"tel\":\"02\",\"fax\":\"090\",\"email\":\"tanveerqureshee1@gmail.com\",\"created_at\":\"2018-12-16 12:22:56\",\"updated_at\":\"2018-12-16 12:22:56\"}]}', '2018-12-16 04:22:56', '2018-12-16 04:22:56'),
+(194, 23, 13, 'c11f46ba64075d81ab64334d8803e7c3', '{\"checkbox-group-1544872022797\":[\"gal\"]}', '2018-12-16 04:23:08', '2018-12-16 04:23:08'),
+(195, 0, 13, '409e52918406e8df5ee7217e4f962028', '{\"event_business_owners_data\":{\"event_id\":\"13\",\"owners_numbers\":1,\"registration_type\":\"Online\",\"created_at\":\"2018-12-16 12:39:56\",\"updated_at\":\"2018-12-16 12:39:56\"},\"event_business_owners_details\":[{\"event_id\":\"13\",\"business_owner_id\":\"\",\"salutation\":\"Ms\",\"first_name\":\"a\",\"last_name\":\"v\",\"company_name\":\"cc\",\"company_address\":\"cc\",\"gender\":\"Female\",\"designation\":\"vc\",\"mobile\":\"0928\",\"country_id\":\"1\",\"tel\":\"09\",\"fax\":\"2\",\"email\":\"tanveerqureshee1@gmail.com\",\"created_at\":\"2018-12-16 12:39:56\",\"updated_at\":\"2018-12-16 12:39:56\"}]}', '2018-12-16 04:39:56', '2018-12-16 04:39:56'),
+(196, 23, 13, '409e52918406e8df5ee7217e4f962028', '{\"checkbox-group-1544872022797\":[\"boy\"]}', '2018-12-16 04:40:00', '2018-12-16 04:40:00'),
+(197, 0, 13, 'e7bca92247cc82c5c59fc6d1f5f14df8', '{\"event_business_owners_data\":{\"event_id\":\"13\",\"owners_numbers\":1,\"registration_type\":\"Online\",\"created_at\":\"2018-12-16 12:41:09\",\"updated_at\":\"2018-12-16 12:41:09\"},\"event_business_owners_details\":[{\"event_id\":\"13\",\"business_owner_id\":\"\",\"salutation\":\"Mdm\",\"first_name\":\"c\",\"last_name\":\"v\",\"company_name\":\"aaca\",\"company_address\":\"aca\",\"gender\":\"Male\",\"designation\":\"fd\",\"mobile\":\"0182\",\"country_id\":\"1\",\"tel\":\"09\",\"fax\":\"90\",\"email\":\"tanveerqureshee1@gmail.com\",\"created_at\":\"2018-12-16 12:41:09\",\"updated_at\":\"2018-12-16 12:41:09\"}]}', '2018-12-16 04:41:09', '2018-12-16 04:41:09'),
+(198, 23, 13, 'e7bca92247cc82c5c59fc6d1f5f14df8', '{\"checkbox-group-1544872022797\":[\"gal\"]}', '2018-12-16 04:41:12', '2018-12-16 04:41:12'),
+(199, 0, 13, '882836412bdb7f3129696e657f5d33ab', '{\"event_business_owners_data\":{\"event_id\":\"13\",\"owners_numbers\":1,\"registration_type\":\"Online\",\"created_at\":\"2018-12-17 08:45:00\",\"updated_at\":\"2018-12-17 08:45:00\"},\"event_business_owners_details\":[{\"event_id\":\"13\",\"business_owner_id\":\"\",\"salutation\":\"Ms\",\"first_name\":\"asd\",\"last_name\":\"asd\",\"company_name\":\"asdasdasd\",\"company_address\":null,\"gender\":null,\"designation\":null,\"mobile\":\"212524512345\",\"country_id\":\"2\",\"tel\":null,\"fax\":null,\"email\":\"zeteo87@gmail.com\",\"created_at\":\"2018-12-17 08:45:00\",\"updated_at\":\"2018-12-17 08:45:00\"}]}', '2018-12-17 00:45:00', '2018-12-17 00:45:00'),
+(200, 23, 13, '882836412bdb7f3129696e657f5d33ab', '{\"checkbox-group-1544872022797\":[\"gal\"]}', '2018-12-17 00:45:02', '2018-12-17 00:45:02'),
+(201, 0, 13, 'a1279dedd0fee5f6381db7e064fb5428', '{\"event_business_owners_data\":{\"event_id\":\"13\",\"owners_numbers\":1,\"registration_type\":\"Online\",\"created_at\":\"2018-12-19 01:59:15\",\"updated_at\":\"2018-12-19 01:59:15\"},\"event_business_owners_details\":[{\"event_id\":\"13\",\"business_owner_id\":\"\",\"salutation\":\"Mr\",\"first_name\":\"glkkjhg\",\"last_name\":\"kjhglkjhglk\",\"company_name\":\"kjlkhgkl\",\"company_address\":null,\"gender\":null,\"designation\":null,\"mobile\":\"3466242456\",\"country_id\":\"1\",\"tel\":null,\"fax\":null,\"email\":\"asd@asd.com\",\"created_at\":\"2018-12-19 01:59:15\",\"updated_at\":\"2018-12-19 01:59:15\"}]}', '2018-12-18 17:59:15', '2018-12-18 17:59:15'),
+(202, 23, 13, 'a1279dedd0fee5f6381db7e064fb5428', '{\"Gender\":\"Boy\"}', '2018-12-18 17:59:18', '2018-12-18 17:59:18'),
+(203, 0, 14, '15cce1184c565d6e232063245d8a12fb', '{\"event_business_owners_data\":{\"event_id\":\"14\",\"owners_numbers\":1,\"registration_type\":\"Online\",\"created_at\":\"2018-12-21 02:32:35\",\"updated_at\":\"2018-12-21 02:32:35\"},\"event_business_owners_details\":[{\"event_id\":\"14\",\"business_owner_id\":\"\",\"salutation\":\"Mr\",\"first_name\":\"asfasdf\",\"last_name\":\"sdgasg\",\"company_name\":\"jlkjh\",\"company_address\":null,\"gender\":null,\"designation\":null,\"mobile\":\"345326364\",\"country_id\":\"1\",\"tel\":null,\"fax\":null,\"email\":\"asd@asd.com\",\"created_at\":\"2018-12-21 02:32:35\",\"updated_at\":\"2018-12-21 02:32:35\"}]}', '2018-12-20 18:32:35', '2018-12-20 18:32:35');
 
 -- --------------------------------------------------------
 
@@ -490,7 +917,7 @@ INSERT INTO `settings` (`id`, `name`, `values`, `data_type`, `post_type`) VALUES
 (2, 'gender', 'Male,Female,Others', 'csv', NULL),
 (3, 'page orientation', 'portrait,landscape', 'csv', NULL),
 (4, 'units', 'in,px,mm', 'csv', NULL),
-(5, 'namebadge label', 'visitor,organizer,volunteer', 'csv', NULL),
+(5, 'namebadge label', 'Visitor,Organiser,vip', 'csv', NULL),
 (6, '12', '<p><strong>Hi There!</strong><br /><br />This is an email test.<br /><em>We are updating...</em></p>\r\n<p>But will still send you.&nbsp;</p>\r\n<p><br />Thank<br /><strong>Registro AsiaTeam</strong></p>', 'text', 'email_text'),
 (7, '5', '<p><strong>Hi There!</strong><br /><br />This is an email test for Airshow 2020.<br /><em>We are updating...</em><br /><br />Thank<br /><strong>Registro AsiaTeam</strong></p>', 'text', 'email_text');
 
@@ -543,6 +970,12 @@ CREATE TABLE `users` (
 --
 
 --
+-- Indexes for table `cron_job_status`
+--
+ALTER TABLE `cron_job_status`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `events`
 --
 ALTER TABLE `events`
@@ -579,6 +1012,12 @@ ALTER TABLE `event_registeration_form_values`
 -- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `namebadge_print_status`
+--
+ALTER TABLE `namebadge_print_status`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -643,34 +1082,40 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `cron_job_status`
+--
+ALTER TABLE `cron_job_status`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `event_business_owners`
 --
 ALTER TABLE `event_business_owners`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=131;
 
 --
 -- AUTO_INCREMENT for table `event_business_owners_details`
 --
 ALTER TABLE `event_business_owners_details`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=597;
 
 --
 -- AUTO_INCREMENT for table `event_forms`
 --
 ALTER TABLE `event_forms`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `event_registeration_form_values`
 --
 ALTER TABLE `event_registeration_form_values`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=141;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -679,10 +1124,16 @@ ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `namebadge_print_status`
+--
+ALTER TABLE `namebadge_print_status`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
 -- AUTO_INCREMENT for table `namebadge_template_details`
 --
 ALTER TABLE `namebadge_template_details`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `name_badge_config`
@@ -694,7 +1145,7 @@ ALTER TABLE `name_badge_config`
 -- AUTO_INCREMENT for table `name_badge_position`
 --
 ALTER TABLE `name_badge_position`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=126;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=132;
 
 --
 -- AUTO_INCREMENT for table `print_layout_config`
@@ -706,7 +1157,7 @@ ALTER TABLE `print_layout_config`
 -- AUTO_INCREMENT for table `registraion_temp`
 --
 ALTER TABLE `registraion_temp`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=187;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=204;
 
 --
 -- AUTO_INCREMENT for table `settings`
