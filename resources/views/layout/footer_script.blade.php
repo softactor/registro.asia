@@ -13,6 +13,7 @@
 <script type="text/javascript" src="{{ asset('js/printThis.js')}}"></script>
 <script type="text/javascript" src="{{ asset('js/jspdf.min.js')}}"></script>
 <script type="text/javascript" src="{{ asset('js/tinymce/tinymce.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('js/datatables.min.js')}}"></script>
 <script type="text/javascript">
   tinymce.init({
     selector: '.rich_editor'
@@ -168,6 +169,7 @@
                     if(response.status=='success'){
                         $(".box-body").empty();
                         $(".box-body").append(response.data);
+                        $('#userRegisList').DataTable();
                     }else{
                         $(".box-body").empty();
                         swal("Error", response.message, "error")
@@ -390,3 +392,8 @@
         });
     }
   </script>
+  <script type="text/javascript">
+    $(document).ready( function () {
+    $('#userRegisList').DataTable();
+} );
+</script>

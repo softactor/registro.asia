@@ -26,7 +26,7 @@
                     <div class="box-body">                    
                         <?php if (isset($owners_details) && !empty($owners_details)) { ?>
                             <div class="table-responsive">
-                                <table id="example2" class="table table-bordered table-hover">
+                                <table id="userRegisList" class="table table-bordered table-hover">
                                     <thead>
                                         <tr>
                                             <th>Check</th>
