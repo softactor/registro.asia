@@ -44,7 +44,6 @@
                     ?>
                 </td>
                 <td><span style="font-size: 10px; font-weight: bold;display: inline-block;width: 75%;"><?php echo date("j M, Y, g:i a", strtotime($data->updated_at)); ?></span></td>
-                <td><span style="font-size: 10px; font-weight: bold;display: inline-block;width: 75%;"><?php echo date("j M, Y, g:i a", strtotime($data->updated_at)); ?></span></td>
                 <td>
                     <?php
                         echo getNameBadgePrintCount($data->id);
