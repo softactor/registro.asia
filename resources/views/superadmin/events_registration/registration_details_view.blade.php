@@ -98,6 +98,7 @@
                                                 <?php } ?>
                                                 <button type="button" class="btn btn-primary btn-sm" onclick="editBasicRegistrationDetails('<?php echo $data->id; ?>', '{{ url('su/get_event_business_owners_details') }}')">Edit</button>
                                                 <button type="button" class="btn btn-primary btn-sm" onclick="emailRegistrationDetails('<?php echo $data->id; ?>', '{{ url('su/get_event_business_owners_details') }}')">Email</button>
+                                                <button type="button" class="btn btn-primary btn-sm" onclick="userRegistrationDetails('<?php echo $data->id; ?>', '{{ url('su/user_registration_details') }}')">Details</button>
                                             </td>
                                         </tr>
                                         @endforeach
@@ -124,4 +125,5 @@
 @endsection
 @endsection
 @include('modals.registration_edit_modal')
+@include('modals.registration_details_modal')
 @include('modals.name_badge_modal_containers')

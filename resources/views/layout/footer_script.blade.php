@@ -326,6 +326,21 @@
         }); 
     }
     
+    function userRegistrationDetails(details_id, urlAddress){
+        $.ajax({
+            url:urlAddress,
+            type:'GET',
+            dataType:'json',
+            data:'details_id='+ details_id,
+            success: function(response){
+                if(response.status == 'success') {
+                    $('#registrationDetailsModal').modal('show');
+                    $('#registration_details_area').html(response.data);
+                }
+            }
+        });
+    }
+    
     function updateUserRegisterationData(urlAddress){
         $.ajax({
             url:urlAddress,

@@ -616,6 +616,22 @@ class Backend extends Controller
         echo json_encode($feedback_data);
     }
     
+    public function user_registration_details(Request $request){
+        // get all table data:
+        $query  =   DB::table('event_business_owners_details as p');
+        if (isset($request->details_id) && !empty($request->details_id)) {
+            $query->where('p.id', $request->details_id);
+        }
+        $details   = $query->first();
+        $details_data    = View::make('partial.registration_details_for_modal', compact('details'));
+        $feedback_data = [
+            'status' => 'success',
+            'message' => 'Data Found',
+            'data' => $details_data->render()
+        ];
+        echo json_encode($feedback_data);
+    }
+    
     public function event_business_owners_details_store(Request $request){
         $details = [
             'salutation'            => $request->salutation,

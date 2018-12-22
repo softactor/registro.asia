@@ -69,6 +69,7 @@ Route::get('su/backend/registration_import/confirm_csv_uploader/{business_owner_
 Route::get('su/backend/csv_uploader_view/{event_url}', 'Backend@csv_uploader_view');
 Route::post('su/backend/csv_data/store', 'Backend@csv_data_store');
 Route::get('su/get_event_business_owners_details', 'Backend@get_event_business_owners_details');
+Route::get('su/user_registration_details', 'Backend@user_registration_details');
 Route::post('su/event_business_owners_details_store', 'Backend@event_business_owners_details_store');
 
 //          PDF GENERATES
