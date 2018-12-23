@@ -473,6 +473,7 @@ class Backend extends Controller
         return $csvData;
     }    
     public function csv_data_store(Request $request){
+        $is_confirmed   =   1;
         $emailConfirmType    =   false; // default email send status set as false;
         $redirect_url    =   url('su/backend/registration_import_status/'.$is_confirmed.'/'.$event_id); // default email send status set as false;
         $tempData       =    json_decode($request->tempData);
@@ -492,7 +493,6 @@ class Backend extends Controller
         
         $feedbackData   =   $this->process_data_into_temp_csv_import_table($csvTempStoreParam);
         // 'redirect_url'  => url('su/backend/registration_import_status/'.$parent_id.'/'.$event_id)
-        $is_confirmed   =   1;
         $feedbackData   =   [
             'status'        => 'success',
             'message'       => 'Data have successfully stored',
