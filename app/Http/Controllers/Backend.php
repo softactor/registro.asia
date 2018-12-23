@@ -478,10 +478,10 @@ class Backend extends Controller
         $tempData       =    json_decode($request->tempData);
         $total_number   =    count($tempData);   
         $event_id       =    $request->event_id;
-        $redirect_url    =   url('su/backend/registration_import_status/'.$is_confirmed.'/'.$event_id); // default email send status set as false;
+        $redirect_url    =   url('su/registration_details_view/'.$event_id); // default email send status set as false;
         if(isset($request->emailConfirmType) && $request->emailConfirmType == 'withEmail'){
-            $emailConfirmType    =   true;
-            $redirect_url    =   url('su/registration_details_view/'.$event_id); // default email send status set as false;
+            $emailConfirmType       =   true;
+            $redirect_url           =   url('su/backend/registration_import_status/'.$is_confirmed.'/'.$event_id); // default email send status set as false;
         }
         $csvTempStoreParam  =   [
             'op_type'       => 'update',
@@ -555,7 +555,7 @@ class Backend extends Controller
                     'mobile'            => $pd->mobile,
                     'country'           => $pd->country,
                     'email'             => $pd->email,
-                    'status'            => ( ($emailConfirmType) ? 1 : 0),
+                    'status'            => ( ($emailConfirmType) ? 0 : 1),
                     'is_confirmed'      => (isset($pd->is_confirmed) && !empty($pd->is_confirmed) ? $pd->is_confirmed : 0),
                     'created_at'        => date('Y-m-d h:i:s'),
                     'updated_at'        => date('Y-m-d h:i:s')
