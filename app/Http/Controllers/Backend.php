@@ -226,7 +226,7 @@ class Backend extends Controller
     }
     public function registration_details_view(Request $request){
         $owners_details         =   [];
-        $owners_details_query   =   DB::table('event_business_owners_details')->where('event_id',$request->event_id)->get();
+        $owners_details_query   =   DB::table('event_business_owners_details')->where('event_id',$request->event_id)->where('status',1)->get();
         $events = DB::table('events')->get();
         if(!$owners_details_query->isEmpty()){
             $owners_details     =   $owners_details_query;
@@ -315,6 +315,7 @@ class Backend extends Controller
         if (isset($request->namebadge_user_label) && !empty($request->namebadge_user_label)) {
             $query->where('p.namebadge_user_label', 'like', '%' . $request->namebadge_user_label . '%');
         }
+        $query->where('p.status', 1);
         $list_data = $query->get();
         if ($list_data->isEmpty()) {
             $search_data = View::make('search.events_registrated_users_list');
