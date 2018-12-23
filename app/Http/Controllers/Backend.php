@@ -475,10 +475,10 @@ class Backend extends Controller
     public function csv_data_store(Request $request){
         $is_confirmed   =   1;
         $emailConfirmType    =   false; // default email send status set as false;
-        $redirect_url    =   url('su/backend/registration_import_status/'.$is_confirmed.'/'.$event_id); // default email send status set as false;
         $tempData       =    json_decode($request->tempData);
         $total_number   =    count($tempData);   
         $event_id       =    $request->event_id;
+        $redirect_url    =   url('su/backend/registration_import_status/'.$is_confirmed.'/'.$event_id); // default email send status set as false;
         if(isset($request->emailConfirmType) && $request->emailConfirmType == 'withEmail'){
             $emailConfirmType    =   true;
             $redirect_url    =   url('su/registration_details_view/'.$event_id); // default email send status set as false;
