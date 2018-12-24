@@ -556,7 +556,8 @@ class Backend extends Controller
                     'mobile'            => $pd->mobile,
                     'country'           => $pd->country,
                     'email'             => $pd->email,
-                    'status'            => ( ($emailConfirmType) ? 0 : 1),
+                    'status'            => ( ($emailConfirmType) ? 0 : 1), // if $emailConfirmType == true that means 0 so cron job will find this row and send email
+                    'is_mail_confirmed' => ( ($emailConfirmType) ? 1 : 0),// if $emailConfirmType == false that means 1 so cron job will not find this row and not send email. this is another variable so that we can truck how many email has been sent.
                     'is_confirmed'      => (isset($pd->is_confirmed) && !empty($pd->is_confirmed) ? $pd->is_confirmed : 0),
                     'created_at'        => date('Y-m-d h:i:s'),
                     'updated_at'        => date('Y-m-d h:i:s')
@@ -579,6 +580,7 @@ class Backend extends Controller
                     'email'             => $pd->email,
                     'is_status'         => ( ($emailConfirmType) ? 1 : 0),
                     'is_confirmed'      => 1,
+                    'is_mail_confirmed' => 0,
                     'updated_at'        => date('Y-m-d h:i:s')
                   ]; //end of insert data  
                 DB::table('event_business_owners_details')

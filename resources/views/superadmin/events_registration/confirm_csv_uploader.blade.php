@@ -69,8 +69,8 @@
                                     <td><span class='edit_text'>{{ $data->email }}</span></td>
                                     <td><span class='edit_text'>{{ $data->namebadge_user_label }}</span></td>
                                     <th>
-                                        <button type="button" class="btn btn-sm" onclick="csv_upload_confirm('{{ url('su/backend/csv_data/store') }}', 'withEmail');">IWithE</button>
-                                        <button type="button" class="btn btn-sm" onclick="csv_upload_confirm('{{ url('su/backend/csv_data/store') }}', 'withoutEmail');">IWithoutE</button>
+                                        <button type="button" class="btn btn-sm" onclick="csv_upload_confirm('{{ url('su/backend/csv_data/store') }}', 'withEmail');">Import With Email</button>
+                                        <button type="button" class="btn btn-sm" onclick="csv_upload_confirm('{{ url('su/backend/csv_data/store') }}', 'withoutEmail');">Import Without Email</button>
                                     </th>
                                 </tr>
                                 <?php } ?>
@@ -78,8 +78,8 @@
                         </table>
                     </div>
                     <input type="hidden" id='event_id' name="event_id" value="<?php echo $page_details['events']->id ?>" />
-                    <button type="button" class="btn btn-default" onclick="csv_upload_confirm('{{ url('su/backend/csv_data/store') }}', 'withEmail');">IWithE</button>
-                    <button type="button" class="btn btn-default" onclick="csv_upload_confirm('{{ url('su/backend/csv_data/store') }}', 'withoutEmail');">IWithoutE</button>
+                    <button type="button" class="btn btn-default" onclick="csv_upload_confirm('{{ url('su/backend/csv_data/store') }}', 'withEmail');">Import With Email</button>
+                    <button type="button" class="btn btn-default" onclick="csv_upload_confirm('{{ url('su/backend/csv_data/store') }}', 'withoutEmail');">Import Without Email</button>
                 </form>
             </div><!--/tab-content-->
 

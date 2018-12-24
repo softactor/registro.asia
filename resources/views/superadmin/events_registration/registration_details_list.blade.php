@@ -36,11 +36,11 @@
                                 <td><?php echo $list->event_url; ?></td>
                                 <td>
                                     <?php
-                                        $param['table'] = 'event_business_owners';
-                                        $param['field'] = 'owners_numbers';
+                                        $param['table'] = 'event_business_owners_details';
+                                        $param['field'] = 'is_confirmed';
                                         $param['where'] = [
                                             'event_id' => $list->id,
-                                            'is_status'=>1
+                                            'is_confirmed'=>1
                                         ];
                                         echo ((getTableFieldsSum($param)->total)? getTableFieldsSum($param)->total : 'Still no registration');
                                     ?>
