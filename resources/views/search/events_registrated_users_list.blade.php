@@ -38,8 +38,10 @@
                             $type   =   get_registration_type_by_business_owner_id($data->business_owner_id);
                             if($type == 'Onsite'){
                                 echo '<span class="label label-info">'.$type.'</span>';
-                            }else{
+                            }elseif($type == 'Import'){
                                 echo '<span class="label label-primary">'.$type.'</span>';
+                            }else{
+                                echo '<span class="label label-warning">'.$type.'</span>';
                             }
                     ?>
                 </td>
