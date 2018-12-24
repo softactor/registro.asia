@@ -40,7 +40,7 @@
                                         $param['field'] = 'owners_numbers';
                                         $param['where'] = [
                                             'event_id' => $list->id,
-                                            'is_confirmed'=>1
+                                            'is_status'=>1
                                         ];
                                         echo ((getTableFieldsSum($param)->total)? getTableFieldsSum($param)->total : 'Still no registration');
                                     ?>
