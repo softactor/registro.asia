@@ -348,7 +348,7 @@ class Backend extends Controller
     
     public function send_bulk_email(Request $request){
         $ids    =   $request->name_badge_check;
-        DB::table('event_business_owners_details')->whereIn('id', $ids)->update(array('is_status' => 0));
+        DB::table('event_business_owners_details')->whereIn('id', $ids)->update(array('is_status' => 0, 'is_mail_confirmed' =>1));
         $feedback_data  =   [
             'status'=>'success',
             'message'=>'Email on progress',

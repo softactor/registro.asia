@@ -99,7 +99,7 @@
                                                     <a href="{{ url('su/name_badge_config') }}"><img style="height: 20px;" src="{{ asset('images/print_error.png') }}" title="Namebadge was not configured!"/></a>
                                                 <?php } ?>
                                                 <button type="button" class="btn btn-primary btn-sm" onclick="editBasicRegistrationDetails('<?php echo $data->id; ?>', '{{ url('su/get_event_business_owners_details') }}')">Edit</button>
-                                                <button type="button" class="btn btn-primary btn-sm" onclick="emailRegistrationDetails('<?php echo $data->id; ?>', '{{ url('su/get_event_business_owners_details') }}')">Email</button>
+                                                <!--<button type="button" class="btn btn-primary btn-sm" onclick="emailRegistrationDetails('<?php echo $data->id; ?>', '{{ url('su/get_event_business_owners_details') }}')">Email</button>-->
                                                 <button type="button" class="btn btn-primary btn-sm" onclick="userRegistrationDetails('<?php echo $data->id; ?>', '{{ url('su/user_registration_details') }}')">Details</button>
                                             </td>
                                         </tr>
