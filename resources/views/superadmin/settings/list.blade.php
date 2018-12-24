@@ -35,11 +35,16 @@
                             </tr>
                             <tr>
                                 <td>3</td>
-                                <td>Name badge label</td>
-                                <td><a href="#"  data-toggle="modal" data-target="#name_badge_label">Name badge label</a></td>
+                                <td>Print layout configuration</td>
+                                <td><a href="#"  data-toggle="modal" data-target="#print_layout_template">Print layout configuration</a></td>
                             </tr>
                             <tr>
                                 <td>4</td>
+                                <td>Default Namebadge Template</td>
+                                <td><a href="{{ url('su/default_namebadge_template') }}">Upload</a></td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
                                 <td>Email Editor</td>
                                 <td><a href="{{ url('su/event_wise_mail_composer') }}">Compose</a></td>
                             </tr>

@@ -390,5 +390,13 @@ class NameBadgeController extends Controller{
         
         echo json_encode($feedback);
     }
+    
+    public function default_namebadge_template(){
+        $page_details   =   [
+            'page_title'                =>  'Default namebadge template',
+            'form_url'            =>  'su/default_namebadge_template_store',
+        ];
+        return view('superadmin.namebadge.default_namebadge_template', compact('page_details'));
+    }
 
 }
