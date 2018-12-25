@@ -35,8 +35,8 @@
                             </tr>
                             <tr>
                                 <td>3</td>
-                                <td>Print layout configuration</td>
-                                <td><a href="#"  data-toggle="modal" data-target="#print_layout_template">Print layout configuration</a></td>
+                                <td>Name badge label</td>
+                                <td><a href="#"  data-toggle="modal" data-target="#name_badge_label">Name badge label</a></td>
                             </tr>
                             <tr>
                                 <td>4</td>
