@@ -36,43 +36,114 @@ $(function () {
 
 function save_position(){
     var dataParam   =   [];
-    $(".droped_item_identity").each(function () {
-        var elem = $(this),
-                id                  = elem.attr('id');
-                newleft             = elem.attr('data-left'),
-                newtop              = elem.attr('data-top');
-                left_absulate_value = elem.attr('data-absulate-left'),
-                top_absulate_value  = elem.attr('data-absulate-top');
-        var dataParamObj = {
-            'field_id'                  : id,
-            'newleft'                   : newleft,
-            'newtop'                    : newtop,
-            'left_absulate_value'       : left_absulate_value,
-            'top_absulate_value'        : top_absulate_value,
-            'event_id'                  : $('#event_id').val(),
-            'name_badge_id'             : $('#name_badge_id').val()
-        };
-        dataParam.push(dataParamObj);
-    })
-    $.ajax({
-        type: 'POST',
-        url: $('#position_store').val(),
-        dataType:'json',
-        data: 'dataParam='+JSON.stringify(dataParam)+'&event_id='+$('#event_id').val()+'&name_badge_id='+$('#name_badge_id').val()+'&image_path='+$('#image_path').val(),
-        headers: {
-            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content'),
-        },
-        success: function (response) {
-            if (response.status == 'success') {
-                swal("Position Saved", response.message, "success");
-                setTimeout(function () {
-                    location.reload();
-                }, 2000);
-            }else{
-                swal("Error!", response.message, "error");
+    var namebadgeTypeVal    =   $('input[name=eventNameBadgeTemplateType]:checked').val();
+    if(namebadgeTypeVal ==  'Default'){
+        var namebadgeSetVal    =   $('input[name=eventNameBadgeTemplateSet]:checked').val();
+        $.ajax({
+            type: 'POST',
+            url: $('#position_store').val(),
+            dataType:'json',
+            data: 'namebadgeSetVal='+namebadgeSetVal+'&event_id='+$('#event_id').val()+'&name_badge_id='+$('#name_badge_id').val()+'&image_path='+$('#image_path').val()+'&namebadgeTypeVal='+namebadgeTypeVal,
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content'),
+            },
+            success: function (response) {
+                if (response.status == 'success') {
+                    swal("Position Saved", response.message, "success");
+                    setTimeout(function () {
+                        location.reload();
+                    }, 2000);
+                }else{
+                    swal("Error!", response.message, "error");
+                }
             }
-        }
-    })
+        })
+    }else{
+        $(".droped_item_identity").each(function () {
+            var elem = $(this),
+                    id                  = elem.attr('id');
+                    newleft             = elem.attr('data-left'),
+                    newtop              = elem.attr('data-top');
+                    left_absulate_value = elem.attr('data-absulate-left'),
+                    top_absulate_value  = elem.attr('data-absulate-top');
+            var dataParamObj = {
+                'field_id'                  : id,
+                'newleft'                   : newleft,
+                'newtop'                    : newtop,
+                'left_absulate_value'       : left_absulate_value,
+                'top_absulate_value'        : top_absulate_value,
+                'event_id'                  : $('#event_id').val(),
+                'name_badge_id'             : $('#name_badge_id').val()
+            };
+            dataParam.push(dataParamObj);
+        })
+        $.ajax({
+            type: 'POST',
+            url: $('#position_store').val(),
+            dataType:'json',
+            data: 'dataParam='+JSON.stringify(dataParam)+'&event_id='+$('#event_id').val()+'&name_badge_id='+$('#name_badge_id').val()+'&image_path='+$('#image_path').val(),
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content'),
+            },
+            success: function (response) {
+                if (response.status == 'success') {
+                    swal("Position Saved", response.message, "success");
+                    setTimeout(function () {
+                        location.reload();
+                    }, 2000);
+                }else{
+                    swal("Error!", response.message, "error");
+                }
+            }
+        })
+    }
+}
+
+function set_event_namebadge_template(event_id, url){
+    $.ajax({
+            type: 'GET',
+            url: url,
+            dataType: 'json',
+            data: 'event_id='+event_id,
+            success: function (response) {
+                console.log(response);
+                if (response.status == 'success') {
+                    $('#name_badge_id').val(response.data.id);
+                    $('#eventnameBadgeTemplateModal').modal('show');
+                    $('#content_loader').hide();                    
+                    $('#event_title').html(response.events_title);
+                    $('.nameBadgeHeader').attr('src',response.events_header);
+                    $('#event_header').val(response.events_header);
+                    if(response.name_badge_position_status){
+                        $(".edit_field_class").remove();
+                        $("#containment-wrapper").append(response.positionEditView);
+                    }
+                    
+                    if(response.templates_details_status){
+                        $("#image_path").html(response.templates_detailsDropDown);
+                    }else{
+                        $("#image_path").html("");
+                    }
+                }else{
+                    $('#content_loader').hide();
+                    $("#image_path").html("");
+                    $('#event_title').html(response.events_title);
+                    $('#containment-wrapper').css('background-image', '');
+                    $('#containment-wrapper-preview').css('background-image', '');
+                    swal("Error!", response.message, "error");
+                }
+            }
+        })
+}
+
+function showTheNameBadgeContainer(templateType){
+    if(templateType == 'Default'){
+        $('#default_template_section').show('slow');
+        $('#custom_template_section').hide('slow');
+    }else{
+        $('#default_template_section').hide('slow');
+        $('#custom_template_section').show('slow');
+    }
 }
 
 function set_event_namebadge_background(event_id, url){
@@ -126,13 +197,33 @@ function set_event_namebadge_background(event_id, url){
     }
 }
 
-function update_event_namebadge_background(image_path){
-    var imageUrl = $('#namebadge_bg_image_path').val() + '/' + image_path;
-    $('#containment-wrapper').css('background-image', 'url(' + imageUrl + ')');
-    $('#containment-wrapper').css('background-repeat', 'no-repeat');
-    
-    $('#containment-wrapper-preview').css('background-image', 'url(' + imageUrl + ')');
-    $('#containment-wrapper-preview').css('background-repeat', 'no-repeat');
+function update_event_namebadge_background(image_path, url){
+    $.ajax({
+            type: 'GET',
+            url: url,
+            dataType: 'json',
+            data: 'name_badge_config_id='+$('#name_badge_id').val(),
+            success: function (response) {
+                if (response.status == 'success') {
+                    $('.nameBadgeHeader').attr('src',$('#event_header').val());
+                    var imageUrl = $('#namebadge_bg_image_path').val() + '/' + image_path;
+                    $('#containment-wrapper').css('background-image', 'url(' + imageUrl + ')');
+                    $('#containment-wrapper').css('background-repeat', 'no-repeat');
+                    $('#containment-wrapper').css('width', response.name_badge_config.namebadge_width + response.name_badge_config.measure_unit);
+                    $('#containment-wrapper').css('height', response.name_badge_config.namebadge_height + response.name_badge_config.measure_unit);
+                    // for preview:
+                    
+                    $('#containment-wrapper-preview').css('background-image', 'url(' + imageUrl + ')');
+                    $('#containment-wrapper-preview').css('background-repeat', 'no-repeat');
+                    $('#containment-wrapper-preview').css('width', response.name_badge_config.namebadge_width + response.name_badge_config.measure_unit);
+                    $('#containment-wrapper-preview').css('height', response.name_badge_config.namebadge_height + response.name_badge_config.measure_unit);
+                    
+                    // preview end:
+                }else{
+                    swal("Error!", response.message, "error");
+                }
+            }
+        }) 
 }
 
 function confirmFieldDelete(del_id, del_url) {

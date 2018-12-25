@@ -60,6 +60,7 @@ Route::get('su/name_badge_field_delete', 'Namebadge\NameBadgeController@name_bad
 Route::post('su/saveNamebadgeFontStyle', 'Namebadge\NameBadgeController@saveNamebadgeFontStyle');
 Route::get('su/name_badge_template_delete', 'Namebadge\NameBadgeController@name_badge_template_delete');
 Route::get('su/default_namebadge_template', 'Namebadge\NameBadgeController@default_namebadge_template');
+Route::get('su/name_badge_config_details', 'Namebadge\NameBadgeController@get_name_badge_config_details');
 
 //          REGISTRATION
 Route::get('su/registration_details_list', 'Backend@registration_details_list');

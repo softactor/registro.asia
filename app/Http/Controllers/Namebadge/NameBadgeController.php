@@ -25,6 +25,15 @@ class NameBadgeController extends Controller{
         ];
         return view('superadmin.namebadge.config', compact('page_details'));
     }
+    public function get_name_badge_config_details(Request $request){
+        $name_badge_config        =   DB::table('name_badge_config')->where('id',$request->name_badge_config_id)->first();
+        $feedback = [
+            'status'                => 'success',
+            'name_badge_config'     =>  $name_badge_config,
+            'message'               => 'Did not found any events template!',
+        ];
+        echo json_encode($feedback);
+    }
     public function name_badge_config_store(Request $request) {        
         //Define Rules
         $rules = [
@@ -182,6 +191,7 @@ class NameBadgeController extends Controller{
         return view('superadmin.namebadge.name_badge_set_position', compact('page_details'));   
     }
     public function name_badge_background_by_event(Request $request) {
+        $eventDetails   =   DB::table('events')->where('id',$request->event_id)->first();
         $name_badge_position                    =   [];
         $positionEditViewRender                 =   [];
         $templates_detailsDropViewRender        =   [];
@@ -214,6 +224,8 @@ class NameBadgeController extends Controller{
             }
             $feedback = [
                 'status'                        => 'success',
+                'events_header'                 => asset('/events/'.$eventDetails->event_header),
+                'events_title'                  => $eventDetails->title,
                 'templates_details'             => ((!$templates_details->isEmpty())? $templates_details : ''),
                 'name_badge_position_status'    => $name_badge_position_status,
                 'templates_details_status'      => $templates_details_status,
@@ -228,7 +240,9 @@ class NameBadgeController extends Controller{
             echo json_encode($feedback);
         } else {
             $feedback = [
-                'status' => 'error',
+                'status' => 'success',
+                'events_title'                  => $eventDetails->title,
+                'events_header'                => asset('/events/'.$eventDetails->event_header),
                 'data' => '',
                 'name_badge_position_status'    => $name_badge_position_status,
                 'name_badge_position'           => $name_badge_position,
@@ -238,81 +252,122 @@ class NameBadgeController extends Controller{
         }
     }
     public function name_badge_set_position_store(Request $request) {
-        $all = json_decode($request->dataParam);
-        if (isset($all) && !empty($all)) {
-            if (isset($request->event_id) && !empty($request->event_id)) {
+        if ($request->namebadgeTypeVal == 'Default') {
+            DB::table('name_badge_position')->where('event_id', $request->event_id)->where('namebadgeTemplateType', 'Custom')->delete();
+            /* ----------------------------------------------------------
+            * check duplicate entry
+            * ---------------------------------------------------------
+            */
+           $checkParam['table'] = "name_badge_position";
+           $checkWhereParam = [
+               ['event_id', '=', $request->event_id],
+               ['namebadgeTemplateType', '=', 'Default']
+           ];
+           $checkParam['where'] = $checkWhereParam;
+           $duplicateCheck_id = check_duplicate_data($checkParam); //check_duplicate_data is a helper method:
+           // check is it duplicate or not
+           if ($duplicateCheck_id) {
+               $name_badge_configure = NamebadgePositionModel::find($duplicateCheck_id);
+               $response = $name_badge_configure->update([
+                   'nameBadgeTemplateSet' => $request->namebadgeSetVal,
+               ]);
+           } else {
+               /* ----------------------------------------------------------
+                * Insert area
+                * ---------------------------------------------------------
+                */
+               $response = NamebadgePositionModel::create([
+                           'name_badge_id'          => $request->name_badge_id,
+                           'event_id'               => $request->event_id,
+                           'namebadgeTemplateType'  => $request->namebadgeTypeVal,
+                           'nameBadgeTemplateSet'   => $request->namebadgeSetVal,
+               ]);
+           }// end of foreach
+           $feedback = [
+                        'status' => 'success',
+                        'message' => 'data have successfully updated'
+                    ];
+                    echo json_encode($feedback);
+        } else {
+            $all = json_decode($request->dataParam);
+            
+            if (isset($all) && !empty($all)) {
+                DB::table('name_badge_position')->where('event_id', $request->event_id)->where('namebadgeTemplateType', 'Default')->delete();
+                if (isset($request->event_id) && !empty($request->event_id)) {
+                    $name_badge_configure = NamebadgeConfigModel::find($request->name_badge_id);
+                    $response = $name_badge_configure->update([
+                        'image_path' => $request->image_path,
+                    ]);
+                    foreach ($all as $dataval) {
+                        /* ----------------------------------------------------------
+                         * check duplicate entry
+                         * ---------------------------------------------------------
+                         */
+                        $checkParam['table'] = "name_badge_position";
+                        $checkWhereParam = [
+                            ['event_id', '=', $dataval->event_id],
+                            ['field_id', '=', $dataval->field_id]
+                        ];
+                        $checkParam['where'] = $checkWhereParam;
+                        $duplicateCheck_id = check_duplicate_data($checkParam); //check_duplicate_data is a helper method:
+                        // check is it duplicate or not
+                        if ($duplicateCheck_id) {
+                            $name_badge_configure = NamebadgePositionModel::find($duplicateCheck_id);
+                            $response = $name_badge_configure->update([
+                                'name_badge_id' => $dataval->name_badge_id,
+                                'event_id' => $dataval->event_id,
+                                'field_id' => $dataval->field_id,
+                                'left_value' => $dataval->newleft,
+                                'top_value' => $dataval->newtop,
+                                'left_absulate_value' => $dataval->left_absulate_value,
+                                'top_absulate_value' => $dataval->top_absulate_value,
+                            ]);
+                        } else {
+                            /* ----------------------------------------------------------
+                             * Insert area
+                             * ---------------------------------------------------------
+                             */
+                            $response = NamebadgePositionModel::create([
+                                        'name_badge_id' => $dataval->name_badge_id,
+                                        'event_id' => $dataval->event_id,
+                                        'field_id' => $dataval->field_id,
+                                        'left_value' => $dataval->newleft,
+                                        'top_value' => $dataval->newtop,
+                                        'left_absulate_value' => $dataval->left_absulate_value,
+                                        'top_absulate_value' => $dataval->top_absulate_value,
+                            ]);
+                        }// end of foreach
+                    }
+                    $feedback = [
+                        'status' => 'success',
+                        'message' => 'data have successfully updated',
+                        'data' => $all
+                    ];
+                    echo json_encode($feedback);
+                } else {
+                    $feedback = [
+                        'status' => 'error',
+                        'message' => 'Event was not selected',
+                        'data' => ''
+                    ];
+                    echo json_encode($feedback);
+                }
+            } else {
+
                 $name_badge_configure = NamebadgeConfigModel::find($request->name_badge_id);
                 $response = $name_badge_configure->update([
                     'image_path' => $request->image_path,
                 ]);
-                foreach ($all as $dataval) {
-                    /* ----------------------------------------------------------
-                     * check duplicate entry
-                     * ---------------------------------------------------------
-                     */
-                    $checkParam['table'] = "name_badge_position";
-                    $checkWhereParam = [
-                        ['event_id', '=', $dataval->event_id],
-                        ['field_id', '=', $dataval->field_id]
-                    ];
-                    $checkParam['where'] = $checkWhereParam;
-                    $duplicateCheck_id = check_duplicate_data($checkParam); //check_duplicate_data is a helper method:
-                    // check is it duplicate or not
-                    if ($duplicateCheck_id) {
-                        $name_badge_configure = NamebadgePositionModel::find($duplicateCheck_id);
-                        $response = $name_badge_configure->update([
-                            'name_badge_id'         => $dataval->name_badge_id,
-                            'event_id'              => $dataval->event_id,
-                            'field_id'              => $dataval->field_id,
-                            'left_value'            => $dataval->newleft,
-                            'top_value'             => $dataval->newtop,
-                            'left_absulate_value'   => $dataval->left_absulate_value,
-                            'top_absulate_value'    => $dataval->top_absulate_value,
-                        ]);
-                    } else {
-                        /* ----------------------------------------------------------
-                         * Insert area
-                         * ---------------------------------------------------------
-                         */
-                        $response = NamebadgePositionModel::create([
-                                    'name_badge_id' => $dataval->name_badge_id,
-                                    'event_id' => $dataval->event_id,
-                                    'field_id' => $dataval->field_id,
-                                    'left_value' => $dataval->newleft,
-                                    'top_value' => $dataval->newtop,
-                                    'left_absulate_value' => $dataval->left_absulate_value,
-                                    'top_absulate_value' => $dataval->top_absulate_value,
-                        ]);
-                    }// end of foreach
-                }
-                $feedback = [
-                    'status' => 'success',
-                    'message' => 'data have successfully updated',
-                    'data' => $all
-                ];
-                echo json_encode($feedback);
-            } else {
                 $feedback = [
                     'status' => 'error',
-                    'message' => 'Event was not selected',
+                    'message' => 'Label was not selected but background image has updated',
                     'data' => ''
                 ];
                 echo json_encode($feedback);
             }
-        } else {
-            
-            $name_badge_configure = NamebadgeConfigModel::find($request->name_badge_id);
-            $response = $name_badge_configure->update([
-                'image_path' => $request->image_path,
-            ]);
-            $feedback = [
-                'status' => 'error',
-                'message' => 'Label was not selected but background image has updated',
-                'data' => ''
-            ];
-            echo json_encode($feedback);
         }
-    }    
+    }
+
     public function name_badge_field_delete(Request $request) {
         $deleteParam = [
             'id' => $request->del_id
