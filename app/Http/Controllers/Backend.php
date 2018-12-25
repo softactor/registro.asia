@@ -49,17 +49,32 @@ class Backend extends Controller
     }
     public function store_event(Request $request) {
         $url_string = explode(' ', ucwords($request->title));
+        $filename   =   '';
+        if (isset($_FILES['event_header']) && $_FILES['event_header']['tmp_name']) {
+            $path = $_FILES['event_header']['name'];
+            $dimention_path = $_FILES['event_header']['tmp_name'];
+            $imageDimention = getimagesize($dimention_path);
+            if ($imageDimention['0'] > 550) {
+                
+            }
+
+            $ext = pathinfo($path, PATHINFO_EXTENSION);
+            $filename = date('m-d-Y') . '_' . 'event_template_header_'. time() . "." . $ext;
+            $filepath = public_path('/events/');
+            move_uploaded_file($_FILES['event_header']['tmp_name'], $filepath . $filename);
+        }
         $event_details = [
-            'title' => $request->title,
-            'organizer' => $request->organizer,
-            'start_date' => date('Y-m-d', strtotime($request->start_date)),
-            'end_date' => date('Y-m-d', strtotime($request->end_date)),
-            'venue_name' => $request->venue_name,
-            'venue_address' => $request->venue_address,
-            'event_url' => implode('-', $url_string),
+            'title'             => $request->title,
+            'organizer'         => $request->organizer,
+            'start_date'        => date('Y-m-d', strtotime($request->start_date)),
+            'end_date'          => date('Y-m-d', strtotime($request->end_date)),
+            'venue_name'        => $request->venue_name,
+            'venue_address'     => $request->venue_address,
+            'event_url'         => implode('-', $url_string),
             'iframe_events_url' => $request->iframe_events_url,
-            'created_at' => date('Y-m-d h:i:s'),
-            'updated_at' => date('Y-m-d h:i:s')
+            'event_header'      => $filename,
+            'created_at'        => date('Y-m-d h:i:s'),
+            'updated_at'        => date('Y-m-d h:i:s')
         ]; //end of insert data  
 
         if (isset($request->event_edit_id) && !empty($request->event_edit_id)) {

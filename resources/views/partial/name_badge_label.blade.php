@@ -16,7 +16,7 @@
                     <div class="row">
                         <div class="col col-md-6">
                             <div class="form-group">
-                                <label for="usr">Page height:</label>
+                                <label for="usr">Label Name:</label>
                                 <input type="text" class="form-control" id="label_name" name="label_name">
                             </div>
                         </div>

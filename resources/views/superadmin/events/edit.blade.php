@@ -15,7 +15,7 @@
                         <a href='{{ url($page_details['link_url']) }}'>{{ $page_details['link_title'] }}</a>
                     </div>
                 </h2>
-                <form action="{{ url($page_details['form_url']) }}" method="post">
+                <form action="{{ url($page_details['form_url']) }}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label for="title">Title:</label>
@@ -49,6 +49,22 @@
                     <div class="form-group">
                         <label for="venue_address">Venue address:</label>
                         <input type="text" class="form-control" id="venue_address" placeholder="Enter Venue address" name="venue_address" value="<?php echo ((isset($events->venue_address) && !empty($events->venue_address))? $events->venue_address: '') ?>">
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                @if ($errors->has('event_header'))
+                                <div class="alert-error">{{ $errors->first('event_header') }}</div>
+                                @endif
+                                <label for="namebadge_height">Event template header:</label>
+                                <input type="file" class="form-control" name="event_header">
+                            </div>
+                            <div class="col-md-6">
+                                <div id="previous_bg_template">
+                                    <img src="<?php echo asset('events/' . $events->event_header) ?>" alt="Event header" style="width: 350px; margin-top: 3%;" />
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <input type="hidden" name="event_edit_id" value="<?php echo $events->id; ?>">
                     <input type="submit" name='create_event' value="Update" class="btn btn-default">

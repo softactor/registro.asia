@@ -15,7 +15,7 @@
                         <a href='{{ url($page_details['link_url']) }}'>{{ $page_details['link_title'] }}</a>
                     </div>
                 </h2>
-                <form action="{{ url($page_details['form_url']) }}" method="post">
+                <form action="{{ url($page_details['form_url']) }}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label for="title">Title:</label>
@@ -45,6 +45,13 @@
                     <div class="form-group">
                         <label for="venue_address">Venue address:</label>
                         <input type="text" class="form-control" id="venue_address" placeholder="Enter Venue address" name="venue_address">
+                    </div>
+                    <div class="form-group">
+                        @if ($errors->has('background'))
+                        <div class="alert-error">{{ $errors->first('background') }}</div>
+                        @endif
+                        <label for="namebadge_height">Event template header:</label>
+                        <input type="file" class="form-control" name="event_header">
                     </div>
                     <input type="submit" name='create_event' value="Create" class="btn btn-default">
                 </form>
