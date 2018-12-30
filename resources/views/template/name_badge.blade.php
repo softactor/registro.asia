@@ -44,10 +44,11 @@
                                                 <h3><?php echo $user_data->first_name . ' ' . $user_data->last_name; ?></h3>
                                                 <h4><?php echo $user_data->designation; ?></h4>
                                                 <h5><?php echo $user_data->company_name ?></h5>
-                                                <h6><?php echo $user_data->company_address; ?></h6>
+                                                <h6><?php echo $user_data->local_state; ?></h6>
                                             </div>
                                             <div class="userQrCode">
-                                                <img src="<?php echo asset('pdf/' . $user_data->qrcode_path) ?>" />
+                                                <img src="<?php echo asset('pdf/' . $user_data->qrcode_path) ?>" style="height: 35px; width: 254px;" />
+                                                <h6><?php echo $user_data->serial_digit; ?></h6>
                                             </div>
                                             <div class="userType">
                                                 <h2><?php echo $user_data->namebadge_user_label; ?></h2>
