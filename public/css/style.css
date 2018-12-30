@@ -202,75 +202,83 @@ report_modal_style table tr,th,td{
 #custom_template_section{
     display: none;
 }
-.nameBadgeTemplateHolder{
-    position: relative;
-    text-align: center;
-    background: black;
-    padding: 1%;
-}
-.defaultEventNameBadge{
-    position: relative;
-    background: yellow;
-    margin: 0 auto;
-}
-.defaultEventNameBadge1{
-    width: 75mm;
-    height: 105mm;
-}
-.defaultEventNameBadge2{
-    width: 90mm;
-    height: 135mm;
-}
-.defaultEventNameBadge3{
-    width: 105mm;
-    height: 75mm;
-}
-.nameBadgeTemplateHolder .defaultEventNameBadgeheader{
-    float: left;
-    margin-top: 10%
-}
-.nameBadgeTemplateHolder .userBasicInfo{
-    width: 98%;
-    float: left;
-    height: auto;
-    margin: 6% 1% 1% 1%;
-    background: white;
-}
-.nameBadgeTemplateHolder .template3{
-    width: 98%;
-    float: left;
-    height: 90px;
-    margin: 2% 1% 1% 1%;
-    background: white;
-}
-.nameBadgeTemplateHolder .userQrCode{
-    float: left;
-    margin: 5% 5% 0;
-    width: 90%;
-    height: 35px;
-    background: black;
-}
-.nameBadgeTemplateHolder .userType{
-    width: 98%;
-    height: 75px;
-    float: left;
-    margin: 2% 1% 1% 1%;
-    background: white;
-}
-.nameBadgeTemplateHolder .userBasicInfoType2{
-    margin-top: 16%;
-}
-.nameBadgeTemplateHolder .userBasicInfoType3{
-    margin-top: 1%;
-    height: 25px;
-}
-.nameBadgeTemplateHolder .userQrCodeType2{
-    margin-top: 24%;
-}
-.nameBadgeTemplateHolder .userTypeType3{
-    margin-top: 1%;
-    height: 40px;
-}
-.userTypeType3 h2{
-    margin-top: 0%;
-}
+/*Template design*/
+        .nameBadgeTemplateHolder{
+            top:45px;
+            position: relative !important;
+            text-align: center !important;
+            background: lightgrey !important;
+            margin: 15px !important;
+            display: block !important;
+            page-break-inside: avoid !important;
+        }
+        .defaultEventNameBadge{
+            position: relative !important;
+            background: yellow !important;
+            margin: 0 auto !important;
+        }
+        .defaultEventNameBadge1{
+            width: 75mm !important;
+            height: 105mm !important;
+        }
+        .defaultEventNameBadge2{
+            width: 90mm !important;
+            height: 135mm !important;
+        }
+        .defaultEventNameBadge3{
+            width: 105mm !important;
+            height: 75mm !important;
+        }
+        .nameBadgeTemplateHolder .defaultEventNameBadgeheader{
+            float: left !important;
+            margin-top: 10% !important
+        }
+        .nameBadgeTemplateHolder .userBasicInfo{
+            width: 98% !important;
+            float: left !important;
+            height: auto !important;
+            margin: 6% 1% 1% 1% !important;
+            background: white !important;
+        }
+        .nameBadgeTemplateHolder .template3{
+            width: 98% !important;
+            float: left !important;
+            height: 90px !important;
+            margin: 2% 1% 1% 1% !important;
+            background: white !important;
+        }
+        .nameBadgeTemplateHolder .userQrCode{
+            float: left !important;
+            margin: 5% 5% 0 !important;
+            width: 90% !important;
+            height: 35px !important;
+            /*background: black !important;*/
+        }
+        .nameBadgeTemplateHolder .userType{
+            width: 98% !important;
+            height: 75px !important;
+            float: left !important;
+            margin: 18% 1% 1% 1% !important;
+            background: white !important;
+        }
+        .nameBadgeTemplateHolder .userBasicInfoType2{
+            margin-top: 16% !important;
+        }
+        .nameBadgeTemplateHolder .userBasicInfoType3{
+            margin-top: 1% !important;
+            height: 25px !important;
+        }
+        .nameBadgeTemplateHolder .userQrCodeType2{
+            margin-top: 24% !important;
+        }
+        .nameBadgeTemplateHolder .userTypeType3{
+            margin-top: 1% !important;
+            height: 40px !important;
+        }
+        .userTypeType3 h2{
+            margin-top: 0% !important;
+        }
+        .name_badge_serial_number{
+            position: relative;
+            top: 57px;
+        }

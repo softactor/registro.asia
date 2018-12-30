@@ -49,7 +49,7 @@
                                             <div class="userQrCode">
                                                 <img src="<?php echo asset('pdf/' . $user_data->qrcode_path) ?>" />
                                             </div>
-                                            <h6><?php echo $user_data->serial_digit; ?></h6>
+                                            <h6 class="name_badge_serial_number"><?php echo $user_data->serial_digit; ?></h6>
                                             <div class="userType">
                                                 <h2><?php echo $user_data->namebadge_user_label; ?></h2>
                                             </div>

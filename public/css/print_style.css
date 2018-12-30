@@ -85,13 +85,13 @@ and open the template in the editor.
             margin: 5% 5% 0 !important;
             width: 90% !important;
             height: 35px !important;
-            background: black !important;
+            /*background: black !important;*/
         }
         .nameBadgeTemplateHolder .userType{
             width: 98% !important;
             height: 75px !important;
             float: left !important;
-            margin: 2% 1% 1% 1% !important;
+            margin: 18% 1% 1% 1% !important;
             background: white !important;
         }
         .nameBadgeTemplateHolder .userBasicInfoType2{
@@ -110,5 +110,9 @@ and open the template in the editor.
         }
         .userTypeType3 h2{
             margin-top: 0% !important;
+        }
+        .name_badge_serial_number{
+            position: relative;
+            top: 57px;
         }
     }
