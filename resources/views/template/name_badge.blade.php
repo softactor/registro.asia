@@ -47,7 +47,7 @@
                                                 <h6><?php echo $user_data->local_state; ?></h6>
                                             </div>
                                             <div class="userQrCode">
-                                                <img src="<?php echo asset('pdf/' . $user_data->qrcode_path) ?>" style="height: 35px; width: 254px;" />
+                                                <img src="<?php echo asset('pdf/' . $user_data->qrcode_path) ?>" />
                                             </div>
                                             <h6><?php echo $user_data->serial_digit; ?></h6>
                                             <div class="userType">
