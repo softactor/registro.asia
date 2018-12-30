@@ -48,8 +48,8 @@
                                             </div>
                                             <div class="userQrCode">
                                                 <img src="<?php echo asset('pdf/' . $user_data->qrcode_path) ?>" style="height: 35px; width: 254px;" />
-                                                <h6><?php echo $user_data->serial_digit; ?></h6>
                                             </div>
+                                            <h6><?php echo $user_data->serial_digit; ?></h6>
                                             <div class="userType">
                                                 <h2><?php echo $user_data->namebadge_user_label; ?></h2>
                                             </div>
