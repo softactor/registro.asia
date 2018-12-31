@@ -450,6 +450,7 @@ function generate_pdf($email_n_pdf_data) {
                 'designation'               => $pd['designation'],
                 'mobile'                    => $pd['mobile'],
                 'country_id'                => (isset($pd['country_id']) && !empty($pd['country_id']) ? $pd['country_id'] : 1),
+                'local_state'                => (isset($pd['local_state']) && !empty($pd['local_state']) ? $pd['local_state'] : ""),
                 'tel'                       => (isset($pd['tel']) && !empty($pd['tel']) ? $pd['tel'] : ''),
                 'fax'                       => (isset($pd['fax']) && !empty($pd['fax']) ? $pd['fax'] : ''),
                 'email'                     => $pd['email'],

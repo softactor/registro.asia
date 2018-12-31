@@ -134,6 +134,8 @@ class Frontend extends Controller
                     "last_name.*" => "required|string|distinct|min:1",
                     "company_name" => "required|array|min:1",
                     "company_name.*" => "required|string|min:1",
+                    "local_state" => "required|array|min:1",
+                    "local_state.*" => "required|string|min:1",
                     "mobile" => "required|array|min:1",
                     "mobile.*" => "required|string|distinct|min:1",
                     "country_id" => "required|array|min:1",
@@ -169,6 +171,10 @@ class Frontend extends Controller
                 if (isset($error_messages['company_name.' . $i])) {
                     $error_counter = ++$error_counter;
                     $messages .= $error_counter . '. The Company field is required for ' . '<br />';
+                }
+                if (isset($error_messages['local_state.' . $i])) {
+                    $error_counter = ++$error_counter;
+                    $messages .= $error_counter . '. The local state field is required for ' . '<br />';
                 }
                 if (isset($error_messages['mobile.' . $i])) {
                     $error_counter = ++$error_counter;
@@ -213,6 +219,7 @@ class Frontend extends Controller
                     'designation'       => $formData['designation'][$i],
                     'mobile'            => $formData['mobile'][$i],
                     'country_id'        => $formData['country_id'][$i],
+                    'local_state'       => $formData['local_state'][$i],
                     'tel'               => $formData['tel'][$i],
                     'fax'               => $formData['fax'][$i],
                     'email'             => $formData['email'][$i],

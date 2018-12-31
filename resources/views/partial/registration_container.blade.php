@@ -53,11 +53,11 @@
                             <label>Designation</label>
                             <input type="text" name="designation[]" class="form-control" id="" value="">
                         </div>
-                        <div class="form-group col-lg-6">
+                        <div class="form-group col-lg-4">
                             <label>Mobile<span class="required_title"></span></label>
                             <input type="text" name="mobile[]" class="form-control" id="" value="">
                         </div>
-                        <div class="form-group col-lg-6">
+                        <div class="form-group col-lg-4">
                             <label>Country<span class="required_title"></span></label>
                             <select class="form-control" id="sel1" name="country_id[]">
                                 <option value="">Please select</option>
@@ -66,6 +66,10 @@
                                 <option value="3">America</option>
                                 <option value="4">China</option>
                             </select>
+                        </div>
+                        <div class="form-group col-lg-4">
+                            <label>Local State<span class="required_title"></span></label>
+                            <input type="text" name="local_state[]" class="form-control" id="local_state" value="" placeholder="local state" required>
                         </div>
                         <div class="form-group col-lg-6">
                             <label>Tel</label>
