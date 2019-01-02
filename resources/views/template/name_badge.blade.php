@@ -61,10 +61,37 @@
                             </td>
                         </tr>
                         <?php
-                    } elseif ($getConfigNameBadgePos->nameBadgeTemplateSet == "defaultEventNameBadge2") {
-                        
-                    } elseif ($getConfigNameBadgePos->nameBadgeTemplateSet == "defaultEventNameBadge3") {
-                        
+                    } elseif ($getConfigNameBadgePos->nameBadgeTemplateSet == "defaultEventNameBadge2") { ?>
+                        <tr>
+                            <td class="report-content-cell">
+                                <div class="main">
+                                    <div class="nameBadgeTemplateHolder">
+                                        <div class="defaultEventNameBadge defaultEventNameBadge2">
+                                            <div class="defaultEventNameBadgeheader">
+                                                <img class="nameBadgeHeader img-responsive" src="<?php echo asset('/events/' . $events->event_header); ?>"/>
+                                            </div>
+                                            <div class="userBasicInfo userBasicInfoType2">
+                                                <h3><?php echo $user_data->first_name . ' ' . $user_data->last_name; ?></h3>
+                                                <h4><?php echo $user_data->designation; ?></h4>
+                                                <h5><?php echo $user_data->company_name ?></h5>
+                                                <h6><?php echo $user_data->local_state; ?></h6>
+                                            </div>
+                                            <div class="userQrCode userQrCodeType2">
+                                                <img src="<?php echo asset('pdf/' . $user_data->qrcode_path) ?>" />
+                                            </div>
+                                            <h6 class="name_badge_serial_number"><?php echo $user_data->serial_digit; ?></h6>
+                                            <div class="userType templateUserType2">
+                                                <h2><?php echo $user_data->namebadge_user_label; ?></h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" name="name_badge_print[]" value="<?php echo $user_data->id; ?>">
+
+                                </div>
+                            </td>
+                        </tr>                                                
+                    <?php } elseif ($getConfigNameBadgePos->nameBadgeTemplateSet == "defaultEventNameBadge3") {
+                        echo 'I am 3';
                     }
                 }
             }

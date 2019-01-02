@@ -209,8 +209,7 @@ report_modal_style table tr,th,td{
             text-align: center !important;
             background: lightgrey !important;
             margin: 15px !important;
-            display: block !important;
-            page-break-inside: avoid !important;
+            padding: 5% 0;
         }
         .defaultEventNameBadge{
             position: relative !important;
@@ -251,7 +250,7 @@ report_modal_style table tr,th,td{
             float: left !important;
             margin: 5% 5% 0 !important;
             width: 90% !important;
-            height: 35px !important;
+            height: 0px !important;
             /*background: black !important;*/
         }
         .nameBadgeTemplateHolder .userType{
@@ -272,13 +271,20 @@ report_modal_style table tr,th,td{
             margin-top: 24% !important;
         }
         .nameBadgeTemplateHolder .userTypeType3{
-            margin-top: 1% !important;
-            height: 40px !important;
+            margin-top: 0% !important;
+            height: 33px !important;
         }
         .userTypeType3 h2{
             margin-top: 0% !important;
         }
+        .template3 h3{
+            margin: 1% !important;
+            font-size: 24px;
+        }
         .name_badge_serial_number{
             position: relative;
             top: 57px;
+        }
+        p.default_set_radio{
+            margin-top: 10% !important;
         }

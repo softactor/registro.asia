@@ -100,7 +100,8 @@ function save_position(){
 }
 
 function set_event_namebadge_template(event_id, url){
-    $.ajax({
+    if(event_id){
+        $.ajax({
             type: 'GET',
             url: url,
             dataType: 'json',
@@ -134,6 +135,7 @@ function set_event_namebadge_template(event_id, url){
                 }
             }
         })
+    }
 }
 
 function showTheNameBadgeContainer(templateType){
