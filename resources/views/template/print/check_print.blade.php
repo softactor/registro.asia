@@ -18,7 +18,7 @@
                 float: left;
                 width: 75mm;
                 height: 105mm;
-                background-color: red;
+                /*background-color: red;*/
                 margin: 1.5mm 1.5mm 3.5mm 1.5mm;
             }
             .defaultEventNameBadgeheader{

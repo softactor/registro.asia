@@ -22,8 +22,8 @@
                     $saveNameBadgeIdIntoSession    =   url('su/saveNameBadgeIdIntoSession');
                 ?>
                 <button type="button" class="btn btn-primary btn-sm pull-right" onclick="sendBulkEmail('<?php echo $sendBulkEmail; ?>','<?php echo $sendBulkEmailStatus; ?>')" style="margin: 0 .5%">Bulk Email</button>
-                <button type="button" class="btn btn-primary btn-sm pull-right" onclick="printBulkNameBadge('<?php echo $bulkNameBadgePrintUrl; ?>')">Bulk Print</button>
-                <a target="_blank" type="button" class="btn btn-primary btn-sm pull-right" href="<?php echo $bulkNameBadgePrint; ?>">Bulk Direct Print</a>
+                <!--<button type="button" class="btn btn-primary btn-sm pull-right" onclick="printBulkNameBadge('<?php echo $bulkNameBadgePrintUrl; ?>')">Bulk Print</button>-->
+                <a target="_blank" type="button" class="btn btn-primary btn-sm pull-right" href="<?php echo $bulkNameBadgePrint; ?>">Bulk Print</a>
                 <div style="clear: both;"></div>
                 <form id='bulkEmailPrint'>
                     <div class="box-body">                    
