@@ -110,6 +110,8 @@ Route::get('su/reports_pdf_download', 'Reports\ReportsController@reports_pdf_dow
 
 // **************************************bulk print and email**************************************************
 
+Route::get('su/saveNameBadgeIdIntoSession', 'Backend@saveNameBadgeIdIntoSession');
 Route::get('su/printBulkNameBadge', 'Backend@print_bulk_name_badge');
+Route::get('su/bulkNameBadgePrint', 'Backend@bulk_name_badge_print');
 Route::get('su/sendBulkEmail', 'Backend@send_bulk_email');
 Route::get('su/sendBulkEmailStatus', 'Backend@send_bulk_email_status');

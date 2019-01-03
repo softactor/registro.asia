@@ -18,9 +18,12 @@
                     $bulkNameBadgePrintUrl  =   url('su/printBulkNameBadge');
                     $sendBulkEmail          =   url('su/sendBulkEmail');
                     $sendBulkEmailStatus    =   url('su/sendBulkEmailStatus');
+                    $bulkNameBadgePrint    =   url('su/bulkNameBadgePrint');
+                    $saveNameBadgeIdIntoSession    =   url('su/saveNameBadgeIdIntoSession');
                 ?>
                 <button type="button" class="btn btn-primary btn-sm pull-right" onclick="sendBulkEmail('<?php echo $sendBulkEmail; ?>','<?php echo $sendBulkEmailStatus; ?>')" style="margin: 0 .5%">Bulk Email</button>
                 <button type="button" class="btn btn-primary btn-sm pull-right" onclick="printBulkNameBadge('<?php echo $bulkNameBadgePrintUrl; ?>')">Bulk Print</button>
+                <a target="_blank" type="button" class="btn btn-primary btn-sm pull-right" href="<?php echo $bulkNameBadgePrint; ?>">Bulk Direct Print</a>
                 <div style="clear: both;"></div>
                 <form id='bulkEmailPrint'>
                     <div class="box-body">                    
@@ -50,7 +53,7 @@
                                         @if(isset($owners_details))
                                         @foreach ($owners_details as $data)
                                         <tr id="data_entry_id_{{$data->id}}">
-                                            <td><input type="checkbox" name="name_badge_check[]" id='nbcheckbox_{{$data->id}}' class='nbcheckbox' value="<?php echo $data->id; ?>" ></td>
+                                            <td><input type="checkbox" name="name_badge_check[]" id='nbcheckbox_{{$data->id}}' class='nbcheckbox' onclick="saveNameBadgeIdIntoSession('<?php echo $saveNameBadgeIdIntoSession; ?>','<?php echo $data->id; ?>')" value="<?php echo $data->id; ?>" ></td>
                                             <td class="text-center">{{ $slNo++}}</td>
                                             <td>{{ $data->serial_digit }}</td>
                                             <td style="word-wrap: break-word;">{{ $data->first_name.' '.$data->last_name }}</td>

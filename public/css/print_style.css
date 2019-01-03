@@ -10,9 +10,8 @@ and open the template in the editor.
 
 @media print {
     /* Default left, right, top, bottom margin is 2cm */
-    @page { 
-        /*size: 8.27in 11.69in;*/
-        size: A4 portrait;
+    @page {
+        size: 75cm 105cm;
         margin: 0 !important;
     } 
 
@@ -51,8 +50,8 @@ and open the template in the editor.
             margin: 0 auto !important;
         }
         .defaultEventNameBadge1{
-            width: 75mm !important;
-            height: 105mm !important;
+            width: 2.95276in !important;
+            height: 4.13386in !important;
         }
         .defaultEventNameBadge2{
             width: 90mm !important;

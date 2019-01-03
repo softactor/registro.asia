@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Session;
 use View;
 use Illuminate\Support\Facades\URL;
 use LaravelQRCode\Facades\QRCode;
+use PDF;
 
 class Backend extends Controller
 {
@@ -682,5 +683,18 @@ class Backend extends Controller
             'message'   => 'Data have been successfully updated'
         ];
         echo json_encode($feedback_data);
+    }
+    public function saveNameBadgeIdIntoSession(Request $request){
+        $request->session()->push('print_ids', $request->name_badge_id);
+    }
+    public function bulk_name_badge_print(Request $request) {
+        $ids    =   Session::get('print_ids');
+        $printData['user_datas']     = DB::table('event_business_owners_details')->whereIn('id', $ids)->get();     
+//        $user_datas     = DB::table('event_business_owners_details')->whereIn('id', $ids)->get();     
+        $pdf = PDF::loadView('template.print.check_print', $printData)
+                    ->stream('nameBadgeDesign.pdf');
+        Session::forget('print_ids');
+        return $pdf;
+//        return view('template.print.check_print', compact('user_datas'));
     }
 }

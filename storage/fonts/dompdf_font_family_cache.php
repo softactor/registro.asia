@@ -119,4 +119,7 @@
     'normal' => $fontDir . '\0a572069555719a7ca7fc1d1543beede',
     'italic' => $fontDir . '\409d9300079bc902a4a34f591d816c69',
   ),
+  'tangerine' => array(
+    'normal' => $fontDir . '\c059c0e815b69f0f597ec11d9c1766db',
+  ),
 ) ?>

@@ -51,6 +51,18 @@ function printBulkNameBadge(url){
         async: false // <- this turns it into synchronous
     }); 
 }
+function saveNameBadgeIdIntoSession(url, value){
+   $.ajax({
+        url: url,
+        type: 'GET',
+        dataType: 'json',
+        data:'name_badge_id='   + value,
+        success: function (response) {
+            
+        },
+        async: false // <- this turns it into synchronous
+    }); 
+}
 
 function sendBulkEmail(url, checkStatusUrl){
    $.ajax({
