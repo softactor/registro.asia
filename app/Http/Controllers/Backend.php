@@ -690,11 +690,11 @@ class Backend extends Controller
     public function bulk_name_badge_print(Request $request) {
         $ids    =   Session::get('print_ids');
         $printData['user_datas']     = DB::table('event_business_owners_details')->whereIn('id', $ids)->get();     
-//        $user_datas     = DB::table('event_business_owners_details')->whereIn('id', $ids)->get();     
-        $pdf = PDF::loadView('template.print.check_print', $printData)
-                    ->stream('nameBadgeDesign.pdf');
-        Session::forget('print_ids');
-        return $pdf;
-//        return view('template.print.check_print', compact('user_datas'));
+//        $pdf = PDF::loadView('template.print.format_print', $printData)
+//                    ->stream('nameBadgeDesign.pdf');
+//        Session::forget('print_ids');
+//        return $pdf;
+        $user_datas     = DB::table('event_business_owners_details')->whereIn('id', $ids)->get();     
+        return view('template.print.format_print', compact('user_datas'));
     }
 }
