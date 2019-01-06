@@ -61,7 +61,7 @@
                 .userBasicInfo{
                     float: left;
                     width: 98%;
-                    height: 125px;
+                    height: 27mm;
                     text-align: center;
                     background-color: white;
 
@@ -69,7 +69,7 @@
                 .userQrCode{
                     float: left;
                     width: 100%;
-                    height: 108px;
+                    height: 15mm;
                     /*border: 1px solid blue;*/
                 }
                 .userQrCode img{
@@ -77,13 +77,14 @@
                 }
                 .userType{
                     float: left;
-                    width: 98%;
+                    width: 100%;
+                    height: 35mm;
                     text-align: center;
-                    background: white;
                 }
                 .name_badge_serial_number{
                     float: left;
                     width: 100%;
+                    height: 7mm;
                     text-align: center;
                 }
             }
@@ -155,7 +156,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td style="width: 75mm; height: 35mm;">
+                                            <td style="width: 75mm; height: 35mm; vertical-align: bottom;">
                                                 <div class="userType" style="background-color: <?php echo $namebadge_user_label_color; ?>;">
                                                     <h2><?php echo $user_data->namebadge_user_label; ?></h2>
                                                 </div>
