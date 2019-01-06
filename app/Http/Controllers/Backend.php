@@ -688,13 +688,41 @@ class Backend extends Controller
         $request->session()->push('print_ids', $request->name_badge_id);
     }
     public function bulk_name_badge_print(Request $request) {
-        $ids    =   Session::get('print_ids');
-        $printData['user_datas']     = DB::table('event_business_owners_details')->whereIn('id', $ids)->get();     
-        $pdf = PDF::loadView('template.print.format_print', $printData)
-                    ->stream('nameBadgeDesign.pdf');
-        Session::forget('print_ids');
-        return $pdf;
-//        $user_datas     = DB::table('event_business_owners_details')->whereIn('id', $ids)->get();     
-//        return view('template.print.format_print', compact('user_datas'));
+        $ids = Session::get('print_ids');
+        $printData['user_datas'] = DB::table('event_business_owners_details')->whereIn('id', $ids)->get();
+        if (isset($printData['user_datas'][0]) && !empty($printData['user_datas'][0])) {
+            $printData['events'] = DB::table('events')->where('id', $printData['user_datas'][0]->event_id)->first();
+            $whereData = [
+                'event_id' => $printData['user_datas'][0]->event_id,
+                'namebadgeTemplateType' => 'Default'
+            ];
+            $getConfigNameBadgePos = get_data_name_by_where('name_badge_position', $whereData);
+            
+            if (isset($getConfigNameBadgePos) && !empty($getConfigNameBadgePos)) {
+                if ($getConfigNameBadgePos->nameBadgeTemplateSet == "defaultEventNameBadge1") {
+                    $pdf = PDF::loadView('template.print.defaultEventNameBadge1', $printData)
+                            ->stream('nameBadgeDesign.pdf');
+                    Session::forget('print_ids');
+                    return $pdf;
+                    //        $user_datas     = DB::table('event_business_owners_details')->whereIn('id', $ids)->get();     
+                    //        return view('template.print.format_print', compact('user_datas'));
+                }elseif ($getConfigNameBadgePos->nameBadgeTemplateSet == "defaultEventNameBadge2") {
+                    $pdf = PDF::loadView('template.print.defaultEventNameBadge2', $printData)
+                            ->stream('nameBadgeDesign.pdf');
+                    Session::forget('print_ids');
+                    return $pdf;
+                    //        $user_datas     = DB::table('event_business_owners_details')->whereIn('id', $ids)->get();     
+                    //        return view('template.print.format_print', compact('user_datas'));
+                }elseif ($getConfigNameBadgePos->nameBadgeTemplateSet == "defaultEventNameBadge3") {
+                    $pdf = PDF::loadView('template.print.defaultEventNameBadge3', $printData)
+                            ->stream('nameBadgeDesign.pdf');
+                    Session::forget('print_ids');
+                    return $pdf;
+                    //        $user_datas     = DB::table('event_business_owners_details')->whereIn('id', $ids)->get();     
+                    //        return view('template.print.format_print', compact('user_datas'));
+                }
+            }
+        }
     }
+
 }

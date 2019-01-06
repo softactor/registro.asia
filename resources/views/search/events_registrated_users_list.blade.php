@@ -1,4 +1,8 @@
 <br />
+<?php
+    $bulkNameBadgePrint    =   url('su/bulkNameBadgePrint');
+    $saveNameBadgeIdIntoSession    =   url('su/saveNameBadgeIdIntoSession');
+?>
 <div class="table-responsive">
     <table id="userRegisList" class="table table-bordered table-hover">
         <thead>
@@ -24,7 +28,7 @@
             @if(isset($list_data))
             @foreach ($list_data as $data)
             <tr id="data_entry_id_{{$data->id}}">
-                <td><input type="checkbox" name="name_badge_check[]" id='nbcheckbox_{{$data->id}}' class='nbcheckbox' value="<?php echo $data->id; ?>" ></td>
+                <td><input type="checkbox" name="name_badge_check[]" id='nbcheckbox_{{$data->id}}' class='nbcheckbox' value="<?php echo $data->id; ?>" onclick="saveNameBadgeIdIntoSession('<?php echo $saveNameBadgeIdIntoSession; ?>','<?php echo $data->id; ?>')" value="<?php echo $data->id; ?>" ></td>
                 <td class="text-center">{{ $slNo++}}</td>
                 <td>{{ $data->serial_digit }}</td>
                 <td style="word-wrap: break-word;">{{ $data->first_name.' '.$data->last_name }}</td>
@@ -68,7 +72,7 @@
                     $getConfig = get_data_name_by_where('name_badge_config', $whereData);
                     if(isset($getConfig) && !empty($getConfig)){
                     ?>
-                    <button class="btn btn-primary btn-sm" onclick="printSingleNameBadge('{{ url('su/print_events_name_badge') }}', '{{$data->id}}')">Print</button>
+                    <a target="_blank" type="button" class="btn btn-primary btn-sm pull-right" href="<?php echo $bulkNameBadgePrint; ?>">Print</a>
                     <?php }else{ ?>
                     <a href="{{ url('su/name_badge_config') }}"><img style="height: 20px;" src="{{ asset('images/print_error.png') }}" title="Namebadge was not configured!"/></a>
                     <?php } ?>
