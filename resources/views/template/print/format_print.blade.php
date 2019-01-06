@@ -44,13 +44,23 @@
                     margin: 4mm;
                     /*background-color: yellow !important;*/
                 }
-                .defaultEventNameBadgeheader{
+                .defaultEventNameBadgeheaderContainer table{
+                    width: 75mm;
+                    height: 105mm;
+                    border: 1px solid black;
+                }
+                .defaultEventNameBadgeheaderContainer table tr td{
+                    vertical-align: top;
+                    text-align: center;
+                }
+                .defaultEventNameBadgeheader img{
                     float: left;
+                    width: 75mm;
+                    display: inline-block;
                 }
                 .userBasicInfo{
                     float: left;
                     width: 98%;
-                    margin: 5% 1% 0 1%;
                     height: 125px;
                     text-align: center;
                     background-color: white;
@@ -60,26 +70,21 @@
                     float: left;
                     width: 100%;
                     height: 108px;
-                    margin-top: 1%;
                     /*border: 1px solid blue;*/
                 }
                 .userQrCode img{
                     text-align: center;
-                    margin: 3% 35% 0 35%;
                 }
                 .userType{
                     float: left;
                     width: 98%;
-                    margin: 0% 1% 0 1%;
-                    height: 75px;
                     text-align: center;
                     background: white;
                 }
                 .name_badge_serial_number{
                     float: left;
-                    width: 90%;
+                    width: 100%;
                     text-align: center;
-                    margin: 0% 5% 0 5%;  
                 }
             }
         </style>
@@ -119,22 +124,44 @@
                         ?>
                             <div class="print_area_container">
                                 <div class="defaultEventNameBadgeheaderContainer">
-                                    <div class="defaultEventNameBadgeheader">
-                                        <img class="img-responsive" src="<?php echo asset('/events/' . $events->event_header); ?>"/>
-                                    </div>
-                                    <div class="userBasicInfo">
-                                        <h3><?php echo $user_data->first_name . ' ' . $user_data->last_name; ?></h3>
-                                        <h4><?php echo $user_data->designation; ?></h4>
-                                        <h5><?php echo $user_data->company_name ?></h5>
-                                        <h6><?php echo $user_data->local_state; ?></h6>
-                                    </div>
-                                    <div class="userQrCode">
-                                        <img src="<?php echo asset('pdf/' . $user_data->qrcode_path) ?>" />
-                                    </div>
-                                    <h5 class="name_badge_serial_number"><?php echo $user_data->serial_digit; ?></h5>
-                                    <div class="userType" style="background-color: <?php echo $namebadge_user_label_color; ?>;">
-                                        <h2><?php echo $user_data->namebadge_user_label; ?></h2>
-                                    </div>
+                                    <table>
+                                        <tr>
+                                            <td style="width: 75mm; height: 21mm;">
+                                                <div class="defaultEventNameBadgeheader">
+                                                    <img src="<?php echo asset('/events/' . $events->event_header); ?>"/>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 75mm; height: 27mm;">
+                                                <div class="userBasicInfo">
+                                                    <h3><?php echo $user_data->first_name . ' ' . $user_data->last_name; ?></h3>
+                                                    <h4><?php echo $user_data->designation; ?></h4>
+                                                    <h5><?php echo $user_data->company_name ?></h5>
+                                                    <h6><?php echo $user_data->local_state; ?></h6>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 75mm; height: 15mm;">
+                                                <div class="userQrCode">
+                                                    <img src="<?php echo asset('pdf/' . $user_data->qrcode_path) ?>" />
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 75mm; height: 7mm;">
+                                                <h5 class="name_badge_serial_number"><?php echo $user_data->serial_digit; ?></h5>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 75mm; height: 35mm;">
+                                                <div class="userType" style="background-color: <?php echo $namebadge_user_label_color; ?>;">
+                                                    <h2><?php echo $user_data->namebadge_user_label; ?></h2>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
                                 </div>                                
                                 <div class="div_clear"></div>
                             </div>
