@@ -47,7 +47,7 @@
                 .defaultEventNameBadgeheaderContainer table{
                     width: 75mm;
                     height: 105mm;
-                    border: 1px solid black;
+                    border: 1px solid lightgray;
                 }
                 .defaultEventNameBadgeheaderContainer table tr td{
                     vertical-align: top;
