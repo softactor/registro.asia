@@ -78,14 +78,15 @@
                 .userType{
                     float: left;
                     width: 96%;
-                    height: 30mm;
+                    height: 20mm;
                     text-align: center;
                     margin: 2%;
                 }
                 .name_badge_serial_number{
                     float: left;
                     width: 100%;
-                    height: 12mm;
+                    height: 10mm;
+                    margin: 2%;
                     text-align: center;
                 }
             }
@@ -152,12 +153,12 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td style="width: 75mm; height: 7mm;">
+                                            <td style="width: 75mm; height: 14mm;">
                                                 <h5 class="name_badge_serial_number"><?php echo $user_data->serial_digit; ?></h5>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td style="width: 75mm; height: 35mm; vertical-align: bottom;">
+                                            <td style="width: 75mm; height: 28mm; vertical-align: bottom;">
                                                 <div class="userType" style="background-color: <?php echo $namebadge_user_label_color; ?>;">
                                                     <h2><?php echo $user_data->namebadge_user_label; ?></h2>
                                                 </div>
