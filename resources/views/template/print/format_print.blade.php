@@ -77,14 +77,15 @@
                 }
                 .userType{
                     float: left;
-                    width: 100%;
-                    height: 35mm;
+                    width: 96%;
+                    height: 30mm;
                     text-align: center;
+                    margin: 2%;
                 }
                 .name_badge_serial_number{
                     float: left;
                     width: 100%;
-                    height: 7mm;
+                    height: 12mm;
                     text-align: center;
                 }
             }
