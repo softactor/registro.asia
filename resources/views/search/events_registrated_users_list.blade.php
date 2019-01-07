@@ -72,7 +72,7 @@
                     $getConfig = get_data_name_by_where('name_badge_config', $whereData);
                     if(isset($getConfig) && !empty($getConfig)){
                     ?>
-                    <a target="_blank" type="button" class="btn btn-primary btn-sm pull-right" href="<?php echo $bulkNameBadgePrint; ?>">Print</a>
+                    <a target="_blank" type="button" class="btn btn-primary btn-sm pull-right" onclick="saveNameBadgeIdIntoSession('<?php echo $saveNameBadgeIdIntoSession; ?>','<?php echo $data->id; ?>')" href="<?php echo $bulkNameBadgePrint; ?>">Print</a>
                     <?php }else{ ?>
                     <a href="{{ url('su/name_badge_config') }}"><img style="height: 20px;" src="{{ asset('images/print_error.png') }}" title="Namebadge was not configured!"/></a>
                     <?php } ?>
