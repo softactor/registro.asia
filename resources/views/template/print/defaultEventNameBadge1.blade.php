@@ -33,9 +33,10 @@
                     clear: both;
                 }
                 .print_area_container{
+                    float: left;
                     width: 83mm;
                     height: 113mm;
-                    margin: 0 auto !important;
+                    left: 0;
                 }
                 .defaultEventNameBadgeheaderContainer{
                     float: left;

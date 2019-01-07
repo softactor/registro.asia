@@ -35,7 +35,8 @@
                 .print_area_container{
                     width: 113mm;
                     height: 83mm;
-                    margin: 0 auto !important;
+                    float: left;
+                    left: 0;
                 }
                 .defaultEventNameBadgeheaderContainer{
                     float: left;
