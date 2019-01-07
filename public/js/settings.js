@@ -79,7 +79,7 @@ function saveNameBadgeLabel(url) {
             type: 'POST',
             url: url,
             dataType: 'json',
-            data: 'name='+$('#label_name').val(),
+            data: $("#printLabelConfiguration").serialize(),
             headers: {
                 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content'),
             },
@@ -96,31 +96,46 @@ function saveNameBadgeLabel(url) {
     }
 }
 
-function deleteNamebadgeValues(id, name, url){
-    swal({
-        title: 'Confirmed?',
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonClass: "btn-danger",
-        confirmButtonText: "Yes",
-        cancelButtonText: 'No',
-        closeOnConfirm: false
-    },
-    function () {
+function deleteNamebadgeValues(id, url, actionType = 'Delete'){
+    if(actionType == 'Delete'){
+        swal({
+            title: 'Confirmed?',
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-danger",
+            confirmButtonText: "Yes",
+            cancelButtonText: 'No',
+            closeOnConfirm: false
+        },
+        function () {
+            $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: 'json',
+                data: 'del_id=' + id + '&typeParam = '+ actionType,
+                success: function (response) {
+                    if(response.status == 'success'){
+                        $('#name_badge_list_values_'+id).hide();
+                        swal("Delete complete", "Data have successfully deleted!", "success"); 
+                    }
+                },
+                async: false // <- this turns it into synchronous
+            });
+        });
+    }else{
         $.ajax({
             url: url,
             type: 'GET',
             dataType: 'json',
-            data: 'name=' + name,
+            data: 'del_id=' + id + '&typeParam = '+ actionType,
             success: function (response) {
-                if(response.status == 'success'){
-                    $('#name_badge_list_values_'+id).hide();
-                    swal("Delete complete", "Data have successfully deleted!", "success"); 
-                }
+                $('#label_name').val(response.data.name);
+                $('#text_clor').val(response.data.text_clor);
+                $('#label_color').val(response.data.background_color);
             },
             async: false // <- this turns it into synchronous
         });
-    });
+    }
 }
 
 function get_email_text(event_id, url){

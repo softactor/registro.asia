@@ -682,3 +682,12 @@ function generate_pdf($email_n_pdf_data) {
         $search_data           = View::make('template.make_select_field_html', compact('values'));
         return $search_data->render();
     }
+    
+    function get_nameBadgeBgAndTextColor($labelName){
+        $get_nameBadgeBgAndTextColor = [];
+        $get_nameBadgeBgAndTextColor   =   DB::table('user_label')
+                                ->select('background_color','text_clor')
+                                ->where('name',$labelName)
+                                ->first();
+        return $get_nameBadgeBgAndTextColor;    
+    }

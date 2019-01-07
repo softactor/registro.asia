@@ -101,20 +101,12 @@
         $count = 0;
         $configFound = false;
         foreach ($user_datas as $user_data) {
-            $namebadge_user_label_color = "#FFFFFF";
-            switch ($user_data->namebadge_user_label) {
-                case 'Visitor':
-                    $namebadge_user_label_color = "#FFFF0A";
-                    break;
-                case 'Organiser':
-                    $namebadge_user_label_color = "#38ACEC";
-                    break;
-                case 'Exhibitor':
-                    $namebadge_user_label_color = "#54C571";
-                    break;
-                default:
-                    $namebadge_user_label_color = "#FFFFFF";
-                    break;
+            $labelTextColor     =   '#000000';
+            $labelBgColor       =   '#FFFFFF';
+            $getTextAndBGColor  =   get_nameBadgeBgAndTextColor($user_data->namebadge_user_label);
+            if(isset($getTextAndBGColor) && !empty($getTextAndBGColor)){
+                $labelBgColor           =   (isset($getTextAndBGColor->background_color) && !empty($getTextAndBGColor->background_color) ? $getTextAndBGColor->background_color: $labelBgColor);
+                $labelTextColor         =   (isset($getTextAndBGColor->text_clor) && !empty($getTextAndBGColor->text_clor) ? $getTextAndBGColor->text_clor: $labelTextColor);
             }
             $count++;
             ?>
@@ -152,7 +144,7 @@
                         </tr>
                         <tr>
                             <td style="width: 75mm; height: 28mm; vertical-align: bottom;">
-                                <div class="userType" style="background-color: <?php echo $namebadge_user_label_color; ?>;">
+                                <div class="userType" style="background-color: <?php echo $labelBgColor; ?>; color: <?php echo $labelTextColor; ?>">
                                     <h2><?php echo $user_data->namebadge_user_label; ?></h2>
                                 </div>
                             </td>

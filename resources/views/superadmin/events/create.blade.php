@@ -25,7 +25,16 @@
                         <label for="comment">Embedded Code: <button type="button" class="btn btn-sm" onclick="generateEmbeddedEventsUrl('{{ url("su/generateEmbeddedEventsUrl")}}');">Create</button></label>
                         <textarea class="form-control" rows="5" id="iframe_events_url" name="iframe_events_url"></textarea>
                     </div>
-
+                    <div class="form-group">
+                        <label>Local Country</label>
+                        <select class="form-control" id="local_country" name="local_country">
+                            <option value="">Please select</option>
+                            <option value="1">Singpore</option>
+                            <option value="2">Canada</option>
+                            <option value="3">America</option>
+                            <option value="4">China</option>
+                        </select>
+                    </div>
                     <div class="form-group">
                         <label for="organizer">Organizer:</label>
                         <input type="text" class="form-control" id="organizer" placeholder="Enter Organizer" name="organizer">

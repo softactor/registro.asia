@@ -68,46 +68,46 @@ class SettingsController extends Controller{
     }
     
     public function saveNameBadgeLabel(Request $request){
-        $name       =   $request->name;
-        $getAllData =   DB::table('settings')->where('name','namebadge label')->first(); 
+        $labelData  =   [
+            'name'              =>  $request->label_name,
+            'background_color'  =>  $request->label_color,
+            'text_clor'  =>  $request->text_clor,
+        ];
+        $getAllData =   DB::table('user_label')->where('name',$request->label_name)->first(); 
         if(isset($getAllData) && !empty($getAllData)){
-            $valuesArray    = explode(',', $getAllData->values);
-            if(!in_array($name, $valuesArray)){
-                array_push($valuesArray,$name);
-                $udateValues    = implode(',', $valuesArray);
-                DB::table('settings')
-                ->where('id', $getAllData->id)
-                ->update(['values' => $udateValues]);
-            }
-            $getAllData         =   DB::table('settings')->where('name','namebadge label')->first();
-            $listData           =   explode(',', $getAllData->values);
-            $listDataView       =   View::make('partial.settings_name_badge_values_list', compact('listData'));
-            $feedbackData   =   [
-                'status'    =>  'success',
-                'message'   => 'Successfully updated',
-                'data'      => $listDataView->render()
-            ];
+            DB::table('user_label')
+            ->where('id', $getAllData->id)
+            ->update($labelData);
+            
+        }else{
+            DB::table('user_label')->insert($labelData);
         }
+        $list_data           =   DB::table('user_label')->get();
+        $listDataView       =   View::make('partial.settings_name_badge_values_list', compact('list_data'));
+        $feedbackData   =   [
+            'status'    =>  'success',
+            'message'   => 'Successfully updated',
+            'data'      => $listDataView->render()
+        ];
         echo json_encode($feedbackData);
     }
     
     public function deleteNamebadgeValues(Request $request) {
-        $name       = $request->name;
-        $getAllData = DB::table('settings')->where('name', 'namebadge label')->first();
-        if (isset($getAllData) && !empty($getAllData)) {
-            $valuesArray = explode(',', $getAllData->values);
-            if (($key = array_search($name, $valuesArray)) !== false) {
-                unset($valuesArray[$key]);
-                $udateValues    = implode(',', $valuesArray);
-                DB::table('settings')
-                ->where('id', $getAllData->id)
-                ->update(['values' => $udateValues]);
-            }
+        $actionType =   $request->typeParam_;
+        if($actionType == 'Delete'){
+            DB::table('user_label')->where('id', $request->del_id)->delete();
+            $feedbackData   =   [
+                'status'    =>  'success',
+                'message'   => 'Successfully Deleted'
+            ];
+        }else{
+            $data   =   DB::table('user_label')->where('id', $request->del_id)->first();
+            $feedbackData   =   [
+                'status'    =>  'success',
+                'data'      => $data,
+                'message'   => 'Successfully Deleted'
+            ];
         }
-        $feedbackData   =   [
-            'status'    =>  'success',
-            'message'   => 'Successfully Deleted'
-        ];
         echo json_encode($feedbackData);
     }
     

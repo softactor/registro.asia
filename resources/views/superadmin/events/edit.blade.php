@@ -29,7 +29,16 @@
                                     }
                                     ?></textarea>
                     </div>
-
+                    <div class="form-group">
+                        <label>Local Country</label>
+                        <select class="form-control" id="local_country" name="local_country">
+                            <option value="">Please select</option>
+                            <option value="1"<?php echo ((isset($events->local_country) && $events->local_country == 1)? 'selected': '') ?>>Singpore</option>
+                            <option value="2"<?php echo ((isset($events->local_country) && $events->local_country == 2)? 'selected': '') ?>>Canada</option>
+                            <option value="3"<?php echo ((isset($events->local_country) && $events->local_country == 3)? 'selected': '') ?>>America</option>
+                            <option value="4"<?php echo ((isset($events->local_country) && $events->local_country == 4)? 'selected': '') ?>>China</option>
+                        </select>
+                    </div>
                     <div class="form-group">
                         <label for="organizer">Organizer:</label>
                         <input type="text" class="form-control" id="organizer" placeholder="Enter Organizer" name="organizer" value="<?php echo ((isset($events->organizer) && !empty($events->organizer))? $events->organizer: '') ?>">

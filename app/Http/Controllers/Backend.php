@@ -74,6 +74,7 @@ class Backend extends Controller
             'event_url'         => implode('-', $url_string),
             'iframe_events_url' => $request->iframe_events_url,
             'event_header'      => $filename,
+            'local_country'     => $request->local_country,
             'created_at'        => date('Y-m-d h:i:s'),
             'updated_at'        => date('Y-m-d h:i:s')
         ]; //end of insert data  

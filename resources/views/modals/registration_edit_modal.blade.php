@@ -80,12 +80,11 @@
                         <select class="form-control" id="namebadge_user_label" name="namebadge_user_label">
                             <option value="">Please select</option>
                             <?php
-                                $getAllData =   DB::table('settings')->where('name','namebadge label')->first(); 
-                                if(isset($getAllData) && !empty($getAllData)){
-                                    $listData    = explode(',', $getAllData->values);
-                                    foreach($listData as $key=>$data){
+                                $listData =   DB::table('user_label')->get(); 
+                                if(isset($listData) && !empty($listData)){
+                                    foreach($listData as $data){
                             ?>
-                            <option value="{{$data}}">{{$data}}</option>
+                            <option value="{{$data->name}}">{{$data->name}}</option>
                                 <?php }} ?>
                         </select>
                     </div>

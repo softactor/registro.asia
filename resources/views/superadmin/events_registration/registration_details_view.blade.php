@@ -60,7 +60,7 @@
                                             <td>{{ $data->email }}</td>
                                             <td>{{ $data->mobile }}</td>
                                             <td>
-                                                <?php echo (isset($details->namebadge_user_label) && !empty($details->namebadge_user_label) ? $details->namebadge_user_label : 'Visitor'); ?>
+                                                <?php echo (isset($data->namebadge_user_label) && !empty($data->namebadge_user_label) ? $data->namebadge_user_label : ''); ?>
                                             </td>
                                             <td>
                                                 <?php
