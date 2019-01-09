@@ -50,6 +50,8 @@ class Frontend extends Controller
         $profile_data_param['event_id']           =   $profile_data->event_business_owners_data->event_id;
         $profile_data_param['owners_numbers']     =   $profile_data->event_business_owners_data->owners_numbers;
         $profile_data_param['registration_type']  =   $profile_data->event_business_owners_data->registration_type;
+        $profile_data_param['company_name']       =   $profile_data->event_business_owners_data->company_name;
+        $profile_data_param['company_address']    =   $profile_data->event_business_owners_data->company_address;
         $profile_data_param['owners_details']     =   $profile_data->event_business_owners_details;
         $profile_data_param['events_details']     =   $event_details;
         $email_and_pdf_data                       =  process_store_event_business_owners($profile_data_param);
