@@ -154,6 +154,13 @@ class Backend extends Controller
         ];
         return view('superadmin.events_form.modify', compact('page_details','events','event_forms'));
     }
+    public function user_wise_question_answer_store(Request $request){
+        $all    =   $request->all();
+        print '<pre>';
+        print_r($all);
+        print '</pre>';
+        exit;
+    }
     public function store_events_form(Request $request){
         $all    =   json_decode(file_get_contents('php://input'));
         if(isset($all[3]->value) && !empty($all[3]->value)){
@@ -187,43 +194,46 @@ class Backend extends Controller
         echo json_encode($feedbackdata);
     }
     public function get_form_json_data(Request $request){
-        $all_data   =   '';
-        $event_forms        =   DB::table('event_forms')->where('id',24)->first();
+        $all_data               =   '';
+        $get_profile_row_data   =   DB::table('registraion_temp')->where('form_id', 0)->where('access_token', $request->current_access_token)->first();
+        $profile_data           =   json_decode($get_profile_row_data->temp_data);
+        $event_forms        =   DB::table('event_forms')->where('id',$request->eventFormId)->first();
         $formValues         =   json_decode($event_forms->form_data);
-        foreach($formValues as $values){
-            switch($values->type){
-                case 'checkbox-group':
-                    $all_data.=makeCheckBoxGroupHtml($values);    
-                    break;
-                case 'radio-group':
-                    $all_data.=makeRadioGroupHtml($values);    
-                    break;
-                case 'text':
-                    $all_data.=makeTextFieldHtml($values);    
-                    break;
-                case 'textarea':
-                    $all_data.=makeTextAreaFieldHtml($values);    
-                    break;
-                case 'select':
-                    $all_data.=makeSelectFieldHtml($values);    
-                    break;
-                case 'date':
-                    $all_data.=makeCheckBoxGroupHtml($values);    
-                    break;
-                case 'agree':
-                    $all_data.=makeCheckBoxGroupHtml($values);    
-                    break;
-                case 'header':
-                    $all_data.=makeCheckBoxGroupHtml($values);    
-                    break;
-            } // End of switch   
-        } // End of switch
-//        $viewFormValues     =   View::make('partial.generate_dynamic_form_view', compact('formValues'));    
-//        $event_forms    =   DB::table('event_forms')->where('id',$request->eventFormId)->first();
+        foreach ($formValues as $values) {
+            if (isset($values) && !empty($values)) {
+                switch ($values->type) {
+                    case 'checkbox-group':
+                        $all_data .= makeCheckBoxGroupHtml($values);
+                        break;
+                    case 'radio-group':
+                        $all_data .= makeRadioGroupHtml($values);
+                        break;
+                    case 'text':
+                        $all_data .= makeTextFieldHtml($values);
+                        break;
+                    case 'textarea':
+                        $all_data .= makeTextAreaFieldHtml($values);
+                        break;
+                    case 'select':
+                        $all_data .= makeSelectFieldHtml($values);
+                        break;
+                    case 'date':
+                        $all_data .= makeCheckBoxGroupHtml($values);
+                        break;
+                    case 'agree':
+                        $all_data .= makeCheckBoxGroupHtml($values);
+                        break;
+                    case 'header':
+                        $all_data .= makeCheckBoxGroupHtml($values);
+                        break;
+                } // End of switch   
+            } // End of switch
+        }// End foreach
+        $accrodianData           = View::make('template.question_answer_with_accrodian', compact('all_data', 'profile_data'));
         $feedbackdata   =   [
             'status'    =>  'success',
             'message'   =>  'Found data',
-            'data'      =>  $all_data
+            'data'      =>  $accrodianData->render()
         ];
         echo json_encode($feedbackdata);
     }

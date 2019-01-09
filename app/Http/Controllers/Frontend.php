@@ -127,15 +127,12 @@ class Frontend extends Controller
         // Create a new validator instance
         $validator = Validator::make($request->all(), [
                     "salutation" => "required|array|min:1",
-                    "salutation.*" => "required|string|distinct|min:1",
+                    "salutation.*" => "required|string|min:1",
                     "first_name" => "required|array|min:1",
-                    "first_name.*" => "required|string|distinct|min:1",
+                    "first_name.*" => "required|string|min:1",
                     "last_name" => "required|array|min:1",
                     "last_name.*" => "required|string|distinct|min:1",
-                    "company_name" => "required|array|min:1",
-                    "company_name.*" => "required|string|min:1",
-                    "local_state" => "required|array|min:1",
-                    "local_state.*" => "required|string|min:1",
+                    "company_name" => "required",
                     "mobile" => "required|array|min:1",
                     "mobile.*" => "required|string|distinct|min:1",
                     "country_id" => "required|array|min:1",
@@ -168,7 +165,7 @@ class Frontend extends Controller
                     $error_counter = ++$error_counter;
                     $messages .= $error_counter . '. The Last Name field is required for ' . '<br />';
                 }
-                if (isset($error_messages['company_name.' . $i])) {
+                if (isset($error_messages['company_name.'])) {
                     $error_counter = ++$error_counter;
                     $messages .= $error_counter . '. The Company field is required for ' . '<br />';
                 }
@@ -203,8 +200,10 @@ class Frontend extends Controller
                 'event_id'              => $event_id,
                 'owners_numbers'        => $number_of_owners,
                 'registration_type'     => get_registration_type_name($registration_type),
-                'created_at'        => date('Y-m-d h:i:s'),
-                'updated_at'        => date('Y-m-d h:i:s')
+                'company_name'          => $formData['company_name'],
+                'company_address'       => $formData['company_address'],
+                'created_at'            => date('Y-m-d h:i:s'),
+                'updated_at'            => date('Y-m-d h:i:s')
             ]; //end of insert data
             for ($i = 0; $i < $number_of_owners; $i++) {
                 $event_business_owners_details[] = [
@@ -212,14 +211,11 @@ class Frontend extends Controller
                     'business_owner_id' => '',
                     'salutation'        => $formData['salutation'][$i],
                     'first_name'        => $formData['first_name'][$i],
-                    'last_name'         => $formData['last_name'][$i],
-                    'company_name'      => $formData['company_name'][$i],
-                    'company_address'   => $formData['company_address'][$i],
+                    'last_name'         => $formData['last_name'][$i],                    
                     'gender'            => $formData['gender'][$i],
                     'designation'       => $formData['designation'][$i],
                     'mobile'            => $formData['mobile'][$i],
                     'country_id'        => $formData['country_id'][$i],
-                    'local_state'       => $formData['local_state'][$i],
                     'tel'               => $formData['tel'][$i],
                     'fax'               => $formData['fax'][$i],
                     'email'             => $formData['email'][$i],

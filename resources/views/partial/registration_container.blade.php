@@ -14,6 +14,14 @@
                     <input type="hidden" id="confirmation_process" value="{{ url('confirmation_process') }}" >
                     <input type="hidden" id="redirectUrl" value="<?php if(isset($page_details['redirectUrl'])){ echo url($page_details['redirectUrl']); } ?>" >
                     <input type="hidden" id="registration_type" name="registration_type" value="<?php if(isset($page_details['reg_prefix'])){ echo url($page_details['reg_prefix']); } ?>" >
+                    <div class="form-group col-lg-12">
+                        <label>Company<span class="required_title"></span></label>
+                        <input type="text" name="company_name" class="form-control" id="" value="">
+                    </div>
+                    <div class="form-group col-lg-12">
+                        <label>Company address</label>
+                        <textarea class="form-control" rows="5" name="company_address" id="comment"></textarea>
+                    </div>
                     <div id="registration_area">
                         <div class="form-group col-lg-12">
                             <label for="sel1">Salutation<span class="required_title"></span></label>
@@ -32,14 +40,6 @@
                         <div class="form-group col-lg-12">
                             <label>Last name<span class="required_title"></span></label>
                             <input type="text" name="last_name[]" class="form-control" id="" value="">
-                        </div>            
-                        <div class="form-group col-lg-12">
-                            <label>Company<span class="required_title"></span></label>
-                            <input type="text" name="company_name[]" class="form-control" id="" value="">
-                        </div>
-                        <div class="form-group col-lg-12">
-                            <label>Company address</label>
-                            <textarea class="form-control" rows="5" name="company_address[]" id="comment"></textarea>
                         </div>
                         <div class="form-group col-lg-6">
                             <label>Gender</label>
@@ -53,11 +53,11 @@
                             <label>Designation</label>
                             <input type="text" name="designation[]" class="form-control" id="" value="">
                         </div>
-                        <div class="form-group col-lg-4">
+                        <div class="form-group col-lg-6">
                             <label>Mobile<span class="required_title"></span></label>
                             <input type="text" name="mobile[]" class="form-control" id="" value="">
                         </div>
-                        <div class="form-group col-lg-4">
+                        <div class="form-group col-lg-6">
                             <label>Country<span class="required_title"></span></label>
                             <select class="form-control" id="sel1" name="country_id[]">
                                 <option value="">Please select</option>
@@ -66,10 +66,6 @@
                                 <option value="3">America</option>
                                 <option value="4">China</option>
                             </select>
-                        </div>
-                        <div class="form-group col-lg-4">
-                            <label>Local State<span class="required_title"></span></label>
-                            <input type="text" name="local_state[]" class="form-control" id="local_state" value="" placeholder="local state" required>
                         </div>
                         <div class="form-group col-lg-6">
                             <label>Tel</label>

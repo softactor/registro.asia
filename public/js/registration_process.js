@@ -143,3 +143,19 @@ $("#profileSectionArea").steps({
         }
         
     }
+    
+    function storeUserWiseData(formId, url){
+        $.ajax({
+            url: url,
+            type: 'POST',
+            dataType: 'json',
+            data: $("#" + formId).serialize(),
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content'),
+            },
+            success: function (response) {
+                console.log(response);                    
+            },
+            async: false // <- this turns it into synchronous
+        });
+    }

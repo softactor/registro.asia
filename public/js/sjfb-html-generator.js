@@ -10,7 +10,7 @@ function generateHtmlForm(currentIndex, eventFormId, urlAddress){
     $.ajax({
             method: "POST",
             url: urlAddress,
-            data: 'eventFormId='+eventFormId,
+            data: 'eventFormId='+eventFormId + '&current_access_token=' + $('#access_token').val(),
             dataType: 'json',
             headers: {
                 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content'),

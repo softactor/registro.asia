@@ -73,6 +73,7 @@ Route::post('su/backend/csv_data/store', 'Backend@csv_data_store');
 Route::get('su/get_event_business_owners_details', 'Backend@get_event_business_owners_details');
 Route::get('su/user_registration_details', 'Backend@user_registration_details');
 Route::post('su/event_business_owners_details_store', 'Backend@event_business_owners_details_store');
+Route::post('su/user_wise_question_answer_store', 'Backend@user_wise_question_answer_store');
 
 //          PDF GENERATES
 Route::get('pdf_test', 'Frontend@pdf_test');
