@@ -17,6 +17,7 @@ function generateHtmlForm(currentIndex, eventFormId, urlAddress){
             },
             success: function (response) {
                 //empty out the preview area
+                $('#form_current_index').val(currentIndex);
                 $('#sjfb_fields_'+currentIndex).empty();
                 $('#generate-form-id-'+currentIndex).val(1);
                 if (response.status == 'success') {

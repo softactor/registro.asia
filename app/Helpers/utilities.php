@@ -411,7 +411,7 @@ function generate_pdf($email_n_pdf_data) {
         /*
          * Namebadge User-label:
          * $namebadge_user_label
-         * possible value will be : visitor, organiger 
+         * possible value will be : visitor, organizer 
          * this value will come over the name badge printing section:
          * if the registration_type will be onsite or online it will be automatically set as visitor
          * others registration type will be set as defined by the admin:
@@ -422,6 +422,8 @@ function generate_pdf($email_n_pdf_data) {
             'event_id'            => $profile_data['event_id'],
             'owners_numbers'      => $profile_data['owners_numbers'],
             'registration_type'   => $profile_data['registration_type'],
+            'company_name'        => $profile_data['company_name'],
+            'company_address'     => $profile_data['company_address'],
             'is_status'           => get_is_status_by_registration_type($profile_data['registration_type']),
             'created_at'          => date('Y-m-d h:i:s'),
             'updated_at'          => date('Y-m-d h:i:s')
@@ -443,9 +445,7 @@ function generate_pdf($email_n_pdf_data) {
                 'business_owner_id'         => $event_business_owners_id,
                 'salutation'                => $pd['salutation'],
                 'first_name'                => $pd['first_name'],
-                'last_name'                 => $pd['last_name'],
-                'company_name'              => $pd['company_name'],
-                'company_address'           => $pd['company_address'],
+                'last_name'                 => $pd['last_name'],                
                 'gender'                    => $pd['gender'],
                 'designation'               => $pd['designation'],
                 'mobile'                    => $pd['mobile'],

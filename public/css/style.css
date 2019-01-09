@@ -288,3 +288,21 @@ report_modal_style table tr,th,td{
         p.default_set_radio{
             margin-top: 10% !important;
         }
+        .registration_details_holder{
+                color: black;
+                background: white !important;
+                padding: 2% 5%;
+            }
+            .registration_details_holder h2, h3, h4{
+                text-decoration: underline;
+            }
+            ul.user_details{
+                margin-left: 5%!important;
+            }
+            ul.answer_details{
+                margin-left: 10%!important;
+            }
+            
+            ul.user_details,ul.answer_details li{
+                list-style-type: disc !important;
+            }

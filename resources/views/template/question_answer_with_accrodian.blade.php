@@ -16,7 +16,7 @@
                 <div id="collapse<?php echo $key; ?>" class="panel-collapse collapse">
                     <div class="panel-body">
                         <?php echo $all_data; ?>
-                        <button type="button" class="btn btn-sm" onclick="storeUserWiseData('userWiseFormId_<?php echo $key; ?>', '<?php echo $storeUrl; ?>');">Save</button>
+                        <button type="button" class="btn btn-sm" onclick="storeUserWiseData('userWiseFormId_<?php echo $key; ?>', '<?php echo $storeUrl; ?>', '<?php echo $profile->email; ?>', '<?php echo $key; ?>');">Save</button>
                     </div>
                 </div>
             </form>

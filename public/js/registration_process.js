@@ -61,30 +61,7 @@ $("#profileSectionArea").steps({
             return returnType;
         } else {            
             var returnType = false;
-            if(formId){
-                $.ajax({
-                    url: $('#client_registration_others_step_varifications').val(),
-                    type: 'POST',
-                    dataType: 'json',
-                    data: $("#sjfb_form_" + currentIndex).serialize() + '&event_id=' + $("#event_id").val() + '&access_token=' + $("#access_token").val() + '&form_id=' + $("#event-form-id-"+currentIndex).val(),
-                    headers: {
-                        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content'),
-                    },
-                    success: function (response) {
-                        if (response.status == 'error') {
-                            $('#error_message_show_area').html(response.data);
-                            returnType = false;
-                        }else{
-                            $('#error_message_show_area').hide();
-                            $('#access_token').val(response.data);
-                            returnType = true;
-                        }                    
-                    },
-                    async: false // <- this turns it into synchronous
-                });
-            }else{
-                returnType = true;
-            }
+            returnType = true;
             return returnType;
         }
         },
@@ -144,17 +121,20 @@ $("#profileSectionArea").steps({
         
     }
     
-    function storeUserWiseData(formId, url){
+    function storeUserWiseData(formId, url, userEmail, divKey){
+        var currentIndex  =   $('#form_current_index').val();
         $.ajax({
             url: url,
             type: 'POST',
             dataType: 'json',
-            data: $("#" + formId).serialize(),
+            data: $("#" + formId).serialize() + '&event_id=' + $("#event_id").val() + '&access_token=' + $("#access_token").val() + '&form_id=' + $("#event-form-id-"+currentIndex).val() + '&user_email=' + userEmail,
             headers: {
                 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content'),
             },
             success: function (response) {
-                console.log(response);                    
+                $("#access_token").val(response.data)
+                $('#collapse'+divKey).html('');
+                swal("Store complete", "Data Store have been successfully done!", "success");                    
             },
             async: false // <- this turns it into synchronous
         });

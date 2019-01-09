@@ -72,6 +72,7 @@ class Frontend extends Controller
                             'user_register_id'  => $event_business_owners_id,
                             'event_id'          => $dfd->event_id,
                             'form_id'           => $dfd->form_id,
+                            'user_email'        => $dfd->user_email,
                             'label_name'        => implode(' ', explode('-', $fdKey)),
                             'label_value'       => $v,
                             'created_at'        => date('Y-m-d h:i:s'),
@@ -84,6 +85,7 @@ class Frontend extends Controller
                         'user_register_id'  => $event_business_owners_id,
                         'event_id'          => $dfd->event_id,
                         'form_id'           => $dfd->form_id,
+                        'user_email'        => $dfd->user_email,
                         'label_name'        => implode(' ', explode('-', $fdKey)),
                         'label_value'       => $fdValues,
                         'created_at'        => date('Y-m-d h:i:s'),
@@ -270,10 +272,12 @@ class Frontend extends Controller
     }    
     public function client_registration_others_step_varifications(Request $request) {
 
-        $formData = $request->all();
-        $event_id = $formData['event_id'];
-        $access_token = $formData['access_token'];
-        $form_id = $formData['form_id'];
+        $formData       = $request->all();
+        $user_email      =   $formData['user_email'];
+        $event_id       =   $formData['event_id'];
+        $access_token   =   $formData['access_token'];
+        $form_id        =   $formData['form_id'];
+        unset($formData['user_email']);
         unset($formData['event_id']);
         unset($formData['access_token']);
         unset($formData['form_id']);
@@ -285,6 +289,7 @@ class Frontend extends Controller
                         'access_token' => $access_token,
                         'form_id' => $form_id,
                         'event_id' => $event_id,
+                        'user_email' => $user_email,
                         'temp_data' => json_encode($formData),
                         'created_at' => date('Y-m-d h:i:s'),
                         'updated_at' => date('Y-m-d h:i:s')
@@ -304,6 +309,7 @@ class Frontend extends Controller
                         'access_token' => $access_token,
                         'form_id' => $form_id,
                         'event_id' => $event_id,
+                        'user_email' => $user_email,
                         'temp_data' => json_encode($formData),
                         'created_at' => date('Y-m-d h:i:s'),
                         'updated_at' => date('Y-m-d h:i:s')
@@ -336,8 +342,7 @@ class Frontend extends Controller
     public function preview_of_registration_confirmation(Request $request){
         $get_profile_row_data   =   DB::table('registraion_temp')->where('form_id', 0)->where('access_token', $request->access_token)->first();
         $profile_data   = json_decode($get_profile_row_data->temp_data);
-        
-        $dyna_form_data   =   DB::table('registraion_temp')->where('form_id', '!=' , 0)->where('access_token', $request->access_token)->get();
+        $dyna_form_data   =   DB::table('registraion_temp')->where('form_id', '!=' , 0)->where('access_token', $request->access_token)->get()->toArray();
         $profile_data_view    = View::make('partial.registeration_confirmation_preview', compact('profile_data','dyna_form_data'));
         $feedback_data  = [
             'status'    => 'success',

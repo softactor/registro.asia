@@ -73,14 +73,6 @@
                                         <td>{{ $user_data['gender'] }}</td>
                                     </tr>
                                     <tr>
-                                        <td>Company</td>
-                                        <td>{{ $user_data['company_name'] }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Company Address</td>
-                                        <td>{{ $user_data['company_address'] }}</td>
-                                    </tr>
-                                    <tr>
                                         <td>Email</td>
                                         <td>{{ $user_data['email'] }}</td>
                                     </tr>

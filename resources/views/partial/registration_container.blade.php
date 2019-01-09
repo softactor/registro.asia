@@ -99,6 +99,7 @@
                 <h3><?php echo $forms->lebel_name; ?></h3>
                 <section>
                     <form id="sjfb_form_<?php echo $count; ?>">
+                        <input type="hidden" id="form_current_index" value="">
                         <input type="hidden" id="generate-form-id-<?php echo $count; ?>" value="">
                         <input type="hidden" id="event-form-id-<?php echo $count; ?>" value="<?php echo $forms->id; ?>">
                         <div id="sjfb_fields_<?php echo $count; ?>">
