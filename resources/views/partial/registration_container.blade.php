@@ -14,6 +14,7 @@
                     <input type="hidden" id="confirmation_process" value="{{ url('confirmation_process') }}" >
                     <input type="hidden" id="redirectUrl" value="<?php if(isset($page_details['redirectUrl'])){ echo url($page_details['redirectUrl']); } ?>" >
                     <input type="hidden" id="registration_type" name="registration_type" value="<?php if(isset($page_details['reg_prefix'])){ echo $page_details['reg_prefix']; } ?>" >
+                    <input type="hidden" id="onsiteRedirectUrl" name="" value="<?php echo url('su/name_badge_view'); ?>" />
                     <div class="form-group col-lg-12">
                         <label>Company<span class="required_title"></span></label>
                         <input type="text" name="company_name" class="form-control" id="" value="">

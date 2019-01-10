@@ -85,9 +85,14 @@ $("#profileSectionArea").steps({
                     success: function (response) {
                         if(response.status == 'success'){
                             if(response.registration_type == 'Onsite'){
-                                swal.close();
-                                $("#open_name_badge_container_modal").modal();
-                                $('#printBody').html(response.data.data);
+                                swal("Registeration complete", "Registeration have been successfully done!", "success");
+                                setTimeout(function(){
+                                    window.location = $('#onsiteRedirectUrl').val();
+                                }, 2000);
+                                //swal.close();
+                                //$("#open_name_badge_container_modal").modal();
+                                //$('#printBody').html(response.data.data);
+                                //onsiteRedirectUrl
                             }else{
                                 swal("Registeration complete", "Registeration have been successfully done!", "success");
                                 setTimeout(function(){
