@@ -6,11 +6,12 @@
  */
 
 //generates the form HTML
-function generateHtmlForm(currentIndex, eventFormId, urlAddress){
-    $.ajax({
+function generateHtmlForm(currentIndex, eventFormId, urlAddress) {
+    if (eventFormId && undefined != 'undefined') {
+        $.ajax({
             method: "POST",
             url: urlAddress,
-            data: 'eventFormId='+eventFormId + '&current_access_token=' + $('#access_token').val(),
+            data: 'eventFormId=' + eventFormId + '&current_access_token=' + $('#access_token').val(),
             dataType: 'json',
             headers: {
                 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content'),
@@ -18,8 +19,8 @@ function generateHtmlForm(currentIndex, eventFormId, urlAddress){
             success: function (response) {
                 //empty out the preview area
                 $('#form_current_index').val(currentIndex);
-                $('#sjfb_fields_'+currentIndex).empty();
-                $('#generate-form-id-'+currentIndex).val(1);
+                $('#sjfb_fields_' + currentIndex).empty();
+                $('#generate-form-id-' + currentIndex).val(1);
                 if (response.status == 'success') {
                     if (response.data) {
                         $('#sjfb_fields_' + currentIndex).append(response.data);
@@ -27,4 +28,5 @@ function generateHtmlForm(currentIndex, eventFormId, urlAddress){
                 }
             }
         });
+    }
 }
