@@ -127,6 +127,11 @@ class Frontend extends Controller
         $formData           = $request->all();
         $event_id           = $formData['event_id'];
         $registration_type  = $formData['registration_type'];
+        print '<pre>';
+        print_r($registration_type);
+        print '</pre>';
+        exit;
+        
         $number_of_owners = count($formData['salutation']);
         // Create a new validator instance
         $validator = Validator::make($request->all(), [
