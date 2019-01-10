@@ -254,12 +254,14 @@ class Backend extends Controller
         ];
         echo json_encode($feedbackdata);
     }
-    public function get_form_json_data(Request $request){
-        $all_data               =   '';
-        $get_profile_row_data   =   DB::table('registraion_temp')->where('form_id', 0)->where('access_token', $request->current_access_token)->first();
-        $profile_data           =   json_decode($get_profile_row_data->temp_data);
-        $event_forms        =   DB::table('event_forms')->where('id',$request->eventFormId)->first();
-        $formValues         =   json_decode($event_forms->form_data);
+    public function get_form_json_data(Request $request) {
+        $all_data = '';
+        if (isset($request->current_access_token) && !empty($request->current_access_token)) {
+            $get_profile_row_data = DB::table('registraion_temp')->where('form_id', 0)->where('access_token', $request->current_access_token)->first();
+            $profile_data = json_decode($get_profile_row_data->temp_data);
+        }
+        $event_forms = DB::table('event_forms')->where('id', $request->eventFormId)->first();
+        $formValues = json_decode($event_forms->form_data);
         foreach ($formValues as $values) {
             if (isset($values) && !empty($values)) {
                 switch ($values->type) {
@@ -290,14 +292,24 @@ class Backend extends Controller
                 } // End of switch   
             } // End of switch
         }// End foreach
-        $accrodianData           = View::make('template.question_answer_with_accrodian', compact('all_data', 'profile_data'));
-        $feedbackdata   =   [
-            'status'    =>  'success',
-            'message'   =>  'Found data',
-            'data'      =>  $accrodianData->render()
-        ];
+        if (isset($request->current_access_token) && !empty($request->current_access_token)) {
+            $accrodianData = View::make('template.question_answer_with_accrodian', compact('all_data', 'profile_data'));
+            $feedbackdata = [
+                'status' => 'success',
+                'message' => 'Found data',
+                'data' => $accrodianData->render()
+            ];
+        } else {
+            $feedbackdata = [
+                'status' => 'success',
+                'message' => 'Found data',
+                'data' => $all_data
+            ];
+        }
+
         echo json_encode($feedbackdata);
     }
+
     public function registration_details_list(){
         $evens_list =   [];
         $events   =   DB::table('events')->get();
