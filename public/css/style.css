@@ -62,7 +62,7 @@ html, body {
     font-size: 10px;
 }
 .required_title:before {
-   content: " Field is required. ";
+    content: " Field is required. ";
 }
 .page-break {
     page-break-after: always;
@@ -107,8 +107,8 @@ html, body {
     padding: 1%;
 }
 .font_style_and_delete_class_section ul{ 
-     margin: 0; 
-     padding: 0;
+    margin: 0; 
+    padding: 0;
 }
 
 .font_style_and_delete_class_section ul li{
@@ -203,106 +203,122 @@ report_modal_style table tr,th,td{
     display: none;
 }
 /*Template design*/
-        .nameBadgeTemplateHolder{
-            top:45px;
-            position: relative !important;
-            text-align: center !important;
-            background: lightgrey !important;
-            margin: 15px !important;
-            padding: 5% 0;
-        }
-        .defaultEventNameBadge{
-            position: relative !important;
-            background: yellow !important;
-            margin: 0 auto !important;
-        }
-        .defaultEventNameBadge1{
-            width: 75mm !important;
-            height: 105mm !important;
-        }
-        .defaultEventNameBadge2{
-            width: 90mm !important;
-            height: 135mm !important;
-        }
-        .defaultEventNameBadge3{
-            width: 105mm !important;
-            height: 75mm !important;
-        }
-        .nameBadgeTemplateHolder .defaultEventNameBadgeheader{
-            float: left !important;
-            margin-top: 10% !important
-        }
-        .nameBadgeTemplateHolder .userBasicInfo{
-            width: 98% !important;
-            float: left !important;
-            height: auto !important;
-            margin: 6% 1% 1% 1% !important;
-            background: white !important;
-        }
-        .nameBadgeTemplateHolder .template3{
-            width: 98% !important;
-            float: left !important;
-            height: 90px !important;
-            margin: 2% 1% 1% 1% !important;
-            background: white !important;
-        }
-        .nameBadgeTemplateHolder .userQrCode{
-            float: left !important;
-            margin: 5% 5% 0 !important;
-            width: 90% !important;
-            height: 0px !important;
-            /*background: black !important;*/
-        }
-        .nameBadgeTemplateHolder .userType{
-            width: 98% !important;
-            height: 75px !important;
-            float: left !important;
-            margin: 18% 1% 1% 1% !important;
-            background: white !important;
-        }
-        .nameBadgeTemplateHolder .userBasicInfoType2{
-            margin-top: 16% !important;
-        }
-        .nameBadgeTemplateHolder .userBasicInfoType3{
-            margin-top: 1% !important;
-            height: 25px !important;
-        }
-        .nameBadgeTemplateHolder .userQrCodeType2{
-            margin-top: 24% !important;
-        }
-        .nameBadgeTemplateHolder .userTypeType3{
-            margin-top: 0% !important;
-            height: 33px !important;
-        }
-        .userTypeType3 h2{
-            margin-top: 0% !important;
-        }
-        .template3 h3{
-            margin: 1% !important;
-            font-size: 24px;
-        }
-        .name_badge_serial_number{
-            position: relative;
-            top: 57px;
-        }
-        p.default_set_radio{
-            margin-top: 10% !important;
-        }
-        .registration_details_holder{
-                color: black;
-                background: white !important;
-                padding: 2% 5%;
-            }
-            .registration_details_holder h2, h3, h4{
-                text-decoration: underline;
-            }
-            ul.user_details{
-                margin-left: 5%!important;
-            }
-            ul.answer_details{
-                margin-left: 10%!important;
-            }
-            
-            ul.user_details,ul.answer_details li{
-                list-style-type: disc !important;
-            }
+.nameBadgeTemplateHolder{
+    top:45px;
+    position: relative !important;
+    text-align: center !important;
+    background: lightgrey !important;
+    margin: 15px !important;
+    padding: 5% 0;
+}
+.defaultEventNameBadge{
+    position: relative !important;
+    background: yellow !important;
+    margin: 0 auto !important;
+}
+.defaultEventNameBadge1{
+    width: 75mm !important;
+    height: 105mm !important;
+}
+.defaultEventNameBadge2{
+    width: 90mm !important;
+    height: 135mm !important;
+}
+.defaultEventNameBadge3{
+    width: 105mm !important;
+    height: 75mm !important;
+}
+.nameBadgeTemplateHolder .defaultEventNameBadgeheader{
+    float: left !important;
+    margin-top: 10% !important
+}
+.nameBadgeTemplateHolder .userBasicInfo{
+    width: 98% !important;
+    float: left !important;
+    height: auto !important;
+    margin: 6% 1% 1% 1% !important;
+    background: white !important;
+}
+.nameBadgeTemplateHolder .template3{
+    width: 98% !important;
+    float: left !important;
+    height: 90px !important;
+    margin: 2% 1% 1% 1% !important;
+    background: white !important;
+}
+.nameBadgeTemplateHolder .userQrCode{
+    float: left !important;
+    margin: 5% 5% 0 !important;
+    width: 90% !important;
+    height: 0px !important;
+    /*background: black !important;*/
+}
+.nameBadgeTemplateHolder .userType{
+    width: 98% !important;
+    height: 75px !important;
+    float: left !important;
+    margin: 18% 1% 1% 1% !important;
+    background: white !important;
+}
+.nameBadgeTemplateHolder .userBasicInfoType2{
+    margin-top: 16% !important;
+}
+.nameBadgeTemplateHolder .userBasicInfoType3{
+    margin-top: 1% !important;
+    height: 25px !important;
+}
+.nameBadgeTemplateHolder .userQrCodeType2{
+    margin-top: 24% !important;
+}
+.nameBadgeTemplateHolder .userTypeType3{
+    margin-top: 0% !important;
+    height: 33px !important;
+}
+.userTypeType3 h2{
+    margin-top: 0% !important;
+}
+.template3 h3{
+    margin: 1% !important;
+    font-size: 24px;
+}
+.name_badge_serial_number{
+    position: relative;
+    top: 57px;
+}
+p.default_set_radio{
+    margin-top: 10% !important;
+}
+.registration_details_holder{
+    color: black;
+    background: white !important;
+    padding: 2% 5%;
+}
+.registration_details_holder h2, h3, h4{
+    text-decoration: underline;
+}
+ul.user_details{
+    margin-left: 5%!important;
+}
+ul.answer_details{
+    margin-left: 10%!important;
+}
+
+ul.user_details,ul.answer_details li{
+    list-style-type: disc !important;
+}
+
+.quick_report_container{
+    float: left;
+    width: 100%;
+    margin: 2% 0;
+    border: 1px solid lightgray;
+    padding: 1%;
+}
+
+table.table_quick_report{
+    width: 80%;
+}
+table.table_quick_report tr td{
+    text-align: center;
+    vertical-align: top;
+}

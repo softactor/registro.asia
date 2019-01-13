@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use View;
+use PDF;
 
 class ReportsController extends Controller{
     
@@ -51,7 +52,6 @@ class ReportsController extends Controller{
                             ->where('label_name', $label_name)
                             ->groupBy('label_value')
                             ->get();
-
                     foreach ($label_value_results as $label_value) {
                         $label_value_count_results = DB::table('event_registeration_form_values as u')
                                 ->select('id')
@@ -138,4 +138,91 @@ class ReportsController extends Controller{
         $param['html_data']  = $request->data;
         download_reports_pdf($param);
     }
+    
+    public function complete_reports(Request $request){
+        $page_details   =   [
+            'page_title'    =>  'Reports'
+        ];
+        return view('superadmin.reports.report_complete_view', compact('page_details'));
+    }
+    
+    public function get_complete_report_pdf(Request $request) {
+        $page_details   =   [
+            'page_title'    =>  'Reports',
+            'event_id'      =>  $request->event_id,
+        ];
+        $event_id   =   $request->event_id; 
+//        $printData['event_id']  =   $request->event_id;
+//        $pdf = PDF::loadView('superadmin.reports.dynamic_form_bar_report', $printData)
+//                ->stream('complete_report.pdf');
+//        return $pdf;
+        return view('superadmin.reports.dynamic_form_bar_report', compact('event_id'));
+    }
+    
+    public function quick_reports_view(){
+        $page_details           =   [
+            'page_title'        =>  'Quick Report',
+            'quickReporturl'    =>  url('su/get_quick_reports_data'),
+        ];
+        return view('superadmin.reports.report_quick_view', compact('page_details'));
+    }
+    
+    public function get_quick_reports_data(Request $request){ 
+        $feedback   =   '';
+        $attended   =   0;
+        $import     =   0;
+        $online     =   0;
+        $onsite     =   0;
+        // get total online registration:
+        $attendedUsers = DB::table('event_business_owners_details as d')
+            ->join('namebadge_print_status as s', 'd.id', '=', 's.namebadge_id')
+            ->select('d.id as attended')
+            ->where('d.event_id', $request->event_id)
+            ->groupBy('s.namebadge_id')
+            ->get();
+        if(!$attendedUsers->isEmpty()){
+            $attended  =  count($attendedUsers);
+        }
+        
+        $onlineUsers = DB::table('event_business_owners')
+            ->where('event_id', $request->event_id)
+            ->where('registration_type', 'Online')
+            ->sum('owners_numbers');
+        if($onlineUsers){
+            $online     =   $onlineUsers;
+        }
+        $onsiteUsers = DB::table('event_business_owners')
+            ->where('event_id', $request->event_id)
+            ->where('registration_type', 'Onsite')
+            ->sum('owners_numbers');
+        if($onsiteUsers){
+            $onsite     =   $onsiteUsers;
+        }
+        $importUsers = DB::table('event_business_owners')
+            ->where('event_id', $request->event_id)
+            ->where('registration_type', 'Import')
+            ->sum('owners_numbers');
+        if($importUsers){
+            $import     =   $importUsers;
+        }
+        
+        $staticsData  =    [
+            'attended'      => $attended,
+            'online'        => $online,
+            'onsite'        => $onsite,
+            'import'        => $import,
+            'sum_of_all'    => $import+$onsite+$online
+        ];
+        
+        $listDataView   =   View::make('partial.quick_report_table_view', compact('staticsData'));
+        $feedbackData   =   [
+            'status'    =>  'success',
+            'message'   => 'Found data',
+            'data'      => $listDataView->render()
+        ];
+
+        echo json_encode($feedbackData);
+        
+    }
+
 }

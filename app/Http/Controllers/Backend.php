@@ -74,7 +74,6 @@ class Backend extends Controller
             'event_url'         => implode('-', $url_string),
             'iframe_events_url' => $request->iframe_events_url,
             'event_header'      => $filename,
-            'local_country'     => $request->local_country,
             'created_at'        => date('Y-m-d h:i:s'),
             'updated_at'        => date('Y-m-d h:i:s')
         ]; //end of insert data  
@@ -807,6 +806,23 @@ class Backend extends Controller
                 }
             }
         }
+    }    
+    public function scan_qrcode(){
+        $page_details   =   [
+            'page_title'    =>  'Scan Qrcode',
+            'url'           =>  url('su/get_user_data_by_serial_number')
+        ];     
+        return view('superadmin.scan_qrcode_view', compact('page_details'));
+    }
+    public function get_user_data_by_serial_number(Request $request){
+        $users_details         =   DB::table('event_business_owners_details')->where('serial_digit',$request->serial_id)->first();
+        $users                 =   DB::table('event_business_owners')->where('id',$users_details->business_owner_id)->first();
+        $details_data          =   View::make('partial.qr_scanner_gen_view', compact('users_details', 'users'));
+        $feedback_data  =   [
+            'status'            =>  'success',
+            'link'              =>  $details_data->render()
+        ];
+        echo json_encode($feedback_data);
     }
 
 }

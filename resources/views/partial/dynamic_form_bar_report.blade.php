@@ -3,7 +3,7 @@
         foreach ($seriesData as $key=>$cat) {
             $colval =   ceil((12/count($seriesData)));
         ?>
-        <div class="col-md-{{$colval}}">
+        <div class="col-md-12">
             <div id="dynamic_form_events_{{$key}}" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
         </div>
     <?php } ?>

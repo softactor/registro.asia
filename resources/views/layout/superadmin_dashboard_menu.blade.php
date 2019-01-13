@@ -52,6 +52,21 @@
                     <i class="fa fa fa-pie-chart"></i> Reports
                 </a>
             </li>
+            <li>
+                <a href="{{ url('/su/quick_reports_view') }}">
+                    <i class="fa fa fa-pie-chart"></i> Quick Reports
+                </a>
+            </li>
+            <li>
+                <a href="{{ url('/su/complete_reports') }}">
+                    <i class="fa fa fa-pie-chart"></i> Complete Reports
+                </a>
+            </li>
+            <li>
+                <a href="{{ url('/su/scan_qrcode') }}">
+                    <i class="fa fa fa-pie-chart"></i> Scan Qrcode
+                </a>
+            </li>
         </ul>
     </div>
 </div>

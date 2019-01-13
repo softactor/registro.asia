@@ -109,6 +109,12 @@ Route::get('su/get_custom_filter_report', 'Reports\ReportsController@getCustomFi
 Route::get('su/reports_grphic_view', 'Reports\ReportsController@reports_grphic_view');
 Route::get('su/reports_pdf_download', 'Reports\ReportsController@reports_pdf_download');
 
+Route::get('su/quick_reports_view', 'Reports\ReportsController@quick_reports_view');
+Route::get('su/get_quick_reports_data', 'Reports\ReportsController@get_quick_reports_data');
+Route::get('su/complete_reports', 'Reports\ReportsController@complete_reports');
+Route::post('su/get_complete_report_pdf', 'Reports\ReportsController@get_complete_report_pdf');
+Route::post('su/generate_complete_report_pdf', 'Reports\ReportsController@generate_complete_report_pdf');
+
 // **************************************bulk print and email**************************************************
 
 Route::get('su/saveNameBadgeIdIntoSession', 'Backend@saveNameBadgeIdIntoSession');
@@ -116,3 +122,5 @@ Route::get('su/printBulkNameBadge', 'Backend@print_bulk_name_badge');
 Route::get('su/bulkNameBadgePrint', 'Backend@bulk_name_badge_print');
 Route::get('su/sendBulkEmail', 'Backend@send_bulk_email');
 Route::get('su/sendBulkEmailStatus', 'Backend@send_bulk_email_status');
+Route::get('su/scan_qrcode', 'Backend@scan_qrcode');
+Route::get('su/get_user_data_by_serial_number', 'Backend@get_user_data_by_serial_number');
