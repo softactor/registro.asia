@@ -68,11 +68,29 @@
                                 <label for="namebadge_height">Event template header:</label>
                                 <input type="file" class="form-control" name="event_header">
                             </div>
+                            <?php if(isset($events->event_header) && !empty($events->event_header)){ ?> 
                             <div class="col-md-6">
                                 <div id="previous_bg_template">
                                     <img src="<?php echo asset('events/' . $events->event_header) ?>" alt="Event header" style="width: 350px; margin-top: 3%;" />
                                 </div>
                             </div>
+                            <?php } ?>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                @if ($errors->has('email_template_pdf'))
+                                <div class="alert-error">{{ $errors->first('email_template_pdf') }}</div>
+                                @endif
+                                <label for="email_template_pdf">Email PDF:</label>
+                                <input type="file" class="form-control" name="email_template_pdf">
+                            </div>
+                            <?php if(isset($events->email_template_pdf) && !empty($events->email_template_pdf)){ ?> 
+                            <div class="col-md-6">
+                                <h6>Email PDF Template have been uploaded</h6>
+                            </div>
+                            <?php } ?>
                         </div>
                     </div>
                     <input type="hidden" name="event_edit_id" value="<?php echo $events->id; ?>">

@@ -62,6 +62,13 @@
                         <label for="namebadge_height">Event template header:</label>
                         <input type="file" class="form-control" name="event_header">
                     </div>
+                    <div class="form-group">
+                        @if ($errors->has('email_template_pdf'))
+                        <div class="alert-error">{{ $errors->first('email_template_pdf') }}</div>
+                        @endif
+                        <label for="email_template_pdf">Email PDF:</label>
+                        <input type="file" class="form-control" name="email_template_pdf">
+                    </div>
                     <input type="submit" name='create_event' value="Create" class="btn btn-default">
                 </form>
             </div><!--/tab-content-->

@@ -51,6 +51,7 @@ class Backend extends Controller
     public function store_event(Request $request) {
         $url_string = explode(' ', ucwords($request->title));
         $filename   =   '';
+        $pdf_filename   =   '';
         if (isset($_FILES['event_header']) && $_FILES['event_header']['tmp_name']) {
             $path = $_FILES['event_header']['name'];
             $dimention_path = $_FILES['event_header']['tmp_name'];
@@ -64,6 +65,14 @@ class Backend extends Controller
             $filepath = public_path('/events/');
             move_uploaded_file($_FILES['event_header']['tmp_name'], $filepath . $filename);
         }
+        if (isset($_FILES['email_template_pdf']) && $_FILES['email_template_pdf']['tmp_name']) {
+            $path = $_FILES['email_template_pdf']['name'];
+
+            $ext = pathinfo($path, PATHINFO_EXTENSION);
+            $pdf_filename = date('m-d-Y') . '_' . 'event_template_email_pdf_'. time() . "." . $ext;
+            $filepath = public_path('/events/');
+            move_uploaded_file($_FILES['email_template_pdf']['tmp_name'], $filepath . $pdf_filename);
+        }
         $event_details = [
             'title'             => $request->title,
             'organizer'         => $request->organizer,
@@ -74,14 +83,29 @@ class Backend extends Controller
             'event_url'         => implode('-', $url_string),
             'iframe_events_url' => $request->iframe_events_url,
             'event_header'      => $filename,
+            'email_template_pdf'=> $pdf_filename,
             'created_at'        => date('Y-m-d h:i:s'),
             'updated_at'        => date('Y-m-d h:i:s')
         ]; //end of insert data  
 
         if (isset($request->event_edit_id) && !empty($request->event_edit_id)) {
+            unset($event_details['event_header']);
+            unset($event_details['email_template_pdf']);
             DB::table('events')
             ->where('id', $request->event_edit_id)
             ->update($event_details);
+            if(isset($filename) && !empty($filename)) {
+                $eventHeaderUpdate['event_header']    =   $filename;
+                DB::table('events')
+                ->where('id', $request->event_edit_id)
+                ->update($eventHeaderUpdate);
+            }
+            if(isset($pdf_filename) && !empty($pdf_filename)) {
+                $eventpdfUpdate['email_template_pdf']    =   $pdf_filename;
+                DB::table('events')
+                ->where('id', $request->event_edit_id)
+                ->update($eventpdfUpdate);
+            }
             $message    =   'Data have successfully updated.';
         } else {
             DB::table('events')->insertGetId($event_details);

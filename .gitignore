@@ -1,4 +1,5 @@
 /node_modules
+/public/events/
 /public/hot
 /public/pdf/
 /public/storage
