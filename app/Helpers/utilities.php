@@ -361,6 +361,7 @@ function get_is_confirmed_by_registration_type($reg_type){
 function generate_pdf($email_n_pdf_data) {
         foreach ($email_n_pdf_data as $prefixKey=>$data) {
             // generate qr code:
+            $email_template_pdf =   '';
             $qrdestPath         = public_path('pdf/');
             $qrfilename         = $data['profile_data']['serial_digit'] . '.png';
             $qr_path_with_file  = $qrdestPath . $qrfilename;
@@ -370,6 +371,9 @@ function generate_pdf($email_n_pdf_data) {
             ];
             getQRCode($qrcodeData);
             $event_data         = $data['event_data'];
+            if(isset($event_data->email_template_pdf) && !empty($event_data->email_template_pdf)){
+                $email_template_pdf     =   public_path('events/'.$event_data->email_template_pdf);
+            }
             $pdfTemplateData    = [
                 'user_data'     => $data['profile_data'],
                 'event_data'    => $event_data,
@@ -398,12 +402,15 @@ function generate_pdf($email_n_pdf_data) {
                 $content                = "Congratulations!<br>You have been successfully registered";
                 $emails['to']           = $data['profile_data']['email'];
                 $emails['attachment']   = $path_with_file;
+                $emails['email_template_pdf']   = $email_template_pdf;
                 $mail                   = Mail::send('template.registration_email', ['title' => $title, 'content' => $pdfTemplateData], function ($message) use ($emails) {
                             $message->from('admin@registro.asia', 'Registro Asia');
                             $message->to($emails['to']);
                             $message->subject("Registro Asia Registration Message");
                             $message->attach($emails['attachment']);
-                            $message->attach(public_path('events/'.$event_data->email_template_pdf));
+                            if(isset($emails['email_template_pdf']) && !empty($emails['email_template_pdf'])){
+                                $message->attach($emails['email_template_pdf']);
+                            }
                         });
             }
         }// end foreach
