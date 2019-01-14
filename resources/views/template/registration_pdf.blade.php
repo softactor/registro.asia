@@ -4,14 +4,20 @@
         <meta charset="utf-8">
         <title>Event Confirmation</title>
         <style>
-            table.email_pdf{
-                width: 90%;
-                margin: 5%;
-                border: 1px solid lightgray;
-            }
-            table.email_pdf tr td{
-                border:none;
-                padding: 5%;
+            @media screen {
+                @page {
+                    size: A4;
+                    margin: 0;
+                }
+                table.email_pdf{
+                    width: 90%;
+                    margin: 5%;
+                    border: none;
+                }
+                table.email_pdf tr td{
+                    border:none;
+                    padding: 5%;
+                }
             }
         </style>
     </head>
@@ -33,7 +39,7 @@
                             Dear Jan,
                             We are pleased to confirm your registration to <strong><?php echo $event_data->title; ?></strong>
                             Your registration information is as follows: <br>
-                            <table class="table table-responsive table-user-information">
+                            <table>
                                 <tbody>
                                     <tr>
                                         <td>Salutation:</td>
