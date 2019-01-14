@@ -397,17 +397,13 @@ function generate_pdf($email_n_pdf_data) {
                 $title                  = "Event Registration";
                 $content                = "Congratulations!<br>You have been successfully registered";
                 $emails['to']           = $data['profile_data']['email'];
-                if(isset($event_data->email_template_pdf) && !empty($event_data->email_template_pdf)){
-                    $merger = new Merger;
-                    $merger->addIterator([$path_with_file, public_path('events/'.$event_data->email_template_pdf)]);
-                    $path_with_file = $merger->merge();
-                }
                 $emails['attachment']   = $path_with_file;
                 $mail                   = Mail::send('template.registration_email', ['title' => $title, 'content' => $pdfTemplateData], function ($message) use ($emails) {
                             $message->from('admin@registro.asia', 'Registro Asia');
                             $message->to($emails['to']);
                             $message->subject("Registro Asia Registration Message");
                             $message->attach($emails['attachment']);
+                            $message->attach(public_path('events/'.$event_data->email_template_pdf));
                         });
             }
         }// end foreach

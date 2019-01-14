@@ -1,40 +1,61 @@
-<!doctype html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>Event Confirmation</title>
-        <style>
-            table.email_pdf{
-                width: 90%;
-                margin: 5%;
-                border: 1px solid lightgray;
-            }
-            table.email_pdf tr td{
-                border:none;
-                padding: 5%;
-            }
-        </style>
-    </head>
+<!--Extends parent app template-->
+@extends('layout.app')
+<!--Content insert section-->
+@section('content')
+<style type="text/css">
+    .user-row {
+    margin-bottom: 14px;
+}
 
-    <body>
-        <table class="email_pdf">
-            <tbody>
-                <tr>
-                    <td colspan="2">
-                        <img src="<?php echo asset('/events/'.$event_data->event_header) ?>" />
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">CONFIRMATION OF REGISTRATION</td>
-                </tr>
-                <tr>
-                    <td width="72%">
-                        <div>
-                            Dear Jan,
-                            We are pleased to confirm your registration to <strong><?php echo $event_data->title; ?></strong>
-                            Your registration information is as follows: <br>
+.user-row:last-child {
+    margin-bottom: 0;
+}
+
+.dropdown-user {
+    margin: 13px 0;
+    padding: 5px;
+    height: 100%;
+}
+
+.dropdown-user:hover {
+    cursor: pointer;
+}
+
+.table-user-information > tbody > tr {
+    border-top: 1px solid rgb(221, 221, 221);
+}
+
+.table-user-information > tbody > tr:first-child {
+    border-top: 0;
+}
+
+
+.table-user-information > tbody > tr > td {
+    border-top: 0;
+}
+.toppad
+{margin-top:20px;
+}
+</style>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{ $event_data->title }} Registration Details</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-3 col-lg-3 " align="center">
+                            <!--<img alt="User Pic" src="http://babyinfoforyou.com/wp-content/uploads/2014/10/avatar-300x300.png" class="img-circle img-responsive">-->
+                        </div>
+                        <div class=" col-md-9 col-lg-9 "> 
                             <table class="table table-responsive table-user-information">
                                 <tbody>
+                                    <tr>
+                                        <td>QR Code</td>
+                                        <td><img src="<?php echo $qrcode; ?>" /></td>
+                                    </tr>
                                     <tr>
                                         <td>Salutation:</td>
                                         <td>{{ $user_data['salutation'] }}</td>
@@ -70,14 +91,10 @@
                                 </tbody>
                             </table>
                         </div>
-                    </td>
-                    <td width="28%"><img src="<?php echo $qrcode; ?>" /></td>
-                </tr>
-                <tr>
-                    <td colspan="2">Please bring along a copy of this confirmation slip and present it at the "Pre-Registered" counters on-site to collect your Guest Pass. As identity checks may be carried out at the security checkpoints, please bring along your passport, NRIC or driving license for verification.</td>
-                </tr>
-            </tbody>
-        </table>
-
-    </body>
-</html>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
