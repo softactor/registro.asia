@@ -23,7 +23,7 @@
     </head>
 
     <body>
-        <table class="email_pdf">
+        <table class="email_pdf" style="width: 100%">
             <tbody>
                 <tr>
                     <td colspan="2">
@@ -36,7 +36,7 @@
                 <tr>
                     <td width="72%">
                         <div>
-                            Dear Jan,
+                            Dear <?php echo $event_data->first_name; ?>,
                             We are pleased to confirm your registration to <strong><?php echo $event_data->title; ?></strong>
                             Your registration information is as follows: <br>
                             <table>

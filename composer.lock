@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6ffcf247516f759e039f4a8e696ae577",
+    "content-hash": "5b2b7ae19ee7b6b3ef185e94d6095b01",
     "packages": [
         {
             "name": "barryvdh/laravel-dompdf",
@@ -713,6 +713,50 @@
             "time": "2018-02-07T20:20:57+00:00"
         },
         {
+            "name": "grofgraf/laravel-pdf-merger",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/GrofGraf/laravel-pdf-merger.git",
+                "reference": "787ba5d7a59db54ab978382e7e5b825217556688"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/GrofGraf/laravel-pdf-merger/zipball/787ba5d7a59db54ab978382e7e5b825217556688",
+                "reference": "787ba5d7a59db54ab978382e7e5b825217556688",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": ">=5.5",
+                "setasign/fpdi-fpdf": "^2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "GrofGraf\\LaravelPDFMerger\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Grof Graf"
+                }
+            ],
+            "description": "Package for Laravel that merges multiple PDFs into one.",
+            "keywords": [
+                "grofgraf",
+                "laravel",
+                "merger",
+                "pdf",
+                "pdf-merger",
+                "pdfmerger"
+            ],
+            "time": "2018-09-23T18:25:17+00:00"
+        },
+        {
             "name": "iio/libmergepdf",
             "version": "4.0.0",
             "source": {
@@ -728,7 +772,6 @@
             },
             "require": {
                 "php": "^7.1",
-                "rafikhaceb/tcpdi": "^1",
                 "setasign/fpdi-tcpdf": "^2.0"
             },
             "require-dev": {
@@ -1719,52 +1762,6 @@
             "time": "2018-10-13T15:16:03+00:00"
         },
         {
-            "name": "rafikhaceb/tcpdi",
-            "version": "1.0.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/RafikHaceb/tcpdi.git",
-                "reference": "bd3bfef55513149015656a8df00d785145a90e3d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/RafikHaceb/tcpdi/zipball/bd3bfef55513149015656a8df00d785145a90e3d",
-                "reference": "bd3bfef55513149015656a8df00d785145a90e3d",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0",
-                "tecnickcom/tcpdf": "6.2.*"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "fpdf_tpl.php",
-                    "tcpdi.php",
-                    "tcpdi_parser.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Apache-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "Nicola Asuni",
-                    "email": "info@tecnick.com",
-                    "homepage": "http://nicolaasuni.tecnick.com"
-                }
-            ],
-            "description": "TCPDI is a PHP class for importing PDF to use with TCPDF",
-            "keywords": [
-                "TCPDF",
-                "pdf",
-                "tcpdi",
-                "tcpdi_parser"
-            ],
-            "time": "2018-10-25T14:50:27+00:00"
-        },
-        {
             "name": "ramsey/uuid",
             "version": "3.8.0",
             "source": {
@@ -1891,6 +1888,45 @@
             "time": "2016-07-19T19:14:21+00:00"
         },
         {
+            "name": "setasign/fpdf",
+            "version": "1.8.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Setasign/FPDF.git",
+                "reference": "2c68c9e6c034ac3187d25968790139a73184cdb1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Setasign/FPDF/zipball/2c68c9e6c034ac3187d25968790139a73184cdb1",
+                "reference": "2c68c9e6c034ac3187d25968790139a73184cdb1",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "fpdf.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "no usage restriction"
+            ],
+            "authors": [
+                {
+                    "name": "Olivier Plathey",
+                    "email": "oliver@fpdf.org",
+                    "homepage": "http://fpdf.org/"
+                }
+            ],
+            "description": "FPDF is a PHP class which allows to generate PDF files with pure PHP. F from FPDF stands for Free: you may use it for any kind of usage and modify it to suit your needs.",
+            "homepage": "http://www.fpdf.org",
+            "keywords": [
+                "fpdf",
+                "pdf"
+            ],
+            "time": "2016-01-01T17:47:15+00:00"
+        },
+        {
             "name": "setasign/fpdi",
             "version": "v2.1.1",
             "source": {
@@ -1950,6 +1986,45 @@
                 "pdf"
             ],
             "time": "2018-11-06T10:02:00+00:00"
+        },
+        {
+            "name": "setasign/fpdi-fpdf",
+            "version": "v2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Setasign/FPDI-FPDF.git",
+                "reference": "c13ff727115f4fab040d58b559929113cc1be8e2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Setasign/FPDI-FPDF/zipball/c13ff727115f4fab040d58b559929113cc1be8e2",
+                "reference": "c13ff727115f4fab040d58b559929113cc1be8e2",
+                "shasum": ""
+            },
+            "require": {
+                "setasign/fpdf": "^1.8",
+                "setasign/fpdi": "^2.1"
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jan Slabon",
+                    "email": "jan.slabon@setasign.com",
+                    "homepage": "https://www.setasign.com"
+                }
+            ],
+            "description": "Kind of metadata package for dependencies of the latest versions of FPDI and FPDF.",
+            "homepage": "https://www.setasign.com/fpdi",
+            "keywords": [
+                "fpdf",
+                "fpdi",
+                "pdf"
+            ],
+            "time": "2018-11-06T10:40:46+00:00"
         },
         {
             "name": "setasign/fpdi-tcpdf",
@@ -4271,6 +4346,52 @@
                 "xunit"
             ],
             "time": "2018-10-18T09:02:52+00:00"
+        },
+        {
+            "name": "rafikhaceb/tcpdi",
+            "version": "1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/RafikHaceb/tcpdi.git",
+                "reference": "bd3bfef55513149015656a8df00d785145a90e3d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/RafikHaceb/tcpdi/zipball/bd3bfef55513149015656a8df00d785145a90e3d",
+                "reference": "bd3bfef55513149015656a8df00d785145a90e3d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0",
+                "tecnickcom/tcpdf": "6.2.*"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "fpdf_tpl.php",
+                    "tcpdi.php",
+                    "tcpdi_parser.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Nicola Asuni",
+                    "email": "info@tecnick.com",
+                    "homepage": "http://nicolaasuni.tecnick.com"
+                }
+            ],
+            "description": "TCPDI is a PHP class for importing PDF to use with TCPDF",
+            "keywords": [
+                "TCPDF",
+                "pdf",
+                "tcpdi",
+                "tcpdi_parser"
+            ],
+            "time": "2018-10-25T14:50:27+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",

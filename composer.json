@@ -9,6 +9,7 @@
         "barryvdh/laravel-dompdf": "^0.8.3",
         "doctrine/dbal": "^2.8",
         "fideloper/proxy": "^4.0",
+        "grofgraf/laravel-pdf-merger": "^1.0",
         "iio/libmergepdf": "^4.0",
         "laravel/framework": "5.7.*",
         "laravel/tinker": "^1.0",
