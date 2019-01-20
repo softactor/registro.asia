@@ -48,6 +48,11 @@
                                 <td>Email Editor</td>
                                 <td><a href="{{ url('su/event_wise_mail_composer') }}">Compose</a></td>
                             </tr>
+                            <tr>
+                                <td>6</td>
+                                <td>PDF Editor</td>
+                                <td><a href="{{ url('su/event_wise_pdf_composer') }}">Compose</a></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>

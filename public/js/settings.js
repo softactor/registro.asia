@@ -155,3 +155,20 @@ function get_email_text(event_id, url){
         });
     }
 }
+function get_pdf_text(event_id, url){
+    if(event_id){
+        $.ajax({
+            type        : 'GET',
+            url         : url,
+            dataType    : 'json',
+            data        : 'event_id='+event_id,
+            success     : function (response) {
+                if (response.status == 'success') {
+                    tinymce.get('mail_body').setContent(response.data);
+                } else {
+                    tinymce.get('mail_body').setContent('');
+                }
+            }
+        });
+    }
+}

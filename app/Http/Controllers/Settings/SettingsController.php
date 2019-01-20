@@ -164,6 +164,59 @@ class SettingsController extends Controller{
                             ->with('success', $message);
     }
     
+    public function eventWisePdfComposer(){
+        $page_details   =   [
+            'page_title'    =>  'Pdf Design',
+            'link_url'      =>  '/su/create_settings',
+            'form_url'      =>  '/su/event_wise_pdf_composer_store',
+            'link_title'    =>  'Compose'
+        ];
+        return view('superadmin.settings.pdf_composer', compact('page_details'));
+    }
+    public function eventWisePdfComposerStore(Request $request){
+        //Define Rules
+        $rules = [
+            'event_id'        => 'required',
+            'mail_body'       => 'required',
+        ];
+
+        // Create a new validator instance
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return redirect('su/event_wise_mail_composer')
+                            ->withErrors($validator)
+                            ->withInput()
+                            ->with('error', 'Failed to save data');
+        }
+        $status     =   'success';
+        $data       =   '';
+        $message    =   'Data have been successfully saved';
+        $allowedTags='<p><strong><em><u><h1><h2><h3><h4><h5><h6><img>';
+        $allowedTags.='<li><ol><ul><span><div><br><ins><del>';
+        $sContent = strip_tags(stripslashes($request->mail_body),$allowedTags);
+        $whereParam     =   [
+            'name'          =>  $request->event_id,
+            'post_type'     =>  'pdf_text',
+        ]; 
+        $query          =   DB::table('settings')->select('values')->where($whereParam)->first();
+        if(isset($query) && !empty($query)){
+            DB::table('settings')
+            ->where($whereParam)
+            ->update(['values' => $sContent]);
+        }else{
+            $emailData      =   [
+                'name'      =>  $request->event_id,
+                'values'    =>  $sContent,
+                'data_type' =>  'text',
+                'post_type' =>  'pdf_text',
+            ];
+            DB::table('settings')->insert($emailData);  
+        }
+        
+        return redirect('su/event_wise_pdf_composer')
+                            ->with('success', $message);
+    }
+    
     public function getEmailText(Request $request){
         $status     =   'error';
         $data       =   '';
@@ -185,5 +238,48 @@ class SettingsController extends Controller{
         ];
         
         echo json_encode($feedBack);
+    }
+    public function getPdfText(Request $request){
+        $status     =   'error';
+        $data       =   '';
+        $message    =   'Data not found';
+        $whereParam     =   [
+            'name'          =>  $request->event_id,
+            'post_type'     =>  'pdf_text',
+        ]; 
+        $query = DB::table('settings')->select('values')->where($whereParam)->first();
+        if(isset($query) && !empty($query)){
+            $status     =   'success';
+            $data       =   $query->values;
+            $message    =   'Data found';
+        }        
+        $feedBack   =   [
+            'status'    =>  $status,
+            'data'      =>  $data,
+            'message'   =>  $message,
+        ];
+        
+        echo json_encode($feedBack);
+    }
+    
+    public function test_pdf_text_check(Request $request){
+        $first_name         =   'Tanveer';
+        $last_name          =   'Qureshee';
+        $event_title        =   'Test Event';
+        $vars = array(
+            '{$first_name}'         => 'Tanveer',
+            '{$last_name}'          => 'Qureshee',
+            '{$event_title}'        => 'Test Event'
+          );
+        $whereParam     =   [
+            'name'          =>  12,//$request->event_id,
+            'post_type'     =>  'pdf_text',
+        ]; 
+        $query = DB::table('settings')->select('values')->where($whereParam)->first();
+        if(isset($query) && !empty($query)){
+            $string         =   $query->values;
+            echo strtr($string, $vars);;
+            
+        }
     }
 }

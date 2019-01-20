@@ -96,6 +96,11 @@ Route::get('su/event_wise_mail_composer', 'Settings\SettingsController@eventWise
 Route::post('su/event_wise_mail_composer_store', 'Settings\SettingsController@eventWiseMailComposerStore');
 Route::get('su/get_email_text', 'Settings\SettingsController@getEmailText');
 
+//*******************************PDF COMPOSER*************************************************
+Route::get('su/event_wise_pdf_composer', 'Settings\SettingsController@eventWisePdfComposer');
+Route::post('su/event_wise_pdf_composer_store', 'Settings\SettingsController@eventWisePdfComposerStore');
+Route::get('su/get_pdf_text', 'Settings\SettingsController@getPdfText');
+
 //          Pending queue confirmation
 Route::get('su/backend/registration_import_status/{is_confirmed}/{event_id}', 'Backend@registration_import_status');
     
@@ -124,3 +129,6 @@ Route::get('su/sendBulkEmail', 'Backend@send_bulk_email');
 Route::get('su/sendBulkEmailStatus', 'Backend@send_bulk_email_status');
 Route::get('su/scan_qrcode', 'Backend@scan_qrcode');
 Route::get('su/get_user_data_by_serial_number', 'Backend@get_user_data_by_serial_number');
+
+
+Route::get('su/test_pdf_text_check', 'Settings\SettingsController@test_pdf_text_check');
