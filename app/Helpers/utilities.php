@@ -17,10 +17,10 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\URL;
 use iio\libmergepdf\Merger;
 use iio\libmergepdf\Pages;
-use Barryvdh\DomPDF\PDF as PDF;
-use Illuminate\Support\Facades\Mail;
-//use PDF;
-//use Mail;
+//use Barryvdh\DomPDF\PDF as PDF;
+//use Illuminate\Support\Facades\Mail;
+use PDF;
+use Mail;
 
 // GET TABLE DATA BY TABLE NAME:
 
