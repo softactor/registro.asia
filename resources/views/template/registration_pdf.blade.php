@@ -56,7 +56,7 @@
                         <div>
                             <?php
                             $vars = array(
-                                '{$first_name}'     => $user_data['salutation'],
+                                '{$first_name}'     => $user_data['first_name'],
                                 '{$last_name}'      => $user_data['last_name'],
                                 '{$event_title}'    => $event_data->title
                             );
