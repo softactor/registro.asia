@@ -28,6 +28,13 @@
                         </select>
                     </div>
                     <div class="form-group">
+                        <label for="comment">Available variable list:</label>
+                        <ul>
+                            <li>{$first_name}</li>
+                            <li>{$last_name}</li>
+                        </ul>
+                    </div>
+                    <div class="form-group">
                         <label for="comment">Mail body:</label>
                         <textarea class="form-control rich_editor" rows="5" name="mail_body" id="mail_body"></textarea>
                     </div>
