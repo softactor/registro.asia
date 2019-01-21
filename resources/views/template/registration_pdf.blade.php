@@ -54,8 +54,23 @@
                 <tr>
                     <td width="72%">
                         <div>
-                            Dear <?php echo $user_data['first_name'].''.$user_data['last_name']; ?>,
-                            We are pleased to confirm your registration to <strong><?php echo $event_data->title; ?></strong>
+                            <?php
+                            $vars = array(
+                                '{$first_name}'     => $user_data['salutation'],
+                                '{$last_name}'      => $user_data['last_name'],
+                                '{$event_title}'    => $event_data->title
+                            );
+                            $whereParam = [
+                                'name'          => $event_data->id, //$request->event_id,
+                                'post_type'     => 'pdf_text',
+                            ];
+                            $query = DB::table('settings')->select('values')->where($whereParam)->first();
+                            if (isset($query) && !empty($query)) {
+                                $string = $query->values;
+                                echo strtr($string, $vars);
+                                ;
+                            }
+                            ?>
                             Your registration information is as follows: <br>
                             <table class="email_pdf user_details_table">
                                 <tbody>
