@@ -15,10 +15,9 @@ use QR_Code\QR_Code;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\URL;
-use iio\libmergepdf\Merger;
-use iio\libmergepdf\Pages;
 //use Barryvdh\DomPDF\PDF as PDF;
 //use Illuminate\Support\Facades\Mail;
+use GrofGraf\LaravelPDFMerger\PDFMerger;
 use PDF;
 use Mail;
 
@@ -386,7 +385,11 @@ function generate_pdf($email_n_pdf_data) {
             $pdf = PDF::loadView('template.registration_pdf', $pdfTemplateData)
                     ->save($path_with_file)
                     ->stream('registeration_complete.pdf');
-            
+            $merger = \PDFMerger::init();
+            $merger->addPathToPDF($path_with_file, 'all', 'P');
+            $merger->addPathToPDF($email_template_pdf, 'all', 'P');
+            $merger->merge();
+            $merger->save($destinationPath.$event_data->title.'_merged.pdf');
             // database update area
             $update_data    =   [
                 'qrcode_path'   =>  $qrfilename,
@@ -402,14 +405,16 @@ function generate_pdf($email_n_pdf_data) {
                 $content                = "Congratulations!<br>You have been successfully registered";
                 $emails['to']           = $data['profile_data']['email'];
                 $emails['attachment']   = $path_with_file;
-                $emails['email_template_pdf']   = $email_template_pdf;
+                $emails['email_template_pdf']   = $destinationPath.$event_data->title.'_merged.pdf';
                 $mail                   = Mail::send('template.registration_email', ['title' => $title, 'content' => $pdfTemplateData], function ($message) use ($emails) {
                             $message->from('admin@registro.asia', 'Registro Asia');
                             $message->to($emails['to']);
                             $message->subject("Registro Asia Registration Message");
-                            $message->attach($emails['attachment']);
+                            
                             if(isset($emails['email_template_pdf']) && !empty($emails['email_template_pdf'])){
                                 $message->attach($emails['email_template_pdf']);
+                            }else{
+                                $message->attach($emails['attachment']);
                             }
                         });
             }

@@ -132,3 +132,4 @@ Route::get('su/get_user_data_by_serial_number', 'Backend@get_user_data_by_serial
 
 
 Route::get('su/test_pdf_text_check', 'Settings\SettingsController@test_pdf_text_check');
+Route::get('su/pdf_design_check', 'Settings\SettingsController@pdf_design_check');

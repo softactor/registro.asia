@@ -9,25 +9,43 @@
                     size: A4;
                     margin: 0;
                 }
+                body {
+                    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+                    font-size: 1em;
+                    color: #333333;
+                    margin-top: 2cm;
+                    margin-right: 2cm;
+                    margin-bottom: 1.5cm;
+                    margin-left: 2cm
+                }
                 table.email_pdf{
-                    width: 90%;
-                    margin: 5%;
-                    border: none;
+                    width: 100%;
+                    margin: 1%;
                 }
                 table.email_pdf tr td{
                     border:none;
-                    padding: 5%;
+                    padding: 1%;
+                }
+                
+                table.user_details_table tr td{
+                    font-weight: bold;
+                }
+                p{
+                   word-wrap: break-word;
+                }
+                img.header_image{
+                    width: 15cm;
                 }
             }
         </style>
     </head>
 
     <body>
-        <table class="email_pdf" style="width: 100%">
+        <table class="email_pdf">
             <tbody>
                 <tr>
                     <td colspan="2">
-                        <img src="<?php echo asset('/events/'.$event_data->event_header) ?>" />
+                        <img class="header_image" src="<?php echo asset('/events/'.$event_data->event_header) ?>" />
                     </td>
                 </tr>
                 <tr>
@@ -36,10 +54,10 @@
                 <tr>
                     <td width="72%">
                         <div>
-                            Dear <?php echo $event_data->first_name; ?>,
+                            Dear <?php echo $user_data['first_name'].''.$user_data['last_name']; ?>,
                             We are pleased to confirm your registration to <strong><?php echo $event_data->title; ?></strong>
                             Your registration information is as follows: <br>
-                            <table>
+                            <table class="email_pdf user_details_table">
                                 <tbody>
                                     <tr>
                                         <td>Salutation:</td>
@@ -80,7 +98,12 @@
                     <td width="28%"><img src="<?php echo $qrcode; ?>" /></td>
                 </tr>
                 <tr>
-                    <td colspan="2">Please bring along a copy of this confirmation slip and present it at the "Pre-Registered" counters on-site to collect your Guest Pass. As identity checks may be carried out at the security checkpoints, please bring along your passport, NRIC or driving license for verification.</td>
+                    <td colspan="2">
+                        <p>
+                        Please bring along a copy of this confirmation slip and present it at the "Pre-Registered" counters on-site to collect your Guest Pass.
+                        As identity checks may be carried out at the security checkpoints, please bring along your passport, NRIC or driving license for verification.
+                        </p>
+                    </td>
                 </tr>
             </tbody>
         </table>

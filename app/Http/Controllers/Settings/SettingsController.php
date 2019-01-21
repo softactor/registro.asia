@@ -282,4 +282,8 @@ class SettingsController extends Controller{
             
         }
     }
+    
+    public function pdf_design_check(Request $request){
+        return view('template.registration_pdf_2', compact('page_details'));
+    }
 }
