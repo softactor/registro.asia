@@ -32,6 +32,7 @@
                         <ul>
                             <li>{$first_name}</li>
                             <li>{$last_name}</li>
+                            <li>{$event_title}</li>
                         </ul>
                     </div>
                     <div class="form-group">
