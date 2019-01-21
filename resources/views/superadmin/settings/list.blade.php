@@ -50,7 +50,7 @@
                             </tr>
                             <tr>
                                 <td>6</td>
-                                <td>PDF Editor</td>
+                                <td>PDF Design</td>
                                 <td><a href="{{ url('su/event_wise_pdf_composer') }}">Compose</a></td>
                             </tr>
                         </tbody>

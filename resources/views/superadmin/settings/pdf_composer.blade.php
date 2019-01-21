@@ -11,7 +11,7 @@
             <div class="col-sm-11">
                 @include('partial/operation_message')
                 <h2>
-                    {{ $page_details['page_title'] }} Compose
+                    {{ $page_details['page_title'] }}
                 </h2>
                 <form action="{{ url($page_details['form_url']) }}" method="post">
                     {{ csrf_field() }}

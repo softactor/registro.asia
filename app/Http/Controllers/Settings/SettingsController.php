@@ -166,7 +166,7 @@ class SettingsController extends Controller{
     
     public function eventWisePdfComposer(){
         $page_details   =   [
-            'page_title'    =>  'Pdf Design',
+            'page_title'    =>  'PDF Design',
             'link_url'      =>  '/su/create_settings',
             'form_url'      =>  '/su/event_wise_pdf_composer_store',
             'link_title'    =>  'Compose'
