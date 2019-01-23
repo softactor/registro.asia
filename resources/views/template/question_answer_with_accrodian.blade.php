@@ -2,6 +2,7 @@
 <div class="panel-group" id="accordion">
     <?php
     $storeUrl   =   url('su/user_wise_question_answer_store');
+    if(isset($profile_data->event_business_owners_details) && !empty($profile_data->event_business_owners_details)){
     foreach ($profile_data->event_business_owners_details as $key => $profile) {
         ?>    
         <div class="panel panel-default">
@@ -21,5 +22,5 @@
                 </div>
             </form>
         </div>
-    <?php } ?>
+    <?php }} ?>
 </div>

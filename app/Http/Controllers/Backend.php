@@ -281,7 +281,9 @@ class Backend extends Controller
         $all_data = '';
         if (isset($request->current_access_token) && !empty($request->current_access_token)) {
             $get_profile_row_data = DB::table('registraion_temp')->where('form_id', 0)->where('access_token', $request->current_access_token)->first();
-            $profile_data = json_decode($get_profile_row_data->temp_data);
+            if (isset($get_profile_row_data->temp_data) && !empty($get_profile_row_data->temp_data)) {
+                $profile_data = json_decode($get_profile_row_data->temp_data);
+            }
         }
         $event_forms = DB::table('event_forms')->where('id', $request->eventFormId)->first();
         $formValues = json_decode($event_forms->form_data);
