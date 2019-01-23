@@ -310,7 +310,10 @@ class Backend extends Controller
                         $all_data .= makeCheckBoxGroupHtml($values);
                         break;
                     case 'header':
-                        $all_data .= makeCheckBoxGroupHtml($values);
+                        $all_data .= makeHeaderHtml($values);
+                        break;
+                    case 'paragraph':
+                        $all_data .= makeParagraphHtml($values);
                         break;
                 } // End of switch   
             } // End of switch

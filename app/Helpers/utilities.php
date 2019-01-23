@@ -706,3 +706,11 @@ function generate_pdf($email_n_pdf_data) {
                                 ->first();
         return $get_nameBadgeBgAndTextColor;    
     }
+    function makeHeaderHtml($values){
+        $search_data           = View::make('template.make_header_html', compact('values'));
+        return $search_data->render();
+    }
+    function makeParagraphHtml($values){
+        $search_data           = View::make('template.make_paragraph_html', compact('values'));
+        return $search_data->render();
+    }
