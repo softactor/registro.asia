@@ -389,7 +389,7 @@ function generate_pdf($email_n_pdf_data) {
             $merger->addPathToPDF($path_with_file, 'all', 'P');
             $merger->addPathToPDF($email_template_pdf, 'all', 'P');
             $merger->merge();
-            $merger->save($destinationPath.$event_data->title.'_merged.pdf');
+            $merger->save($destinationPath.$event_data->title.$data['profile_data']['serial_digit'].'_merged.pdf');
             // database update area
             $update_data    =   [
                 'qrcode_path'   =>  $qrfilename,
