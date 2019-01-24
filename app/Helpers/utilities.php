@@ -358,6 +358,7 @@ function get_is_confirmed_by_registration_type($reg_type){
     return $status;
 }
 function generate_pdf($email_n_pdf_data) {
+        $merger = \PDFMerger::init();
         foreach ($email_n_pdf_data as $prefixKey=>$data) {
             // generate qr code:
             $email_template_pdf =   '';
@@ -384,8 +385,7 @@ function generate_pdf($email_n_pdf_data) {
             $path_with_file     = $destinationPath . $name;
             $pdf = PDF::loadView('template.registration_pdf', $pdfTemplateData)
                     ->save($path_with_file)
-                    ->stream('registeration_complete.pdf');
-            $merger = \PDFMerger::init();
+                    ->stream('registeration_complete.pdf');            
             $merger->addPathToPDF($path_with_file, 'all', 'P');
             $merger->addPathToPDF($email_template_pdf, 'all', 'P');
             $merger->merge();
