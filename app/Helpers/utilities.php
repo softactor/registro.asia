@@ -380,7 +380,7 @@ function generate_pdf($email_n_pdf_data) {
             ];
             $destinationPath    = public_path('pdf/');
             $addPrefixNumber    =   $prefixKey+1;
-            $name               = $event_data->title . '.pdf';
+            $name               = $event_data->title.$data['profile_data']['serial_digit'] . '.pdf';
             $path_with_file     = $destinationPath . $name;
             $pdf = PDF::loadView('template.registration_pdf', $pdfTemplateData)
                     ->save($path_with_file)
@@ -405,7 +405,7 @@ function generate_pdf($email_n_pdf_data) {
                 $content                = "Congratulations!<br>You have been successfully registered";
                 $emails['to']           = $data['profile_data']['email'];
                 $emails['attachment']   = $path_with_file;
-                $emails['email_template_pdf']   = $destinationPath.$event_data->title.'_merged.pdf';
+                $emails['email_template_pdf']   = $destinationPath.$event_data->title.$data['profile_data']['serial_digit'].'_merged.pdf';
                 $mail                   = Mail::send('template.registration_email', ['title' => $title, 'content' => $pdfTemplateData], function ($message) use ($emails) {
                             $message->from('admin@registro.asia', 'Registro Asia');
                             $message->to($emails['to']);
