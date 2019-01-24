@@ -405,7 +405,7 @@ function generate_pdf($email_n_pdf_data) {
                 $content                = "Congratulations!<br>You have been successfully registered";
                 $emails['to']           = $data['profile_data']['email'];
                 $emails['attachment']   = $path_with_file;
-                $emails['email_template_pdf']   = $destinationPath.$event_data->id.$data['profile_data']['serial_digit'].'_merged.pdf';
+                $emails['email_template_pdf']   = $destinationPath.$event_data->id.'_'.$data['profile_data']['serial_digit'].'_merged.pdf';
                 $mail                   = Mail::send('template.registration_email', ['title' => $title, 'content' => $pdfTemplateData], function ($message) use ($emails) {
                             $message->from('admin@registro.asia', 'Registro Asia');
                             $message->to($emails['to']);
