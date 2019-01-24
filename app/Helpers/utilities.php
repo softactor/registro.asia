@@ -358,8 +358,8 @@ function get_is_confirmed_by_registration_type($reg_type){
     return $status;
 }
 function generate_pdf($email_n_pdf_data) {
-        $merger = \PDFMerger::init();
         foreach ($email_n_pdf_data as $prefixKey=>$data) {
+        $merger = \PDFMerger::init();
             // generate qr code:
             $email_template_pdf =   '';
             $qrdestPath         = public_path('pdf/');
@@ -381,15 +381,15 @@ function generate_pdf($email_n_pdf_data) {
             ];
             $destinationPath    = public_path('pdf/');
             $addPrefixNumber    =   $prefixKey+1;
-            $name               = $event_data->title.$data['profile_data']['serial_digit'] . '.pdf';
+            $name               = $event_data->id.'_'.$data['profile_data']['serial_digit'] . '.pdf';
             $path_with_file     = $destinationPath . $name;
             $pdf = PDF::loadView('template.registration_pdf', $pdfTemplateData)
                     ->save($path_with_file)
                     ->stream('registeration_complete.pdf');            
-            $merger->addPathToPDF($path_with_file, 'all', 'P');
-            $merger->addPathToPDF($email_template_pdf, 'all', 'P');
+            $merger->addPathToPDF($path_with_file);
+            $merger->addPathToPDF($email_template_pdf, 'all');
             $merger->merge();
-            $merger->save($destinationPath.$event_data->title.$data['profile_data']['serial_digit'].'_merged.pdf');
+            $merger->save($destinationPath.$event_data->id.'_'.$data['profile_data']['serial_digit'].'_merged.pdf');
             // database update area
             $update_data    =   [
                 'qrcode_path'   =>  $qrfilename,
@@ -397,7 +397,7 @@ function generate_pdf($email_n_pdf_data) {
             ];
             DB::table('event_business_owners_details')
             ->where('id', $data['profile_id'])
-            ->update($update_data);            
+            ->update($update_data);  
             if($data['profile_data']['is_confirmed']){
             
                 //--------------------- mail start
@@ -418,6 +418,7 @@ function generate_pdf($email_n_pdf_data) {
                             }
                         });
             }
+            
         }// end foreach
     }
     
