@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\URL;
 //use Barryvdh\DomPDF\PDF as PDF;
 //use Illuminate\Support\Facades\Mail;
-use GrofGraf\LaravelPDFMerger\PDFMerger;
+use GrofGraf\LaravelPDFMerger\Facades as PDFMerger;
 use PDF;
 use Mail;
 
@@ -433,6 +433,7 @@ function generate_pdf($email_n_pdf_data) {
     }
     $counterData    =   1;
     foreach ($email_n_pdf_data as $prefixKey=>$data) {
+        PDFMerger::__destruct();
         $path_with_file     =   null;
         $path_with_file     =   '';
         $qrdestPath         = public_path('pdf/');
@@ -466,7 +467,7 @@ function generate_pdf($email_n_pdf_data) {
         
         // Initialize PDF Marge:
         $merger     =   null;
-        $merger = new PDFMerger();
+        $merger = PDFMerger::init();
         $merger->addPathToPDF($path_with_file);
         $merger->addPathToPDF($email_template_pdf, 'all');
         $merger->merge();
