@@ -357,9 +357,12 @@ function get_is_confirmed_by_registration_type($reg_type){
     }
     return $status;
 }
-function generate_pdf($email_n_pdf_data) {
+function generate_pdf_b($email_n_pdf_data) {
+        $countVar   =   1;
         foreach ($email_n_pdf_data as $prefixKey=>$data) {
-        $merger = \PDFMerger::init();
+            echo $countVar;
+            $merger     =   null;
+            $merger = \PDFMerger::init();
             // generate qr code:
             $email_template_pdf =   '';
             $qrdestPath         = public_path('pdf/');
@@ -379,6 +382,7 @@ function generate_pdf($email_n_pdf_data) {
                 'event_data'    => $event_data,
                 'qrcode'        => $qr_path_with_file
             ];
+            
             $destinationPath    = public_path('pdf/');
             $addPrefixNumber    =   $prefixKey+1;
             $name               = $event_data->id.'_'.$data['profile_data']['serial_digit'] . '.pdf';
@@ -421,6 +425,84 @@ function generate_pdf($email_n_pdf_data) {
             
         }// end foreach
     }
+function generate_pdf($email_n_pdf_data) {
+    $email_template_pdf     =   '';
+    $eventData              =   $email_n_pdf_data[0]['event_data'];
+    if (isset($eventData->email_template_pdf) && !empty($eventData->email_template_pdf)) {
+        $email_template_pdf = public_path('events/' . $eventData->email_template_pdf);
+    }
+    $counterData    =   1;
+    foreach ($email_n_pdf_data as $prefixKey=>$data) {
+        \PDFMerger::__destruct();
+        $path_with_file     =   null;
+        $path_with_file     =   '';
+        $qrdestPath         = public_path('pdf/');
+        $qrfilename         = $data['profile_data']['serial_digit'] . '.png';
+        $qr_path_with_file  = $qrdestPath . $qrfilename;
+        $qrcodeData         = [
+            'pathname'      => $qr_path_with_file,
+            'serial_number' => $data['profile_data']['serial_digit']
+        ];
+        getQRCode($qrcodeData);
+        // end of generate qrcode:
+        
+        // generate pdf:
+        $pdfTemplateData    = [
+                'user_data'     => $data['profile_data'],
+                'event_data'    => $eventData,
+                'qrcode'        => $qr_path_with_file
+            ];
+            
+        $destinationPath    = public_path('pdf/');
+        $newDirtory     =   public_path('pdf/temp_'.time().'_'.$prefixKey.'_'.$data['profile_data']['serial_digit']);
+        if (!file_exists($newDirtory)) {
+            mkdir($newDirtory, 0777, true);
+        }
+        $addPrefixNumber    =   $prefixKey+1;
+        $name               = $eventData->id.'_'.$data['profile_data']['serial_digit'] . '.pdf';
+        $path_with_file     = $newDirtory.'/'. $name;
+        $pdf = PDF::loadView('template.registration_pdf', $pdfTemplateData)
+                ->save($path_with_file);
+        // End to generate pdf:
+        
+        // Initialize PDF Marge:
+        $merger     =   null;
+        $merger = \PDFMerger::init();
+        $merger->addPathToPDF($path_with_file);
+        $merger->addPathToPDF($email_template_pdf, 'all');
+        $merger->merge();
+        $merger->save($newDirtory.'/'.$eventData->id.'_'.$data['profile_data']['serial_digit'].'_merged.pdf');
+        // database update area
+        $update_data    =   [
+            'qrcode_path'   =>  $qrfilename,
+            'pdf_path'      =>  $name
+        ];
+        DB::table('event_business_owners_details')
+        ->where('id', $data['profile_id'])
+        ->update($update_data);  
+        if($data['profile_data']['is_confirmed']){
+
+            //--------------------- mail start
+            $title                  = "Event Registration";
+            $content                = "Congratulations!<br>You have been successfully registered";
+            $emails['to']           = $data['profile_data']['email'];
+            $emails['attachment']   = $path_with_file;
+            $emails['email_template_pdf']   = $newDirtory.'/'.$event_data->id.'_'.$data['profile_data']['serial_digit'].'_merged.pdf';
+            $mail                   = Mail::send('template.registration_email', ['title' => $title, 'content' => $pdfTemplateData], function ($message) use ($emails) {
+                        $message->from('admin@registro.asia', 'Registro Asia');
+                        $message->to($emails['to']);
+                        $message->subject("Registro Asia Registration Message");
+
+                        if(isset($emails['email_template_pdf']) && !empty($emails['email_template_pdf'])){
+                            $message->attach($emails['email_template_pdf']);
+                        }else{
+                            $message->attach($emails['attachment']);
+                        }
+                    });
+        }
+    }// end foreach
+    exit;
+}
     
     function process_store_event_business_owners($profile_data){
         $namebadge_user_label   =   'visitor';
