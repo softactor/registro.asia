@@ -433,7 +433,7 @@ function generate_pdf($email_n_pdf_data) {
     }
     $counterData    =   1;
     foreach ($email_n_pdf_data as $prefixKey=>$data) {
-        \PDFMerger::__destruct();
+        PDFMerger::__destruct();
         $path_with_file     =   null;
         $path_with_file     =   '';
         $qrdestPath         = public_path('pdf/');
@@ -467,7 +467,7 @@ function generate_pdf($email_n_pdf_data) {
         
         // Initialize PDF Marge:
         $merger     =   null;
-        $merger = \PDFMerger::init();
+        $merger = PDFMerger::init();
         $merger->addPathToPDF($path_with_file);
         $merger->addPathToPDF($email_template_pdf, 'all');
         $merger->merge();
@@ -500,6 +500,9 @@ function generate_pdf($email_n_pdf_data) {
                         }
                     });
         }
+        PDFMerger::__destruct();
+        $path_with_file     =   null;
+        $path_with_file     =   '';
     }// end foreach
 }
     
