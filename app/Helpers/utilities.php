@@ -466,7 +466,7 @@ function generate_pdf($email_n_pdf_data) {
         
         // Initialize PDF Marge:
         $merger     =   null;
-        $merger = PDFMerger::init();
+        $merger = new PDFMerger();
         $merger->addPathToPDF($path_with_file);
         $merger->addPathToPDF($email_template_pdf, 'all');
         $merger->merge();
