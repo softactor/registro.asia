@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use View;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\URL;
 use PDF;
 use Mail;
@@ -126,24 +127,33 @@ class Frontend extends Controller
 
         $formData           = $request->all();
         $event_id           = $formData['event_id'];
+        $emails['event_id']= $event_id; 
         $registration_type  = $formData['registration_type'];
         $number_of_owners = count($formData['salutation']);
         // Create a new validator instance
         $validator = Validator::make($request->all(), [
-                    "salutation" => "required|array|min:1",
-                    "salutation.*" => "required|string|min:1",
-                    "first_name" => "required|array|min:1",
-                    "first_name.*" => "required|string|min:1",
-                    "last_name" => "required|array|min:1",
-                    "last_name.*" => "required|string|distinct|min:1",
-                    "company_name" => "required",
-                    "mobile" => "required|array|min:1",
-                    "mobile.*" => "required|string|distinct|min:1",
-                    "country_id" => "required|array|min:1",
-                    "country_id.*" => "required|integer|min:1",
-                    "email" => "required|array|min:1",
-                    "email.*" => "required|email|min:1",
-        ]);
+                    "salutation"    => "required|array|min:1",
+                    "salutation.*"  => "required|string|min:1",
+                    "first_name"    => "required|array|min:1",
+                    "first_name.*"  => "required|string|min:1",
+                    "last_name"     => "required|array|min:1",
+                    "last_name.*"   => "required|string|distinct|min:1",
+                    "company_name"  => "required",
+                    "mobile"        => "required|array|min:1",
+                    "mobile.*"      => "required|string|distinct|min:1",
+                    "country_id"    => "required|array|min:1",
+                    "country_id.*"  => "required|integer|min:1",
+                    "email"         => "required|array|min:1",
+//                    "email.*"       => "required|email|min:1|unique:event_business_owners_details,email",
+                    "email.*"       => [
+                                        'required',
+                                        'email',
+                                        'min:1',
+                                        Rule::unique('event_business_owners_details', 'email')->where(function($query) use ($emails) {
+                                          $query->where('event_id', '=', $emails['event_id']);
+                                            })
+                                        ],
+            ]);
         if ($validator->fails()) {
             $form_name = '';
             $messages = '<div class="alert alert-warning">';
@@ -187,7 +197,7 @@ class Frontend extends Controller
                 }
                 if (isset($error_messages['email.' . $i])) {
                     $error_counter = ++$error_counter;
-                    $messages .= $error_counter . '. The Email field is required for ' . '<br />';
+                    $messages .= $error_counter . $error_messages['email.' . $i][0] . '<br />';
                 }
             }
             $messages .= '</div>';
