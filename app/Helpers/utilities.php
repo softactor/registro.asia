@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\URL;
 //use Barryvdh\DomPDF\PDF as PDF;
 //use Illuminate\Support\Facades\Mail;
-use GrofGraf\LaravelPDFMerger\Facades as PDFMerger;
+use GrofGraf\LaravelPDFMerger\PDFMerger;
 use PDF;
 use Mail;
 
@@ -428,12 +428,19 @@ function generate_pdf_b($email_n_pdf_data) {
 function generate_pdf($email_n_pdf_data) {
     $email_template_pdf     =   '';
     $eventData              =   $email_n_pdf_data[0]['event_data'];
+    /**
+     * Get event uploaded pdf file path; 
+     */
     if (isset($eventData->email_template_pdf) && !empty($eventData->email_template_pdf)) {
         $email_template_pdf = public_path('events/' . $eventData->email_template_pdf);
     }
+    // End;
     $counterData    =   1;
+    
+    /**
+     * The loop for creating pdf and sending email for registered user; 
+     */
     foreach ($email_n_pdf_data as $prefixKey=>$data) {
-        PDFMerger::__destruct();
         $path_with_file     =   null;
         $path_with_file     =   '';
         $qrdestPath         = public_path('pdf/');
@@ -466,12 +473,14 @@ function generate_pdf($email_n_pdf_data) {
         // End to generate pdf:
         
         // Initialize PDF Marge:
+        $mergedFilePath     =   $newDirtory.'/'.$eventData->id.'_'.$data['profile_data']['serial_digit'].'_merged.pdf';
         $merger     =   null;
-        $merger = PDFMerger::init();
+        $merger = \PDFMerger::init();
         $merger->addPathToPDF($path_with_file);
         $merger->addPathToPDF($email_template_pdf, 'all');
         $merger->merge();
-        $merger->save($newDirtory.'/'.$eventData->id.'_'.$data['profile_data']['serial_digit'].'_merged.pdf');
+        $merger->save($mergedFilePath);
+        
         // database update area
         $update_data    =   [
             'qrcode_path'   =>  $qrfilename,
@@ -480,33 +489,48 @@ function generate_pdf($email_n_pdf_data) {
         DB::table('event_business_owners_details')
         ->where('id', $data['profile_id'])
         ->update($update_data);  
+        
         if($data['profile_data']['is_confirmed']){
-
-            //--------------------- mail start
-            $title                  = "Event Registration";
-            $content                = "Congratulations!<br>You have been successfully registered";
-            $emails['to']           = $data['profile_data']['email'];
-            $emails['attachment']   = $path_with_file;
-            $emails['email_template_pdf']   = $newDirtory.'/'.$eventData->id.'_'.$data['profile_data']['serial_digit'].'_merged.pdf';
-            $mail                   = Mail::send('template.registration_email', ['title' => $title, 'content' => $pdfTemplateData], function ($message) use ($emails) {
-                        $message->from('admin@registro.asia', 'Registro Asia');
-                        $message->to($emails['to']);
-                        $message->subject("Registro Asia Registration Message");
-
-                        if(isset($emails['email_template_pdf']) && !empty($emails['email_template_pdf'])){
-                            $message->attach($emails['email_template_pdf']);
-                        }else{
-                            $message->attach($emails['attachment']);
-                        }
-                    });
+            $emailProcessData   =   [
+                'title'                 =>  'Event Registration',
+                'pdfTemplateData'       =>  $pdfTemplateData,
+                'to'                    =>  $data['profile_data']['email'],
+                'attachment'            =>  $path_with_file,
+                'email_template_pdf'    =>  $mergedFilePath,
+            ];
+            /**
+             * Processing email:
+             */
+            registration_email_process($emailProcessData);
         }
-        $merger->__destruct();
-        $path_with_file     =   null;
-        $path_with_file     =   '';
+        $path_with_file = null;
+        $path_with_file = '';
+        $merger     =   null;
     }// end foreach
 }
-    
-    function process_store_event_business_owners($profile_data){
+
+function registration_email_process($emailData) {
+    //--------------------- mail start
+    $title                          = $emailData['title'];
+    $pdfTemplateData                = $emailData['pdfTemplateData'];
+    $emails['to']                   = $emailData['to'];
+    $emails['attachment']           = $emailData['attachment'];
+    $emails['email_template_pdf']   = $emailData['email_template_pdf'];
+    $mail = Mail::send('template.registration_email', ['title' => $title, 'content' => $pdfTemplateData], function ($message) use ($emails) {
+                $message->from('admin@registro.asia', 'Registro Asia');
+                $message->to($emails['to']);
+                $message->subject("Registro Asia Registration Message");
+
+                if (isset($emails['email_template_pdf']) && !empty($emails['email_template_pdf'])) {
+                    $message->attach($emails['email_template_pdf']);
+                } else {
+                    $message->attach($emails['attachment']);
+                }
+            });
+    return $mail;
+}
+
+function process_store_event_business_owners($profile_data){
         $namebadge_user_label   =   'visitor';
         /*
          * Namebadge User-label:
