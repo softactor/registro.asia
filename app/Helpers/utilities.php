@@ -435,7 +435,6 @@ function generate_pdf($email_n_pdf_data) {
         $email_template_pdf = public_path('events/' . $eventData->email_template_pdf);
     }
     // End;
-    $counterData    =   1;
     
     /**
      * The loop for creating pdf and sending email for registered user; 
@@ -460,7 +459,10 @@ function generate_pdf($email_n_pdf_data) {
                 'qrcode'        => $qr_path_with_file
             ];
             
-        $destinationPath    = public_path('pdf/');
+        $destinationPath    = public_path('pdf/merged/temp_'.time().'_'.$prefixKey.'_'.$data['profile_data']['serial_digit']);
+        if (!file_exists($destinationPath)) {
+            mkdir($destinationPath, 0777, true);
+        }
         $newDirtory     =   public_path('pdf/temp_'.time().'_'.$prefixKey.'_'.$data['profile_data']['serial_digit']);
         if (!file_exists($newDirtory)) {
             mkdir($newDirtory, 0777, true);
@@ -473,14 +475,13 @@ function generate_pdf($email_n_pdf_data) {
         // End to generate pdf:
         
         // Initialize PDF Marge:
-        $mergedFilePath     =   $newDirtory.'/'.$eventData->id.'_'.$data['profile_data']['serial_digit'].'_merged.pdf';
+        $mergedFilePath     =   $destinationPath.'/'.$eventData->id.'_'.$data['profile_data']['serial_digit'].'_merged.pdf';
         $merger     =   null;
         $merger = \PDFMerger::init();
         $merger->addPathToPDF($path_with_file);
         $merger->addPathToPDF($email_template_pdf, 'all');
         $merger->merge();
         $merger->save($mergedFilePath);
-        
         // database update area
         $update_data    =   [
             'qrcode_path'   =>  $qrfilename,
@@ -503,9 +504,7 @@ function generate_pdf($email_n_pdf_data) {
              */
             registration_email_process($emailProcessData);
         }
-        $path_with_file = null;
-        $path_with_file = '';
-        $merger     =   null;
+        $merger->fileDestroy();
     }// end foreach
 }
 
