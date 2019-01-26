@@ -501,7 +501,6 @@ function generate_pdf($email_n_pdf_data) {
                     });
         }
     }// end foreach
-    exit;
 }
     
     function process_store_event_business_owners($profile_data){
