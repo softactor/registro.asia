@@ -148,6 +148,7 @@ class Frontend extends Controller
                     "email.*"       => [
                                         'required',
                                         'email',
+                                        'distinct',
                                         'min:1',
                                         Rule::unique('event_business_owners_details', 'email')->where(function($query) use ($emails) {
                                           $query->where('event_id', '=', $emails['event_id']);
