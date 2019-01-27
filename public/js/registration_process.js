@@ -137,9 +137,13 @@ $("#profileSectionArea").steps({
                 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content'),
             },
             success: function (response) {
-                $("#access_token").val(response.data)
-                $('#collapse'+divKey).html('');
-                swal("Store complete", "Data Store have been successfully done!", "success");                    
+                if(response.status == 'success'){
+                    $("#access_token").val(response.data)
+                    $('#collapse'+divKey).html('');
+                    swal("Store complete", "Data Store have been successfully done!", "success");  
+                }else{
+                   swal("Failed to Save!", response.message, "error"); 
+                }
             },
             async: false // <- this turns it into synchronous
         });

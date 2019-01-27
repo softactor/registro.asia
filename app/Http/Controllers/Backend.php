@@ -178,64 +178,87 @@ class Backend extends Controller
         return view('superadmin.events_form.modify', compact('page_details','events','event_forms'));
     }
     public function user_wise_question_answer_store(Request $request){
-        $formData       = $request->all();
-        $user_email      =   $formData['user_email'];
-        $event_id       =   $formData['event_id'];
-        $access_token   =   $formData['access_token'];
-        $form_id        =   $formData['form_id'];
+        $required_error     =   false;
+        $formData           = $request->all();
+        $user_email         =   $formData['user_email'];
+        $event_id           =   $formData['event_id'];
+        $access_token       =   $formData['access_token'];
+        $form_id            =   $formData['form_id'];
         unset($formData['user_email']);
         unset($formData['event_id']);
         unset($formData['access_token']);
         unset($formData['form_id']);
         if (isset($formData) && !empty($formData)) {
-            if (isset($access_token) && !empty($access_token)) {
-                $othersData = DB::table('registraion_temp')->where('user_email', $user_email)->where('form_id', $form_id)->where('access_token', $access_token)->first();
-                if (isset($othersData) && !empty($othersData)) {
-                    $insert_data = [
-                        'access_token' => $access_token,
-                        'form_id' => $form_id,
-                        'event_id' => $event_id,
-                        'user_email' => $user_email,
-                        'temp_data' => json_encode($formData),
-                        'created_at' => date('Y-m-d h:i:s'),
-                        'updated_at' => date('Y-m-d h:i:s')
-                    ];
-                    DB::table('registraion_temp')
-                            ->where('id', $othersData->id)
-                            ->where('access_token', $access_token)
-                            ->update($insert_data);
-                    $feedback = [
-                        'status' => 'success',
-                        'message' => 'Form was valid data',
-                        'form_id' => $form_id,
-                        'data' => $access_token,
-                    ];
-                } else {
-                    $insert_data = [
-                        'access_token' => $access_token,
-                        'form_id' => $form_id,
-                        'event_id' => $event_id,
-                        'user_email' => $user_email,
-                        'temp_data' => json_encode($formData),
-                        'created_at' => date('Y-m-d h:i:s'),
-                        'updated_at' => date('Y-m-d h:i:s')
-                    ];
-                    $insert_id = DB::table('registraion_temp')->insertGetId($insert_data);
-                    $feedback = [
-                        'status' => 'success',
-                        'message' => 'Form was valid data',
-                        'form_id' => $form_id,
-                        'data' => $access_token,
-                    ];
+            foreach($formData as $fdataKey=>$fdata){
+                $filename = substr(strrchr($fdataKey, "_"), 1);
+                if($filename == 'required'){
+                    $keyExplode = explode('_', $fdataKey);
+                    unset($keyExplode[count($keyExplode)-1]);
+                    $searchLevel    = implode('-', $keyExplode);
+                    if (!isset($formData[$searchLevel]) && empty($formData[$searchLevel])){
+                        $required_error  =  true;
+                    }
                 }
+                
             }
-            $feedback = [
-                'status' => 'success',
-                'message' => 'Form was valid data',
-                'form_id' => $form_id,
-                'data' => $access_token,
-            ];
-            echo json_encode($feedback);
+            exit;
+            if ($required_error) {
+                $feedback = [
+                    'status'    => 'error',
+                    'message'   => 'Please fill up all required fields!',
+                    'data'      => $access_token,
+                ];
+                echo json_encode($feedback);
+            } else {
+                if (isset($access_token) && !empty($access_token)) {
+                    $othersData = DB::table('registraion_temp')->where('user_email', $user_email)->where('form_id', $form_id)->where('access_token', $access_token)->first();
+                    if (isset($othersData) && !empty($othersData)) {
+                        $insert_data = [
+                            'access_token' => $access_token,
+                            'form_id' => $form_id,
+                            'event_id' => $event_id,
+                            'user_email' => $user_email,
+                            'temp_data' => json_encode($formData),
+                            'created_at' => date('Y-m-d h:i:s'),
+                            'updated_at' => date('Y-m-d h:i:s')
+                        ];
+                        DB::table('registraion_temp')
+                                ->where('id', $othersData->id)
+                                ->where('access_token', $access_token)
+                                ->update($insert_data);
+                        $feedback = [
+                            'status' => 'success',
+                            'message' => 'Form was valid data',
+                            'form_id' => $form_id,
+                            'data' => $access_token,
+                        ];
+                    } else {
+                        $insert_data = [
+                            'access_token' => $access_token,
+                            'form_id' => $form_id,
+                            'event_id' => $event_id,
+                            'user_email' => $user_email,
+                            'temp_data' => json_encode($formData),
+                            'created_at' => date('Y-m-d h:i:s'),
+                            'updated_at' => date('Y-m-d h:i:s')
+                        ];
+                        $insert_id = DB::table('registraion_temp')->insertGetId($insert_data);
+                        $feedback = [
+                            'status' => 'success',
+                            'message' => 'Form was valid data',
+                            'form_id' => $form_id,
+                            'data' => $access_token,
+                        ];
+                    }
+                }
+                $feedback = [
+                    'status' => 'success',
+                    'message' => 'Form was valid data',
+                    'form_id' => $form_id,
+                    'data' => $access_token,
+                ];
+                echo json_encode($feedback);
+            }
         } else {
             $feedback = [
                 'status' => 'error',
