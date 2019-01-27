@@ -201,7 +201,6 @@ class Backend extends Controller
                 }
                 
             }
-            exit;
             if ($required_error) {
                 $feedback = [
                     'status'    => 'error',
