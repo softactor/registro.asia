@@ -15,12 +15,16 @@
                 </h2>
                 @include('search.events_registration_search', $page_details)
                 <?php
-                    $bulkNameBadgePrintUrl  =   url('su/printBulkNameBadge');
-                    $sendBulkEmail          =   url('su/sendBulkEmail');
-                    $sendBulkEmailStatus    =   url('su/sendBulkEmailStatus');
-                    $bulkNameBadgePrint    =   url('su/bulkNameBadgePrint');
-                    $saveNameBadgeIdIntoSession    =   url('su/saveNameBadgeIdIntoSession');
+                    $selected_event_id              =   $page_details['selected_event_id'];
+                    $bulkNameBadgePrintUrl          =   url('su/printBulkNameBadge');
+                    $sendBulkEmail                  =   url('su/sendBulkEmail');
+                    $sendBulkEmailStatus            =   url('su/sendBulkEmailStatus');
+                    $bulkNameBadgePrint             =   url('su/bulkNameBadgePrint');
+                    $saveNameBadgeIdIntoSession     =   url('su/saveNameBadgeIdIntoSession');
+                    $deleteBulkRegisteredUsers      =   url('su/deleteBulkRegisteredUsers');
+                    $deleteAfterRedirectURL         =   url('su/registration_details_view/'.$selected_event_id);
                 ?>
+                <button type="button" class="btn btn-danger btn-sm pull-right" onclick="deleteBulkRegisteredUsers('<?php echo $deleteBulkRegisteredUsers; ?>','<?php echo $deleteAfterRedirectURL; ?>')" style="margin: 0 .5%">Bulk Delete</button>
                 <button type="button" class="btn btn-primary btn-sm pull-right" onclick="sendBulkEmail('<?php echo $sendBulkEmail; ?>','<?php echo $sendBulkEmailStatus; ?>')" style="margin: 0 .5%">Bulk Email</button>
                 <!--<button type="button" class="btn btn-primary btn-sm pull-right" onclick="printBulkNameBadge('<?php echo $bulkNameBadgePrintUrl; ?>')">Bulk Print</button>-->
                 <a target="_blank" type="button" class="btn btn-primary btn-sm pull-right" href="<?php echo $bulkNameBadgePrint; ?>">Bulk Print</a>

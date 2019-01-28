@@ -87,8 +87,10 @@
                                 <input type="file" class="form-control" name="email_template_pdf">
                             </div>
                             <?php if(isset($events->email_template_pdf) && !empty($events->email_template_pdf)){ ?> 
-                            <div class="col-md-6">
-                                <h6>Email PDF Template have been uploaded</h6>
+                            <div class="col-md-6">                                
+                                <div id="previous_bg_template">
+                                    <h6><a href="<?php echo asset('events/' . $events->email_template_pdf) ?>">Email PDF Template have been uploaded</a></h6>
+                                </div>
                             </div>
                             <?php } ?>
                         </div>

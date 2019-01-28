@@ -496,6 +496,38 @@ class Backend extends Controller
         echo json_encode($feedback_data);    
     }
     
+    public function delete_bulk_registered_users(Request $request){
+        $ids    =   $request->name_badge_check;
+        if(isset($ids) && !empty($ids)){
+            $deleteCount    =   0;
+            foreach($ids as $deleteId){
+                $ownersIdData   =   DB::table('event_business_owners_details')->where('id', $deleteId)->first();
+                $ownersData     =   DB::table('event_business_owners')->where('id', $ownersIdData->business_owner_id)->first();
+                $owners_numbers =   $ownersData->owners_numbers;
+                $check  =   DB::table('event_business_owners_details')->where('id', $deleteId)->delete();
+                $check2  =   DB::table('event_registeration_form_values')->where('user_register_id', $deleteId)->delete();
+                $updateOwnersNumbers    =   $owners_numbers-1;
+                if($updateOwnersNumbers){
+                    DB::table('event_business_owners')->where('id', $ownersIdData->business_owner_id)->update(array('owners_numbers' => $updateOwnersNumbers));
+                }else{
+                    $check3  =   DB::table('event_business_owners')->where('id', $ownersIdData->business_owner_id)->delete();
+                }
+                $deleteCount++;
+            }
+            Session::forget('print_ids');
+            $feedback_data  =   [
+                'status'        =>  'success',
+                'message'       =>  $deleteCount.' records have been successfully Deleted.',
+            ];
+        }else{
+            $feedback_data  =   [
+                'status'        =>'error',
+                'message'       =>'Nothing was selected!',
+            ];
+        }
+        
+        echo json_encode($feedback_data);
+    }
     public function send_bulk_email(Request $request){
         $ids    =   $request->name_badge_check;
         DB::table('event_business_owners_details')->whereIn('id', $ids)->update(array('is_status' => 0, 'is_mail_confirmed' =>1));
