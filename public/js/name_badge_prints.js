@@ -81,22 +81,33 @@ function sendBulkEmail(url, checkStatusUrl){
         async: false // <- this turns it into synchronous
     }); 
 }
-function deleteBulkRegisteredUsers(url, checkStatusUrl){
-   $.ajax({
-        url: url,
-        type: 'GET',
-        dataType: 'json',
-        data:$('#bulkEmailPrint').serialize(),
-        success: function (response) {
-            if (response.status == 'success') {
-                swal("Deleted", response.message, "success");
-                setTimeout(function () {
-                    window.location = checkStatusUrl;
-                }, 2000);
-            }else{
-               swal("Failed!", response.message, "error"); 
-            }
-        },
-        async: false // <- this turns it into synchronous
-    }); 
+function deleteBulkRegisteredUsers(url, checkStatusUrl) {
+    swal({
+        title: 'Confirmed?',
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-danger",
+        confirmButtonText: "Yes",
+        cancelButtonText: 'No',
+        closeOnConfirm: false
+    },
+    function () {
+        $.ajax({
+            url: url,
+            type: 'GET',
+            dataType: 'json',
+            data:$('#bulkEmailPrint').serialize(),
+            success: function (response) {
+                if (response.status == 'success') {
+                    swal("Deleted", response.message, "success");
+                    setTimeout(function () {
+                        window.location = checkStatusUrl;
+                    }, 2000);
+                }else{
+                   swal("Failed!", response.message, "error"); 
+                }
+            },
+            async: false // <- this turns it into synchronous
+        });
+    });
 }
