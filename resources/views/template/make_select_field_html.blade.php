@@ -12,7 +12,7 @@
       <?php      
       foreach ($values->values as $val) {
           ?>
-      <option value="<?php echo $val->value; ?>"><?php echo $val->label; ?></option>
+      <option value="<?php echo $val->value; ?>" <?php if(isset($val->selected) && $val->selected==1){ echo 'selected';}?>><?php echo $val->label; ?></option>
       <?php } ?>
   </select>
     <?php 

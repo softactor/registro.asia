@@ -21,7 +21,7 @@
                 foreach ($valuesData as $val) {
                     ?>
                     <div class="checkbox">
-                        <label><input type="checkbox" name="<?php echo $values->name ?>[]" value="<?php echo $val->value; ?>"><?php echo $val->label; ?></label>
+                        <label><input type="checkbox" name="<?php echo $values->name ?>[]" value="<?php echo $val->value; ?>" <?php if(isset($val->selected) && $val->selected==1){ echo 'checked';}?>><?php echo $val->label; ?></label>
                     </div>
                 <?php } ?>
             </div> 

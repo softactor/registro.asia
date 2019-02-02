@@ -20,7 +20,7 @@
                 <?php
                 foreach ($valuesData as $val) {
                     ?>
-                    <label class="radio-inline"><input type="radio" name="<?php echo $values->name ?>" value="<?php echo $val->value; ?>" checked><?php echo $val->label; ?></label>
+                    <label class="radio-inline"><input type="radio" name="<?php echo $values->name ?>" value="<?php echo $val->value; ?>" <?php if(isset($val->selected) && $val->selected==1){ echo 'checked';}?>><?php echo $val->label; ?></label>
                 <?php } ?>
             </div> 
         </div> 
