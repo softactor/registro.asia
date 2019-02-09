@@ -153,13 +153,14 @@ class ReportsController extends Controller{
         ];
         $event_id   =   $request->event_id;
         $eventsData             = $this->get_report_event_data($event_id);
-        //$formData               = $this->get_report_event_form_data($event_id);
+        $formData               = $this->get_report_event_form_data($event_id);
         $designationData      = $this->get_report_event_wise_designation_count($event_id);
         $countryData          = $this->get_report_country_wise_registraion_count($event_id);
         $reportDataDetails  =   [
-            'eventData'     =>  $eventsData,
-            'desigData'     =>  $designationData,
-            'countryData'   =>  $countryData
+            'eventData'             =>  $eventsData,
+            'desigData'             =>  $designationData,
+            'countryData'           =>  $countryData,
+            'onsiteVisitorAnalysis' =>  $formData
         ];
         $pdf = PDF::loadView('superadmin.reports.complete_report.complete_report_template', $reportDataDetails)
                 ->stream('complete_report.pdf');
@@ -219,12 +220,14 @@ class ReportsController extends Controller{
                 }                
             }
         }
-        print '<pre>';
-        print_r($formQuestionLevelsArray);
-        print_r($formQuestionTableArray);
-        print '</pre>';
-        exit;
-        
+        $feedbackData   =   [
+            'formQuestionLevelsArray'       => $formQuestionLevelsArray,
+            'formQuestionTableArray'        => $formQuestionTableArray,
+        ];
+        if(isset($feedbackData) && !empty($feedbackData)){
+            $listDataView   =   View::make('superadmin.reports.complete_report.onsite_visitor_analysis', compact('feedbackData'));
+            return $listDataView->render();
+        }
     }
     
     public function get_report_event_wise_designation_count($event_id){
@@ -309,11 +312,6 @@ class ReportsController extends Controller{
             $countryRegistrationType[]  =   $countryRegistrationTypeTemp;
         }
         $overSeasData = [
-            [
-                'title'         => 'Onsite Visitorship',
-                'local_attende' => 'Count',
-                'overseas'      => '%',
-            ],
             [
                 'title'         => 'Local Attendees',
                 'local_attende' => $localAttendee,

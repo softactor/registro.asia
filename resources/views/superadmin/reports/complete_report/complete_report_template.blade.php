@@ -6,7 +6,8 @@
         <style>
             @media screen {
                 @page {
-                    size: A4;
+                    width: 210mm;
+                    height: 297mm;
                     margin: 0;
                 }
                 body {
@@ -53,5 +54,6 @@
         <?php echo $eventData; ?>
         <?php echo $desigData; ?>
         <?php echo $countryData; ?>
+        <?php echo $onsiteVisitorAnalysis; ?>
     </body>
 </html>

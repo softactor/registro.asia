@@ -25,4 +25,28 @@
         <?php $count++; } ?>
     </tbody>
 </table>
+<table class="email_pdf with_border" cellspacing="0" cellpadding="0">
+    <thead>
+        <tr>
+            <th>SlNO</th>
+            <th>Onsite visitorship</th>
+            <th>Count</th>
+            <th>%</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+            $count          =   1;
+            $totalVisitor   =   0;
+            foreach($feedbackData['countries_ratio'] as $data){
+        ?>
+        <tr>
+            <td><?php echo $count; ?></td>
+            <td><?php echo $data['title']; ?></td>
+            <td style="text-align: center;"><?php echo $data['local_attende']; ?></td>
+            <td style="text-align: center;">%</td>
+        </tr>
+        <?php $count++; } ?>
+    </tbody>
+</table>
 <span style="page-break-after: always;"></span>
