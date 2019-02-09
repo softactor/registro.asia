@@ -43,7 +43,7 @@ function save_position(){
             type: 'POST',
             url: $('#position_store').val(),
             dataType:'json',
-            data: 'namebadgeSetVal='+namebadgeSetVal+'&event_id='+$('#event_id').val()+'&name_badge_id='+$('#name_badge_id').val()+'&image_path='+$('#image_path').val()+'&namebadgeTypeVal='+namebadgeTypeVal,
+            data: 'namebadgeSetVal='+namebadgeSetVal+'&event_id='+$('#event_id').val()+'&name_badge_id='+$('#name_badge_id').val()+'&image_path='+$('#default_image_path').val()+'&namebadgeTypeVal='+namebadgeTypeVal,
             headers: {
                 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content'),
             },
@@ -107,13 +107,14 @@ function set_event_namebadge_template(event_id, url){
             dataType: 'json',
             data: 'event_id='+event_id,
             success: function (response) {
-                console.log(response);
-                if (response.status == 'success') {
+//                console.log(response);
+                if (response.status == 'success') {                    
+                    
                     $('#name_badge_id').val(response.data.id);
                     $('#eventnameBadgeTemplateModal').modal('show');
                     $('#content_loader').hide();                    
                     $('#event_title').html(response.events_title);
-                    $('.nameBadgeHeader').attr('src',response.events_header);
+//                    $('.nameBadgeHeader').attr('src',response.events_header);
                     $('#event_header').val(response.events_header);
                     if(response.name_badge_position_status){
                         $(".edit_field_class").remove();
@@ -121,9 +122,29 @@ function set_event_namebadge_template(event_id, url){
                     }
                     
                     if(response.templates_details_status){
+                        $("#default_image_path").html(response.templates_detailsDropDown);
                         $("#image_path").html(response.templates_detailsDropDown);
                     }else{
                         $("#image_path").html("");
+                        $("#default_image_path").html("");
+                    }
+                    if(response.namebadgeTemplateType == 'Default'){
+                        $('#defaultRadio').prop('checked',true);
+                        $('#customeRadio').prop('checked',false);
+                        //namebadgeTemplateTypeConf
+                        if(response.namebadgeTemplateTypeConf.nameBadgeTemplateSet == 'defaultEventNameBadge1'){
+                            $('#defaultEventNameBadge1').prop('checked',true);
+                        }else if(response.namebadgeTemplateTypeConf.nameBadgeTemplateSet == 'defaultEventNameBadge2'){
+                            $('#defaultEventNameBadge2').prop('checked',true);
+                        }else if(response.namebadgeTemplateTypeConf.nameBadgeTemplateSet == 'defaultEventNameBadge3'){
+                            $('#defaultEventNameBadge3').prop('checked',true);
+                        }                        
+                        $('#default_image_path').val(response.namebadgeTemplateTypeConf.background_image);
+                    }
+                    
+                    if(response.namebadgeTemplateType == 'Custom'){
+                        $('#customeRadio').prop('checked',true);
+                        $('#defaultRadio').prop('checked',false);
                     }
                 }else{
                     $('#content_loader').hide();

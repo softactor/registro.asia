@@ -34,6 +34,7 @@ class Frontend extends Controller
         if($profile_data->event_business_owners_data->registration_type == 'Onsite'){
             $print_data = generate_name_page_view($response);
         }
+        DB::table('registraion_temp')->where('access_token', $request->access_token)->delete();
         $feedback_data  =   [
             'registration_type' => $profile_data->event_business_owners_data->registration_type,
             'status'            => "success",
@@ -137,7 +138,7 @@ class Frontend extends Controller
                     "first_name"    => "required|array|min:1",
                     "first_name.*"  => "required|string|min:1",
                     "last_name"     => "required|array|min:1",
-                    "last_name.*"   => "required|string|distinct|min:1",
+                    "last_name.*"   => "required|string|min:1",
                     "company_name"  => "required",
                     "mobile"        => "required|array|min:1",
                     "mobile.*"      => "required|string|distinct|min:1",

@@ -10,25 +10,38 @@
                 <div class="row">                            
                     <div class="col-md-4">
                         <label class="radio-inline">
-                            <input type="radio" name="eventNameBadgeTemplateType" value="Default" checked onchange="showTheNameBadgeContainer('Default');">Default
+                            <input id="defaultRadio" type="radio" name="eventNameBadgeTemplateType" value="Default" checked onchange="showTheNameBadgeContainer('Default');">Default
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="eventNameBadgeTemplateType" value="Custom" onchange="showTheNameBadgeContainer('Custom');">Custom
+                            <input id="customeRadio" type="radio" name="eventNameBadgeTemplateType" value="Custom" onchange="showTheNameBadgeContainer('Custom');">Custom
                         </label>
                     </div>
                 </div>
                 <div class="row" id="default_template_section">
-                    <div class="nameBadgeTemplateContainer">
-                        <div class="col-md-4">
-                            @include('template/eventDefaultNameBadge1')
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <select class="form-control" id="default_image_path" name="image_path">
+                                        <option value="">Template List</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-4">
-                            @include('template/eventDefaultNameBadge2')
+                        <div class="row">
+                            <div class="nameBadgeTemplateContainer">
+                                <div class="col-md-4">
+                                    @include('template/eventDefaultNameBadge1')
+                                </div>
+                                <div class="col-md-4">
+                                    @include('template/eventDefaultNameBadge2')
+                                </div>
+                                <div class="col-md-4">
+                                    @include('template/eventDefaultNameBadge3')
+                                </div>
+                            </div>                    
                         </div>
-                        <div class="col-md-4">
-                            @include('template/eventDefaultNameBadge3')
-                        </div>
-                    </div>                    
+                    </div>
                 </div>
                 <div class="row" id="custom_template_section">
                     <?php

@@ -151,14 +151,191 @@ class ReportsController extends Controller{
             'page_title'    =>  'Reports',
             'event_id'      =>  $request->event_id,
         ];
-        $event_id   =   $request->event_id; 
-//        $printData['event_id']  =   $request->event_id;
-//        $pdf = PDF::loadView('superadmin.reports.dynamic_form_bar_report', $printData)
-//                ->stream('complete_report.pdf');
-//        return $pdf;
-        return view('superadmin.reports.dynamic_form_bar_report', compact('event_id'));
+        $event_id   =   $request->event_id;
+        $eventsData             = $this->get_report_event_data($event_id);
+        //$formData               = $this->get_report_event_form_data($event_id);
+        $designationData      = $this->get_report_event_wise_designation_count($event_id);
+        $countryData          = $this->get_report_country_wise_registraion_count($event_id);
+        $reportDataDetails  =   [
+            'eventData'     =>  $eventsData,
+            'desigData'     =>  $designationData,
+            'countryData'   =>  $countryData
+        ];
+        $pdf = PDF::loadView('superadmin.reports.complete_report.complete_report_template', $reportDataDetails)
+                ->stream('complete_report.pdf');
+        return $pdf;
     }
     
+    
+    /*
+     * *********************** Reports data processing start here **********************************
+     */
+    
+    // get events data;
+    public function get_report_event_data($event_id){
+        $tableData     =   DB::table('events')
+            ->where('id', $event_id)
+            ->first();
+        $listDataView   =   View::make('superadmin.reports.complete_report.event_template', compact('tableData'));
+        return $listDataView->render();
+    }
+    // get events form data;
+    public function get_report_event_form_data($event_id) {
+        $formQuestionLevelsArray    =   [];
+        $formQuestionTableArray     =   [];
+        $tableData = DB::table('event_forms')
+                ->where('event_id', $event_id)
+                ->get();
+        if (!$tableData->isEmpty()) {
+            foreach($tableData as $data){
+                // form level and its option name 
+                $formFeilds     = json_decode($data->form_data);
+                if(isset($formFeilds) && !empty($formFeilds)){
+                    foreach($formFeilds as $flevelWithValues){
+                        $optionValuesArray  =   [];
+                        if(isset($flevelWithValues->values) && !empty($flevelWithValues->values)){
+                            if(is_array($flevelWithValues->values)){
+                                foreach($flevelWithValues->values as $optionValues){
+                                    $optionValuesArray[]    =   [
+                                        'optionValue'   =>  $optionValues->label,
+                                        'counting'      =>  1,
+                                        'parcentage'    =>  '1%',
+                                    ];                                    
+                                }
+                            }else{
+                              $optionValuesArray[]    =   [
+                                    'optionValue'   =>  $flevelWithValues->values,
+                                    'counting'      =>  1,
+                                    'parcentage'    =>  '1%',
+                                ];  
+                            }
+                        }                        
+                        $formQuestionLevelsArray[]  =   $flevelWithValues->label; 
+                        $formQuestionTableArray[]   =   [
+                            'question_name'             =>  $flevelWithValues->label,
+                            'question_answer_counting'  =>  $optionValuesArray,
+                        ];
+                    } // End of formfields
+                }                
+            }
+        }
+        print '<pre>';
+        print_r($formQuestionLevelsArray);
+        print_r($formQuestionTableArray);
+        print '</pre>';
+        exit;
+        
+    }
+    
+    public function get_report_event_wise_designation_count($event_id){
+        $tableData = DB::table('event_business_owners_details')
+                    ->select(DB::raw('count(*) as desig_count, designation'))
+                    ->where('event_id', $event_id)
+                    ->groupBy('designation')->get();
+        if(!$tableData->isEmpty()){
+            $listDataView   =   View::make('superadmin.reports.complete_report.designation_wise_visitor_count_template', compact('tableData'));
+            return $listDataView->render();
+        }
+    }
+    public function get_report_country_wise_registraion_count($event_id){
+        $countryRegistrationType        =   [];        
+        $totalVisitorshipCount          =   0;        
+        $onlineTotal                    =   0;        
+        $onsiteTotal                    =   0;        
+        $totalVisitorshipCount          =   0; 
+        $localAttendee                  =   0; 
+        $overSeasAttende                =   0; 
+        
+        $eventData = DB::table('events')
+                    ->where('id', $event_id)
+                    ->first();
+        
+        $tableData                  =   DB::table('event_business_owners_details as od')
+            ->join('countries as c', 'c.id', '=', 'od.country_id')
+            ->select('od.country_id', 'c.country_name')
+            ->where('od.event_id', $event_id)
+            ->groupBy('od.country_id')
+            ->get();
+        if(!$tableData->isEmpty()){
+            foreach($tableData as $data){                
+                if($data->country_id == $eventData->event_country){
+                    $localAttendee++;
+                }else{
+                    $overSeasAttende++;
+                }
+                
+                $onlineCount    =   0;
+                $onsiteCount    =   0;
+                $sumtotal       =   0;
+                $countryRegistrationTypeTemp    =   [];
+                $tableData2     =   DB::table('event_business_owners_details as ebod')
+                    ->join('event_business_owners as ebo', 'ebo.id', '=', 'ebod.business_owner_id')
+                    ->join('countries as c', 'c.id', '=', 'ebod.country_id')
+                    ->select(DB::raw('c. country_name, count(ebo.registration_type) as online'))
+                    ->where('ebod.country_id', $data->country_id)
+                    ->where('ebo.registration_type', 'Online')
+                    ->groupBy('registration_type')->first();
+                if(isset($tableData2) && !empty($tableData2)){
+                    $onlineCount    =   $tableData2->online;
+                }
+                $tableData3     =   DB::table('event_business_owners_details as ebod')
+                    ->join('event_business_owners as ebo', 'ebo.id', '=', 'ebod.business_owner_id')
+                    ->join('countries as c', 'c.id', '=', 'ebod.country_id')
+                    ->select(DB::raw('c. country_name, count(ebo.registration_type) as onsite'))
+                    ->where('ebod.country_id', $data->country_id)
+                    ->where('ebo.registration_type', 'Onsite')
+                    ->groupBy('registration_type')->first();
+                if(isset($tableData3) && !empty($tableData3)){
+                    $onsiteCount    =   $tableData3->onsite;
+                }
+                $sumtotal   =   ($onsiteCount + $onlineCount);
+                $countryRegistrationTypeTemp    =   [
+                    'country'   =>  $data->country_name,
+                    'online'    =>  $onlineCount,
+                    'onsite'    =>  $onsiteCount,
+                    'total'     =>  $sumtotal
+                ];
+                $countryRegistrationType[]  =   $countryRegistrationTypeTemp;
+                $totalVisitorshipCount      =   $totalVisitorshipCount + $sumtotal;
+                $onlineTotal                =   $onlineTotal + $onlineCount;        
+                $onsiteTotal                =   $onsiteTotal + $onsiteCount;
+            }
+            $countryRegistrationTypeTemp    =   [
+                'country'   =>  'Total Visitorship',
+                'online'    =>  $onlineTotal,
+                'onsite'    =>  $onsiteTotal,
+                'total'     =>  $totalVisitorshipCount
+            ];
+            $countryRegistrationType[]  =   $countryRegistrationTypeTemp;
+        }
+        $overSeasData = [
+            [
+                'title'         => 'Onsite Visitorship',
+                'local_attende' => 'Count',
+                'overseas'      => '%',
+            ],
+            [
+                'title'         => 'Local Attendees',
+                'local_attende' => $localAttendee,
+                'overseas'      => '%',
+            ],
+            [
+                'title'         => 'Overseas Attendees',
+                'local_attende' => $overSeasAttende,
+                'overseas'      => '%',
+            ],
+        ];
+        
+        $feedbackData   =   [
+            'countries_data'    => $countryRegistrationType,
+            'countries_ratio'   => $overSeasData,
+        ];
+        if(isset($feedbackData) && !empty($feedbackData)){
+            $listDataView   =   View::make('superadmin.reports.complete_report.country_wise_attendees_template', compact('feedbackData'));
+            return $listDataView->render();
+        }
+    }
+
     public function quick_reports_view(){
         $page_details           =   [
             'page_title'        =>  'Quick Report',

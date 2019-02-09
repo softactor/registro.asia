@@ -80,6 +80,7 @@ class Backend extends Controller
             'end_date'          => date('Y-m-d', strtotime($request->end_date)),
             'venue_name'        => $request->venue_name,
             'venue_address'     => $request->venue_address,
+            'event_country'     => $request->event_country,
             'event_url'         => implode('-', $url_string),
             'iframe_events_url' => $request->iframe_events_url,
             'event_header'      => $filename,
@@ -863,7 +864,7 @@ class Backend extends Controller
                 'namebadgeTemplateType' => 'Default'
             ];
             $getConfigNameBadgePos = get_data_name_by_where('name_badge_position', $whereData);
-            
+            $printData['name_badge_position']   =   $getConfigNameBadgePos;
             if (isset($getConfigNameBadgePos) && !empty($getConfigNameBadgePos)) {
                 if ($getConfigNameBadgePos->nameBadgeTemplateSet == "defaultEventNameBadge1") {
                     $pdf = PDF::loadView('template.print.defaultEventNameBadge1', $printData)

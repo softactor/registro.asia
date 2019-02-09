@@ -198,13 +198,26 @@ class NameBadgeController extends Controller{
         $name_badge_position_status             =   false;
         $templates_details_status               =   false;
         $templates_detailsViewRender            =   [];
+        $namebadgeTemplateTypeConf              =   [];
         $templates_config                       =   NamebadgeConfigModel::where('event_id', $request->event_id)->first();        
         if (isset($templates_config) && !empty($templates_config)) {
             // get templates from namebadge_template_details
             $templates_details              = NamebadgeTemplateDetailsModel::where('config_id', $templates_config->id)->get();
+            
             // check name_badge_position table have already saved position for this event
             $position_details   =   DB::table('name_badge_position')->where('event_id',$request->event_id)->get();
-            if (!$position_details->isEmpty()) { 
+            if (!$position_details->isEmpty()) {
+                
+                // check if there was selected any default template:
+                $defaultTemplateArray       =   DB::table('name_badge_position')->where('namebadgeTemplateType','Default')->where('event_id',$request->event_id)->first();
+                
+                if(isset($defaultTemplateArray) && !empty($defaultTemplateArray)){
+                    $namebadgeTemplateType          =   'Default';
+                    $namebadgeTemplateTypeConf      =   $defaultTemplateArray;
+                }else{
+                    $namebadgeTemplateType           =   'Custom'; 
+                }
+                
                 foreach($position_details as $pd){
                     $name_badge_position[$pd->field_id]   =   $pd;
                 } 
@@ -224,6 +237,8 @@ class NameBadgeController extends Controller{
             }
             $feedback = [
                 'status'                        => 'success',
+                'namebadgeTemplateType'        => $namebadgeTemplateType,
+                'namebadgeTemplateTypeConf'     => $namebadgeTemplateTypeConf,
                 'events_header'                 => asset('/events/'.$eventDetails->event_header),
                 'events_title'                  => $eventDetails->title,
                 'templates_details'             => ((!$templates_details->isEmpty())? $templates_details : ''),
@@ -240,13 +255,13 @@ class NameBadgeController extends Controller{
             echo json_encode($feedback);
         } else {
             $feedback = [
-                'status' => 'success',
+                'status'                        => 'success',
                 'events_title'                  => $eventDetails->title,
-                'events_header'                => asset('/events/'.$eventDetails->event_header),
-                'data' => '',
+                'events_header'                 => asset('/events/'.$eventDetails->event_header),
+                'data'                          => '',
                 'name_badge_position_status'    => $name_badge_position_status,
                 'name_badge_position'           => $name_badge_position,
-                'message' => 'Did not found any events template!',
+                'message'                       => 'Did not found any events template!',
             ];
             echo json_encode($feedback);
         }
@@ -264,12 +279,13 @@ class NameBadgeController extends Controller{
                ['namebadgeTemplateType', '=', 'Default']
            ];
            $checkParam['where'] = $checkWhereParam;
-           $duplicateCheck_id = check_duplicate_data($checkParam); //check_duplicate_data is a helper method:
+           $duplicateCheck_id   = check_duplicate_data($checkParam); //check_duplicate_data is a helper method:
            // check is it duplicate or not
            if ($duplicateCheck_id) {
                $name_badge_configure = NamebadgePositionModel::find($duplicateCheck_id);
                $response = $name_badge_configure->update([
-                   'nameBadgeTemplateSet' => $request->namebadgeSetVal,
+                   'nameBadgeTemplateSet'   => $request->namebadgeSetVal,
+                   'background_image'       => $request->image_path,
                ]);
            } else {
                /* ----------------------------------------------------------
@@ -281,6 +297,7 @@ class NameBadgeController extends Controller{
                            'event_id'               => $request->event_id,
                            'namebadgeTemplateType'  => $request->namebadgeTypeVal,
                            'nameBadgeTemplateSet'   => $request->namebadgeSetVal,
+                           'background_image'       => $request->image_path,
                ]);
            }// end of foreach
            $feedback = [

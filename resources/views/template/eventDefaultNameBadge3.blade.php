@@ -1,7 +1,7 @@
 <div class="nameBadgeTemplateHolder">
     <div class="defaultEventNameBadge defaultEventNameBadge3">
         <div class="defaultEventNameBadgeheader">
-            <img class="nameBadgeHeader img-responsive"/>
+            <!--<img class="nameBadgeHeader img-responsive"/>-->
         </div>
         <div class="userBasicInfo template3">
             <h3>User Name</h3>
@@ -15,4 +15,8 @@
         </div>
     </div>
 </div>
-<p class="text-center default_set_radio"><label class="radio-inline text"><input type="radio" name="eventNameBadgeTemplateSet" value="defaultEventNameBadge3">Set</label></p>
+<p class="text-center default_set_radio">
+    <label class="radio-inline text">
+        <input type="radio" id="defaultEventNameBadge3" name="eventNameBadgeTemplateSet" value="defaultEventNameBadge3">Set
+    </label>
+</p>

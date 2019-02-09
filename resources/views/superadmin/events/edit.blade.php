@@ -31,12 +31,23 @@
                     </div>
                     <div class="form-group">
                         <label>Local Country</label>
-                        <select class="form-control" id="local_country" name="local_country">
+                        <select class="form-control" id="event_country" name="event_country">
                             <option value="">Please select</option>
-                            <option value="1"<?php echo ((isset($events->local_country) && $events->local_country == 1)? 'selected': '') ?>>Singpore</option>
-                            <option value="2"<?php echo ((isset($events->local_country) && $events->local_country == 2)? 'selected': '') ?>>Canada</option>
-                            <option value="3"<?php echo ((isset($events->local_country) && $events->local_country == 3)? 'selected': '') ?>>America</option>
-                            <option value="4"<?php echo ((isset($events->local_country) && $events->local_country == 4)? 'selected': '') ?>>China</option>
+                            <?php
+                            $orderBy = [
+                                'order_by_column' => 'country_name',
+                                'order_by' => 'ASC',
+                            ];
+
+                            $countries = get_table_data_by_table('countries', $orderBy);
+                            if (isset($countries) && !empty($countries)) {
+                                foreach ($countries as $country) {
+                                    ?>
+                                    <option value="<?php echo $country->id; ?>"<?php echo ((isset($events->event_country) && $events->event_country == $country->id) ? 'selected' : '') ?>><?php echo $country->country_name; ?></option>
+                                    <?php
+                                }
+                            }
+                            ?>
                         </select>
                     </div>
                     <div class="form-group">

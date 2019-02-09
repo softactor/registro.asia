@@ -27,12 +27,22 @@
                     </div>
                     <div class="form-group">
                         <label>Local Country</label>
-                        <select class="form-control" id="local_country" name="local_country">
+                        <select class="form-control" id="event_country" name="event_country">
                             <option value="">Please select</option>
-                            <option value="1">Singpore</option>
-                            <option value="2">Canada</option>
-                            <option value="3">America</option>
-                            <option value="4">China</option>
+                            <?php
+                                    $orderBy    =   [
+                                        'order_by_column'   => 'country_name',
+                                        'order_by'          => 'ASC',
+                                    ];
+
+                                        $countries  = get_table_data_by_table('countries', $orderBy);
+                                        if(isset($countries) && !empty($countries)){
+                                            foreach($countries as $country){
+                                ?>
+                                <option value="<?php echo $country->id; ?>"><?php echo $country->country_name; ?></option>
+                                <?php
+                                    }                                    
+                                } ?>
                         </select>
                     </div>
                     <div class="form-group">

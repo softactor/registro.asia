@@ -43,7 +43,10 @@
                     width: 75mm;
                     height: 105mm;
                     margin: 4mm;
-                    /*background-color: yellow !important;*/
+                    background-image:    url(<?php echo asset('namebadge/'.$name_badge_position->background_image) ?>);
+                    background-size:     cover;                      /* <------ */
+                    background-repeat:   no-repeat;
+                    background-position: center center; 
                 }
                 .defaultEventNameBadgeheaderContainer table{
                     width: 75mm;
@@ -64,7 +67,7 @@
                     width: 98%;
                     height: 27mm;
                     text-align: center;
-                    background-color: white;
+                    /*background-color: white;*/
 
                 }
                 .userQrCode{
@@ -116,7 +119,7 @@
                         <tr>
                             <td style="width: 75mm; height: 21mm;">
                                 <div class="defaultEventNameBadgeheader">
-                                    <img src="<?php echo asset('/events/' . $events->event_header); ?>"/>
+                                    &nbsp;
                                 </div>
                             </td>
                         </tr>

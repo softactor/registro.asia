@@ -434,7 +434,7 @@ function generate_pdf($email_n_pdf_data) {
             /**
              * Processing email:
              */
-            registration_email_process($emailProcessData);
+            //registration_email_process($emailProcessData);
         }
         $merger->fileDestroy();
     }// end foreach
