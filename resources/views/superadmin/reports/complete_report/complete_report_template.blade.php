@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Event Confirmation</title>
+        <title>Complete Report</title>
         <style>
             @media screen {
                 @page {

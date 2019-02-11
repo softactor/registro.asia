@@ -149,6 +149,7 @@ return [
         Barryvdh\DomPDF\ServiceProvider::class,
         LaravelQRCode\Providers\QRCodeServiceProvider::class,
         GrofGraf\LaravelPDFMerger\Providers\PDFMergerServiceProvider::class,
+        Khill\Lavacharts\Laravel\LavachartsServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -214,6 +215,7 @@ return [
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'QRCode' => LaravelQRCode\Facades\QRCode::class,
         'PDFMerger' => GrofGraf\LaravelPDFMerger\Facades\PDFMergerFacade::class,
+        'Lava' => Khill\Lavacharts\Laravel\LavachartsFacade::class,
 
     ],
 

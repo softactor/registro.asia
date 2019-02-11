@@ -14,7 +14,10 @@
             @media screen {
                 /* Default left, right, top, bottom margin is 2cm */
                 @page {
-                    size: 83mm 113mm;
+                    width: 210mm;
+                    height: 187mm;
+                    margin: 0;
+                    overflow: hidden;
                 }
                 .page_break{
                     page-break-after: always;
@@ -23,7 +26,7 @@
                     page-break-after: avoid;
                 }
                 html,body{
-                    height:99%;
+                    height:90%;
                     width: 100%;
                     margin: 0 !important; 
                     padding: 0 !important;
@@ -37,6 +40,8 @@
                     width: 83mm;
                     height: 113mm;
                     left: 0;
+                    overflow: hidden;
+                    background-color: red !important;
                 }
                 .defaultEventNameBadgeheaderContainer{
                     float: left;

@@ -162,6 +162,10 @@ class ReportsController extends Controller{
             'countryData'           =>  $countryData,
             'onsiteVisitorAnalysis' =>  $formData
         ];
+        $eventData             =  $eventsData;
+        $desigData           =  $designationData;
+        $countryData         =  $countryData;
+        $onsiteVisitorAnalysis =  $formData;
         $pdf = PDF::loadView('superadmin.reports.complete_report.complete_report_template', $reportDataDetails)
                 ->stream('complete_report.pdf');
         return $pdf;
