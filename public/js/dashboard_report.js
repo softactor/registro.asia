@@ -10,38 +10,32 @@ function yearly_events_report(params) {
         Highcharts.chart(params.selector_id, {
             chart: {
                 plotBackgroundColor: null,
-                plotBorderWidth: 0,
-                plotShadow: false
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
             },
             title: {
-                text: params.chart_title,
-                align: 'center',
-                verticalAlign: 'middle',
-                y: 40
+                text: params.chart_title
             },
             tooltip: {
                 pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
             },
             plotOptions: {
                 pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
                     dataLabels: {
                         enabled: true,
-                        distance: -50,
+                        format: '<b>{point.name}</b>: {point.percentage:.1f} %',
                         style: {
-                            fontWeight: 'bold',
-                            color: 'white'
+                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
                         }
-                    },
-                    startAngle: -90,
-                    endAngle: 90,
-                    center: ['50%', '75%'],
-                    size: '110%'
+                    }
                 }
             },
             series: [{
                     type: 'pie',
                     name: 'Total attendee',
-                    innerSize: '50%',
                     data: params.data
                 }]
         });
@@ -85,6 +79,55 @@ function yearly_events_registration_type_report(params) {
         });
     } else {
         chartNotSampled(params);
+    }
+}
+function generate_bar_chart(param) {
+    var obj = Object.keys(param.xdata).length;
+    if (obj > 0) {
+        Highcharts.chart(param.selector_id, {
+            tooltip: {
+                formatter: function () {
+                    return this.x +
+                            ' ' + this.y + '%';
+                }
+            },
+            chart: {
+                type: 'bar',
+                style: {
+                    fontFamily: 'LatoWeb'
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            title: {
+                text: param.chart_title,
+            },
+            subtitle: {
+                text: '',
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: '',
+                }
+            },
+            xAxis: {
+                categories: param.xdata
+            },
+            series: [{
+                    name: '',
+                    data: param.ydata,
+                    color: ((param.colorCode) ? param.colorCode : "#29286c")
+                }],
+            navigation: {
+                buttonOptions: {
+                    align: 'right'
+                }
+            }
+        });
+    } else {
+        chartNotSampled(param);
     }
 }
 

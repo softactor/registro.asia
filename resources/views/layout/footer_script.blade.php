@@ -366,16 +366,16 @@
     function documents_print(print_id){
         $('#'+print_id).printThis(); 
     }
-    function documents_pdf_backup(print_id){
-        var doc = new jsPDF(); 
-        var specialElementHandlers = {
-            '#editor': function (element, renderer) {
-                return true;
-            }
-        };
-            doc.fromHTML($('#'+print_id).html(), 15, 15, {
-                'width': 170,
-                    'elementHandlers': specialElementHandlers
+    function documents_pdf_backup(){
+        var doc = new jsPDF();
+            var specialElementHandlers = {
+                '#editor': function (element, renderer) {
+                    return true;
+                }
+            };
+                doc.addHTML($('#pdf_content').html(), 15, 15, {
+                    'width': 970,
+                        'elementHandlers': specialElementHandlers
             });
             doc.save('sample-file.pdf');
     }

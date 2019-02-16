@@ -235,6 +235,13 @@ function getTableTotalRows($data){
                             ->first();
     return $total_row;
 }
+function getTableTotalRowsByFieldValues($data){
+    $total_row   =   DB::table($data['table'])
+                            ->select(DB::raw("count(id) as total"))
+                            ->where($data['where'])
+                            ->first();
+    return $total_row;
+}
 function getTableFieldsSum($data){
     $field  =   $data['field'];
     $total_row   =   DB::table($data['table'])

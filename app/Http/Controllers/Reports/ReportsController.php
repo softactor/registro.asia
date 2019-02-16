@@ -7,7 +7,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use View;
-use PDF;
+use Barryvdh\DomPDF\Facade AS PDF;
+use Spatie\Browsershot\Browsershot;
 
 class ReportsController extends Controller{
     
@@ -147,7 +148,11 @@ class ReportsController extends Controller{
     }
     
     public function get_complete_report_pdf(Request $request) {
-        $page_details   =   [
+        $eventsData         =  "";
+        $designationData    =  "";
+        $countryData        =  "";
+        $formData           =  "";
+        $page_details       =   [
             'page_title'    =>  'Reports',
             'event_id'      =>  $request->event_id,
         ];
@@ -162,13 +167,20 @@ class ReportsController extends Controller{
             'countryData'           =>  $countryData,
             'onsiteVisitorAnalysis' =>  $formData
         ];
-        $eventData             =  $eventsData;
-        $desigData           =  $designationData;
-        $countryData         =  $countryData;
-        $onsiteVisitorAnalysis =  $formData;
-        $pdf = PDF::loadView('superadmin.reports.complete_report.complete_report_template', $reportDataDetails)
-                ->stream('complete_report.pdf');
-        return $pdf;
+        $eventData              =  $eventsData;
+        $desigData              =  $designationData;
+        $countryData            =  $countryData;
+        $onsiteVisitorAnalysis  =  $formData;
+        
+        return view('superadmin.reports.complete_report.complete_report_template_preview', compact('eventData','desigData','eventData','countryData','onsiteVisitorAnalysis'));
+        
+//        $pdf = PDF::loadView('superadmin.reports.complete_report.complete_report_template_preview', $reportDataDetails)
+//                ->stream('complete_report.pdf');
+//        return $pdf;
+        
+//        $pdf    = PDF::loadView('superadmin.reports.complete_report.complete_report_template', $reportDataDetails)
+//                ->stream('complete_report.pdf');
+//        return $pdf;
     }
     
     
@@ -186,63 +198,94 @@ class ReportsController extends Controller{
     }
     // get events form data;
     public function get_report_event_form_data($event_id) {
-        $formQuestionLevelsArray    =   [];
-        $formQuestionTableArray     =   [];
+        $formQuestionLevelsArray = [];
+        $formQuestionTableArray = [];
         $tableData = DB::table('event_forms')
                 ->where('event_id', $event_id)
                 ->get();
         if (!$tableData->isEmpty()) {
-            foreach($tableData as $data){
+            foreach ($tableData as $data) {
                 // form level and its option name 
-                $formFeilds     = json_decode($data->form_data);
-                if(isset($formFeilds) && !empty($formFeilds)){
-                    foreach($formFeilds as $flevelWithValues){
-                        $optionValuesArray  =   [];
-                        if(isset($flevelWithValues->values) && !empty($flevelWithValues->values)){
-                            if(is_array($flevelWithValues->values)){
-                                foreach($flevelWithValues->values as $optionValues){
-                                    $optionValuesArray[]    =   [
-                                        'optionValue'   =>  $optionValues->label,
-                                        'counting'      =>  1,
-                                        'parcentage'    =>  '1%',
-                                    ];                                    
+                $formFeilds = json_decode($data->form_data);
+                if (isset($formFeilds) && !empty($formFeilds)) {
+                    foreach ($formFeilds as $flevelWithValues) {
+                        $totalCountDataSum = 0;
+                        $optionValuesArray = [];
+                        $xData             = [];
+                        $yData             = [];
+                        if (isset($flevelWithValues->values) && !empty($flevelWithValues->values)) {
+                            if (is_array($flevelWithValues->values)) {
+                                foreach ($flevelWithValues->values as $optionValues) {
+
+                                    //Get counting
+                                    $getTotalParam['table'] = 'event_registeration_form_values';
+                                    $getTotalParam['where'] = [
+                                        'label_value' => $optionValues->label,
+                                        'event_id' => $event_id,
+                                    ];
+                                    $totalCountData = getTableTotalRowsByFieldValues($getTotalParam);
+                                    $totalCountDataSum = $totalCountDataSum + $totalCountData->total;
+                                    $optionValuesArray[] = [
+                                        'optionValue'   => $optionValues->label,
+                                        'counting'      => $totalCountData,
+                                        'parcentage'    => '1%',
+                                        'totalCounting' => $totalCountDataSum,
+                                    ];
+                                    $xData[]    =   $optionValues->label;
+                                    $yData[]    =   $totalCountData->total;
                                 }
-                            }else{
-                              $optionValuesArray[]    =   [
-                                    'optionValue'   =>  $flevelWithValues->values,
-                                    'counting'      =>  1,
-                                    'parcentage'    =>  '1%',
-                                ];  
+                            } else {
+                                //Get counting
+                                $getTotalParam['table'] = 'event_registeration_form_values';
+                                $getTotalParam['where'] = [
+                                    'optionValue' => $flevelWithValues->values,
+                                    'event_id' => $event_id,
+                                ];
+                                $totalCountData = getTableTotalRowsByFieldValues($getTotalParam);
+                                $totalCountDataSum = $totalCountDataSum + $totalCountData->total;
+                                $optionValuesArray[] = [
+                                    'optionValue'   => $flevelWithValues->values,
+                                    'counting'      => $totalCountData,
+                                    'parcentage'    => '1%',
+                                    'totalCounting' => $totalCountDataSum,
+                                ];
+                                $xData[]    =   $flevelWithValues->values;
+                                $yData[]    =   $totalCountData->total;
                             }
-                        }                        
-                        $formQuestionLevelsArray[]  =   $flevelWithValues->label; 
-                        $formQuestionTableArray[]   =   [
-                            'question_name'             =>  $flevelWithValues->label,
-                            'question_answer_counting'  =>  $optionValuesArray,
+                        }
+                        $formQuestionLevelsArray[] = $flevelWithValues->label;
+                        $formQuestionTableArray[] = [
+                            'question_name'             => $flevelWithValues->label,
+                            'question_answer_counting'  => $optionValuesArray,
+                            'totalCounting'             => $totalCountDataSum,
+                            'xdata'                     => json_encode($xData),
+                            'ydata'                     => json_encode($yData),
                         ];
                     } // End of formfields
-                }                
+                }
             }
         }
-        $feedbackData   =   [
-            'formQuestionLevelsArray'       => $formQuestionLevelsArray,
-            'formQuestionTableArray'        => $formQuestionTableArray,
+        $feedbackData = [
+            'formQuestionLevelsArray' => $formQuestionLevelsArray,
+            'formQuestionTableArray' => $formQuestionTableArray,
         ];
-        if(isset($feedbackData) && !empty($feedbackData)){
-            $listDataView   =   View::make('superadmin.reports.complete_report.onsite_visitor_analysis', compact('feedbackData'));
-            return $listDataView->render();
-        }
+//        if(isset($feedbackData) && !empty($feedbackData)){
+//            $listDataView   =   View::make('superadmin.reports.complete_report.onsite_visitor_analysis', compact('feedbackData'));
+//            return $listDataView->render();
+//        }
+        return $feedbackData;
     }
-    
+
     public function get_report_event_wise_designation_count($event_id){
         $tableData = DB::table('event_business_owners_details')
                     ->select(DB::raw('count(*) as desig_count, designation'))
                     ->where('event_id', $event_id)
                     ->groupBy('designation')->get();
-        if(!$tableData->isEmpty()){
-            $listDataView   =   View::make('superadmin.reports.complete_report.designation_wise_visitor_count_template', compact('tableData'));
-            return $listDataView->render();
-        }
+//        if(!$tableData->isEmpty()){
+//            $listDataView   =   View::make('superadmin.reports.complete_report.designation_wise_visitor_count_template', compact('tableData'));
+//            return $listDataView->render();
+//        }
+        return $tableData;
     }
     public function get_report_country_wise_registraion_count($event_id){
         $countryRegistrationType        =   [];        
@@ -315,27 +358,46 @@ class ReportsController extends Controller{
             ];
             $countryRegistrationType[]  =   $countryRegistrationTypeTemp;
         }
+        $totalAttendees     =   $localAttendee + $overSeasAttende;
         $overSeasData = [
             [
                 'title'         => 'Local Attendees',
                 'local_attende' => $localAttendee,
-                'overseas'      => '%',
+                'percentage'    => number_format((float)(($localAttendee * 100) / $totalAttendees), 2, '.', ''),
             ],
             [
                 'title'         => 'Overseas Attendees',
                 'local_attende' => $overSeasAttende,
-                'overseas'      => '%',
+                'percentage'    => number_format((float)(($overSeasAttende * 100) / $totalAttendees), 2, '.', ''),
+            ],
+            [
+                'title'         => 'Total Visitorship',
+                'local_attende' => $totalAttendees,
+                'percentage'    => number_format((float)(($localAttendee * 100) / $totalAttendees), 2, '.', '') + number_format((float)(($overSeasAttende * 100) / $totalAttendees), 2, '.', ''),
             ],
         ];
+        
+        $chartDataValue = [
+                        'name'  => 'Local Attendees',
+                        'y'     => (int)$localAttendee
+        ];
+        $chartDataArray[]    =   $chartDataValue;
+        $chartDataValue = [
+                        'name'  => 'Overseas Attendees',
+                        'y'     => (int)$overSeasAttende
+        ];
+        $chartDataArray[]    =   $chartDataValue;
         
         $feedbackData   =   [
             'countries_data'    => $countryRegistrationType,
             'countries_ratio'   => $overSeasData,
+            'countries_ratio_chart'   => json_encode($chartDataArray),
         ];
-        if(isset($feedbackData) && !empty($feedbackData)){
-            $listDataView   =   View::make('superadmin.reports.complete_report.country_wise_attendees_template', compact('feedbackData'));
-            return $listDataView->render();
-        }
+//        if(isset($feedbackData) && !empty($feedbackData)){
+//            $listDataView   =   View::make('superadmin.reports.complete_report.country_wise_attendees_template', compact('feedbackData'));
+//            return $listDataView->render();
+//        }
+        return $feedbackData;
     }
 
     public function quick_reports_view(){

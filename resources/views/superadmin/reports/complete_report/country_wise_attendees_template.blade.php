@@ -49,4 +49,17 @@
         <?php $count++; } ?>
     </tbody>
 </table>
+<span id="country_attendee_ratio"></span>
 <span style="page-break-after: always;"></span>
+@section('footer_js_scrip_area')
+@parent
+
+<script type="text/javascript">
+    var chartParam = {
+        selector_id         : "country_attendee_ratio",
+        chart_title         : "Attendees by country breakdown",
+        data                : <?php echo $feedbackData['countries_ratio_chart']; ?>,
+    };
+    yearly_events_report(chartParam);
+</script>
+@endsection
