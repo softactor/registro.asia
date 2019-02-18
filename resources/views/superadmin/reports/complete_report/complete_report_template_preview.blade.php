@@ -10,11 +10,13 @@
             </div><!--/col-3-->
             <div class="col-sm-11">
                 <div class="row">
-                    <div class="col-md-12">   
+                    <div class="col-md-12">
+                        <button type="button" onclick="print_complete_report();">Print</button>
                         <div id="pdf_content">
+                        <div id="pdf_content_sectio">
                             <?php if(isset($eventData) && !empty($eventData)) { echo $eventData; } ?>
                             <h3><span style="text-transform: capitalize;">Table of Content</span></h3>
-                                    <table class="table table-bordered email_pdf with_border complete_report" cellspacing="0" cellpadding="0">
+                            <table class="table table-bordered email_pdf with_border complete_report" cellspacing="0" cellpadding="0">
                                         <thead>
                                             <tr>
                                                 <th>SLNO.</th>
@@ -154,6 +156,7 @@
                             <?php } ?>
                             <?php if(isset($onsiteVisitorAnalysis) && !empty($onsiteVisitorAnalysis)) {
                                 $questionCount  =   1;
+                                $chartUrl   =   url('su/save_chart_image');
                                 foreach($onsiteVisitorAnalysis['formQuestionTableArray'] as $data){
                             ?>
                                 <h3 id="questio_link_<?php echo $questionCount; ?>"><span style="text-transform: capitalize;"><?php echo $questionCount.'. '.$data['question_name'] ?></span></h3>
@@ -190,6 +193,7 @@
                                 </table>
                                 <div class="chart_holder">
                                     <span id="questio_chart_<?php echo $questionCount; ?>"></span>
+                                    <img id="mock" />
                                </div>
                                <span style="page-break-after: always;"></span>
                                @section('footer_js_scrip_area')
@@ -203,6 +207,23 @@
                                        ydata                : <?php echo $data['ydata']; ?>,
                                    };
                                    generate_bar_chart(chartParam);
+                                   EXPORT_WIDTH = 1000;
+
+                                    function save_chart(chart) {
+                                        var render_width = EXPORT_WIDTH;
+                                        var render_height = render_width * chart.chartHeight / chart.chartWidth
+
+                                        // Get the cart's SVG code
+                                        var svg = chart.getSVG({
+                                            exporting: {
+                                                sourceWidth: chart.chartWidth,
+                                                sourceHeight: chart.chartHeight
+                                            }
+                                        });
+                                        var imgSrc  =    'data:image/svg+xml;base64,' + window.btoa(svg);
+                                        store_pdf_image_data('questio_chart_<?php echo $questionCount; ?>', '<?php echo $chartUrl; ?>', imgSrc);
+                                    }
+                                    save_chart($('#questio_chart_<?php echo $questionCount; ?>').highcharts());
                                </script>
                                @endsection
                                <?php                            
@@ -210,7 +231,7 @@
                             } ?>
                             <?php } ?>
                         </div>
-                        <div id="editor"></div>
+                        </div>
                     </div>
                 </div>
             </div><!--/tab-content-->

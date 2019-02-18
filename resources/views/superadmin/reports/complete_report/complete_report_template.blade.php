@@ -53,26 +53,7 @@
     <body>
         <button id="cmd">generate PDF</button>
         <div id="pdf_content">
-            <?php echo $eventData; ?>
-            <?php echo $desigData; ?>
-            <?php echo $countryData; ?>
-            <?php echo $onsiteVisitorAnalysis; ?>
+            <img src="<?php echo getChartImageByChartId('questio_chart_4'); ?>" />
         </div>
-        <div id="editor"></div>
-        <script type="text/javascript">
-            var doc = new jsPDF();
-            var specialElementHandlers = {
-                '#editor': function (element, renderer) {
-                    return true;
-                }
-            };
-            $('#cmd').click(function () {
-                doc.fromHTML($('#pdf_content').html(), 15, 15, {
-                    'width': 170,
-                        'elementHandlers': specialElementHandlers
-                });
-                doc.save('sample-file.pdf');
-            });
-        </script>
     </body>
 </html>

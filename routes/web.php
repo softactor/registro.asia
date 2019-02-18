@@ -97,6 +97,8 @@ Route::post('su/event_wise_mail_composer_store', 'Settings\SettingsController@ev
 Route::get('su/get_email_text', 'Settings\SettingsController@getEmailText');
 
 //*******************************PDF COMPOSER*************************************************
+Route::get('su/event_wise_email_filtering', 'Settings\SettingsController@event_wise_email_filtering');
+Route::post('su/event_wise_email_filtering_store', 'Settings\SettingsController@event_wise_email_filtering_store');
 Route::get('su/event_wise_pdf_composer', 'Settings\SettingsController@eventWisePdfComposer');
 Route::post('su/event_wise_pdf_composer_store', 'Settings\SettingsController@eventWisePdfComposerStore');
 Route::get('su/get_pdf_text', 'Settings\SettingsController@getPdfText');
@@ -135,3 +137,4 @@ Route::get('su/test_pdf_text_check', 'Settings\SettingsController@test_pdf_text_
 Route::get('su/pdf_design_check', 'Settings\SettingsController@pdf_design_check');
 
 Route::get('su/deleteBulkRegisteredUsers', 'Backend@delete_bulk_registered_users');
+Route::post('su/save_chart_image', 'Reports\ReportsController@save_chart_image');

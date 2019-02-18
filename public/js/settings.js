@@ -172,3 +172,53 @@ function get_pdf_text(event_id, url){
         });
     }
 }
+
+function getEventWiseMailDuplicateCheckStatus(event_id, url){
+    if(event_id){
+        $.ajax({
+            url: url,
+            type: 'GET',
+            dataType: 'json',
+            data: 'event_id=' + event_id,
+            success: function (response) {
+                if(response.status == 'success'){
+                    if(response.data == 'yes'){
+                        $('#allow_duplicate_email_check').prop('checked', true);
+                    }else{
+                        $('#dont_allow_duplicate_email_check').prop('checked', true);
+                    }
+                }else{
+                    $('#dont_allow_duplicate_email_check').prop('checked', true);
+                }
+            },
+            async: false // <- this turns it into synchronous
+        });
+    }
+}
+
+function store_event_wise_email_filtering(url) {
+    $.ajax({
+        type: 'POST',
+        url: url,
+        dataType: 'json',
+        data: $("#event_wise_email_filtering_form").serialize(),
+        headers: {
+            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content'),
+        },
+        success: function (response) {
+            if (response.status == 'success') {
+                if(response.data == 'yes'){
+                        $('#allow_duplicate_email_check').prop('checked', true);
+                    }else{
+                        $('#dont_allow_duplicate_email_check').prop('checked', true);
+                    }
+                    swal("Success!", response.message, "success");
+                    $('#event_wise_email_filtering').modal('hide');
+            } else {
+                swal("Error!", response.message, "error");
+                $('#event_wise_email_filtering').modal('hide');
+            }
+        }
+    });
+}
+//

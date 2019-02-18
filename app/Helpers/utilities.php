@@ -761,3 +761,10 @@ function process_store_event_business_owners($profile_data){
         $search_data           = View::make('template.make_paragraph_html', compact('values'));
         return $search_data->render();
     }
+    
+    function getChartImageByChartId($chart_id){
+        $get_nameBadgeBgAndTextColor   =   DB::table('pdf_chart_image_store')
+                                ->where('chart_id',$chart_id)
+                                ->first()->image_url;
+        return $get_nameBadgeBgAndTextColor;
+    }

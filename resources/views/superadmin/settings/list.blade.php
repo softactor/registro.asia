@@ -53,6 +53,11 @@
                                 <td>PDF Design</td>
                                 <td><a href="{{ url('su/event_wise_pdf_composer') }}">Compose</a></td>
                             </tr>
+                            <tr>
+                                <td>7</td>
+                                <td>Event-Email Filtering</td>
+                                <td><a href="#"  data-toggle="modal" data-target="#event_wise_email_filtering">Set</a></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -68,3 +73,4 @@
 @endsection
 @include('partial/print_layout_template')
 @include('partial/name_badge_label')
+@include('partial/event_wise_email_filtering')

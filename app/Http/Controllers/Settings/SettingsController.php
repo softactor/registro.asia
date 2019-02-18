@@ -173,6 +173,72 @@ class SettingsController extends Controller{
         ];
         return view('superadmin.settings.pdf_composer', compact('page_details'));
     }
+    
+    public function event_wise_email_filtering(Request $request){
+        $status     =   'error';
+        $data       =   '';
+        $message    =   'Data not found';
+        $whereParam     =   [
+            'name'          =>  $request->event_id,
+            'post_type'     =>  'duplicate_email_check',
+        ]; 
+        $query = DB::table('settings')->select('values')->where($whereParam)->first();
+        if(isset($query) && !empty($query)){
+            $status     =   'success';
+            $data       =   $query->values;
+            $message    =   'Data found';
+        }        
+        $feedBack   =   [
+            'status'    =>  $status,
+            'data'      =>  $data,
+            'message'   =>  $message,
+        ];
+        
+        echo json_encode($feedBack);        
+    }
+    public function event_wise_email_filtering_store(Request $request){
+        $all                 =   $request->all();
+        $settingsWhereData   =   [
+            'name'      =>   $request->event_id,
+            'post_type' =>  'duplicate_email_check',
+        ];
+        
+        $settingsData       =   [
+            'name'      =>  $request->event_id,
+            'post_type' =>  'duplicate_email_check',
+            'values'    =>  $request->duplicate_email_check,
+        ];
+        $getAllData =   DB::table('settings')->where($settingsWhereData)->first(); 
+        if(isset($getAllData) && !empty($getAllData)){
+            DB::table('settings')
+            ->where('id', $getAllData->id)
+            ->update($settingsData);
+            
+        }else{
+            DB::table('settings')->insert($settingsData);
+        } 
+        $status     =   'error';
+        $data       =   '';
+        $message    =   'Data not found';
+        $whereParam     =   [
+            'name'          =>  $request->event_id,
+            'post_type'     =>  'duplicate_email_check',
+        ]; 
+        $query = DB::table('settings')->select('values')->where($whereParam)->first();
+        if(isset($query) && !empty($query)){
+            $status     =   'success';
+            $data       =   $query->values;
+            $message    =   'Data found';
+        }        
+        $feedBack   =   [
+            'status'    =>  $status,
+            'data'      =>  $data,
+            'message'   =>  $message,
+        ];
+        
+        echo json_encode($feedBack);
+    }
+    
     public function eventWisePdfComposerStore(Request $request){
         //Define Rules
         $rules = [

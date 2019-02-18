@@ -391,6 +391,32 @@
             }
         });
     }
+    function store_pdf_image_data(chart_id, urlAddress, image_url){
+        $.ajax({
+            url:urlAddress,
+            type:'POST',
+            dataType:'html',
+            data: 'chart_id='+chart_id+'&image_url='+image_url,
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content'),
+            },
+            success: function(response){
+                console.log('ok');
+                console.log(response);
+            }
+        });
+    }
+    
+    function print_complete_report(){
+        var docToPrint = document.getElementById("pdf_content");
+        var winPrint = window.open();
+        winPrint.document.write(docToPrint.innerHTML);
+        winPrint.document.close();
+        winPrint.focus();
+        winPrint.print();
+        winPrint.close();
+    }
+    
   </script>
   <script type="text/javascript">
     $(document).ready( function () {

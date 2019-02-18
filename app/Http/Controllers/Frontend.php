@@ -131,31 +131,69 @@ class Frontend extends Controller
         $emails['event_id']= $event_id; 
         $registration_type  = $formData['registration_type'];
         $number_of_owners = count($formData['salutation']);
-        // Create a new validator instance
-        $validator = Validator::make($request->all(), [
-                    "salutation"    => "required|array|min:1",
-                    "salutation.*"  => "required|string|min:1",
-                    "first_name"    => "required|array|min:1",
-                    "first_name.*"  => "required|string|min:1",
-                    "last_name"     => "required|array|min:1",
-                    "last_name.*"   => "required|string|min:1",
-                    "company_name"  => "required",
-                    "mobile"        => "required|array|min:1",
-                    "mobile.*"      => "required|string|distinct|min:1",
-                    "country_id"    => "required|array|min:1",
-                    "country_id.*"  => "required|integer|min:1",
-                    "email"         => "required|array|min:1",
-//                    "email.*"       => "required|email|min:1|unique:event_business_owners_details,email",
-                    "email.*"       => [
-                                        'required',
-                                        'email',
-                                        'distinct',
-                                        'min:1',
-                                        Rule::unique('event_business_owners_details', 'email')->where(function($query) use ($emails) {
-                                          $query->where('event_id', '=', $emails['event_id']);
-                                            })
-                                        ],
+        
+        $settingsWhereData   =   [
+            'name'      =>   $event_id,
+            'post_type' =>  'duplicate_email_check',
+        ];
+        $getAllData =   DB::table('settings')->where($settingsWhereData)->first(); 
+        if (isset($getAllData) && !empty($getAllData)) {
+            if ($getAllData->values == 'yes') {
+                $emailDuplicateCheck = true;
+            } else {
+                $emailDuplicateCheck = false;
+            }
+        } else {
+            $emailDuplicateCheck = false;
+        }
+        // !$emailDuplicateCheck meaning dont allow event wise duplicate email
+        if (!$emailDuplicateCheck) {
+            // Create a new validator instance
+            $validator = Validator::make($request->all(), [
+                        "salutation" => "required|array|min:1",
+                        "salutation.*" => "required|string|min:1",
+                        "first_name" => "required|array|min:1",
+                        "first_name.*" => "required|string|min:1",
+                        "last_name" => "required|array|min:1",
+                        "last_name.*" => "required|string|min:1",
+                        "company_name" => "required",
+                        "mobile" => "required|array|min:1",
+                        "mobile.*" => "required|string|distinct|min:1",
+                        "country_id" => "required|array|min:1",
+                        "country_id.*" => "required|integer|min:1",
+                        "email" => "required|array|min:1",
+                        "email.*" => [
+                            'required',
+                            'email',
+                            'distinct',
+                            'min:1',
+                            Rule::unique('event_business_owners_details', 'email')->where(function($query) use ($emails) {
+                                        $query->where('event_id', '=', $emails['event_id']);
+                                    })
+                        ],
             ]);
+        }else{
+            $validator = Validator::make($request->all(), [
+                        "salutation" => "required|array|min:1",
+                        "salutation.*" => "required|string|min:1",
+                        "first_name" => "required|array|min:1",
+                        "first_name.*" => "required|string|min:1",
+                        "last_name" => "required|array|min:1",
+                        "last_name.*" => "required|string|min:1",
+                        "company_name" => "required",
+                        "mobile" => "required|array|min:1",
+                        "mobile.*" => "required|string|distinct|min:1",
+                        "country_id" => "required|array|min:1",
+                        "country_id.*" => "required|integer|min:1",
+                        "email" => "required|array|min:1",
+                        "email.*" => [
+                            'required',
+                            'email',
+                            'distinct',
+                            'min:1'
+                        ],
+            ]);
+        }
         if ($validator->fails()) {
             $form_name = '';
             $messages = '<div class="alert alert-warning">';

@@ -174,11 +174,11 @@ class ReportsController extends Controller{
         
         return view('superadmin.reports.complete_report.complete_report_template_preview', compact('eventData','desigData','eventData','countryData','onsiteVisitorAnalysis'));
         
-//        $pdf = PDF::loadView('superadmin.reports.complete_report.complete_report_template_preview', $reportDataDetails)
+//        $pdf = PDF::loadView('superadmin.reports.complete_report.complete_report_template', $reportDataDetails)
 //                ->stream('complete_report.pdf');
 //        return $pdf;
         
-//        $pdf    = PDF::loadView('superadmin.reports.complete_report.complete_report_template', $reportDataDetails)
+//        $pdf    = PDF::loadView('superadmin.reports.complete_report.complete_report_template_preview', $reportDataDetails)
 //                ->stream('complete_report.pdf');
 //        return $pdf;
     }
@@ -463,7 +463,27 @@ class ReportsController extends Controller{
         ];
 
         echo json_encode($feedbackData);
-        
     }
+    
+    public function save_chart_image(Request $request){ 
+        $labelData  =   [
+            'chart_id'          =>  $request->chart_id,
+            'image_url'         =>  preg_replace('/\s+/', '', $request->image_url),
+        ];
+        $getAllData =   DB::table('pdf_chart_image_store')->where('chart_id',$request->chart_id)->first(); 
+        if(isset($getAllData) && !empty($getAllData)){
+            DB::table('pdf_chart_image_store')
+            ->where('id', $getAllData->id)
+            ->update($labelData);
+            
+        }else{
+            DB::table('pdf_chart_image_store')->insert($labelData);
+        }
+        $feedbackData   =   [
+            'status'    =>  'success',
+            'message'   => 'Data Saved',
+        ];
 
+        echo json_encode($feedbackData);
+    }
 }
