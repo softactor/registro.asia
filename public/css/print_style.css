@@ -57,3 +57,17 @@ and open the template in the editor.
         width: 15cm;
     }
 }
+@media print {
+    @page {
+        size: 210mm 297mm; 
+        /* Chrome sets own margins, we change these printer settings */
+        margin: 27mm 16mm 27mm 16mm; 
+    }
+    body {
+        display:table;
+        table-layout:fixed;
+        padding-top:2.5cm;
+        padding-bottom:2.5cm;
+        height:auto;
+    }
+}

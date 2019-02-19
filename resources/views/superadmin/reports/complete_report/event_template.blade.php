@@ -1,12 +1,18 @@
-<table class="email_pdf">
+<table cellspacing="0" cellpadding="0" style="margin-bottom: 450px;">
     <tbody>
         <tr>
-            <td>
-                <img class="header_image" src="<?php echo asset('/events/' . $tableData->event_header) ?>" />
+            <td style="border: none;">
+                <img class="print_header_image" src="<?php echo asset('/events/' . $tableData->event_header) ?>" />
             </td>
         </tr>
         <tr>
-            <td style="text-align: center;">
+            <td style="text-align: center; border: none; background-color: white;">
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
                 <h2><?php echo $tableData->title; ?></h2>
                 <h2><?php echo date('d F', strtotime($tableData->start_date)) . ' - ' . date('d F Y', strtotime($tableData->end_date)); ?></h2>
                 <h3>

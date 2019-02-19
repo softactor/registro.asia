@@ -92,6 +92,9 @@ function generate_bar_chart(param) {
                 }
             },
             chart: {
+                marginLeft: 150,
+                height: 250,
+                width: 550,
                 type: 'bar',
                 style: {
                     fontFamily: 'LatoWeb'
