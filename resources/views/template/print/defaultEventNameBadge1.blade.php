@@ -133,7 +133,7 @@
                                 <div class="userBasicInfo">
                                     <h3><?php echo $user_data->first_name . ' ' . $user_data->last_name; ?></h3>
                                     <h4><?php echo company_name_by_business_owner_id($user_data->business_owner_id); ?></h4>
-                                    <h6><?php echo $user_data->country_id; ?></h6>
+                                    <h6><?php echo get_country_name_by_country_id($user_data->country_id); ?></h6>
                                 </div>
                             </td>
                         </tr>

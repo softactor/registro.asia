@@ -775,3 +775,10 @@ function process_store_event_business_owners($profile_data){
                                 ->first()->company_name;
         return $company_name;
     }
+    
+    function get_country_name_by_country_id($country_id){
+        $country_name   =   DB::table('countries')
+                                ->where('id',$country_id)
+                                ->first()->country_name;
+        return $country_name;
+    }
