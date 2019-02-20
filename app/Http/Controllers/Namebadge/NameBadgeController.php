@@ -199,6 +199,7 @@ class NameBadgeController extends Controller{
         $templates_details_status               =   false;
         $templates_detailsViewRender            =   [];
         $namebadgeTemplateTypeConf              =   [];
+        $namebadgeTemplateType                  =   'Default';
         $templates_config                       =   NamebadgeConfigModel::where('event_id', $request->event_id)->first();        
         if (isset($templates_config) && !empty($templates_config)) {
             // get templates from namebadge_template_details
