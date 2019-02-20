@@ -492,7 +492,7 @@ function process_store_event_business_owners($profile_data){
           ]; //end of insert data
         $event_business_owners_id   =   DB::table('event_business_owners')->insertGetId($event_business_owners_data);
         if($profile_data['registration_type'] == 'Onsite' || $profile_data['registration_type'] == 'Online'){
-            $namebadge_user_label   =   'visitor';
+            $namebadge_user_label   =   'Visitor';
         }
         
         foreach($profile_data['owners_details'] as $pd){
