@@ -195,7 +195,7 @@ class Backend extends Controller
                 if($filename == 'required'){
                     $keyExplode = explode('_', $fdataKey);
                     unset($keyExplode[count($keyExplode)-1]);
-                    $searchLevel    = implode('-', $keyExplode);
+                    $searchLevel    = implode('_', $keyExplode);
                     if (!isset($formData[$searchLevel]) && empty($formData[$searchLevel])){
                         $required_error  =  true;
                     }
