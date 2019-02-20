@@ -57,10 +57,20 @@
                         <label>Country<span class="required_title"></span></label>
                         <select class="form-control" id="country_id" name="country_id">
                             <option value="">Please select</option>
-                            <option value="1">Singpore</option>
-                            <option value="2">Canada</option>
-                            <option value="3">America</option>
-                            <option value="4">China</option>
+                            <?php
+                                    $orderBy    =   [
+                                        'order_by_column'   => 'country_name',
+                                        'order_by'          => 'ASC',
+                                    ];
+
+                                        $countries  = get_table_data_by_table('countries', $orderBy);
+                                        if(isset($countries) && !empty($countries)){
+                                            foreach($countries as $country){
+                                ?>
+                                <option value="<?php echo $country->id; ?>"><?php echo $country->country_name; ?></option>
+                                <?php
+                                    }                                    
+                                } ?>
                         </select>
                     </div>
                     <div class="form-group col-lg-6">
