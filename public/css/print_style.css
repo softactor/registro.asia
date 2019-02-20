@@ -7,67 +7,36 @@ and open the template in the editor.
     Created on : Dec 29, 2018, 9:24:40 AM
     Author     : Tanveer Qureshee
 */
-    @media screen {
-    @page {
-        width: 210mm;
-        height: 297mm;
-        margin: 0;
-    }
-    div.pdf_content{
-        width: 210mm;
-        height: 297mm;
-        margin: 0;
-        background-color: black;
-    }
-    body {
+@media screen {
+    #pdf_content_section{
+        width: 21cm;
+        height: auto;
         font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
         font-size: 1em;
         color: #333333;
-        margin-top: 2cm;
+        
+    }
+    #pdf_content_section table.pdf_table{
+        border-collapse: collapse;
+        width: 17cm;
+        margin-top:.5cm;
         margin-right: 2cm;
         margin-bottom: 1.5cm;
-        margin-left: 2cm
+        margin-left: 2cm;
     }
-    table.email_pdf{
-        width: 210mm;
-        margin: 10px;
-        background-color: black;
-    }
-    table.email_pdf tr td{
-        border:none;
-        padding: 10px;
-    }
-
-    table.user_details_table tr td{
-        font-weight: bold;
-    }
-    table.with_border tr th{
-        border: 1px solid black;
+    #pdf_content_section table.pdf_table th, td {
+        border: 1px solid #ddd;
+        text-align: left;
+        padding: 2px;
         vertical-align: top;
+    }
+    tr:nth-child(even) {background-color: #f2f2f2;
+    }
+    #pdf_content_section h3{
         text-align: center;
+        text-transform: uppercase;
     }
-    table.with_border tr td{
-        border: 1px solid black;
-        vertical-align: top;
-    }
-    p{
-       word-wrap: break-word;
-    }
-    img.header_image{
-        width: 15cm;
-    }
-}
-@media print {
-    @page {
-        size: 210mm 297mm; 
-        /* Chrome sets own margins, we change these printer settings */
-        margin: 27mm 16mm 27mm 16mm; 
-    }
-    body {
-        display:table;
-        table-layout:fixed;
-        padding-top:2.5cm;
-        padding-bottom:2.5cm;
-        height:auto;
+    #pdf_content_section img.print_header_image {
+        max-width: 100% !important;
     }
 }

@@ -24,7 +24,7 @@
         <link rel="stylesheet" type="text/css" href="{{ asset('css/super_admin_dashboard_menu.css') }}">        
         <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery.steps.css') }}">   
         <link rel="stylesheet" type="text/css" href="{{ asset('css/datatables.min.css') }}"/>
-        <link rel="stylesheet" type="text/css" href="{{ asset('css/print_style.css') }}" media="print" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/print_style.css') }}"/>
         @show
     </head>
 
