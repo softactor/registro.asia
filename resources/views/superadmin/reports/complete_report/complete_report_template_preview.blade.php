@@ -274,13 +274,13 @@ if (isset($onsiteVisitorAnalysis) && !empty($onsiteVisitorAnalysis)) {
                                                             $totalVisitor = 0;
                                                             $percentage = 0;
                                                             foreach ($data['question_answer_counting'] as $ans) {
-                                                                $percentage = $percentage + number_format((float) (($ans['counting']->total * 100) / $data['totalCounting']), 2, '.', '');
+                                                                $percentage = $percentage + (($data['totalCounting']) ? number_format((float) (($ans['counting']->total * 100) / $data['totalCounting']), 2, '.', ''): 0);
                                                                 ?>
                                                                 <tr>
                                                                     <td><?php echo $count; ?></td>
                                                                     <td><?php echo $ans['optionValue']; ?></td>
                                                                     <td style="text-align: center;"><?php echo $ans['counting']->total; ?></td>
-                                                                    <td style="text-align: center;"><?php echo number_format((float) (($ans['counting']->total * 100) / $data['totalCounting']), 2, '.', ''); ?></td>
+                                                                    <td style="text-align: center;"><?php echo (($data['totalCounting']) ? number_format((float) (($ans['counting']->total * 100) / $data['totalCounting']), 2, '.', ''): 0); ?></td>
                                                                 </tr>
                                                                 <?php
                                                                 $count++;

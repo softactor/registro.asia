@@ -285,7 +285,12 @@ class ReportsController extends Controller{
 //            $listDataView   =   View::make('superadmin.reports.complete_report.designation_wise_visitor_count_template', compact('tableData'));
 //            return $listDataView->render();
 //        }
-        return $tableData;
+        if (!$tableData->isEmpty()) {
+            return $tableData;
+        }else{ 
+            $tableData  =   [];
+            return $tableData;
+        }
     }
     public function get_report_country_wise_registraion_count($event_id){
         $countryRegistrationType        =   [];        
@@ -363,17 +368,17 @@ class ReportsController extends Controller{
             [
                 'title'         => 'Local Attendees',
                 'local_attende' => $localAttendee,
-                'percentage'    => number_format((float)(($localAttendee * 100) / $totalAttendees), 2, '.', ''),
+                'percentage'    => (($totalAttendees) ? number_format((float)(($localAttendee * 100) / $totalAttendees), 2, '.', ''): 0),
             ],
             [
                 'title'         => 'Overseas Attendees',
                 'local_attende' => $overSeasAttende,
-                'percentage'    => number_format((float)(($overSeasAttende * 100) / $totalAttendees), 2, '.', ''),
+                'percentage'    => (($totalAttendees) ? number_format((float)(($overSeasAttende * 100) / $totalAttendees), 2, '.', ''): 0),
             ],
             [
                 'title'         => 'Total Visitorship',
                 'local_attende' => $totalAttendees,
-                'percentage'    => number_format((float)(($localAttendee * 100) / $totalAttendees), 2, '.', '') + number_format((float)(($overSeasAttende * 100) / $totalAttendees), 2, '.', ''),
+                'percentage'    => (($totalAttendees) ? number_format((float)(($localAttendee * 100) / $totalAttendees), 2, '.', '') + number_format((float)(($overSeasAttende * 100) / $totalAttendees), 2, '.', ''): 0),
             ],
         ];
         
