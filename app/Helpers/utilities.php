@@ -15,10 +15,10 @@ use QR_Code\QR_Code;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\URL;
-//use Barryvdh\DomPDF\PDF as PDF;
+use Barryvdh\DomPDF as PDF;
 //use Illuminate\Support\Facades\Mail;
 use GrofGraf\LaravelPDFMerger\PDFMerger;
-use PDF;
+//use PDF;
 use Mail;
 
 // GET TABLE DATA BY TABLE NAME:
