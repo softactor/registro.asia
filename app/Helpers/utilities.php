@@ -768,3 +768,10 @@ function process_store_event_business_owners($profile_data){
                                 ->first()->image_url;
         return $get_nameBadgeBgAndTextColor;
     }
+    
+    function company_name_by_business_owner_id($business_owner_id){
+        $company_name   =   DB::table('event_business_owners')
+                                ->where('id',$business_owner_id)
+                                ->first()->company_name;
+        return $company_name;
+    }

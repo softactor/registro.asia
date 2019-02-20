@@ -124,9 +124,8 @@
                             <td style="width: 90mm; height: 27mm;">
                                 <div class="userBasicInfo">
                                     <h3><?php echo $user_data->first_name . ' ' . $user_data->last_name; ?></h3>
-                                    <h4><?php echo $user_data->designation; ?></h4>
-                                    <h5><?php echo $user_data->company_name ?></h5>
-                                    <h6><?php echo $user_data->local_state; ?></h6>
+                                    <h4><?php echo company_name_by_business_owner_id($user_data->business_owner_id); ?></h4>
+                                    <h6><?php echo $user_data->country_id; ?></h6>
                                 </div>
                             </td>
                         </tr>
