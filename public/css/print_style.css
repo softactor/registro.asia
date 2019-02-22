@@ -24,13 +24,20 @@ and open the template in the editor.
         margin-bottom: 1.5cm;
         margin-left: 2cm;
     }
-    #pdf_content_section table.pdf_table th, td {
+    #pdf_content_section table.pdf_table td {
         border: 1px solid #ddd;
         text-align: left;
-        padding: 2px;
+        /*padding: 2px;*/
         vertical-align: top;
     }
-    tr:nth-child(even) {background-color: #f2f2f2;
+    #pdf_content_section table.pdf_table th {
+        border: 1px solid #ddd;
+        text-align: left;
+        /*padding: 2px;*/
+        vertical-align: top;
+    }
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
     }
     #pdf_content_section h3{
         text-align: center;

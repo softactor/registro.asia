@@ -583,19 +583,22 @@ class Backend extends Controller
         ];
         $file           = $_FILES['registraion']['tmp_name'];
         $csvdata   = $this->csvToArray($file);
+        $company_name       =   '';
+        $company_address    =   '';
         foreach($csvdata as $d){
             $x = (object) array();
             $x->salutation                      =   $d[0];
             $x->first_name                      =   $d[1];
             $x->last_name                       =   $d[2];
-            $x->company_name                    =   $d[3];
-            $x->company_address                 =   $d[4];
             $x->gender                          =   $d[5];
             $x->designation                     =   $d[6];
             $x->mobile                          =   $d[7];
 //            $x->country_id      =   $d[8];
             $x->email                           =   $d[9];
             $x->namebadge_user_label            =   $d[10];
+            $company_name       =   $d[3];
+            $company_address    =   $d[4];
+            
             $csv_data[]          =   $x;
         }
         $csvTempStoreParam  =   [
@@ -606,6 +609,8 @@ class Backend extends Controller
             'total_number'  =>  count($csv_data)
         ];
         $profile_data_param['event_id']           =   $events->id;
+        $profile_data_param['company_name']       =   $company_name;
+        $profile_data_param['company_address']    =   $company_address;
         $profile_data_param['owners_numbers']     =   count($csv_data);
         $profile_data_param['registration_type']  =   'Import';
         $profile_data_param['owners_details']     =   $csv_data;

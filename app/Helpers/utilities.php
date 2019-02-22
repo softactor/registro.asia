@@ -479,17 +479,14 @@ function process_store_event_business_owners($profile_data){
          * others registration type will be set as defined by the admin:
          */
         //
-        if(isset($profile_data['company_name'])){
-            $company_name   =   $profile_data['company_name'];
-        }elseif(isset($profile_data['company'])){
-            $company_name   =   $profile_data['company_name'];
-        }
         
         $event_business_owners_data    =   [
             'event_id'            => $profile_data['event_id'],
+            'company_name'        => $profile_data['company_name'],
+            'company_address'     => $profile_data['company_address'],
             'owners_numbers'      => $profile_data['owners_numbers'],
             'registration_type'   => $profile_data['registration_type'],
-            'company_name'        => $company_name,
+            'company_name'        => $profile_data['company_name'],
             'company_address'     => $profile_data['company_address'],
             'is_status'           => get_is_status_by_registration_type($profile_data['registration_type']),
             'created_at'          => date('Y-m-d h:i:s'),
